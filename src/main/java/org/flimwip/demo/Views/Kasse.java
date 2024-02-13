@@ -1,0 +1,184 @@
+package org.flimwip.demo.Views;
+
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
+import org.flimwip.demo.Controller.CheckoutSelectionController;
+import org.flimwip.demo.utility.StandortTranslator;
+
+public class Kasse extends VBox {
+
+    private final String location;
+    private final String city;
+    private final Duration duration = Duration.seconds(0.05);
+    private final String checkout;
+    private boolean selected = false;
+
+    private String version;
+
+    private Label l;
+
+    private HBox top;
+    private final CheckoutSelectionController cont;
+
+
+
+
+    public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController){
+        this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
+        this.setId(location + checkout);
+        this.checkout = checkout;
+        this.location = location;
+        this.cont = checkoutSelectionController;
+        this.version = version;
+        init();
+    }
+
+    private void init(){
+        Insets set = new Insets(6, 10, 6, 10);
+        this.setMinWidth(90);
+        this.setMinHeight(30);
+        this.setMaxWidth(90);
+        this.setMaxHeight(30);
+        this.setPadding(set);
+        setMargin(this, new Insets(10));
+
+        top = new HBox();
+        this.l = new Label(this.checkout);
+        this.l.setStyle("-fx-font-weight: bold;");
+        this.l.setTextFill(Color.BLACK);
+        Circle c = new Circle(8, Color.GREEN);
+
+        top.getChildren().addAll(this.l, c);
+        top.setMinWidth(80);
+        top.setMinHeight(30);
+        top.setMaxWidth(80);
+        top.setMaxHeight(30);
+        top.setSpacing(30);
+        this.getChildren().add(top);
+
+        this.setStyle("-fx-background-color: #56565600; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;");
+
+
+        this.setOnMouseEntered(mouseEvent -> {
+            if(!selected){
+
+                Timeline time = new Timeline(
+                    new KeyFrame(duration, new KeyValue(this.styleProperty(), "-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;", Interpolator.EASE_IN))
+                );
+                time.setOnFinished(actionEvent -> {
+                    this.l.setTextFill(Color.WHITE);
+                    System.out.println("Adding to " + this.getId());
+
+                });
+                time.play();
+
+            }
+
+        });
+
+        this.setOnMouseMoved(mouseEvent -> {
+            cont.set_mouse_focus(this.getId());
+        });
+
+        this.setOnMouseExited(mouseEvent -> {
+            if(!selected){
+                this.l.setTextFill(Color.BLACK);
+                Timeline time = new Timeline(
+                        new KeyFrame(duration, new KeyValue(this.styleProperty(), "-fx-background-color: #56565600; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;", Interpolator.EASE_IN))
+                );
+                time.play();
+
+            }
+
+        });
+
+        this.setOnMouseClicked(mouseEvent -> {
+            if(selected){
+                selected = false;
+                this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
+                this.cont.set_version("");
+                this.cont.set_city("");
+
+            }else {
+                selected = true;
+                System.out.println("Im selected: " + this.getId());
+                cont.set_selected(this.getId());
+                this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
+                this.cont.set_version(this.version);
+                this.cont.set_city(this.city);
+            }
+        });
+
+
+
+    }
+
+    public void unselect(){
+        //System.out.println("Im getting unselected: " + this.getId());
+        if(this.getChildren().size() > 1){
+            this.getChildren().remove(this.getChildren().size() -1);
+        }
+        this.selected = false;
+        this.setMinHeight(30);
+        this.setMaxHeight(30);
+        this.l.setTextFill(Color.BLACK);
+        this.setStyle("-fx-background-color: #23232300; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;");
+    }
+
+    public void remove_focus(){
+        System.out.println("Removing from " + this.getId());
+        if(!selected){
+            this.l.setTextFill(Color.BLACK);
+        }
+
+    }
+
+    public void fire_max(double size){
+        if(size >= 1200){
+            System.out.println("Vergrößern");
+            Timeline line = new Timeline(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.minWidthProperty(), 110, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.maxWidthProperty(), 110, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.minWidthProperty(), 120, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.maxWidthProperty(), 120, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.spacingProperty(), 60, Interpolator.EASE_IN))
+            );
+            line.play();
+        }else if(size <= 1200){
+            System.out.println("verkleinern");
+            Timeline line = new Timeline(
+                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.minWidthProperty(), 80, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.maxWidthProperty(), 80, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.minWidthProperty(), 90, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.maxWidthProperty(), 90, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.spacingProperty(), 30, Interpolator.EASE_IN))
+            );
+            line.play();
+        }
+
+
+    }
+
+    /**For Future use
+    public void set_online(){
+
+    }
+
+    public void set_searching(){
+
+    }
+
+    public void set_offline(){
+
+    }
+    */
+}
