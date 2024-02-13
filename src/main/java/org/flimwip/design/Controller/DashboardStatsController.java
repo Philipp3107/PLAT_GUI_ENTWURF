@@ -1,4 +1,4 @@
-package org.flimwip.demo.Controller;
+package org.flimwip.design.Controller;
 
 public class DashboardStatsController {
 

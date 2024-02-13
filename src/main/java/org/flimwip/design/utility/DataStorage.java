@@ -1,6 +1,6 @@
-package org.flimwip.demo.utility;
+package org.flimwip.design.utility;
 
-import org.flimwip.demo.Models.KassenModel;
+import org.flimwip.design.Models.KassenModel;
 
 import java.io.*;
 import java.util.ArrayList;

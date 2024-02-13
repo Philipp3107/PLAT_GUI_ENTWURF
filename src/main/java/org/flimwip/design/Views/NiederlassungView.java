@@ -1,4 +1,4 @@
-package org.flimwip.demo.Views;
+package org.flimwip.design.Views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -7,8 +7,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.flimwip.demo.Controller.CheckoutSelectionController;
-import org.flimwip.demo.Models.KassenModel;
+import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.Models.KassenModel;
 
 import java.util.ArrayList;
 

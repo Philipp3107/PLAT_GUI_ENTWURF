@@ -1,12 +1,11 @@
-package org.flimwip.demo.Views;
+package org.flimwip.design.Views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import org.flimwip.demo.Controller.CheckoutSelectionController;
-import org.flimwip.demo.Controller.MainController;
+import org.flimwip.design.Controller.MainController;
 
 public class SideBar extends HBox {
 

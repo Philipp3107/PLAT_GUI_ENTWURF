@@ -1,4 +1,4 @@
-package org.flimwip.demo.Models;
+package org.flimwip.design.Models;
 
 public enum StandortCase {
 

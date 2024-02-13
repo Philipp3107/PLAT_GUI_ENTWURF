@@ -1,8 +1,8 @@
-package org.flimwip.demo.Controller;
+package org.flimwip.design.Controller;
 
-import org.flimwip.demo.Main;
-import org.flimwip.demo.Views.MainMenuButton;
-import org.flimwip.demo.Views.NiederlassungView;
+import org.flimwip.design.Main;
+import org.flimwip.design.Views.MainMenuButton;
+import org.flimwip.design.Views.NiederlassungView;
 
 public class MainController {
 

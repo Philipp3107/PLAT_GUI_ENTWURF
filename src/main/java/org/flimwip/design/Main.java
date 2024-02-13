@@ -1,21 +1,16 @@
-package org.flimwip.demo;
+package org.flimwip.design;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.flimwip.demo.Controller.CheckoutSelectionController;
-import org.flimwip.demo.Controller.DashboardStatsController;
-import org.flimwip.demo.Controller.MainController;
-import org.flimwip.demo.Views.*;
-import org.flimwip.demo.utility.DataStorage;
+import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.Controller.DashboardStatsController;
+import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Views.*;
+import org.flimwip.design.utility.DataStorage;
 
 import java.util.Objects;
 
@@ -50,7 +45,7 @@ public class Main extends Application {
 
         /* Setting Stage and Scene */
         Scene scene = new Scene(root, 1200, 700);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/demo/fontstyle.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/design/fontstyle.css")).toExternalForm());
         stage.setScene(scene);
         stage.setMinWidth(1261);
         stage.setMaxWidth(1400);

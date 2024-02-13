@@ -1,4 +1,4 @@
-package org.flimwip.demo.Views;
+package org.flimwip.design.Views;
 
 
 import javafx.scene.image.Image;

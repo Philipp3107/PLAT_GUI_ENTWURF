@@ -1,4 +1,4 @@
-package org.flimwip.demo.Views;
+package org.flimwip.design.Views;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -11,8 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import org.flimwip.demo.Controller.CheckoutSelectionController;
-import org.flimwip.demo.utility.StandortTranslator;
+import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.utility.StandortTranslator;
 
 public class Kasse extends VBox {
 

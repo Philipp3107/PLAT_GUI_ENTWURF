@@ -1,6 +1,6 @@
-package org.flimwip.demo.utility;
+package org.flimwip.design.utility;
 
-import org.flimwip.demo.Models.StandortCase;
+import org.flimwip.design.Models.StandortCase;
 
 public class StandortTranslator {
 

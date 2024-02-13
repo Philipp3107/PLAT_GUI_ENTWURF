@@ -1,4 +1,4 @@
-package org.flimwip.demo.Views;
+package org.flimwip.design.Views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -8,9 +8,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.flimwip.demo.Controller.MainController;
-import org.flimwip.demo.Models.KassenModel;
-import org.flimwip.demo.utility.DataStorage;
+import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.utility.DataStorage;
 
 import java.util.ArrayList;
 import java.util.Collections;

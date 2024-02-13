@@ -1,4 +1,4 @@
-package org.flimwip.demo;
+package org.flimwip.design;
 
 public class DLLLoader {
 
