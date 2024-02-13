@@ -29,9 +29,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        DataStorage ds = new DataStorage("src/main/java/org/flimwip/demo/resources/NL_Liste.csv");
+        DataStorage ds = new DataStorage("src/main/java/org/flimwip/design/resources/NL_Liste.csv");
         this.checkoutSelectionController = new CheckoutSelectionController(null);
-        this.dash_controller = new DashboardStatsController();
+        this.dash_controller = new DashboardStatsController(this.dashboard);
         /* Alle verwendeten BorderPane(Panes) */
         this.dashboard = new Dashboard(this.dash_controller);
         this.analyse = new Analyse(this.mainController, ds);

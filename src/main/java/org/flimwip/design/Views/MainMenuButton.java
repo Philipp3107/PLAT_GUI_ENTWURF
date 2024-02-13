@@ -20,7 +20,7 @@ import java.io.IOException;
 public class MainMenuButton extends HBox {
     private final String imagename;
     private final String text;
-    private final String path = "src/main/java/org/flimwip/demo/resources/";
+    private final String path = "src/main/java/org/flimwip/design/resources/";
     private ImageView imageView;
     private Label l;
     private Image image;

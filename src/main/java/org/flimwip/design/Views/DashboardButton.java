@@ -15,15 +15,15 @@ public class DashboardButton extends ImageView {
     private String dark_path;
 
     public DashboardButton(String name, boolean selector){
-        this.path = "src/main/java/org/flimwip/demo/resources/DButton/light/" + name + ".png";
-        this.dark_path = "src/main/java/org/flimwip/demo/resources/DButton/dark/" + name + ".png";
+        this.path = "src/main/java/org/flimwip/design/resources/DButton/light/" + name + ".png";
+        this.dark_path = "src/main/java/org/flimwip/design/resources/DButton/dark/" + name + ".png";
         this.selector = selector;
         init();
     }
 
     public DashboardButton(String name){
-        this.path = "src/main/java/org/flimwip/demo/resources/DButton/light/" + name + ".png";
-        this.dark_path = "src/main/java/org/flimwip/demo/resources/DButton/dark/" + name + ".png";
+        this.path = "src/main/java/org/flimwip/design/resources/DButton/light/" + name + ".png";
+        this.dark_path = "src/main/java/org/flimwip/design/resources/DButton/dark/" + name + ".png";
         this.selector = false;
         init();
     }

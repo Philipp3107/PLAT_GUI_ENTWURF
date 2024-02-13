@@ -53,12 +53,12 @@ public class Dashboard extends VBox {
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
     stats.setPadding(new Insets(10));
     stats.setMinHeight(240);
-    stats.setMinWidth(313);
-    stats.setPrefWidth(933);
+    stats.setMinWidth(900);
+    stats.setMaxWidth(900);
 
     //Überschrift und Trend Box
     HBox top = new HBox();
-    //top.setStyle("-fx-background-color: blue");
+
     top.setMinHeight(50);
 
     //Überschrift und subtitle
