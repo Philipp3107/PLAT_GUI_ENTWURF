@@ -85,7 +85,7 @@ public class Kasse extends VBox {
         this.l = new Label(this.checkout);
         this.l.setStyle("-fx-font-weight: bold;");
         this.l.setTextFill(Color.BLACK);
-        c = new Circle(8, Color.GREEN);
+        c = new Circle(8, Color.GRAY);
 
         top.getChildren().addAll(this.l, c);
         top.setMinWidth(80);
@@ -95,7 +95,7 @@ public class Kasse extends VBox {
         top.setSpacing(30);
         this.getChildren().add(top);
 
-        this.setStyle("-fx-background-color: #56565600; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;");
+        this.setStyle("-fx-background-color: #56565644; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;");
 
 
         this.setOnMouseEntered(mouseEvent -> {
@@ -106,7 +106,7 @@ public class Kasse extends VBox {
                 );
                 time.setOnFinished(actionEvent -> {
                     this.l.setTextFill(Color.WHITE);
-                    System.out.println("Adding to " + this.getId());
+                    //System.out.println("Adding to " + this.getId());
 
                 });
                 time.play();
@@ -123,7 +123,7 @@ public class Kasse extends VBox {
             if(!selected){
                 this.l.setTextFill(Color.BLACK);
                 Timeline time = new Timeline(
-                        new KeyFrame(duration, new KeyValue(this.styleProperty(), "-fx-background-color: #56565600; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;", Interpolator.EASE_IN))
+                        new KeyFrame(duration, new KeyValue(this.styleProperty(), "-fx-background-color: #56565644; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;", Interpolator.EASE_IN))
                 );
                 time.play();
 
@@ -140,7 +140,7 @@ public class Kasse extends VBox {
 
             }else {
                 selected = true;
-                System.out.println("Im selected: " + this.getId());
+                //System.out.println("Im selected: " + this.getId());
                 cont.set_selected(this.getId());
                 this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
                 this.cont.set_version(this.version);
@@ -165,7 +165,7 @@ public class Kasse extends VBox {
     }
 
     public void remove_focus(){
-        System.out.println("Removing from " + this.getId());
+    //System.out.println("Removing from " + this.getId());
         if(!selected){
             this.l.setTextFill(Color.BLACK);
         }
@@ -208,17 +208,17 @@ public class Kasse extends VBox {
 
     //For Future use
     public void set_online(){
-        System.out.println("Setting online");
+        System.out.println("Setting online [" + this.checkout + "]");
     this.c.setFill(Color.GREEN);
     }
 
     public void set_searching(){
-        System.out.println("Setting searching");
+        System.out.println("Setting searching [" + this.checkout + "]");
     this.c.setFill(Color.ORANGE);
     }
 
     public void set_offline(){
-        System.out.println("Setting offline");
+        System.out.println("Setting offline [" + this.checkout + "]");
     this.c.setFill(Color.RED);
     }
 

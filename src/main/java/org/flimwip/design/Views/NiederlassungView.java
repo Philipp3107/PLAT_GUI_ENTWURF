@@ -48,7 +48,7 @@ public class NiederlassungView extends BorderPane {
         this.version = new Label("Version: ");
         this.version.setStyle("-fx-text-fill: black");
         this.city = new Label("Standort: ");
-        this.heading = new Label("NL " + this.kassenModels.getFirst().getNl_name() + " (" + this.nl_id + ")");
+        this.heading = new Label("NL " + this.kassenModels.get(0).getNl_name() + " (" + this.nl_id + ")");
         this.heading.setStyle("-fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 25; -fx-text-fill: white");
         this.heading.setPadding(new Insets(0, 0, 0, 10));
         set_side();
