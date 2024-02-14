@@ -12,7 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.Models.KassenModel;
+import org.flimwip.design.utility.Check_Connection;
 import org.flimwip.design.utility.StandortTranslator;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Kasse extends VBox {
 
@@ -28,6 +37,9 @@ public class Kasse extends VBox {
 
     private HBox top;
     private final CheckoutSelectionController cont;
+    private KassenModel km;
+
+    private Circle c;
 
 
 
@@ -40,6 +52,24 @@ public class Kasse extends VBox {
         this.cont = checkoutSelectionController;
         this.version = version;
         init();
+        try {
+            search_for_connection();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Kasse(KassenModel km, CheckoutSelectionController controller) {
+        this.cont = controller;
+        this.km = km;
+        this.checkout = km.getCheckout_id();
+        this.city = km.getNl_name();
+        this.location = km.getNl();
+
     }
 
     private void init(){
@@ -55,7 +85,7 @@ public class Kasse extends VBox {
         this.l = new Label(this.checkout);
         this.l.setStyle("-fx-font-weight: bold;");
         this.l.setTextFill(Color.BLACK);
-        Circle c = new Circle(8, Color.GREEN);
+        c = new Circle(8, Color.GREEN);
 
         top.getChildren().addAll(this.l, c);
         top.setMinWidth(80);
@@ -168,17 +198,28 @@ public class Kasse extends VBox {
 
     }
 
-    /**For Future use
-    public void set_online(){
+    private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
 
+        Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this));
+        th.setDaemon(true);
+        th.setName("Thread [" + this.checkout + "]");
+        th.start();
+    }
+
+    //For Future use
+    public void set_online(){
+        System.out.println("Setting online");
+    this.c.setFill(Color.GREEN);
     }
 
     public void set_searching(){
-
+        System.out.println("Setting searching");
+    this.c.setFill(Color.ORANGE);
     }
 
     public void set_offline(){
-
+        System.out.println("Setting offline");
+    this.c.setFill(Color.RED);
     }
-    */
+
 }

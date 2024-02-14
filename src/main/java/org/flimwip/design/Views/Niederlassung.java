@@ -34,7 +34,7 @@ public class Niederlassung extends VBox {
         this.setMinHeight(55);
         this.setMaxHeight(55);
         this.setPadding(new Insets(7));
-        this.setStyle("-fx-background-color: #232323; -fx-background-radius: 15; -fx-effect:  dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0)");
+        this.setStyle("-fx-background-color: #565656; -fx-border-color: #232323; -fx-border-radius: 15; -fx-border-width: 2 ;-fx-background-radius: 15; -fx-effect:  dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0)");
 
         this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         this.Bundesland.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");

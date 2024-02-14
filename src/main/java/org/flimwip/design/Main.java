@@ -52,6 +52,8 @@ public class Main extends Application {
         stage.widthProperty().addListener((observableValue, number, t1) -> {
             System.out.println("Width is: " + t1);
         });
+        stage.setResizable(false);
+        stage.setMaximized(false);
         stage.show();
 
     }
