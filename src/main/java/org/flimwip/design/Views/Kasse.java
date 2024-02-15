@@ -18,10 +18,7 @@ import org.flimwip.design.utility.StandortTranslator;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Kasse extends VBox {
 
@@ -41,11 +38,12 @@ public class Kasse extends VBox {
 
     private Circle c;
 
+    private Semaphore semaphore;
 
 
-
-    public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController){
+    public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
+        this.semaphore = semaphore;
         this.setId(location + checkout);
         this.checkout = checkout;
         this.location = location;
@@ -134,6 +132,7 @@ public class Kasse extends VBox {
         this.setOnMouseClicked(mouseEvent -> {
             if(selected){
                 selected = false;
+                cont.set_selected("");
                 this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
                 this.cont.set_version("");
                 this.cont.set_city("");
@@ -172,38 +171,14 @@ public class Kasse extends VBox {
 
     }
 
-    public void fire_max(double size){
-        if(size >= 1200){
-            System.out.println("Vergrößern");
-            Timeline line = new Timeline(
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.minWidthProperty(), 110, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.maxWidthProperty(), 110, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.minWidthProperty(), 120, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.maxWidthProperty(), 120, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.spacingProperty(), 60, Interpolator.EASE_IN))
-            );
-            line.play();
-        }else if(size <= 1200){
-            System.out.println("verkleinern");
-            Timeline line = new Timeline(
-                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.minWidthProperty(), 80, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.maxWidthProperty(), 80, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.minWidthProperty(), 90, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.maxWidthProperty(), 90, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(0.2), new KeyValue(this.top.spacingProperty(), 30, Interpolator.EASE_IN))
-            );
-            line.play();
-        }
-
-
-    }
 
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
-
-        Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this));
+        Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this, this.semaphore));
         th.setDaemon(true);
+        System.out.println(th.isDaemon());
         th.setName("Thread [" + this.checkout + "]");
         th.start();
+
     }
 
     //For Future use

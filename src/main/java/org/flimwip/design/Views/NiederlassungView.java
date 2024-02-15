@@ -2,17 +2,20 @@ package org.flimwip.design.Views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.KassenModel;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 public class NiederlassungView extends BorderPane {
 
@@ -34,17 +37,22 @@ public class NiederlassungView extends BorderPane {
 
     private Analyse analyse;
 
+    private FileController fc;
 
 
+    private Semaphore semaphore;
     public NiederlassungView(String nl_id, ArrayList<KassenModel> kassen, Analyse analyse){
+        this.fc = new FileController(this);
         this.analyse = analyse;
         this.kassenModels = kassen;
         this.nl_id = nl_id;
         init();
+        set_center("");
     }
 
 
     private void init(){
+       this.semaphore = new Semaphore(10);
         this.version = new Label("Version: ");
         this.version.setStyle("-fx-text-fill: black");
         this.city = new Label("Standort: ");
@@ -88,7 +96,7 @@ public class NiederlassungView extends BorderPane {
         this.kassen = new Kasse[kassenModels.size()];
         int i = 0;
         for(KassenModel km : kassenModels){
-            Kasse k = new Kasse(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller);
+            Kasse k = new Kasse(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller , this.semaphore);
             kassen[i] = k;
             i++;
         }
@@ -114,6 +122,95 @@ public class NiederlassungView extends BorderPane {
 
     public void go_back(){
         this.analyse.go_back();
+    }
+
+    public void set_center(String id){
+        if(id.isEmpty()){
+            VBox box = new VBox();
+            box.setAlignment(Pos.CENTER);
+            Label l = new Label("Wähle eine Kasse aus.");
+            l.setStyle("-fx-text-fill: white; -fx-font-size: 25");
+            box.getChildren().add(l);
+            this.setCenter(box);
+        }
+        else{
+            VBox box = new VBox();
+            box.setAlignment(Pos.CENTER);
+
+            FlowPane flow = new FlowPane(5, 5);
+            flow.setOrientation(Orientation.HORIZONTAL);
+            flow.setPrefWrapLength(1105);
+            for(int i = 0; i < 100; i++){
+                flow.getChildren().add(build_file(i));
+            }
+            ScrollPane scroller = new ScrollPane(flow);
+            scroller.setPadding(new Insets(10));
+            scroller.setFitToWidth(true);
+            scroller.setMaxWidth(1130);
+            scroller.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
+            box.getChildren().add(scroller);
+            this.setCenter(box);
+        }
+    }
+
+
+    private CheckoutFile build_file(int i){
+        String number = String.valueOf(i);
+        for(int j = number.length(); j < 5 - number.length(); j++){
+            number = "0" + number;
+        }
+        String filename = "pos-debug.log-20231111" + number + ".zip";
+        String filesize = "1234.7kb";
+        String change_time = "11.11.2023";
+        CheckoutFile file = new CheckoutFile(filename, filesize, change_time, this.fc);
+        this.fc.add_file(file);
+        return file;
+    }
+
+
+    public void show_menu(MouseEvent event){
+        Popup popup = new Popup();
+        VBox box = new VBox();
+        box.setStyle("-fx-background-color: white");
+        box.setMinWidth(120);
+        box.setMinHeight(100);
+        box.setSpacing(5);
+        box.setPadding(new Insets(10));
+
+        Button im = new Button("Import");
+        im.setOnAction(actionEvent -> {
+            Thread t = new Thread(() -> {
+                for(int i = 0; i < 10000000; i++){
+                    System.out.print("Running Import" + i + "\r");
+                }
+                this.fc.deselect_all();
+            });
+            t.setDaemon(true);
+            t.start();
+            popup.hide();
+
+        });
+        box.getChildren().add(im);
+
+        Button im2 = new Button("Import (Analyse)");
+        im2.setOnAction(actionEvent -> {
+            Thread t = new Thread(() -> {
+                for(int i = 0; i < 10000000; i++){
+                    System.out.print("Running Import Analyse" + i + "\r");
+
+                }
+                this.fc.deselect_all();
+            });
+            t.setDaemon(true);
+            t.start();
+            popup.hide();
+
+        });
+        box.getChildren().add(im2);
+
+        popup.getContent().add(box);
+        popup.setAutoHide(true);
+        popup.show(Window.getWindows().get(0));
     }
 
 }

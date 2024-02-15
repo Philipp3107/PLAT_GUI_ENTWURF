@@ -19,9 +19,6 @@ public class SideBar extends HBox {
         this.setStyle("-fx-background-color: #232323; -fx-background-radius: 0 0 20 20");
         this.setSpacing(15);
 
-        //Benutzerkreis für Einstellungen
-        Circle circle = new Circle(24, Color.valueOf("#565656"));
-
         /* Buttons für den Homescreen */
         String[] button_names = {"Dashboard", "Analyse"};
         String[] button_images = {"dashboard.png" ,"cellularbars.png"};
@@ -35,7 +32,6 @@ public class SideBar extends HBox {
 
         this.setPadding(new Insets(14));
         this.setAlignment(Pos.TOP_LEFT);
-        this.getChildren().add(circle);
         for(MainMenuButton mmb : buttons){
             this.getChildren().add(mmb);
         }

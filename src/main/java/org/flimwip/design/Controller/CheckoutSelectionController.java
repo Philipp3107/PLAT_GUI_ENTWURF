@@ -16,14 +16,22 @@ public class CheckoutSelectionController {
         this.view = view;
     }
     public void set_selected(String id){
-
+        boolean selected = false;
         for(Kasse k : kassen){
             if(!k.getId().equals(id)){
                 k.unselect();
+                this.view.set_center("");
             }
             if(k.getId().equals(id)){
                 this.selected = k;
+                selected = true;
             }
+        }
+
+        if(selected){
+            this.view.set_center(id);
+        }else{
+            this.view.set_center("");
         }
     }
 
