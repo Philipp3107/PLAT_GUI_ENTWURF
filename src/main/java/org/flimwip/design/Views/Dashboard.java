@@ -141,8 +141,8 @@ public class Dashboard extends VBox {
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
     stats.setPadding(new Insets(10));
     stats.setMinHeight(300);
-    stats.setMinWidth(900);
-    stats.setMaxWidth(900);
+    stats.setMinWidth(920);
+    stats.setMaxWidth(920);
 
     //Überschrift und Trend Box
     this.top = new HBox();
@@ -181,6 +181,7 @@ public class Dashboard extends VBox {
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
         this.center_right.setMinHeight(240);
+        //this.center_right.setStyle("-fx-background-color: blue");
         this.center_right.setAlignment(Pos.CENTER);
 
         this.center.getChildren().addAll(this.center_left, this.center_right);

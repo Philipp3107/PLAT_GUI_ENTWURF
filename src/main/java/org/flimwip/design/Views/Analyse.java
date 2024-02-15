@@ -37,8 +37,8 @@ public class Analyse extends VBox {
         favorites.setMaxHeight(100);
         this.m = new HBox();
         m.setPrefWidth(1400);
-        this.main = new FlowPane(5, 10);
-        this.main.setPrefWrapLength(1400);
+        this.main = new FlowPane(5, 5);
+        this.main.setPrefWrapLength(1261);
         this.main.setOrientation(Orientation.HORIZONTAL);
 
         Set<String> sets = ds.list_keys();
@@ -53,7 +53,7 @@ public class Analyse extends VBox {
         m.getChildren().add(main);
         this.sp = new ScrollPane(m);
         sp.setFitToWidth(true);
-        sp.setPadding(new Insets(10));
+        //sp.setPadding(new Insets(10));
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         VBox.setVgrow(sp, Priority.ALWAYS);
         HBox.setHgrow(sp, Priority.ALWAYS);

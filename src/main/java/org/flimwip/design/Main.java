@@ -46,10 +46,10 @@ public class Main extends Application {
         root.setCenter(this.dashboard);
 
         /* Setting Stage and Scene */
-        Scene scene = new Scene(root, 1200, 700);
+        Scene scene = new Scene(root, 1220, 700);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/design/fontstyle.css")).toExternalForm());
         stage.setScene(scene);
-        stage.setMinWidth(1261);
+        stage.setMinWidth(1264);
         stage.setMaxWidth(1400);
         stage.widthProperty().addListener((observableValue, number, t1) -> {
             System.out.println("Width is: " + t1);
