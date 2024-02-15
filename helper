@@ -15,7 +15,7 @@ import java.util.zip.ZipFile;
 public class Helper {
     public static void main(String[] args) throws IOException {
         List<String> checkouts = new ArrayList<String>();
-        File checkout_list = new File("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT 0.2.24\\Helper\\resources\\NL_Liste.csv");
+        File checkout_list = new File("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT 0.2.24\\Helper\\resources\\NL_mini_Liste.csv");
         String reading = "";
         try(BufferedReader br = new BufferedReader(new FileReader(checkout_list))){
             while((reading = br.readLine()) != null){
@@ -30,29 +30,37 @@ public class Helper {
         }
 
         //for(String s : checkouts){
-            //System.out.println(s);
-        //}
+       // System.out.println(s);
+       // }
+        System.out.println("Alle kassen gefunden!");
 
             HashMap<String, Integer> warns = new HashMap<>();
             HashMap<String, Integer> err = new HashMap<>();
             HashMap<String, Integer> criticals = new HashMap<>();
 
-        for(String s: checkouts){
-            String nl = s.substring(3, 6);
-            String checkout = s.substring(11);
-            System.out.println("NL: " + nl + ", Checkout: " + checkout);
-        }
+        
        for(String c: checkouts){
         String nl = c.substring(3, 6);
         String checkout = c.substring(11);
         System.out.println("NL: " + nl + ", Checkout: " + checkout);
 
+        NetCon net_con = new NetCon(nl, checkout, "pos-install", "M6kUVm3T");
+        if(net_con.get_connection()){
+            System.out.println("Connection Established");
+            net_con.close_connection();
+        }else{
+            System.out.println("Couldn't establish connection");
+        }
         Network_Connection network_con = new Network_Connection("pos-install", nl, checkout, "H:\\Test\\");
         if(network_con.get_connection(nl, checkout, "pos-install" , "M6kUVm3T")){
             System.out.println("Connection established");
-            File f = new File("\\DE0" + nl + "CPOS2" + checkout+"\\c$\\gkretail\\pos-full\\log");
+            //\\DE0300CPOS20001\c$\gkretail\pos-full\log
+            File f = new File("\\\\" + c+ "\\c$\\gkretail\\pos-full\\log\\");
+            System.out.println(f);
+            System.out.println(f.isDirectory());
+            if(f.listFiles() != null){
             for(File file : f.listFiles()){
-                if(file.getName().contains(".zip") && !file.getName().contains("terminal") && !file.getName().contains("performance")){
+                if(file.getName().contains(".zip") && !file.getName().contains("debug") && !file.getName().contains("terminal") && !file.getName().contains("performance")){
                     System.out.println(file.getName());
                     ZipFile zip = new ZipFile(file.getAbsolutePath());
                     Enumeration<? extends ZipEntry> entries = zip.entries();
@@ -112,6 +120,9 @@ public class Helper {
                     }
                 }
             }
+         }
+         System.out.println("Files an log sind angeblich null");
+         network_con.close_connection(nl, checkout);
         }
     }
 
@@ -161,7 +172,10 @@ public class Helper {
     try(BufferedWriter bw = new BufferedWriter(new FileWriter("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT 0.2.24\\Helper\\resources\\failure_data.csv"))){
         String line = "";
         for(int i = 0; i < warn_arr.size(); i++){
-            line = warn_arr.get(i) + ";" + err_arr.get(i) + ";" + critical_arr.get(i);
+            String warn = warn_arr.get(i).split(" ")[1];
+            String error = err_arr.get(i).split(" ")[1];
+            String critical = critical_arr.get(i).split(" ")[1];
+            line = warn + ";" + error + ";" + critical + "\n";
             bw.write(line);
         }
 
