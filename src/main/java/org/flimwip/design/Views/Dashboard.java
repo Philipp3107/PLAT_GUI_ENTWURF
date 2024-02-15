@@ -1,71 +1,159 @@
 package org.flimwip.design.Views;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.Effect;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.flimwip.design.Controller.DashboardStatsController;
+import org.flimwip.design.RectanglesTest;
+import org.flimwip.design.utility.CredentialManager;
 
 public class Dashboard extends VBox {
 
-    private final DashboardButton warn_button = new DashboardButton("warn");
-    private final DashboardButton error_button = new DashboardButton("error", true);
-    private final DashboardButton critical_button = new DashboardButton("critical");
+    private final DashboardButton warn_button;
+    private final DashboardButton error_button;
+    private final DashboardButton critical_button;
     private DashboardStatsController controller;
 
-    public Dashboard(DashboardStatsController controller){
-        this.controller = controller;
+    private CredentialManager cm;
+
+    //Statisktik
+    private VBox stats = null;
+
+    private HBox center_left;
+
+    private HBox center;
+
+    private VBox center_right;
+
+    private VBox text;
+
+    private HBox top;
+
+
+    public Dashboard(CredentialManager cm){
+        this.controller = new DashboardStatsController(this);
+        this.cm = cm;
+
+        this.warn_button = new DashboardButton("warn", this.controller);
+        this.error_button = new DashboardButton("error", true, this.controller);
+        this.critical_button = new DashboardButton("critical", this.controller);
+        this.controller.set_dash_buttons(this.error_button, this.warn_button, this.critical_button);
         HBox top = new HBox();
         top.setMinWidth(600);
         top.setMinHeight(190);
         top.setPadding(new Insets(10));
 
-
-        VBox box = build_stats();
+        String color1 = "#9f3636";
+        String color2 = "#e06e6e";
+        stats = build_stats(color1 ,color2);
 
 
         VBox second = build_controls();
 
         Label l2 = new Label("Keine Ahnung");
         second.getChildren().add(l2);
-        VBox.setVgrow(box, Priority.ALWAYS);
+        VBox.setVgrow(stats, Priority.ALWAYS);
         VBox.setVgrow(second, Priority.ALWAYS);
 
-        top.getChildren().addAll(box, second);
+        top.getChildren().addAll(stats, second);
         top.setSpacing(10);
         this.getChildren().add(top);
 
     }
 
     public VBox build_controls(){
+        //Hauptbox
         VBox controls = new VBox();
+        //Button zum Sichern
+        Button b = new Button();
+        //password text field
+        TextField password = new TextField(cm.get_password());
+        //username text field
+        TextField username = new TextField(cm.get_username());
         controls.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
         controls.setMinHeight(190);
         controls.setMinWidth(156);
         controls.setPrefWidth(466);
+        controls.setSpacing(10);
+        controls.setPadding(new Insets(10));
+        VBox user = new VBox();
+        b.setText(password.getText() == null && username.getText() == null ? "Erstelle Credentials" : "Speichern");
+
+        Label uname = new Label("Username");
+        uname.setStyle("-fx-text-fill: white;");
+        user.getChildren().addAll(uname, username);
+        b.setStyle("-fx-background-color: #298623; -fx-text-fill: white; -fx-background-radius: 10");
+        VBox pw = new VBox();
+
+        username.textProperty().addListener((observableValue, s, t1) -> {
+            if(t1.equals(cm.get_username()) && password.getText().equals(cm.get_password())){
+                b.setText("Speichern");
+                b.setDisable(true);
+            }else{
+                b.setText("Speichern");
+                b.setDisable(false);
+            }
+
+        });
+
+        password.textProperty().addListener((observableValue, s, t1) -> {
+            if(t1.equals(cm.get_password()) && username.getText().equals(cm.get_username())){
+                b.setText("Speichern");
+                b.setDisable(true);
+            }else{
+                b.setText("Speichern");
+                b.setDisable(false);
+
+            }
+
+        });
+        Label pword = new Label("Password");
+        pword.setStyle("-fx-text-fill: white;");
+        pw.getChildren().addAll(pword, password);
+        HBox cred = new HBox(user, pw);
+
+        cred.setSpacing(10);
+        controls.getChildren().add(cred);
+
+        b.setPrefHeight(20);
+        b.setPrefWidth(466);
+        b.setDisable(true);
+        b.setOnAction(actionEvent -> {
+            System.out.println(password.getText());
+            System.out.println(username.getText());
+            cm.set_new_credentials(username.getText(), password.getText());
+            b.setDisable(true);
+        });
+
+        controls.getChildren().add(b);
         return controls;
     }
 
-    public VBox build_stats(){
+    private VBox build_stats(String color1, String color2){
     VBox stats = new VBox();
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
     stats.setPadding(new Insets(10));
-    stats.setMinHeight(240);
+    stats.setMinHeight(300);
     stats.setMinWidth(900);
     stats.setMaxWidth(900);
 
     //Überschrift und Trend Box
-    HBox top = new HBox();
+    this.top = new HBox();
 
-    top.setMinHeight(50);
+    this.top.setMinHeight(50);
 
     //Überschrift und subtitle
-    VBox text = new VBox();
+    this.text = new VBox();
 
     Label titel = new Label("ERRORS");
-    titel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20; -fx-font-family: 'Fira Mono'");
+    titel.setStyle("-fx-text-fill: #e06e6e; -fx-font-weight: bold; -fx-font-size: 20; -fx-font-family: 'Fira Mono'");
 
     Label sub = new Label("All errors detected, sorted by Date");
     sub.setStyle(" -fx-font-family: 'Fira Mono'");
@@ -80,23 +168,88 @@ public class Dashboard extends VBox {
 
     HBox.setHgrow(text, Priority.ALWAYS);
 
-    top.getChildren().addAll(text, trend);
+    top.getChildren().addAll(text/*, trend*/);
 
-    HBox center = new HBox();
-    //center.setStyle("-fx-background-color: white");
+    this.center = new HBox();
+
 
     //Setting Center
     center.setMinHeight(140);
 
-    HBox center_left = new HBox();
-    VBox center_right = new VBox();
-        center_right.setSpacing(8);
-        center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
-        HBox.setHgrow(center_left, Priority.ALWAYS);
-        center.getChildren().addAll(center_left, center_right);
-    stats.getChildren().addAll(top, center);
-    center.setPadding(new Insets(0,0,0,10));
+    this.center_left = RectanglesTest.get_box(color1, color2, "error");
+    this.center_right = new VBox();
+        this.center_right.setSpacing(8);
+        this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
+        this.center_right.setMinHeight(240);
+        this.center_right.setAlignment(Pos.CENTER);
 
+        this.center.getChildren().addAll(this.center_left, this.center_right);
+    stats.getChildren().addAll(top, this.center);
+    center.setPadding(new Insets(0,0,0,10));
     return stats;
+    }
+
+
+    public void change_stats(String name){
+        if(name.equals("error")){
+            String first = "#9f3636";
+            String second = "#e06e6e";
+            this.center.getChildren().remove(center_left);
+            this.center.getChildren().remove(center_right);
+            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center.getChildren().addAll(center_left, center_right);
+            change_header(name);
+        }else if(name.equals("warn")){
+            String first = "ee9922";
+            String second = "eeBB77";
+            this.center.getChildren().remove(center_left);
+            this.center.getChildren().remove(center_right);
+            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center.getChildren().addAll(center_left, center_right);
+            change_header(name);
+        }else if(name.equals("critical")){
+            String first = "743790";
+            String second = "B87BD4";
+            this.center.getChildren().remove(center_left);
+            this.center.getChildren().remove(center_right);
+            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center.getChildren().addAll(center_left, center_right);
+            change_header(name);
+        }
+    }
+
+    private void change_header(String name){
+        if(name.equals("error")){
+            Label titel = new Label("ERRORS");
+            titel.setStyle("-fx-text-fill: #e06e6e; -fx-font-weight: bold; -fx-font-size: 20; -fx-font-family: 'Fira Mono'");
+
+            Label sub = new Label("All errors detected, sorted by Date");
+            sub.setStyle(" -fx-font-family: 'Fira Mono'");
+            sub.setTextFill(Color.valueOf("#D9D9D9"));
+            this.text.getChildren().remove(0);
+            this.text.getChildren().remove(0);
+            text.getChildren().addAll(titel, sub);
+        }else if(name.equals("warn")){
+            Label titel = new Label("WARNINGS");
+            titel.setStyle("-fx-text-fill: #ee9922; -fx-font-weight: bold; -fx-font-size: 20; -fx-font-family: 'Fira Mono'");
+
+            Label sub = new Label("All warnings detected, sorted by Date");
+            sub.setStyle(" -fx-font-family: 'Fira Mono'");
+            sub.setTextFill(Color.valueOf("#D9D9D9"));
+            this.text.getChildren().remove(0);
+            this.text.getChildren().remove(0);
+            text.getChildren().addAll(titel, sub);
+        }else if(name.equals("critical")){
+            Label titel = new Label("CRITICALS");
+            titel.setStyle("-fx-text-fill: #B87BD4; -fx-font-weight: bold; -fx-font-size: 20; -fx-font-family: 'Fira Mono'");
+
+            Label sub = new Label("All criticals detected, sorted by Date");
+            sub.setStyle(" -fx-font-family: 'Fira Mono'");
+            sub.setTextFill(Color.valueOf("#D9D9D9"));
+            this.text.getChildren().remove(0);
+            this.text.getChildren().remove(0);
+            text.getChildren().addAll(titel, sub);
+        }
+
     }
 }

@@ -64,7 +64,7 @@ public class DataStorage {
 
 
         } catch (FileNotFoundException e) {
-            System.out.println("File " + this.filename + " could not be found.");
+            System.out.println("CheckoutFile " + this.filename + " could not be found.");
         } catch (IOException e) {
             System.out.println("An exception occoured.");
         }
