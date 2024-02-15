@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-public class Helper {
+public class HelperFailureData {
     public static void main(String[] args) throws IOException {
         List<String> checkouts = new ArrayList<String>();
         File checkout_list = new File("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT 0.2.24\\Helper\\resources\\NL_mini_Liste.csv");
