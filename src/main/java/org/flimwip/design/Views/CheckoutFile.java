@@ -57,7 +57,7 @@ public class CheckoutFile extends HBox {
 
 
             }else if(mouseEvent.getButton().toString().equals("SECONDARY")){
-                this.fc.handle_secondary_click(mouseEvent);
+                this.fc.handle_secondary_click();
             }
             this.setStyle("-fx-background-color: #232323; -fx-background-radius: 7");
         });

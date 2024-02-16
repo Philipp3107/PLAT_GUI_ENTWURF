@@ -1,6 +1,5 @@
 package org.flimwip.design.Controller;
 
-import javafx.scene.input.MouseEvent;
 import org.flimwip.design.Views.CheckoutFile;
 import org.flimwip.design.Views.NiederlassungView;
 
@@ -118,12 +117,12 @@ public class FileController {
         return this.selected.size();
     }
 
-    public void handle_secondary_click(MouseEvent event){
+    public void handle_secondary_click(){
         for(CheckoutFile f : selected){
             System.out.println(f.getId());
 
         }
-        nv.show_menu(event);
+        nv.show_menu();
     }
 
     public void deselect_all(){

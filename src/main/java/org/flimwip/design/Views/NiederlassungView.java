@@ -168,7 +168,7 @@ public class NiederlassungView extends BorderPane {
     }
 
 
-    public void show_menu(MouseEvent event){
+    public void show_menu(){
         Popup popup = new Popup();
         VBox box = new VBox();
         box.setStyle("-fx-background-color: white");
@@ -181,7 +181,7 @@ public class NiederlassungView extends BorderPane {
         im.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    System.out.print("Running Import" + i + "\r");
+                    System.out.println("Running Import " + i );
                 }
                 this.fc.deselect_all();
             });
@@ -196,7 +196,7 @@ public class NiederlassungView extends BorderPane {
         im2.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    System.out.print("Running Import Analyse" + i + "\r");
+                    System.out.println("Running Import Analyse " + i);
 
                 }
                 this.fc.deselect_all();

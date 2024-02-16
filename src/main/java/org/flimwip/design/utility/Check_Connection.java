@@ -24,9 +24,9 @@ public class Check_Connection implements Runnable {
         this.k = k;
         this.semaphore = semaphore;
         //nur für windows
-        //this.ip_to_look = "DE0" + this.nl + "CPOS20" + this.checkout;
+        this.ip_to_look = "DE0" + this.nl + "CPOS20" + this.checkout;
         // für mac
-        this.ip_to_look = "172.217.16.206";
+        //this.ip_to_look = "172.217.16.206";
     }
     @Override
     public void run() {
@@ -41,8 +41,10 @@ public class Check_Connection implements Runnable {
 
             String to_check_win = "Verloren = 0";
             String to_check_mac = "0.0% packet loss";
-            if(temp.size() >= 7){
-                if(temp.get(7).contains(to_check_mac)){
+            //mac -> 7
+            //win -> 8
+            if(temp.size() >= 8){
+                if(temp.get(8).contains(to_check_win)){
                     this.k.set_online();
                     semaphore.release();
                 }else{
@@ -66,9 +68,9 @@ public class Check_Connection implements Runnable {
     public List<String> PingIpAddr(String ip) throws IOException
     {
         //windows use
-        //ProcessBuilder pb = new ProcessBuilder("ping", ip);
+        ProcessBuilder pb = new ProcessBuilder("ping", ip);
         //mac use
-        ProcessBuilder pb = new ProcessBuilder("ping", "-c 4", ip);
+        //ProcessBuilder pb = new ProcessBuilder("ping", "-c 4", ip);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
         this.k.set_searching();
         while (!stdInput.ready())
