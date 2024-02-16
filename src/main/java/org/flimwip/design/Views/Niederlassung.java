@@ -50,11 +50,22 @@ public class Niederlassung extends VBox {
         //in view of nl top left
         this.city.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
 
+        //Assembly of contents
+        //    Layout
+        //   |----------------------------|
+        //   | city | <--HGrow--> nl_nr   |
+        //   |----------------------------|
+        //   |bundesland                  |
+        //   |----------------------------|
+        //
         HBox box = new HBox(nl_nr);
         HBox.setHgrow(box, Priority.ALWAYS);
         box.setAlignment(Pos.CENTER_RIGHT);
         HBox top = new HBox(city, box);
         this.getChildren().addAll(top, Bundesland);
+
+
+
 
         this.setOnMouseClicked(mouseEvent -> {
             this.analyse.display_nl(nl_id);
