@@ -118,8 +118,6 @@ public class RectanglesTest extends Application {
         //Arraylist mit allen Werten
         ArrayList<Long> temp = new ArrayList<>();
 
-
-        //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
         String line = "";
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
@@ -130,6 +128,27 @@ public class RectanglesTest extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        //normalisieren
+
+        /*ArrayList<Long> temp2 = new ArrayList<>();
+        int complete = 0;
+        int counter = 0;
+        long zwischen = 0;
+        for(long l : temp){
+            if(counter <10){
+                if(complete == temp.size()-1){
+                    temp2.add(zwischen);
+                }
+                zwischen += l;
+                counter++;
+            }else{
+                temp2.add(zwischen);
+                zwischen = 0;
+                counter = 0;
+            }
+        }
+        temp = temp2;*/
 
         //Wie viele Rechtecke gezeichnet werden
         long lineCount = temp.size();
@@ -143,6 +162,8 @@ public class RectanglesTest extends Application {
                 biggest = l;
             }
         }
+
+        //Das ist ein Kommentar um etwas zu testen
 
 
         System.out.println(biggest);
