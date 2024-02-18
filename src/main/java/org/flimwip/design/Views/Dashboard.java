@@ -36,6 +36,8 @@ public class Dashboard extends VBox {
 
     private HBox top;
 
+    private Label trend;
+
 
     public Dashboard(CredentialManager cm){
         this.controller = new DashboardStatsController(this);
@@ -164,13 +166,12 @@ public class Dashboard extends VBox {
     text.getChildren().addAll(titel, sub);
 
     //Trend
-    Label trend = new Label(" +7,4% ");
-    trend.setStyle("-fx-background-color: #DD6767; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
-    trend.setPadding(new Insets(0,10,0,10));
+    trend = RectanglesTest.getTrend("error");
+
 
     HBox.setHgrow(text, Priority.ALWAYS);
 
-    top.getChildren().addAll(text/*, trend*/);
+    top.getChildren().addAll(text, trend);
 
     this.center = new HBox();
 
@@ -183,8 +184,9 @@ public class Dashboard extends VBox {
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
         this.center_right.setMinHeight(237);
-        this.center_right.setStyle("-fx-background-color: blue");
-        this.center_right.setAlignment(Pos.CENTER);
+        //this.center_right.setStyle("-fx-background-color: blue");
+        this.center_right.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(center_right, Priority.ALWAYS);
         setMargin(center_left, new Insets(5));
         setMargin(center_right, new Insets(5));
         setMargin(center_right, new Insets(5));
@@ -202,6 +204,8 @@ public class Dashboard extends VBox {
             this.center.getChildren().remove(center_right);
             this.center_left = RectanglesTest.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(RectanglesTest.getTrend(name));
             change_header(name);
         }else if(name.equals("warn")){
             String first = "ee9922";
@@ -210,6 +214,8 @@ public class Dashboard extends VBox {
             this.center.getChildren().remove(center_right);
             this.center_left = RectanglesTest.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(RectanglesTest.getTrend(name));
             change_header(name);
         }else if(name.equals("critical")){
             String first = "743790";
@@ -218,6 +224,8 @@ public class Dashboard extends VBox {
             this.center.getChildren().remove(center_right);
             this.center_left = RectanglesTest.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(RectanglesTest.getTrend(name));
             change_header(name);
         }
     }

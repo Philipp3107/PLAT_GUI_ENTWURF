@@ -86,8 +86,8 @@ public class RectanglesTest extends Application {
         HBox box = new HBox();box.setAlignment(Pos.BASELINE_CENTER);
 
 
-        for (Long aLong : temp) {
-            Rectangle rect = new Rectangle((int) rect_width, (int) (aLong * quotient));
+        for(int i = 0; i < temp.size(); i++){
+            Rectangle rect = new Rectangle((int)rect_width, (int)(temp.get(i) *quotient));
             //e06e6e
             Stop[] stops = {new Stop(0, Color.valueOf("#9f3636")), new Stop(0.4, Color.valueOf("#e06e6e")), new Stop(1, Color.valueOf("#743790"))};
             rect.setFill(new LinearGradient(0, 0, 1 , 1, true, CycleMethod.NO_CYCLE, stops ));
@@ -101,6 +101,71 @@ public class RectanglesTest extends Application {
         });
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static Label getTrend(String name){
+        int type = 0;
+        if(name.equals("warn")){
+            type = 0;
+        }else if(name.equals("error")){
+            type = 1;
+        }else if(name.equals("critical")){
+            type = 2;
+        }
+
+        //Arraylist mit allen Werten
+        ArrayList<Long> temp = new ArrayList<>();
+
+
+        //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
+        String line = "";
+        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
+            while((line = br.readLine()) != null){
+                String[] splitted = line.split(";");
+                //System.out.println(splitted[0]);
+                temp.add(Long.parseLong(splitted[type]));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        double overall = 0.0;
+
+        Long sumL = 0L;
+        for(Long l : temp){
+            sumL += l;
+        }
+        overall = (double) (sumL / temp.size());
+
+        double trend = 0.0;
+
+        Long trendSum = 0L;
+        for(int i = temp.size() -10; i < temp.size(); i++){
+            trendSum = temp.get(i);
+        }
+
+        //overall = 480;
+
+        trend = (double) (trendSum / 10);
+        System.out.println("Overall is :" + overall);
+        System.out.println("trend is : " + trend);
+        System.out.println("Percentage is :" +  ((trend * (100 / overall)) - 100));
+        double percentage = (trend * (100 / overall)) - 100;
+
+
+        Label l = new Label();
+
+        l.setPadding(new Insets(4,10,4,10));
+        if(percentage > 0){
+            l.setText(String.format(" %.2f%% ", percentage));
+            l.setStyle("-fx-background-color: #DD6767; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
+        }else{
+            l.setText(String.format(" %.2f%% ", percentage));
+            l.setStyle("-fx-background-color: #69a15c; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
+        }
+
+        return l;
+
     }
 
 
@@ -120,6 +185,8 @@ public class RectanglesTest extends Application {
         //Arraylist mit allen Werten
         ArrayList<Long> temp = new ArrayList<>();
 
+
+        //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
         String line = "";
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
@@ -174,25 +241,32 @@ public class RectanglesTest extends Application {
         double rect_width = Math.floor((double) width /lineCount);
 
         graph.setAlignment(Pos.BASELINE_LEFT);
-
-        for(int i = 0; i < temp.size(); i++){
         Label middle = new Label();
         middle.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-            Rectangle rect = new Rectangle((int)rect_width, (int)(temp.get(i) *quotient));
+
+        for (Long aLong : temp) {
+            Rectangle rect = new Rectangle((int) rect_width, (int) (aLong * quotient));
             //e06e6e
             Stop[] stops = {new Stop(1, Color.valueOf(first)), new Stop(0.0, Color.valueOf(second))};
             rect.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, stops));
             rect.setArcWidth(5);
             rect.setArcHeight(5);
-            //rect.setStyle("-fx-color: linear-gradient(to bottom #9f3636 #e06e6e #9f3636)");
-            graph.getChildren().add(rect);
             rect.setOnMouseEntered(mouseEvent -> {
                 middle.setText(String.valueOf(aLong));
             });
             rect.setOnMouseExited(mouseEvent -> {
                 middle.setText("");
             });
+            //rect.setStyle("-fx-color: linear-gradient(to bottom #9f3636 #e06e6e #9f3636)");
+            graph.getChildren().add(rect);
         }
+
+
+        //Area für den Trend
+
+
+
+        //Area für den Trend
 
         graph.setPadding(new Insets(0, 0, 0, 0));
         HBox.setHgrow(graph, Priority.ALWAYS);
@@ -209,8 +283,8 @@ public class RectanglesTest extends Application {
         HBox sum = new HBox(left, middle, right);
 
         VBox complete = new VBox(graph, sum);
+        //complete.setStyle("-fx-background-color: green");
         return new HBox(complete);
 
-        //complete.setStyle("-fx-background-color: green");
     }
 }
