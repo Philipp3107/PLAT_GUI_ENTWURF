@@ -16,12 +16,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
-public class RectanglesTest extends Application {
+public class DashboardStats extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -103,6 +100,73 @@ public class RectanglesTest extends Application {
         primaryStage.show();
     }
 
+    public static Label getTrend(String name){
+        int type = 0;
+        if(name.equals("warn")){
+            type = 0;
+        }else if(name.equals("error")){
+            type = 1;
+        }else if(name.equals("critical")){
+            type = 2;
+        }
+
+        //Arraylist mit allen Werten
+        ArrayList<Long> temp = new ArrayList<>();
+
+
+        //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
+        String line = "";
+        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
+            while((line = br.readLine()) != null){
+                String[] splitted = line.split(";");
+                //System.out.println(splitted[0]);
+                temp.add(Long.parseLong(splitted[type]));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        double overall = 0.0;
+
+        Long sumL = 0L;
+        for(Long l : temp){
+            sumL += l;
+        }
+        overall = (double) (sumL / temp.size());
+
+        double trend = 0.0;
+
+        Long trendSum = 0L;
+        for(int i = temp.size() -10; i < temp.size(); i++){
+            trendSum = temp.get(i);
+        }
+
+        //overall = 480;
+
+        trend = (double) (trendSum / 10);
+        System.out.println("Overall is :" + overall);
+        System.out.println("trend is : " + trend);
+        System.out.println("Percentage is :" +  ((trend * (100 / overall)) - 100));
+        double percentage = (trend * (100 / overall)) - 100;
+
+
+        Label l = new Label();
+
+        l.setPadding(new Insets(4,10,4,10));
+        if(percentage > 0){
+            l.setText(String.format(" %.2f%% ", percentage));
+            l.setStyle("-fx-background-color: #DD6767; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
+        }else{
+            l.setText(String.format(" %.2f%% ", percentage));
+            l.setStyle("-fx-background-color: #69a15c; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
+        }
+
+        return l;
+
+    }
+
+
+    //Das soll nur für die letzten 30 Tage gehen
     public static HBox get_box(String first, String second, String name){
         int type = 0;
         if(name.equals("warn")){
@@ -118,6 +182,8 @@ public class RectanglesTest extends Application {
         //Arraylist mit allen Werten
         ArrayList<Long> temp = new ArrayList<>();
 
+
+        //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
         String line = "";
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
@@ -129,30 +195,27 @@ public class RectanglesTest extends Application {
             throw new RuntimeException(e);
         }
 
-        //normalisieren
+        //Wie viele Rechtecke gezeichnet werden
+        //long lineCount = 30;
+        long lineCount = temp.size();
+
+        //Umschreiben der Liste zu den Werten der letzen 30 tagen
 
         /*ArrayList<Long> temp2 = new ArrayList<>();
-        int complete = 0;
-        int counter = 0;
-        long zwischen = 0;
-        for(long l : temp){
-            if(counter <10){
-                if(complete == temp.size()-1){
-                    temp2.add(zwischen);
-                }
-                zwischen += l;
-                counter++;
-            }else{
-                temp2.add(zwischen);
-                zwischen = 0;
-                counter = 0;
+        if(temp.size() > 30){
+            for(int i = temp.size() - 30; i < temp.size(); i++){
+                temp2.add(temp.get(i));
+            }
+        }else {
+            for(int i = 0; i < 30 - temp.size(); i++){
+                temp2.add(0L);
+            }
+
+            for(int i = 0; i < 30 - temp2.size(); i++){
+                temp2.add(temp.get(i));
             }
         }
         temp = temp2;*/
-
-        //Wie viele Rechtecke gezeichnet werden
-        long lineCount = temp.size();
-
 
 
         //größer wert
@@ -162,8 +225,6 @@ public class RectanglesTest extends Application {
                 biggest = l;
             }
         }
-
-        //Das ist ein Kommentar um etwas zu testen
 
 
         System.out.println(biggest);
@@ -177,19 +238,34 @@ public class RectanglesTest extends Application {
         double rect_width = Math.floor((double) width /lineCount);
 
         graph.setAlignment(Pos.BASELINE_LEFT);
+        Label middle = new Label();
+        middle.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
 
-        for(int i = 0; i < temp.size(); i++){
-            Rectangle rect = new Rectangle((int)rect_width, (int)(temp.get(i) *quotient));
+        for (Long aLong : temp) {
+            Rectangle rect = new Rectangle((int) rect_width, (int) (aLong * quotient));
             //e06e6e
             Stop[] stops = {new Stop(1, Color.valueOf(first)), new Stop(0.0, Color.valueOf(second))};
-            rect.setFill(new LinearGradient(0, 0, 1 , 1, true, CycleMethod.NO_CYCLE, stops ));
+            rect.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, stops));
             rect.setArcWidth(5);
             rect.setArcHeight(5);
+            rect.setOnMouseEntered(mouseEvent -> {
+                middle.setText(String.valueOf(aLong));
+            });
+            rect.setOnMouseExited(mouseEvent -> {
+                middle.setText("");
+            });
             //rect.setStyle("-fx-color: linear-gradient(to bottom #9f3636 #e06e6e #9f3636)");
             graph.getChildren().add(rect);
         }
 
-        graph.setPadding(new Insets(0, 15, 0, 0));
+
+        //Area für den Trend
+
+
+
+        //Area für den Trend
+
+        graph.setPadding(new Insets(0, 0, 0, 0));
         HBox.setHgrow(graph, Priority.ALWAYS);
         Label l = new Label("11.11.2023");
         l.setStyle("-fx-text-fill: white;");
@@ -201,9 +277,10 @@ public class RectanglesTest extends Application {
         right.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(right, Priority.ALWAYS);
-        HBox sum = new HBox(left, right);
+        HBox sum = new HBox(left, middle, right);
 
         VBox complete = new VBox(graph, sum);
+        //complete.setStyle("-fx-background-color: green");
         return new HBox(complete);
 
     }

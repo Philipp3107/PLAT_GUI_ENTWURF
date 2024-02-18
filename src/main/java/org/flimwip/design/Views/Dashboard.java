@@ -5,13 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Effect;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.flimwip.design.Controller.DashboardStatsController;
-import org.flimwip.design.RectanglesTest;
+import org.flimwip.design.DashboardStats;
 import org.flimwip.design.utility.CredentialManager;
 
 public class Dashboard extends VBox {
@@ -35,6 +34,8 @@ public class Dashboard extends VBox {
     private VBox text;
 
     private HBox top;
+
+    private Label trend;
 
 
     public Dashboard(CredentialManager cm){
@@ -141,6 +142,7 @@ public class Dashboard extends VBox {
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
     stats.setPadding(new Insets(10));
     stats.setMinHeight(300);
+    stats.setMaxHeight(300);
     stats.setMinWidth(920);
     stats.setMaxWidth(920);
 
@@ -148,6 +150,7 @@ public class Dashboard extends VBox {
     this.top = new HBox();
 
     this.top.setMinHeight(50);
+    this.top.setMaxHeight(50);
 
     //Überschrift und subtitle
     this.text = new VBox();
@@ -162,31 +165,32 @@ public class Dashboard extends VBox {
     text.getChildren().addAll(titel, sub);
 
     //Trend
-    Label trend = new Label(" +7,4% ");
-    trend.setStyle("-fx-background-color: #DD6767; -fx-background-radius: 13; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15");
-    trend.setPadding(new Insets(0,10,0,10));
+    trend = DashboardStats.getTrend("error");
+
 
     HBox.setHgrow(text, Priority.ALWAYS);
 
-    top.getChildren().addAll(text/*, trend*/);
+    top.getChildren().addAll(text, trend);
 
     this.center = new HBox();
 
 
     //Setting Center
     center.setMinHeight(140);
-
-    this.center_left = RectanglesTest.get_box(color1, color2, "error");
+    center.setSpacing(20);
+    this.center_left = DashboardStats.get_box(color1, color2, "error");
     this.center_right = new VBox();
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
-        this.center_right.setMinHeight(240);
+        this.center_right.setMinHeight(237);
         //this.center_right.setStyle("-fx-background-color: blue");
-        this.center_right.setAlignment(Pos.CENTER);
-
+        this.center_right.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(center_right, Priority.ALWAYS);
+        setMargin(center_left, new Insets(5));
+        setMargin(center_right, new Insets(5));
+        setMargin(center_right, new Insets(5));
         this.center.getChildren().addAll(this.center_left, this.center_right);
     stats.getChildren().addAll(top, this.center);
-    center.setPadding(new Insets(0,0,0,10));
     return stats;
     }
 
@@ -197,24 +201,30 @@ public class Dashboard extends VBox {
             String second = "#e06e6e";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }else if(name.equals("warn")){
             String first = "ee9922";
             String second = "eeBB77";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }else if(name.equals("critical")){
             String first = "743790";
             String second = "B87BD4";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
+            this.top.getChildren().remove(1);
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }
     }
