@@ -5,13 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Effect;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.flimwip.design.Controller.DashboardStatsController;
-import org.flimwip.design.RectanglesTest;
+import org.flimwip.design.DashboardStats;
 import org.flimwip.design.utility.CredentialManager;
 
 public class Dashboard extends VBox {
@@ -166,7 +165,7 @@ public class Dashboard extends VBox {
     text.getChildren().addAll(titel, sub);
 
     //Trend
-    trend = RectanglesTest.getTrend("error");
+    trend = DashboardStats.getTrend("error");
 
 
     HBox.setHgrow(text, Priority.ALWAYS);
@@ -179,7 +178,7 @@ public class Dashboard extends VBox {
     //Setting Center
     center.setMinHeight(140);
     center.setSpacing(20);
-    this.center_left = RectanglesTest.get_box(color1, color2, "error");
+    this.center_left = DashboardStats.get_box(color1, color2, "error");
     this.center_right = new VBox();
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
@@ -202,30 +201,30 @@ public class Dashboard extends VBox {
             String second = "#e06e6e";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
-            this.top.getChildren().add(RectanglesTest.getTrend(name));
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }else if(name.equals("warn")){
             String first = "ee9922";
             String second = "eeBB77";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
-            this.top.getChildren().add(RectanglesTest.getTrend(name));
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }else if(name.equals("critical")){
             String first = "743790";
             String second = "B87BD4";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = RectanglesTest.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
-            this.top.getChildren().add(RectanglesTest.getTrend(name));
+            this.top.getChildren().add(DashboardStats.getTrend(name));
             change_header(name);
         }
     }

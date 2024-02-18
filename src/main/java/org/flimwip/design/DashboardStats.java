@@ -16,12 +16,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
-public class RectanglesTest extends Application {
+public class DashboardStats extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
