@@ -86,8 +86,8 @@ public class RectanglesTest extends Application {
         HBox box = new HBox();box.setAlignment(Pos.BASELINE_CENTER);
 
 
-        for(int i = 0; i < temp.size(); i++){
-            Rectangle rect = new Rectangle((int)rect_width, (int)(temp.get(i) *quotient));
+        for (Long aLong : temp) {
+            Rectangle rect = new Rectangle((int) rect_width, (int) (aLong * quotient));
             //e06e6e
             Stop[] stops = {new Stop(0, Color.valueOf("#9f3636")), new Stop(0.4, Color.valueOf("#e06e6e")), new Stop(1, Color.valueOf("#743790"))};
             rect.setFill(new LinearGradient(0, 0, 1 , 1, true, CycleMethod.NO_CYCLE, stops ));
@@ -103,6 +103,8 @@ public class RectanglesTest extends Application {
         primaryStage.show();
     }
 
+
+    //Das soll nur für die letzten 30 Tage gehen
     public static HBox get_box(String first, String second, String name){
         int type = 0;
         if(name.equals("warn")){
@@ -129,30 +131,27 @@ public class RectanglesTest extends Application {
             throw new RuntimeException(e);
         }
 
-        //normalisieren
+        //Wie viele Rechtecke gezeichnet werden
+        //long lineCount = 30;
+        long lineCount = temp.size();
+
+        //Umschreiben der Liste zu den Werten der letzen 30 tagen
 
         /*ArrayList<Long> temp2 = new ArrayList<>();
-        int complete = 0;
-        int counter = 0;
-        long zwischen = 0;
-        for(long l : temp){
-            if(counter <10){
-                if(complete == temp.size()-1){
-                    temp2.add(zwischen);
-                }
-                zwischen += l;
-                counter++;
-            }else{
-                temp2.add(zwischen);
-                zwischen = 0;
-                counter = 0;
+        if(temp.size() > 30){
+            for(int i = temp.size() - 30; i < temp.size(); i++){
+                temp2.add(temp.get(i));
+            }
+        }else {
+            for(int i = 0; i < 30 - temp.size(); i++){
+                temp2.add(0L);
+            }
+
+            for(int i = 0; i < 30 - temp2.size(); i++){
+                temp2.add(temp.get(i));
             }
         }
         temp = temp2;*/
-
-        //Wie viele Rechtecke gezeichnet werden
-        long lineCount = temp.size();
-
 
 
         //größer wert
@@ -162,8 +161,6 @@ public class RectanglesTest extends Application {
                 biggest = l;
             }
         }
-
-        //Das ist ein Kommentar um etwas zu testen
 
 
         System.out.println(biggest);
@@ -179,17 +176,25 @@ public class RectanglesTest extends Application {
         graph.setAlignment(Pos.BASELINE_LEFT);
 
         for(int i = 0; i < temp.size(); i++){
+        Label middle = new Label();
+        middle.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             Rectangle rect = new Rectangle((int)rect_width, (int)(temp.get(i) *quotient));
             //e06e6e
             Stop[] stops = {new Stop(1, Color.valueOf(first)), new Stop(0.0, Color.valueOf(second))};
-            rect.setFill(new LinearGradient(0, 0, 1 , 1, true, CycleMethod.NO_CYCLE, stops ));
+            rect.setFill(new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE, stops));
             rect.setArcWidth(5);
             rect.setArcHeight(5);
             //rect.setStyle("-fx-color: linear-gradient(to bottom #9f3636 #e06e6e #9f3636)");
             graph.getChildren().add(rect);
+            rect.setOnMouseEntered(mouseEvent -> {
+                middle.setText(String.valueOf(aLong));
+            });
+            rect.setOnMouseExited(mouseEvent -> {
+                middle.setText("");
+            });
         }
 
-        graph.setPadding(new Insets(0, 15, 0, 0));
+        graph.setPadding(new Insets(0, 0, 0, 0));
         HBox.setHgrow(graph, Priority.ALWAYS);
         Label l = new Label("11.11.2023");
         l.setStyle("-fx-text-fill: white;");
@@ -201,10 +206,11 @@ public class RectanglesTest extends Application {
         right.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(right, Priority.ALWAYS);
-        HBox sum = new HBox(left, right);
+        HBox sum = new HBox(left, middle, right);
 
         VBox complete = new VBox(graph, sum);
         return new HBox(complete);
 
+        //complete.setStyle("-fx-background-color: green");
     }
 }

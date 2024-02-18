@@ -141,6 +141,7 @@ public class Dashboard extends VBox {
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
     stats.setPadding(new Insets(10));
     stats.setMinHeight(300);
+    stats.setMaxHeight(300);
     stats.setMinWidth(920);
     stats.setMaxWidth(920);
 
@@ -148,6 +149,7 @@ public class Dashboard extends VBox {
     this.top = new HBox();
 
     this.top.setMinHeight(50);
+    this.top.setMaxHeight(50);
 
     //Überschrift und subtitle
     this.text = new VBox();
@@ -175,18 +177,19 @@ public class Dashboard extends VBox {
 
     //Setting Center
     center.setMinHeight(140);
-
+    center.setSpacing(20);
     this.center_left = RectanglesTest.get_box(color1, color2, "error");
     this.center_right = new VBox();
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
-        this.center_right.setMinHeight(240);
-        //this.center_right.setStyle("-fx-background-color: blue");
+        this.center_right.setMinHeight(237);
+        this.center_right.setStyle("-fx-background-color: blue");
         this.center_right.setAlignment(Pos.CENTER);
-
+        setMargin(center_left, new Insets(5));
+        setMargin(center_right, new Insets(5));
+        setMargin(center_right, new Insets(5));
         this.center.getChildren().addAll(this.center_left, this.center_right);
     stats.getChildren().addAll(top, this.center);
-    center.setPadding(new Insets(0,0,0,10));
     return stats;
     }
 
