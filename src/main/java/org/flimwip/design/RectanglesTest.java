@@ -163,6 +163,8 @@ public class RectanglesTest extends Application {
             }
         }
 
+        //Das ist ein Kommentar um etwas zu testen
+
 
         System.out.println(biggest);
         double quotient = (double) 220 / biggest;
