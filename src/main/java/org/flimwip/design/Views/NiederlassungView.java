@@ -172,7 +172,7 @@ public class NiederlassungView extends BorderPane {
         String name = f.getName();
         String date = null;
         try {
-            date = String.valueOf(Files.getLastModifiedTime(Path.of(f.getAbsolutePath())));
+            date = String.valueOf(Files.getLastModifiedTime(Path.of(f.getAbsolutePath()))).split("T")[0];
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

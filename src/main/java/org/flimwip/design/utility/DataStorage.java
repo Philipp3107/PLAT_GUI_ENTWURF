@@ -51,7 +51,7 @@ public class DataStorage {
                         //System.out.println("NL " + temp_nl + "fertig. Neue wird erzeugt mit id: " + nl);
                     kassen.put(temp_nl, model);
                     String temp = nl_name.replace("-", "_");
-                        System.out.println(temp + "( \"" + temp +"\", " + nl + "),");
+                        //System.out.println(temp + "( \"" + temp +"\", " + nl + "),");
                     model = new ArrayList<>();
                     model.add(k);
                     temp_nl = nl;

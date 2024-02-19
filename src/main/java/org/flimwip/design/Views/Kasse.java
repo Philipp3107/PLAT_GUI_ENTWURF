@@ -142,6 +142,7 @@ public class Kasse extends VBox {
                     this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
                     this.cont.set_version("");
                     this.cont.set_city("");
+                    this.cont.set_selected("");
 
                 } else {
                     selected = true;
@@ -150,6 +151,7 @@ public class Kasse extends VBox {
                     this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
                     this.cont.set_version(this.version);
                     this.cont.set_city(this.city);
+                    this.cont.set_selected(this.getId());
                 }
             }
         });
@@ -182,7 +184,6 @@ public class Kasse extends VBox {
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
         Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this, this.semaphore));
         th.setDaemon(true);
-        System.out.println(th.isDaemon());
         th.setName("Thread [" + this.checkout + "]");
         th.start();
 
@@ -192,6 +193,7 @@ public class Kasse extends VBox {
     public void set_online(){
         System.out.println("Setting online [" + this.checkout + "]");
     this.c.setFill(Color.GREEN);
+        this.online = true;
     }
 
     public void set_searching(){
@@ -211,10 +213,6 @@ public class Kasse extends VBox {
             t.setDaemon(true);
             t.start();
         }
-    }
-
-    public void set_online(boolean online){
-        this.online = online;
     }
 
     public void set_files(File[] files){

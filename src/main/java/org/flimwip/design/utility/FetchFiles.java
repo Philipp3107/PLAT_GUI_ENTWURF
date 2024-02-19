@@ -30,17 +30,20 @@ public class FetchFiles implements Runnable{
             System.out.println(this.kassenid);
             System.out.println(this.kassenid.substring(0, 3));
             System.out.println(this.kassenid.substring(3));
-            NetCon connection = new NetCon(this.kassenid.substring(0, 3), this.kassenid.substring(3),username ,password );
+            NetCon connection = new NetCon(this.kassenid.substring(0, 3), "0" + this.kassenid.substring(3),username ,password );
             if(connection.get_connection()){
-                File f = new File("\\\\DE0" + nl + "CPOS20" + checkout + "\\gkretail\\pos-full\\log");
-                System.out.println("Sleeping for 500 millis");
-                Thread.sleep(5000);
+                System.out.println("Connection established for: " + k.getId());
+                File f = new File("\\\\DE0" + nl + "CPOS20" + checkout + "\\c$\\gkretail\\pos-full\\log");
+                //System.out.println("Sleeping for 500 millis");
+                //Thread.sleep(5000);
                 this.k.set_files(f.listFiles());
+                this.k.set_online();
+                this.k.set_clickabel(true);
                 semaphore.release();
                 System.out.println("Releasing semaphore");
                 connection.close_connection();
             }else{
-                System.out.println("Connection could not be maid");
+                System.out.println("Connection could not be established");
             }
 
 

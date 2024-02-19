@@ -13,6 +13,8 @@ import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.DashboardStats;
 import org.flimwip.design.utility.CredentialManager;
 
+import java.io.IOException;
+
 public class Dashboard extends VBox {
 
     private final DashboardButton warn_button;
@@ -129,7 +131,11 @@ public class Dashboard extends VBox {
         b.setOnAction(actionEvent -> {
             System.out.println(password.getText());
             System.out.println(username.getText());
-            cm.set_new_credentials(username.getText(), password.getText());
+            try {
+                cm.set_new_credentials(username.getText(), password.getText());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             b.setDisable(true);
         });
 

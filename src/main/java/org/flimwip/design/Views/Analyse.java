@@ -109,7 +109,7 @@ public class Analyse extends VBox {
 
         for(String s: list){
             if(s.contains(text) | ds.get_nl_name(s).contains(text.toUpperCase())) {
-                System.out.println(s);
+                //System.out.println(s);
                 Niederlassung nl = new Niederlassung(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
                 this.main.getChildren().add(nl);
             }
