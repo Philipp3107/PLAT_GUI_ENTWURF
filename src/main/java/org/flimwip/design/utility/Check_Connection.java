@@ -25,6 +25,7 @@ public class Check_Connection implements Runnable {
         //this.ip_to_look = "172.217.16.206";
     }
 
+
     @Override
     public void run(){
         System.out.println("Starting ping for" + this.k.getId());
@@ -35,6 +36,7 @@ public class Check_Connection implements Runnable {
             System.out.println("Interrupted while acquiring Semaphore");
         }
 
+
         if(ping(this.ip_to_look)){
             //Fetch Data from Checkout
             semaphore.release();
@@ -43,6 +45,7 @@ public class Check_Connection implements Runnable {
             t.start();
         }else{
             this.k.set_offline();
+
         }
     }
 

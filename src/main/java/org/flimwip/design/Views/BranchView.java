@@ -3,6 +3,7 @@ package org.flimwip.design.Views;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -137,6 +138,7 @@ public class BranchView extends BorderPane {
             this.setCenter(box);
         }
         else{
+
             Checkout k = this.controller.getSelected();
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
@@ -180,6 +182,7 @@ public class BranchView extends BorderPane {
         this.fc.add_file(file);
         return file;
     }
+
 
     public LogFile build_file(int i){
         String number = String.valueOf(i);

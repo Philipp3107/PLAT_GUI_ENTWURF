@@ -31,7 +31,7 @@ public class DashboardStats extends Application {
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
                 String[] splitted = line.split(";");
-                System.out.println(splitted[0]);
+                //System.out.println(splitted[0]);
                 temp.add(Long.parseLong(splitted[0]));
             }
         }
