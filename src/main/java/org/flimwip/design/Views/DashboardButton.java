@@ -53,10 +53,9 @@ public class DashboardButton extends ImageView {
     }
 
     private void set_image() {
-        System.out.println(selector ? "setting " + this.path : "setting "
-         + this.dark_path);
+        //System.out.println(selector ? "setting " + this.path : "setting  + this.dark_path);
         InputStream stream =  DashboardButton.class.getClassLoader().getResourceAsStream(selector ? this.path : this.dark_path);
-        System.out.println("Path is : " + path);
+        //System.out.println("Path is : " + path);
 
         this.selector = !selector;
         assert stream != null;

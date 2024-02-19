@@ -101,6 +101,7 @@ public class CheckoutSelectionController {
         return selected;
     }
 
+
     /**
      * Currently not in use
      * @param files

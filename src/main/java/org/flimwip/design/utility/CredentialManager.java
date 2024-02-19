@@ -1,27 +1,17 @@
 package org.flimwip.design.utility;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class CredentialManager {
 
-    private static final String CREDENTIALS = "resources/Credentials.csv";
+    private static final String CREDENTIALS = "H:\\PLAT\\Data\\Credentials.csv";
+    private static final String DIR = "H:\\PLAT\\Data\\";
     private String password = null;
     private String username = null;
-    public CredentialManager(){
-        init();
-    }
 
-    private void init(){
 
-        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("Credentials.csv");
-
-        try(BufferedReader br = new BufferedReader(new FileReader(CREDENTIALS))){
-            password = br.readLine().split(";")[1];
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Fetches the Username from the Credentials File and provieds it statically
@@ -43,7 +33,23 @@ public class CredentialManager {
         return username;
 
     }
-        return password;
+
+    public static String get_password(){
+            String password = null;
+            try {
+                check_files();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            try(BufferedReader br = new BufferedReader(new FileReader(CREDENTIALS))){
+                password = br.readLine().split(";")[1];
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return password;
+
+        }
 
 
 
@@ -77,7 +83,6 @@ public class CredentialManager {
     } catch (IOException e) {
         throw new RuntimeException(e);
     }
-
     }
 
 

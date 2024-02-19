@@ -19,6 +19,7 @@ import org.flimwip.design.utility.StandortTranslator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class Checkout extends VBox {
@@ -142,6 +143,7 @@ public class Checkout extends VBox {
                     this.cont.set_version_on_view("");
                     this.cont.set_city_on_view("");
                     this.cont.set_selected_checkout("");
+
 
                 } else {
                     selected = true;
