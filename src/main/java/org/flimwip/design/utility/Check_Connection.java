@@ -14,7 +14,7 @@ public class Check_Connection implements Runnable {
     private String nl;
     private Semaphore semaphore;
     private String ip_to_look;
-    public Check_Connection(String nl, String checkout, String username, String password, Checkout k, Semaphore semaphore){
+    public Check_Connection(String nl, String checkout, Checkout k, Semaphore semaphore){
         this.checkout = checkout;
         this.k = k;
         this.nl = nl;
@@ -29,7 +29,7 @@ public class Check_Connection implements Runnable {
     @Override
     public void run(){
         System.out.println("Starting ping for" + this.k.getId());
-
+        System.out.println("IP: " + this.ip_to_look);
         try{
             this.semaphore.acquire();
         } catch (InterruptedException e) {
@@ -60,7 +60,7 @@ public class Check_Connection implements Runnable {
     public boolean ping(String ip) {
 
         try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(new ProcessBuilder("ping", ip).start().getInputStream()));) {
-
+            System.out.println(new ProcessBuilder("ping", ip).command());
             this.k.set_searching();
             while (!stdInput.ready()) {
                 //while the Process
@@ -68,6 +68,7 @@ public class Check_Connection implements Runnable {
 
             String line;
             while ((line = stdInput.readLine()) != null) {
+                System.out.println("Checkout_Connection -> Line is: " + line);
                 if (line.contains("Verloren = 0")) {
                     return true;
                 }

@@ -38,11 +38,13 @@ public class FetchFiles implements Runnable{
 
         String branch = this.kassenid.substring(3, 6);
         String checkout_id = this.kassenid.substring(12);
-
+        System.out.println(branch);
+        System.out.println(checkout_id);
         NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
 
         try{
             semaphore.acquire();
+            System.out.println("KassenID ist: " + this.kassenid);
             if(connection.get_connection()){
                 File f = new File("\\\\" + this.kassenid + "\\c$\\gkretail\\pos-full\\log");
                 if(f.listFiles() != null){

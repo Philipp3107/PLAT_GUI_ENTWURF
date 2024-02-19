@@ -132,7 +132,7 @@ public class Dashboard extends VBox {
             System.out.println(password.getText());
             System.out.println(username.getText());
             try {
-                cm.set_new_credentials(username.getText(), password.getText());
+                CredentialManager.set_new_credentials(username.getText(), password.getText());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

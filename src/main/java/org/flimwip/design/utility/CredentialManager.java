@@ -68,6 +68,9 @@ public class CredentialManager {
             }else{
                 cred.createNewFile();
             }
+            try(BufferedWriter br = new BufferedWriter(new FileWriter(CREDENTIALS))){
+                br.write("username;password");
+            }
         }
     }
 
@@ -77,7 +80,7 @@ public class CredentialManager {
      * @param password Password for the application and for fetching Data from the Checkout
      * @throws IOException
      */
-    public void set_new_credentials(String username, String password) throws IOException {
+    public static void set_new_credentials(String username, String password) throws IOException {
         File f = new File(CREDENTIALS);
     try(BufferedWriter bw = new BufferedWriter(new FileWriter(f))){
         bw.write(username + ";" + password);

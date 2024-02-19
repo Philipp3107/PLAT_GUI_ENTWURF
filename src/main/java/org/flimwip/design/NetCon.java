@@ -53,8 +53,7 @@ public class NetCon{
     }*/
 
     public boolean get_connection() throws IOException{
-        if(PingIpAddr("DE0" + this.nl + "CPOS2" + this.checkout)){
-            String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS2" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
+            String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
             ProcessBuilder pb = new ProcessBuilder(command);
             //net use \\DE0666CPOS20002\c$ /u:fc.de.bauhaus.intra\pos-install M6kUVm3T && explorer \\DE0666CPOS20002\c$\gkretail\pos-full\log
             //Der Befehl wurde erfolgreich ausgeführt.
@@ -82,13 +81,6 @@ public class NetCon{
                 System.out.println("output: " + s);
             }*/
             return output.get(0).contains("Der Befehl wurde erfolgreich");
-
-        }else{
-            return false;
-        }
-
-
-
     }
 
 

@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.Check_Connection;
+import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.FetchFiles;
 import org.flimwip.design.utility.StandortTranslator;
 
@@ -183,7 +184,8 @@ public class Checkout extends VBox {
 
 
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
-        Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this, this.semaphore));
+        System.out.println("Starting thread for Location: " + this.location + " and ID: " + this.checkout);
+        Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore));
         th.setDaemon(true);
         th.setName("Thread [" + this.checkout + "]");
         th.start();
