@@ -8,9 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.utility.CredentialManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 /**
@@ -20,7 +23,7 @@ import java.io.IOException;
 public class MainMenuButton extends HBox {
     private final String imagename;
     private final String text;
-    private final String path = "src/main/java/org/flimwip/design/resources/";
+    private final String path = "";
     private ImageView imageView;
     private Label l;
     private Image image;
@@ -43,8 +46,9 @@ public class MainMenuButton extends HBox {
         this.l.setTextFill(Color.WHITE);
         l.setStyle("-fx-font-size: 15; -fx-font-weight: bold");
         image = null;
-        try(FileInputStream fis = new FileInputStream(this.path + "light/" + this.imagename)) {
-            image = new Image(fis);
+
+        try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "light/" + this.imagename);) {
+            image = new Image(stream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -74,8 +78,8 @@ public class MainMenuButton extends HBox {
     public void deselect(){
         this.l.setTextFill(Color.WHITE);
         this.setStyle("-fx-background-color: #565656; -fx-background-radius: 20");
-        try (FileInputStream fis = new FileInputStream(this.path + "light/" + this.imagename)) {
-            this.image = new Image(fis);
+        try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "light/" + this.imagename);) {
+            this.image = new Image(stream);
             this.imageView.setImage(this.image);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -87,8 +91,8 @@ public class MainMenuButton extends HBox {
             this.setStyle("-fx-background-color: white; -fx-background-radius: 20");
             this.l.setTextFill(Color.BLACK);
             image = null;
-            try (FileInputStream fis = new FileInputStream(this.path + "dark/" + this.imagename)) {
-                image = new Image(fis);
+            try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
+                image = new Image(stream);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -100,16 +104,16 @@ public class MainMenuButton extends HBox {
         if(!selected) {
             this.setStyle("-fx-background-color: #565656; -fx-background-radius: 20");
             this.l.setTextFill(Color.WHITE);
-            try (FileInputStream fis = new FileInputStream(this.path + "light/" + this.imagename)) {
-                this.imageView.setImage(new Image(fis));
+            try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
+                this.imageView.setImage(new Image(stream));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
     private void on_click(){
-        try(FileInputStream fis = new FileInputStream(this.path + "dark/" + this.imagename)) {
-            this.imageView.setImage(new Image(fis));
+        try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
+            this.imageView.setImage(new Image(stream));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -121,8 +125,8 @@ public class MainMenuButton extends HBox {
     }
 
     private void select_on_start(){
-        try(FileInputStream fis = new FileInputStream(this.path + "dark/" + this.imagename)) {
-            this.imageView.setImage(new Image(fis));
+        try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
+            this.imageView.setImage(new Image(stream));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

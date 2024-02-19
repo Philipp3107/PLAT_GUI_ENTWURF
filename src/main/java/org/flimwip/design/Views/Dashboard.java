@@ -85,7 +85,7 @@ public class Dashboard extends VBox {
         controls.setSpacing(10);
         controls.setPadding(new Insets(10));
         VBox user = new VBox();
-        b.setText(password.getText() == null && username.getText() == null ? "Erstelle Credentials" : "Speichern");
+        b.setText(password.getText() == null && username.getText() == null ? "Erstelle Credentials.csv" : "Speichern");
 
         Label uname = new Label("Username");
         uname.setStyle("-fx-text-fill: white;");

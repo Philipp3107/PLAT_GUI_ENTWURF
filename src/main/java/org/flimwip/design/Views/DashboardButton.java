@@ -4,10 +4,11 @@ package org.flimwip.design.Views;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.flimwip.design.Controller.DashboardStatsController;
+import org.flimwip.design.utility.CredentialManager;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class DashboardButton extends ImageView {
 
@@ -20,8 +21,8 @@ public class DashboardButton extends ImageView {
     private DashboardStatsController controller;
 
     public DashboardButton(String name, boolean selector, DashboardStatsController controller){
-        this.path = "src/main/java/org/flimwip/design/resources/DButton/light/" + name + ".png";
-        this.dark_path = "src/main/java/org/flimwip/design/resources/DButton/dark/" + name + ".png";
+        this.path = "DButton/light/" + name + ".png";
+        this.dark_path = "DButton/dark/" + name + ".png";
         this.selector = selector;
         this.name = name;
         this.setId(this.name);
@@ -30,8 +31,8 @@ public class DashboardButton extends ImageView {
     }
 
     public DashboardButton(String name, DashboardStatsController controller){
-        this.path = "src/main/java/org/flimwip/design/resources/DButton/light/" + name + ".png";
-        this.dark_path = "src/main/java/org/flimwip/design/resources/DButton/dark/" + name + ".png";
+        this.path = "DButton/light/" + name + ".png";
+        this.dark_path = "DButton/dark/" + name + ".png";
         this.selector = false;
         this.controller = controller;
         this.name = name;
@@ -54,14 +55,12 @@ public class DashboardButton extends ImageView {
     private void set_image() {
         System.out.println(selector ? "setting " + this.path : "setting "
          + this.dark_path);
-        try(FileInputStream fis = new FileInputStream(selector ? this.path : this.dark_path)) {
-            selector = !selector;
-            this.setImage(new Image(fis));
-        } catch (FileNotFoundException e) {
-            System.out.println("Couldn't find CheckoutFile\n" + e.getLocalizedMessage());
-        } catch (IOException e) {
-            System.out.println("An Error occured\n" + e.getLocalizedMessage());
-        }
+        InputStream stream =  DashboardButton.class.getClassLoader().getResourceAsStream(selector ? this.path : this.dark_path);
+        System.out.println("Path is : " + path);
+
+        this.selector = !selector;
+        assert stream != null;
+        this.setImage(new Image(stream));
     }
 
     public void deselect(){

@@ -14,6 +14,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.flimwip.design.utility.CredentialManager;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class DashboardStats extends Application {
         ArrayList<Long> temp = new ArrayList<>();
 
         String line = "";
-        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
+        try(BufferedReader br = new BufferedReader(new FileReader("src/main/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
                 String[] splitted = line.split(";");
                 System.out.println(splitted[0]);
@@ -115,8 +116,9 @@ public class DashboardStats extends Application {
 
 
         //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("dummy_data_errors.csv");
         String line = "";
-        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
             while((line = br.readLine()) != null){
                 String[] splitted = line.split(";");
                 //System.out.println(splitted[0]);
@@ -184,12 +186,16 @@ public class DashboardStats extends Application {
 
 
         //Auslesen und splitten der Zeilen aus der Datei um die für die jeweilig notwendige Ansicht der Werte zu gewährleisten
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("dummy_data_errors.csv");
         String line = "";
-        try(BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/flimwip/design/resources/dummy_data_errors.csv"))){
-            while((line = br.readLine()) != null){
-                String[] splitted = line.split(";");
-                //System.out.println(splitted[0]);
-                temp.add(Long.parseLong(splitted[type]));
+        try {
+            assert stream != null;
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
+                while((line = br.readLine()) != null){
+                    String[] splitted = line.split(";");
+                    //System.out.println(splitted[0]);
+                    temp.add(Long.parseLong(splitted[type]));
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

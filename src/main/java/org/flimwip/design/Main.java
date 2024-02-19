@@ -13,7 +13,8 @@ import org.flimwip.design.Views.*;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.DataStorage;
 
-import java.util.Objects;
+import java.io.InputStream;
+
 
 public class Main extends Application {
 
@@ -31,7 +32,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         CredentialManager cm = new CredentialManager();
-        DataStorage ds = new DataStorage("src/main/java/org/flimwip/design/resources/NL_Liste.csv");
+
+        DataStorage ds = new DataStorage("NL_Liste.csv");
         this.checkoutSelectionController = new CheckoutSelectionController(null);
 
         /* Alle verwendeten BorderPane(Panes) */
@@ -47,7 +49,7 @@ public class Main extends Application {
 
         /* Setting Stage and Scene */
         Scene scene = new Scene(root, 1220, 700);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/design/fontstyle.css")).toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("/org/flimwip/design/fontstyle.css").toExternalForm());
         stage.setScene(scene);
         stage.setMinWidth(1264);
         stage.setMaxWidth(1400);
@@ -73,6 +75,10 @@ public class Main extends Application {
 
     public void set_center_to_nl(NiederlassungView view){
         this.root.setCenter(view);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 

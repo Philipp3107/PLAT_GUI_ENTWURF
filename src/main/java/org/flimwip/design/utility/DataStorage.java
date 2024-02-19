@@ -23,7 +23,8 @@ public class DataStorage {
         ArrayList<KassenModel> model = new ArrayList<>();
         String line = "";
         String temp_nl = "300";
-        try(BufferedReader br = new BufferedReader(new FileReader(this.filename))){
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream(filename);
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
                 while((line = br.readLine()) != null){
                     //INPUT -> 547;VILLINGEN-SCHWENNINGEN;27 - SUED;DE0547CPOS20002;DE0547CPOS20002;27.10.2020;LIVE
                     String[] splitted = line.split(";");
