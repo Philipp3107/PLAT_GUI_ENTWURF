@@ -8,9 +8,6 @@ public class CredentialManager {
 
     private static final String CREDENTIALS = "H:\\PLAT\\Data\\Credentials.csv";
     private static final String DIR = "H:\\PLAT\\Data\\";
-    private String password = null;
-    private String username = null;
-
 
 
     /**
@@ -34,6 +31,10 @@ public class CredentialManager {
 
     }
 
+    /**
+     * Fetches the Password from the Credentials File and provides it statically
+     * @return String: Password either "" or provided by user
+     */
     public static String get_password(){
             String password = null;
             try {
