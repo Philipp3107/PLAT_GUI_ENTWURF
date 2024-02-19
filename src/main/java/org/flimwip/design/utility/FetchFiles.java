@@ -1,58 +1,62 @@
 package org.flimwip.design.utility;
 
 import org.flimwip.design.NetCon;
-import org.flimwip.design.Views.Kasse;
+import org.flimwip.design.Views.Checkout;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
+/**
+ * Sets the Files found in the {@link Checkout Checkouts} directory as Files to the {@link Checkout}
+ * <br>
+ * If the {@link NetCon Connection} could be to the {@link Checkout} could be established, the found Files will be set to {@link Checkout#files Files} for later use.
+ */
 public class FetchFiles implements Runnable{
+    /**
+     * The id of the Checkout in its complete Form {@code DE0XXXCPOS20XXX}
+     */
+    private final String kassenid;
+    /**
+     * The {@link Semaphore} to manage all Threads running simultaniously
+     */
+    private final Semaphore semaphore;
 
-    private String kassenid;
-    private Semaphore semaphore;
-    private Kasse k;
-    public FetchFiles(String kassenid, Semaphore semaphore, Kasse k){
+    /**
+     * The {@link Checkout} of which the Files need to be pulled
+     */
+    private final Checkout k;
+    public FetchFiles(String kassenid, Semaphore semaphore, Checkout k){
         this.kassenid = kassenid;
         this.semaphore = semaphore;
         this.k = k;
     }
+
+
     @Override
-    public void run() {
-        try {
+    public void run(){
+
+        String branch = this.kassenid.substring(3, 6);
+        String checkout_id = this.kassenid.substring(12);
+
+        NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
+
+        try{
             semaphore.acquire();
-
-            String username = new CredentialManager().get_username();
-            String password = new CredentialManager().get_password();
-            String nl = this.kassenid.substring(0, 3);
-            String checkout = this.kassenid.substring(3);
-            System.out.println(this.kassenid);
-            System.out.println(this.kassenid.substring(0, 3));
-            System.out.println(this.kassenid.substring(3));
-            NetCon connection = new NetCon(this.kassenid.substring(0, 3), "0" + this.kassenid.substring(3),username ,password );
             if(connection.get_connection()){
-                System.out.println("Connection established for: " + k.getId());
-                File f = new File("\\\\DE0" + nl + "CPOS20" + checkout + "\\c$\\gkretail\\pos-full\\log");
-                //System.out.println("Sleeping for 500 millis");
-                //Thread.sleep(5000);
-                this.k.set_files(f.listFiles());
-                this.k.set_online();
-                this.k.set_clickabel(true);
-                semaphore.release();
-                System.out.println("Releasing semaphore");
-                connection.close_connection();
+                File f = new File("\\\\" + this.kassenid + "\\c$\\gkretail\\pos-full\\log");
+                if(f.listFiles() != null){
+                    this.k.set_files(f.listFiles());
+                    this.k.set_online();
+                }else{
+                    this.k.set_offline();
+                }
             }else{
-                System.out.println("Connection could not be established");
+                this.k.set_offline();
             }
-
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        }catch(InterruptedException e){ System.out.println("Interrupted while acquiring Semaphore");
+        }catch (IOException e) { System.out.println("IOException Occured: " + e.getLocalizedMessage());
+        }finally { semaphore.release();}
     }
+
 }
