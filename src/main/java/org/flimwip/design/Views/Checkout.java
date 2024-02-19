@@ -12,14 +12,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
-import org.flimwip.design.Models.KassenModel;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.Check_Connection;
+import org.flimwip.design.utility.FetchFiles;
 import org.flimwip.design.utility.StandortTranslator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.*;
 
-public class Kasse extends VBox {
+public class Checkout extends VBox {
 
     private final String location;
     private final String city;
@@ -32,7 +34,7 @@ public class Kasse extends VBox {
     private Label l;
 
     private final CheckoutSelectionController cont;
-    private KassenModel km;
+    private CheckoutModel km;
 
     private Circle c;
 
@@ -40,9 +42,10 @@ public class Kasse extends VBox {
 
     private boolean active = false;
     private boolean online = false;
+    private File[] files;
 
 
-    public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
+    public Checkout(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
         this.semaphore = semaphore;
         this.setId(location + checkout);
@@ -62,12 +65,12 @@ public class Kasse extends VBox {
         }
     }
 
-    public Kasse(KassenModel km, CheckoutSelectionController controller) {
+    public Checkout(CheckoutModel km, CheckoutSelectionController controller) {
         this.cont = controller;
         this.km = km;
-        this.checkout = km.getCheckout_id();
-        this.city = km.getNl_name();
-        this.location = km.getNl();
+        this.checkout = km.checkout_id();
+        this.city = km.branch_name();
+        this.location = km.branch();
 
     }
 
@@ -134,18 +137,20 @@ public class Kasse extends VBox {
             if(online) {
                 if (selected) {
                     selected = false;
-                    cont.set_selected("");
+                    cont.set_selected_checkout("");
                     this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
-                    this.cont.set_version("");
-                    this.cont.set_city("");
+                    this.cont.set_version_on_view("");
+                    this.cont.set_city_on_view("");
+                    this.cont.set_selected_checkout("");
 
                 } else {
                     selected = true;
                     //System.out.println("Im selected: " + this.getId());
-                    cont.set_selected(this.getId());
+                    cont.set_selected_checkout(this.getId());
                     this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
-                    this.cont.set_version(this.version);
-                    this.cont.set_city(this.city);
+                    this.cont.set_version_on_view(this.version);
+                    this.cont.set_city_on_view(this.city);
+                    this.cont.set_selected_checkout(this.getId());
                 }
             }
         });
@@ -178,7 +183,6 @@ public class Kasse extends VBox {
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
         Thread th = new Thread(new Check_Connection(this.location, this.checkout, "", "", this, this.semaphore));
         th.setDaemon(true);
-        System.out.println(th.isDaemon());
         th.setName("Thread [" + this.checkout + "]");
         th.start();
 
@@ -188,6 +192,7 @@ public class Kasse extends VBox {
     public void set_online(){
         System.out.println("Setting online [" + this.checkout + "]");
     this.c.setFill(Color.GREEN);
+        this.online = true;
     }
 
     public void set_searching(){
@@ -203,8 +208,18 @@ public class Kasse extends VBox {
     public void set_clickabel(boolean active){
         this.active = active;
         if(active){
-            online = true;
+            Thread t = new Thread(new FetchFiles(this.getId(), this.semaphore, this));
+            t.setDaemon(true);
+            t.start();
         }
+    }
+
+    public void set_files(File[] files){
+        this.files = files;
+    }
+
+    public File[] getFiles(){
+        return this.files;
     }
 
 }

@@ -8,7 +8,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 
-public class Niederlassung extends VBox {
+public class Branch extends VBox {
 
     private Label city;
     private String nl_id;
@@ -19,7 +19,7 @@ public class Niederlassung extends VBox {
     private Analyse analyse;
 
     //Konstruktor
-    public Niederlassung(String nl_id, String city, String bundesland, boolean favorite, Analyse analyse){
+    public Branch(String nl_id, String city, String bundesland, boolean favorite, Analyse analyse){
         this.nl_id = nl_id;
         this.nl_nr = new Label(nl_id);
         this.city = new Label(city);

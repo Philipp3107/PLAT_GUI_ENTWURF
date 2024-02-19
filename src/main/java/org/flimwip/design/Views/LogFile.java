@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.flimwip.design.Controller.FileController;
 
-public class CheckoutFile extends HBox {
+public class LogFile extends HBox {
 
     private String name;
     private String size;
@@ -15,7 +15,7 @@ public class CheckoutFile extends HBox {
 
     private FileController fc;
 
-    public CheckoutFile(String name, String size, String change, FileController fc){
+    public LogFile(String name, String size, String change, FileController fc){
         this.name = name;
         this.size = size;
         this.change = change;
@@ -28,8 +28,8 @@ public class CheckoutFile extends HBox {
         this.setSpacing(10);
         this.setMinHeight(24);
         this.setMaxHeight(24);
-        this.setMinWidth(360);
-        this.setMaxWidth(360);
+        this.setMinWidth(545);
+        this.setMaxWidth(545);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(6));
         this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
