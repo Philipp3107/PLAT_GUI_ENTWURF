@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.flimwip.design.Controller.FileController;
 
-public class CheckoutFile extends HBox {
+public class LogFile extends HBox {
 
     private String name;
     private String size;
@@ -15,7 +15,7 @@ public class CheckoutFile extends HBox {
 
     private FileController fc;
 
-    public CheckoutFile(String name, String size, String change, FileController fc){
+    public LogFile(String name, String size, String change, FileController fc){
         this.name = name;
         this.size = size;
         this.change = change;

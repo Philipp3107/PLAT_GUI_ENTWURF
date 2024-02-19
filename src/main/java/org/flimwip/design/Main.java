@@ -13,8 +13,6 @@ import org.flimwip.design.Views.*;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.DataStorage;
 
-import java.io.InputStream;
-
 
 public class Main extends Application {
 
@@ -31,13 +29,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        CredentialManager cm = new CredentialManager();
 
         DataStorage ds = new DataStorage("NL_Liste.csv");
         this.checkoutSelectionController = new CheckoutSelectionController(null);
 
         /* Alle verwendeten BorderPane(Panes) */
-        this.dashboard = new Dashboard(cm);
+        this.dashboard = new Dashboard();
         this.analyse = new Analyse(this.mainController, ds);
 
         root = new BorderPane();
@@ -73,7 +70,7 @@ public class Main extends Application {
         }
     }
 
-    public void set_center_to_nl(NiederlassungView view){
+    public void set_center_to_nl(BranchView view){
         this.root.setCenter(view);
     }
 

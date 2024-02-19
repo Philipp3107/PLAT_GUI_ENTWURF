@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 public class BackButton extends VBox {
 
     private Label l;
-    NiederlassungView view;
+    BranchView view;
 
-    public BackButton(NiederlassungView view){
+    public BackButton(BranchView view){
         this.view = view;
         this.l = new Label("Zurück");
         l.setStyle("-fx-font-weight: bold");

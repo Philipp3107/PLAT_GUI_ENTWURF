@@ -40,7 +40,7 @@ public class Dashboard extends VBox {
     private Label trend;
 
 
-    public Dashboard(CredentialManager cm){
+    public Dashboard(){
         this.controller = new DashboardStatsController(this);
         this.cm = cm;
 
@@ -77,9 +77,9 @@ public class Dashboard extends VBox {
         //Button zum Sichern
         Button b = new Button();
         //password text field
-        TextField password = new TextField(cm.get_password());
+        TextField password = new TextField(CredentialManager.get_password());
         //username text field
-        TextField username = new TextField(cm.get_username());
+        TextField username = new TextField(CredentialManager.get_username());
         controls.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
         controls.setMinHeight(190);
         controls.setMinWidth(156);
@@ -107,7 +107,7 @@ public class Dashboard extends VBox {
         });
 
         password.textProperty().addListener((observableValue, s, t1) -> {
-            if(t1.equals(cm.get_password()) && username.getText().equals(cm.get_username())){
+            if(t1.equals(CredentialManager.get_password()) && username.getText().equals(CredentialManager.get_username())){
                 b.setText("Speichern");
                 b.setDisable(true);
             }else{

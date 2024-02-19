@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
-import org.flimwip.design.Models.KassenModel;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.Check_Connection;
 import org.flimwip.design.utility.FetchFiles;
 import org.flimwip.design.utility.StandortTranslator;
@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-public class Kasse extends VBox {
+public class Checkout extends VBox {
 
     private final String location;
     private final String city;
@@ -35,7 +35,7 @@ public class Kasse extends VBox {
     private Label l;
 
     private final CheckoutSelectionController cont;
-    private KassenModel km;
+    private CheckoutModel km;
 
     private Circle c;
 
@@ -46,7 +46,7 @@ public class Kasse extends VBox {
     private File[] files;
 
 
-    public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
+    public Checkout(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
         this.semaphore = semaphore;
         this.setId(location + checkout);
@@ -66,12 +66,12 @@ public class Kasse extends VBox {
         }
     }
 
-    public Kasse(KassenModel km, CheckoutSelectionController controller) {
+    public Checkout(CheckoutModel km, CheckoutSelectionController controller) {
         this.cont = controller;
         this.km = km;
-        this.checkout = km.getCheckout_id();
-        this.city = km.getNl_name();
-        this.location = km.getNl();
+        this.checkout = km.checkout_id();
+        this.city = km.branch_name();
+        this.location = km.branch();
 
     }
 
@@ -138,20 +138,21 @@ public class Kasse extends VBox {
             if(online) {
                 if (selected) {
                     selected = false;
-                    cont.set_selected("");
+                    cont.set_selected_checkout("");
                     this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
-                    this.cont.set_version("");
-                    this.cont.set_city("");
-                    this.cont.set_selected("");
+                    this.cont.set_version_on_view("");
+                    this.cont.set_city_on_view("");
+                    this.cont.set_selected_checkout("");
+
 
                 } else {
                     selected = true;
                     //System.out.println("Im selected: " + this.getId());
-                    cont.set_selected(this.getId());
+                    cont.set_selected_checkout(this.getId());
                     this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
-                    this.cont.set_version(this.version);
-                    this.cont.set_city(this.city);
-                    this.cont.set_selected(this.getId());
+                    this.cont.set_version_on_view(this.version);
+                    this.cont.set_city_on_view(this.city);
+                    this.cont.set_selected_checkout(this.getId());
                 }
             }
         });
