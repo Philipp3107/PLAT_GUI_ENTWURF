@@ -45,7 +45,7 @@ public class DashboardStatsController {
      */
     public void deselect(String button_id){
         for(DashboardButton d: buttons){
-            if(!d.getId().equals(nabutton_idme)){
+            if(!d.getId().equals(button_id)){
                 d.deselect();
             }
         }

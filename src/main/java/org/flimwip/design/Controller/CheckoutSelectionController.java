@@ -1,26 +1,26 @@
 package org.flimwip.design.Controller;
 
-import org.flimwip.design.Views.Checkouts;
+import org.flimwip.design.Views.Checkout;
 import org.flimwip.design.Views.MainMenuButton;
 import org.flimwip.design.Views.NiederlassungView;
 
 import java.io.File;
 
 /**
- * This Controller handles most of the Events on the {@link BranchView} that could not be handled by the {@link Checkouts} or the {@link BranchView} themselves.
- * This Controller will be initialized for each {@link BranchView} and the {@link Checkouts} needed to be set before the Parental {@link BranchView} is set visible
+ * This Controller handles most of the Events on the {@link BranchView} that could not be handled by the {@link Checkout} or the {@link BranchView} themselves.
+ * This Controller will be initialized for each {@link BranchView} and the {@link Checkout} needed to be set before the Parental {@link BranchView} is set visible
  */
 public class CheckoutSelectionController {
 
     /**
-     * List of all Checkouts for this Branch
+     * List of all Checkout for this Branch
      */
-    private Checkouts[] kassen;
+    private Checkout[] kassen;
 
     /**
      * The currently selected Checkout of the Branch
      */
-    private Checkouts selected = null;
+    private Checkout selected = null;
 
     /**
      * The BranchView to which this controller belongs
@@ -33,7 +33,7 @@ public class CheckoutSelectionController {
     }
     public void set_selected_checkout(String id){
         boolean selected = false;
-        for(Checkouts k : kassen){
+        for(Checkout k : kassen){
             if(!k.getId().equals(id)){
                 k.unselect();
                 this.view.set_center("");
@@ -77,7 +77,7 @@ public class CheckoutSelectionController {
      * @param checkout_id -> id of the selected checkout
      */
     public void set_mouse_focus(String checkout_id){
-        for(Checkouts k : kassen){
+        for(Checkout k : kassen){
             if(!k.getId().equals(checkout_id)){
                 k.remove_focus();
             }
@@ -86,18 +86,18 @@ public class CheckoutSelectionController {
 
     /**
      * TO provide a list of all checkouts of the given branch for further actions
-     * @param kassen -> Array of Checkouts
+     * @param kassen -> Array of Checkout
      */
-    public void set_checkouts(Checkouts[] kassen){
+    public void set_checkouts(Checkout[] kassen){
     this.kassen = kassen;
     }
 
 
     /**Return the current selected Checkout from the controller
      *
-     * @return Checkouts selected
+     * @return Checkout selected
      */
-    public Checkouts getSelected() {
+    public Checkout getSelected() {
         return selected;
     }
 

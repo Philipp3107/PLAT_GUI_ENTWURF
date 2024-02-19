@@ -1,6 +1,6 @@
 package org.flimwip.design.utility;
 
-import org.flimwip.design.Views.Checkouts;
+import org.flimwip.design.Views.Checkout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,11 +14,11 @@ public class Check_Connection implements Runnable {
 
     private String nl;
     private String checkout;
-    private Checkouts k;
+    private Checkout k;
 
     private Semaphore semaphore;
     private String ip_to_look;
-    public Check_Connection(String nl, String checkout, String username, String password, Checkouts k, Semaphore semaphore){
+    public Check_Connection(String nl, String checkout, String username, String password, Checkout k, Semaphore semaphore){
         this.nl = nl;
         this.checkout = checkout;
         this.k = k;

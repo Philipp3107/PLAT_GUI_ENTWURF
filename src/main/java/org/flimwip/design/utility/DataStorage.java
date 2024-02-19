@@ -36,7 +36,7 @@ public class DataStorage {
                     boolean mobil = splitted[3].contains("(Mobil)");
                     //System.out.println(mobil);
                     String checkout = splitted[4].substring(12, 15);
-                    //System.out.println("Checkouts: " + checkout);
+                    //System.out.println("Checkout: " + checkout);
                     String version = splitted[8];
                     //System.out.println("Version: " + version);
                     KassenModel k = new KassenModel(nl, nl_name, region, mobil, checkout, version);

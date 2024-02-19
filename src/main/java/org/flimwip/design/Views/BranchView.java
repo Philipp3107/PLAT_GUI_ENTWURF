@@ -34,7 +34,7 @@ public class BranchView extends BorderPane {
     private HBox top_wrapper = new HBox();
 
     private ArrayList<KassenModel> kassenModels;
-    private Checkouts[] kassen;
+    private Checkout[] kassen;
 
     private String nl_id;
 
@@ -96,10 +96,10 @@ public class BranchView extends BorderPane {
 
     private void setting_kassen(){
 
-        this.kassen = new Checkouts[kassenModels.size()];
+        this.kassen = new Checkout[kassenModels.size()];
         int i = 0;
         for(KassenModel km : kassenModels){
-            Checkouts k = new Checkouts(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller , this.semaphore);
+            Checkout k = new Checkout(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller , this.semaphore);
             kassen[i] = k;
             i++;
         }
@@ -131,13 +131,13 @@ public class BranchView extends BorderPane {
         if(id.isEmpty()){
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
-            Label l = new Label("Wähle eine Checkouts aus.");
+            Label l = new Label("Wähle eine Checkout aus.");
             l.setStyle("-fx-text-fill: white; -fx-font-size: 25");
             box.getChildren().add(l);
             this.setCenter(box);
         }
         else{
-            Checkouts k = this.controller.getSelected();
+            Checkout k = this.controller.getSelected();
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
             FlowPane flow = new FlowPane(5, 5);

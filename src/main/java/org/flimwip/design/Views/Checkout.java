@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.*;
 
-public class Checkouts extends VBox {
+public class Checkout extends VBox {
 
     private final String location;
     private final String city;
@@ -45,7 +45,7 @@ public class Checkouts extends VBox {
     private File[] files;
 
 
-    public Checkouts(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
+    public Checkout(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
         this.semaphore = semaphore;
         this.setId(location + checkout);
@@ -65,7 +65,7 @@ public class Checkouts extends VBox {
         }
     }
 
-    public Checkouts(KassenModel km, CheckoutSelectionController controller) {
+    public Checkout(KassenModel km, CheckoutSelectionController controller) {
         this.cont = controller;
         this.km = km;
         this.checkout = km.getCheckout_id();
