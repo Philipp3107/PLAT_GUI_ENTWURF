@@ -75,7 +75,7 @@ public class NetCon{
 
             while((line = stdInput.readLine()) != null){
                 output.add(line);
-                // System.out.println(line);
+                System.out.println(line);
             }
 
             /*for(String s : output){

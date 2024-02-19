@@ -14,6 +14,10 @@ import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.KassenModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
@@ -134,15 +138,25 @@ public class NiederlassungView extends BorderPane {
             this.setCenter(box);
         }
         else{
+            Kasse k = null;
+            for(Kasse kass : kassen){
+                if(kass.getId().equals(id)){
+                    k = kass;
+                }
+            }
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
 
             FlowPane flow = new FlowPane(5, 5);
             flow.setOrientation(Orientation.HORIZONTAL);
             flow.setPrefWrapLength(1105);
-            for(int i = 0; i < 100; i++){
-                flow.getChildren().add(build_file(i));
+            assert k != null;
+            for(File f: k.getFiles()){
+                flow.getChildren().add(build_file(f));
             }
+            /*for(int i = 0; i < 100; i++){
+                flow.getChildren().add(build_file(i));
+            }*/
             ScrollPane scroller = new ScrollPane(flow);
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
@@ -154,7 +168,27 @@ public class NiederlassungView extends BorderPane {
     }
 
 
-    private CheckoutFile build_file(int i){
+    public CheckoutFile build_file(File f){
+        String name = f.getName();
+        String date = null;
+        try {
+            date = String.valueOf(Files.getLastModifiedTime(Path.of(f.getAbsolutePath())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String size = null;
+        try {
+            size = String.valueOf(Files.size(Path.of(f.getAbsolutePath())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        CheckoutFile file = new CheckoutFile(name, size, date, this.fc);
+        this.fc.add_file(file);
+        return file;
+    }
+
+    public CheckoutFile build_file(int i){
         String number = String.valueOf(i);
         for(int j = number.length(); j < 5 - number.length(); j++){
             number = "0" + number;

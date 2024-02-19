@@ -14,9 +14,12 @@ import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Models.KassenModel;
 import org.flimwip.design.utility.Check_Connection;
+import org.flimwip.design.utility.FetchFiles;
 import org.flimwip.design.utility.StandortTranslator;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class Kasse extends VBox {
@@ -40,6 +43,7 @@ public class Kasse extends VBox {
 
     private boolean active = false;
     private boolean online = false;
+    private File[] files;
 
 
     public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
@@ -203,8 +207,22 @@ public class Kasse extends VBox {
     public void set_clickabel(boolean active){
         this.active = active;
         if(active){
-            online = true;
+            Thread t = new Thread(new FetchFiles(this.getId(), this.semaphore, this));
+            t.setDaemon(true);
+            t.start();
         }
+    }
+
+    public void set_online(boolean online){
+        this.online = online;
+    }
+
+    public void set_files(File[] files){
+        this.files = files;
+    }
+
+    public File[] getFiles(){
+        return this.files;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.flimwip.design.utility;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class CredentialManager {
@@ -40,13 +41,16 @@ public class CredentialManager {
     }
 
     public void set_new_credentials(String username, String password){
-    try(BufferedWriter bw = new BufferedWriter(new FileWriter(CREDENTIALS))){
+        URL path = CredentialManager.class.getClassLoader().getResource("Credentials.csv");
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("Credentials.csv");
+        System.out.println(path);
+    try(BufferedWriter bw = new BufferedWriter(new FileWriter(path.getFile()))){
         bw.write(username + ";" + password);
     } catch (IOException e) {
         throw new RuntimeException(e);
     }
 
-    init();
+        init();
     }
 
 

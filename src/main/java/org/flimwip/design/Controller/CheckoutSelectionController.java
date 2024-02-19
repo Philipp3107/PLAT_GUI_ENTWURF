@@ -4,6 +4,8 @@ import org.flimwip.design.Views.Kasse;
 import org.flimwip.design.Views.MainMenuButton;
 import org.flimwip.design.Views.NiederlassungView;
 
+import java.util.ArrayList;
+
 public class CheckoutSelectionController {
 
     private Kasse[] kassen;
@@ -67,5 +69,8 @@ public class CheckoutSelectionController {
      */
     public Kasse getSelected() {
         return selected;
+    }
+
+    public void display_files(ArrayList<String> files){
     }
 }
