@@ -2,7 +2,7 @@ package org.flimwip.design.Controller;
 
 import org.flimwip.design.Views.Checkout;
 import org.flimwip.design.Views.MainMenuButton;
-import org.flimwip.design.Views.NiederlassungView;
+import org.flimwip.design.Views.BranchView;
 
 import java.io.File;
 

@@ -5,9 +5,6 @@ import org.flimwip.design.Views.Checkout;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 
 public class Check_Connection implements Runnable {
@@ -27,98 +24,57 @@ public class Check_Connection implements Runnable {
         // für mac
         //this.ip_to_look = "172.217.16.206";
     }
-    @Override
-    public void run() {
-        try {
-            System.out.println("Starting ping for " + this.k.getId());
-            //TODO: Dieser part muss mit der Checkout id und der Niederlassungs id erstellt werden
-            //only for Windows, not mac
-            semaphore.acquire();
-            System.out.println(this.k.getId() + " starting");
-            System.out.println("IP to look for is: " + this.ip_to_look);
-            List<String> temp = PingIpAddr(this.ip_to_look);
-            //System.out.println(temp.get(8).contains("Verloren = 0"));
 
-            String to_check_win = "Verloren = 0";
-            String to_check_mac = "0.0% packet loss";
-            //mac -> 7
-            //win -> 8
-            if(temp.size() >= 8){
-                if(temp.get(8).contains(to_check_win)){
-                    this.k.set_online();
-                    this.k.set_clickabel(true);
-                    semaphore.release();
-                }else{
-                    //this.k.set_offline();
-                    this.k.set_clickabel(false);
-                    semaphore.release();
-                }
-            }else{
-                this.k.set_offline();
-                this.k.set_clickabel(false);
-                semaphore.release();
+    @Override
+    public void run(){
+        System.out.println("Starting ping for" + this.k.getId());
+
+        try{
+            this.semaphore.acquire();
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while acquiring Semaphore");
+        }
+
+        if(ping(this.ip_to_look)){
+            //Fetch Data from Checkout
+            semaphore.release();
+            Thread t = new Thread(new FetchFiles(this.ip_to_look, this.semaphore, this.k));
+            t.setDaemon(true);
+            t.start();
+        }else{
+            this.k.set_offline();
+        }
+    }
+
+
+    /**
+     * This Method pings the given IP and checks if the Response is okay
+     * If the IP is reachable it returns true, otherwise false.
+     * @param ip String: IP to ping
+     * @return boolean
+     * @throws IOException
+     */
+    public boolean ping(String ip) {
+
+        try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(new ProcessBuilder("ping", ip).start().getInputStream()));) {
+
+            this.k.set_searching();
+            while (!stdInput.ready()) {
+                //while the Process
             }
+
+            String line;
+            while ((line = stdInput.readLine()) != null) {
+                if (line.contains("Verloren = 0")) {
+                    return true;
+                }
+            }
+            return false;
 
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
 
-
-    }
-
-    public List<String> PingIpAddr(String ip) throws IOException
-    {
-        //windows use
-        ProcessBuilder pb = new ProcessBuilder("ping", ip);
-        //mac use
-        ProcessBuilder pb = new ProcessBuilder("ping", "-c 4", ip);
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
-        this.k.set_searching();
-        while (!stdInput.ready())
-        {
-
-            // custom timeout handling
-            //System.out.println("Looking for ping");
-        }
-
-        String line;
-        ArrayList<String> output = new ArrayList<>();
-
-        while ((line = stdInput.readLine()) != null)
-        {
-            output.add(line);
-        }
-
-        return output;
-            System.out.println("Line: " + line);
-    }
-
-    public Future<List<String>> PingIpAddrFuture(String ip) throws IOException
-    {
-        //windows use
-        //ProcessBuilder pb = new ProcessBuilder("ping", ip);
-        //mac use
-        ProcessBuilder pb = new ProcessBuilder("ping", "-c 5", ip);
-        BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
-        this.k.set_searching();
-        while (!stdInput.ready())
-        {
-
-            // custom timeout handling
-            //System.out.println("Looking for ping");
-        }
-
-        String line;
-        ArrayList<String> output = new ArrayList<>();
-
-        while ((line = stdInput.readLine()) != null)
-        {
-            output.add(line);
-        }
-
-        return (Future<List<String>>) output;
     }
 
 }
