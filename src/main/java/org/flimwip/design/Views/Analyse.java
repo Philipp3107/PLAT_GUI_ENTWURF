@@ -20,7 +20,14 @@ import java.util.Set;
 
 public class Analyse extends VBox {
 
+    /**
+     * {@link MainController} used for this Controller
+     */
     private final MainController controller;
+
+    /**
+     *
+     */
     private final DataStorage ds;
 
     private FlowPane main;
@@ -109,8 +116,8 @@ public class Analyse extends VBox {
 
         for(String s: list){
             if(s.contains(text) | ds.get_nl_name(s).contains(text.toUpperCase())) {
-                System.out.println(s);
-                Niederlassung nl = new Niederlassung(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
+                //System.out.println(s);
+                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
                 this.main.getChildren().add(nl);
             }
         }
