@@ -29,13 +29,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        CredentialManager cm = new CredentialManager();
 
         DataStorage ds = new DataStorage("NL_Liste.csv");
         this.checkoutSelectionController = new CheckoutSelectionController(null);
 
         /* Alle verwendeten BorderPane(Panes) */
-        this.dashboard = new Dashboard(cm);
+        this.dashboard = new Dashboard();
         this.analyse = new Analyse(this.mainController, ds);
 
         root = new BorderPane();
