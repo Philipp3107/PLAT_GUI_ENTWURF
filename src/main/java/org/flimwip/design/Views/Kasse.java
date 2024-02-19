@@ -17,7 +17,6 @@ import org.flimwip.design.utility.Check_Connection;
 import org.flimwip.design.utility.StandortTranslator;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.*;
 
 public class Kasse extends VBox {
@@ -32,7 +31,6 @@ public class Kasse extends VBox {
 
     private Label l;
 
-    private HBox top;
     private final CheckoutSelectionController cont;
     private KassenModel km;
 
@@ -82,7 +80,7 @@ public class Kasse extends VBox {
         this.setPadding(set);
         setMargin(this, new Insets(10));
 
-        top = new HBox();
+        HBox top = new HBox();
         this.l = new Label(this.checkout);
         this.l.setStyle("-fx-font-weight: bold;");
         this.l.setTextFill(Color.BLACK);
