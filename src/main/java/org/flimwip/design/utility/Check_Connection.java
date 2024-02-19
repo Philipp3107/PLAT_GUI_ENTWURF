@@ -12,16 +12,15 @@ import java.util.concurrent.Semaphore;
 
 public class Check_Connection implements Runnable {
 
-    private String nl;
     private String checkout;
     private Checkout k;
-
+    private String nl;
     private Semaphore semaphore;
     private String ip_to_look;
     public Check_Connection(String nl, String checkout, String username, String password, Checkout k, Semaphore semaphore){
-        this.nl = nl;
         this.checkout = checkout;
         this.k = k;
+        this.nl = nl;
         this.semaphore = semaphore;
         //nur für windows
         this.ip_to_look = "DE0" + this.nl + "CPOS20" + this.checkout;
@@ -31,11 +30,12 @@ public class Check_Connection implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("Starting ping for " + this.k.getId());
             //TODO: Dieser part muss mit der Checkout id und der Niederlassungs id erstellt werden
             //only for Windows, not mac
             semaphore.acquire();
             System.out.println(this.k.getId() + " starting");
-            System.out.println(this.ip_to_look);
+            System.out.println("IP to look for is: " + this.ip_to_look);
             List<String> temp = PingIpAddr(this.ip_to_look);
             //System.out.println(temp.get(8).contains("Verloren = 0"));
 
@@ -49,7 +49,7 @@ public class Check_Connection implements Runnable {
                     this.k.set_clickabel(true);
                     semaphore.release();
                 }else{
-                    this.k.set_offline();
+                    //this.k.set_offline();
                     this.k.set_clickabel(false);
                     semaphore.release();
                 }
@@ -73,7 +73,7 @@ public class Check_Connection implements Runnable {
         //windows use
         ProcessBuilder pb = new ProcessBuilder("ping", ip);
         //mac use
-        //ProcessBuilder pb = new ProcessBuilder("ping", "-c 4", ip);
+        ProcessBuilder pb = new ProcessBuilder("ping", "-c 4", ip);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
         this.k.set_searching();
         while (!stdInput.ready())
@@ -92,6 +92,7 @@ public class Check_Connection implements Runnable {
         }
 
         return output;
+            System.out.println("Line: " + line);
     }
 
     public Future<List<String>> PingIpAddrFuture(String ip) throws IOException

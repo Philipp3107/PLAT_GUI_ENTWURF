@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
-import org.flimwip.design.Models.KassenModel;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.Check_Connection;
 import org.flimwip.design.utility.FetchFiles;
 import org.flimwip.design.utility.StandortTranslator;
@@ -34,7 +34,7 @@ public class Checkout extends VBox {
     private Label l;
 
     private final CheckoutSelectionController cont;
-    private KassenModel km;
+    private CheckoutModel km;
 
     private Circle c;
 
@@ -65,12 +65,12 @@ public class Checkout extends VBox {
         }
     }
 
-    public Checkout(KassenModel km, CheckoutSelectionController controller) {
+    public Checkout(CheckoutModel km, CheckoutSelectionController controller) {
         this.cont = controller;
         this.km = km;
-        this.checkout = km.getCheckout_id();
-        this.city = km.getNl_name();
-        this.location = km.getNl();
+        this.checkout = km.checkout_id();
+        this.city = km.branch_name();
+        this.location = km.branch();
 
     }
 
