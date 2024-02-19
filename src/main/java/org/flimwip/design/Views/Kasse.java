@@ -40,6 +40,9 @@ public class Kasse extends VBox {
 
     private Semaphore semaphore;
 
+    private boolean active = false;
+    private boolean online = false;
+
 
     public Kasse(String location, String checkout, String version , CheckoutSelectionController checkoutSelectionController, Semaphore semaphore){
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
@@ -130,20 +133,22 @@ public class Kasse extends VBox {
         });
 
         this.setOnMouseClicked(mouseEvent -> {
-            if(selected){
-                selected = false;
-                cont.set_selected("");
-                this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
-                this.cont.set_version("");
-                this.cont.set_city("");
+            if(online) {
+                if (selected) {
+                    selected = false;
+                    cont.set_selected("");
+                    this.setStyle("-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;");
+                    this.cont.set_version("");
+                    this.cont.set_city("");
 
-            }else {
-                selected = true;
-                //System.out.println("Im selected: " + this.getId());
-                cont.set_selected(this.getId());
-                this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
-                this.cont.set_version(this.version);
-                this.cont.set_city(this.city);
+                } else {
+                    selected = true;
+                    //System.out.println("Im selected: " + this.getId());
+                    cont.set_selected(this.getId());
+                    this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
+                    this.cont.set_version(this.version);
+                    this.cont.set_city(this.city);
+                }
             }
         });
 
@@ -195,6 +200,13 @@ public class Kasse extends VBox {
     public void set_offline(){
         System.out.println("Setting offline [" + this.checkout + "]");
     this.c.setFill(Color.RED);
+    }
+
+    public void set_clickabel(boolean active){
+        this.active = active;
+        if(active){
+            online = true;
+        }
     }
 
 }

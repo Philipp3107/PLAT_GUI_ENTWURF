@@ -46,13 +46,16 @@ public class Check_Connection implements Runnable {
             if(temp.size() >= 8){
                 if(temp.get(8).contains(to_check_win)){
                     this.k.set_online();
+                    this.k.set_clickabel(true);
                     semaphore.release();
                 }else{
                     this.k.set_offline();
+                    this.k.set_clickabel(false);
                     semaphore.release();
                 }
             }else{
                 this.k.set_offline();
+                this.k.set_clickabel(false);
                 semaphore.release();
             }
 
