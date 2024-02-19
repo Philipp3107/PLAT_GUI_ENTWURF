@@ -13,8 +13,6 @@ import org.flimwip.design.Views.*;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.DataStorage;
 
-import java.io.InputStream;
-
 
 public class Main extends Application {
 
@@ -73,7 +71,7 @@ public class Main extends Application {
         }
     }
 
-    public void set_center_to_nl(NiederlassungView view){
+    public void set_center_to_nl(BranchView view){
         this.root.setCenter(view);
     }
 

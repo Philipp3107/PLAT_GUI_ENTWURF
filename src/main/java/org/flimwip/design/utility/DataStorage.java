@@ -36,7 +36,7 @@ public class DataStorage {
                     boolean mobil = splitted[3].contains("(Mobil)");
                     //System.out.println(mobil);
                     String checkout = splitted[4].substring(12, 15);
-                    //System.out.println("Kasse: " + checkout);
+                    //System.out.println("Checkouts: " + checkout);
                     String version = splitted[8];
                     //System.out.println("Version: " + version);
                     KassenModel k = new KassenModel(nl, nl_name, region, mobil, checkout, version);
@@ -65,7 +65,7 @@ public class DataStorage {
 
 
         } catch (FileNotFoundException e) {
-            System.out.println("CheckoutFile " + this.filename + " could not be found.");
+            System.out.println("LogFile " + this.filename + " could not be found.");
         } catch (IOException e) {
             System.out.println("An exception occoured.");
         }

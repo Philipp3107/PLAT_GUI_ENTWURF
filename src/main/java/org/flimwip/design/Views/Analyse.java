@@ -46,7 +46,7 @@ public class Analyse extends VBox {
         Collections.sort(list);
 
         for(String s: list){
-            Niederlassung nl = new Niederlassung(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
+            Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
             main.getChildren().add(nl);
         }
         fav.getChildren().add(favorites);
@@ -119,7 +119,7 @@ public class Analyse extends VBox {
     }
 
     void display_nl(String nl_id){
-        this.controller.set_center_to_nl(new NiederlassungView(nl_id, ds.getcheckouts(nl_id), this));
+        this.controller.set_center_to_nl(new BranchView(nl_id, ds.getcheckouts(nl_id), this));
     }
 
     public void go_back(){

@@ -2,7 +2,7 @@ package org.flimwip.design.Controller;
 
 import org.flimwip.design.Main;
 import org.flimwip.design.Views.MainMenuButton;
-import org.flimwip.design.Views.NiederlassungView;
+import org.flimwip.design.Views.BranchView;
 
 public class MainController {
 
@@ -30,7 +30,7 @@ public class MainController {
         }
     }
 
-    public void set_center_to_nl(NiederlassungView view){
+    public void set_center_to_nl(BranchView view){
         this.main.set_center_to_nl(view);
     }
 }

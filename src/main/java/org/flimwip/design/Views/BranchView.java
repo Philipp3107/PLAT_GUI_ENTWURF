@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
 import javafx.stage.Window;
@@ -14,10 +13,14 @@ import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.KassenModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-public class NiederlassungView extends BorderPane {
+public class BranchView extends BorderPane {
 
     private Label version;
     private Label city;
@@ -31,7 +34,7 @@ public class NiederlassungView extends BorderPane {
     private HBox top_wrapper = new HBox();
 
     private ArrayList<KassenModel> kassenModels;
-    private Kasse[] kassen;
+    private Checkouts[] kassen;
 
     private String nl_id;
 
@@ -41,7 +44,7 @@ public class NiederlassungView extends BorderPane {
 
 
     private Semaphore semaphore;
-    public NiederlassungView(String nl_id, ArrayList<KassenModel> kassen, Analyse analyse){
+    public BranchView(String nl_id, ArrayList<KassenModel> kassen, Analyse analyse){
         this.fc = new FileController(this);
         this.analyse = analyse;
         this.kassenModels = kassen;
@@ -93,10 +96,10 @@ public class NiederlassungView extends BorderPane {
 
     private void setting_kassen(){
 
-        this.kassen = new Kasse[kassenModels.size()];
+        this.kassen = new Checkouts[kassenModels.size()];
         int i = 0;
         for(KassenModel km : kassenModels){
-            Kasse k = new Kasse(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller , this.semaphore);
+            Checkouts k = new Checkouts(km.getNl(), km.getCheckout_id(), km.getVersion(), this.controller , this.semaphore);
             kassen[i] = k;
             i++;
         }
@@ -128,21 +131,25 @@ public class NiederlassungView extends BorderPane {
         if(id.isEmpty()){
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
-            Label l = new Label("Wähle eine Kasse aus.");
+            Label l = new Label("Wähle eine Checkouts aus.");
             l.setStyle("-fx-text-fill: white; -fx-font-size: 25");
             box.getChildren().add(l);
             this.setCenter(box);
         }
         else{
+            Checkouts k = this.controller.getSelected();
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
-
             FlowPane flow = new FlowPane(5, 5);
             flow.setOrientation(Orientation.HORIZONTAL);
             flow.setPrefWrapLength(1105);
-            for(int i = 0; i < 100; i++){
-                flow.getChildren().add(build_file(i));
+            assert k != null;
+            for(File f: k.getFiles()){
+                flow.getChildren().add(build_file(f));
             }
+            /*for(int i = 0; i < 100; i++){
+                flow.getChildren().add(build_file(i));
+            }*/
             ScrollPane scroller = new ScrollPane(flow);
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
@@ -154,7 +161,27 @@ public class NiederlassungView extends BorderPane {
     }
 
 
-    private CheckoutFile build_file(int i){
+    public LogFile build_file(File f){
+        String name = f.getName();
+        String date = null;
+        try {
+            date = String.valueOf(Files.getLastModifiedTime(Path.of(f.getAbsolutePath()))).split("T")[0];
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String size = null;
+        try {
+            size = String.valueOf(Files.size(Path.of(f.getAbsolutePath())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        LogFile file = new LogFile(name, size, date, this.fc);
+        this.fc.add_file(file);
+        return file;
+    }
+
+    public LogFile build_file(int i){
         String number = String.valueOf(i);
         for(int j = number.length(); j < 5 - number.length(); j++){
             number = "0" + number;
@@ -162,7 +189,7 @@ public class NiederlassungView extends BorderPane {
         String filename = "pos-debug.log-20231111" + number + ".zip";
         String filesize = "1234.7kb";
         String change_time = "11.11.2023";
-        CheckoutFile file = new CheckoutFile(filename, filesize, change_time, this.fc);
+        LogFile file = new LogFile(filename, filesize, change_time, this.fc);
         this.fc.add_file(file);
         return file;
     }
