@@ -68,8 +68,9 @@ public class Check_Connection implements Runnable {
 
             String line;
             while ((line = stdInput.readLine()) != null) {
-                System.out.println("Checkout_Connection -> Line is: " + line);
+                //System.out.println("Checkout_Connection -> Line is: " + line);
                 if (line.contains("Verloren = 0")) {
+                    System.out.println("Checkout_Connection -> Ping erfolgreich");
                     return true;
                 }
             }

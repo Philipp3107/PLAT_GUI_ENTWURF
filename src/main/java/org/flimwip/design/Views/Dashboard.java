@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -58,17 +59,45 @@ public class Dashboard extends VBox {
         stats = build_stats(color1 ,color2);
 
 
-        VBox second = build_controls();
+        VBox second = build_control();
 
-        Label l2 = new Label("Keine Ahnung");
-        second.getChildren().add(l2);
         VBox.setVgrow(stats, Priority.ALWAYS);
-        VBox.setVgrow(second, Priority.ALWAYS);
 
         top.getChildren().addAll(stats, second);
         top.setSpacing(10);
         this.getChildren().add(top);
 
+    }
+
+    public VBox build_control(){
+        VBox control = new VBox();
+        //control.setStyle("-fx-background-color: blue");
+        control.setStyle("-fx-background-color: #373737; -fx-background-radius: 10");
+        HBox.setHgrow(control, Priority.ALWAYS);
+        VBox.setVgrow(control, Priority.ALWAYS);
+        control.setPadding(new Insets(10));
+
+
+
+
+
+
+
+        VBox display = new VBox();
+        display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10");
+        HBox.setHgrow(display, Priority.ALWAYS);
+        VBox.setVgrow(display, Priority.ALWAYS);
+
+        Label l = new Label("Setup a User");
+        l.setStyle("-fx-text-fill: white; -fx-font-size: 15");
+        Label l2 = new Label("+");
+        l2.setStyle("-fx-text-fill: white; -fx-font-size: 30");
+        display.getChildren().addAll(l2, l);
+
+        display.setAlignment(Pos.CENTER);
+
+        control.getChildren().add(display);
+        return control;
     }
 
     public VBox build_controls(){
@@ -80,7 +109,7 @@ public class Dashboard extends VBox {
         TextField password = new TextField(CredentialManager.get_password());
         //username text field
         TextField username = new TextField(CredentialManager.get_username());
-        controls.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
+        controls.setStyle("-fx-background-color: #373737; -fx-background-radius: 10");
         controls.setMinHeight(190);
         controls.setMinWidth(156);
         controls.setPrefWidth(466);
@@ -104,6 +133,36 @@ public class Dashboard extends VBox {
                 b.setDisable(false);
             }
 
+        });
+
+        username.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ESCAPE){
+                controls.requestFocus();
+            }else if(keyEvent.getCode() == KeyCode.ENTER){
+                System.out.println(password.getText());
+                System.out.println(username.getText());
+                try {
+                    CredentialManager.set_new_credentials(username.getText(), password.getText());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                b.setDisable(true);
+            }
+        });
+
+        password.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ESCAPE){
+                controls.requestFocus();
+            }else if(keyEvent.getCode() == KeyCode.ENTER){
+                System.out.println(password.getText());
+                System.out.println(username.getText());
+                try {
+                    CredentialManager.set_new_credentials(username.getText(), password.getText());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                b.setDisable(true);
+            }
         });
 
         password.textProperty().addListener((observableValue, s, t1) -> {
@@ -145,7 +204,7 @@ public class Dashboard extends VBox {
 
     private VBox build_stats(String color1, String color2){
     VBox stats = new VBox();
-    stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 20");
+    stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 10");
     stats.setPadding(new Insets(10));
     stats.setMinHeight(300);
     stats.setMaxHeight(300);
@@ -184,7 +243,8 @@ public class Dashboard extends VBox {
     //Setting Center
     center.setMinHeight(140);
     center.setSpacing(20);
-    this.center_left = DashboardStats.get_box(color1, color2, "error");
+
+    this.center_left = DashboardStats.get_box(color1, color2, "error", 812);
     this.center_right = new VBox();
         this.center_right.setSpacing(8);
         this.center_right.getChildren().addAll(this.warn_button, this.error_button, this.critical_button);
@@ -202,12 +262,14 @@ public class Dashboard extends VBox {
 
 
     public void change_stats(String name){
+
+        double temp = this.widthProperty().get() / 3;
         if(name.equals("error")){
             String first = "#9f3636";
             String second = "#e06e6e";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = DashboardStats.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name, temp * 2);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
             this.top.getChildren().add(DashboardStats.getTrend(name));
@@ -217,7 +279,7 @@ public class Dashboard extends VBox {
             String second = "eeBB77";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = DashboardStats.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name, temp * 2);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
             this.top.getChildren().add(DashboardStats.getTrend(name));
@@ -227,7 +289,7 @@ public class Dashboard extends VBox {
             String second = "B87BD4";
             this.center.getChildren().remove(center_left);
             this.center.getChildren().remove(center_right);
-            this.center_left = DashboardStats.get_box(first, second, name);
+            this.center_left = DashboardStats.get_box(first, second, name, temp * 2);
             this.center.getChildren().addAll(center_left, center_right);
             this.top.getChildren().remove(1);
             this.top.getChildren().add(DashboardStats.getTrend(name));

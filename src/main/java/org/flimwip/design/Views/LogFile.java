@@ -28,8 +28,8 @@ public class LogFile extends HBox {
         this.setSpacing(10);
         this.setMinHeight(24);
         this.setMaxHeight(24);
-        this.setMinWidth(545);
-        this.setMaxWidth(545);
+        this.setMinWidth(540);
+        this.setMaxWidth(540);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(6));
         this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
