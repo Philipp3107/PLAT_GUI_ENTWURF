@@ -26,6 +26,13 @@ public class FetchFiles implements Runnable{
      * The {@link Checkout} of which the Files need to be pulled
      */
     private final Checkout k;
+
+    /**
+     * Contstructor
+     * @param kassenid String -> Id of the Checkout
+     * @param semaphore Semaphore -> Management for all Runnables, Limitations to 10
+     * @param k Checkout -> View to update
+     */
     public FetchFiles(String kassenid, Semaphore semaphore, Checkout k){
         this.kassenid = kassenid;
         this.semaphore = semaphore;

@@ -10,23 +10,33 @@ import java.util.Properties;
 
 public class UserController {
 
-    private ArrayList<UserView> user_views;
+    private ArrayList<UserView> user_views_dashboard;
+
+    private ArrayList<UserView> user_views_settings;
 
     private ArrayList<User> pos_user;
     public UserController(){
+        System.out.println("UserController -> Initializing Users");
         load_users();
-        System.out.println("loaded users");
-        this.user_views = new ArrayList<>();
+        System.out.println("UserController -> loaded users");
+        this.user_views_dashboard = new ArrayList<>();
+        this.user_views_settings = new ArrayList<>();
         for(User user : pos_user){
-            this.user_views.add(new UserView(user, this));
+            this.user_views_dashboard.add(new UserView(user, this));
+            this.user_views_settings.add(new UserView(user, this));
+            System.out.println("UserController -> Build user: " + user.getName());
         }
-        System.out.println("builded user views");
+        System.out.println("UserController -> builded user views");
     }
 
-    public ArrayList<UserView> get_user_views(){
-        System.out.println("returned user views");
-        return this.user_views;
+    public ArrayList<UserView> get_user_views_dashboard(){
+        System.out.println("returned user views to dashbaord");
+        return this.user_views_dashboard;
+    }
 
+    public ArrayList<UserView> get_user_views_settings(){
+        System.out.println("returned user views to Settings");
+        return this.user_views_settings;
     }
 
 
@@ -35,7 +45,7 @@ public class UserController {
         for(User user: pos_user){
             if(!user.getName().equals(name)){
                 user.setSelected(false);
-                for(UserView view : user_views){
+                for(UserView view : user_views_settings){
                     if(view.get_users_name().equals(user.getName())){
                         view.set_deselected();
                     }
@@ -43,7 +53,27 @@ public class UserController {
                 System.out.println("user " + user.getName() + " set to " + user.isSelected());
             }else{
                 user.setSelected(true);
-                for(UserView view : user_views){
+                for(UserView view : user_views_settings){
+                    if(view.get_users_name().equals(user.getName())){
+                        view.set_selected();
+                    }
+                }
+                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+            }
+        }
+        //Dashboard
+        for(User user: pos_user){
+            if(!user.getName().equals(name)){
+                user.setSelected(false);
+                for(UserView view : user_views_dashboard){
+                    if(view.get_users_name().equals(user.getName())){
+                        view.set_deselected();
+                    }
+                }
+                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+            }else{
+                user.setSelected(true);
+                for(UserView view : user_views_dashboard){
                     if(view.get_users_name().equals(user.getName())){
                         view.set_selected();
                     }
