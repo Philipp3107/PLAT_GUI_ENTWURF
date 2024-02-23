@@ -1,5 +1,6 @@
 package org.flimwip.design.Controller;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import org.flimwip.design.Main;
 import org.flimwip.design.Views.MainMenuButton;
 import org.flimwip.design.Views.BranchView;
@@ -18,12 +19,16 @@ public class MainController {
      */
   private MainMenuButton[] mmb;
 
+  public SimpleDoubleProperty stage_width;
+
     /**
      * Constructor
      * @param main {@link Main}
      */
     public MainController(Main main){
+        this.stage_width = new SimpleDoubleProperty(0);
         this.main = main;
+
     }
 
     /**

@@ -37,12 +37,16 @@ public class UserView extends HBox {
         build_button();
         HBox box = new HBox();
         box.setSpacing(10);
-        box.getChildren().addAll(build_name(), this.b);
+        HBox wrapper = new HBox();
+        wrapper.getChildren().add(build_name());
+        HBox.setHgrow(wrapper, Priority.ALWAYS);
+        box.getChildren().addAll(wrapper, this.b);
         return box;
     }
 
     private VBox build_side_content(){
         VBox box = new VBox();
+        HBox.setHgrow(box, Priority.ALWAYS);
         box.setSpacing(5);
         box.getChildren().addAll(build_side_top_content(), build_description());
         return box;

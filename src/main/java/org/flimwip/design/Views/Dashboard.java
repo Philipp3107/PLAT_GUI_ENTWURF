@@ -7,10 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import org.flimwip.design.Controller.DashboardStatsController;
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.DashboardStats;
 import org.flimwip.design.utility.CredentialManager;
 
@@ -40,11 +43,12 @@ public class Dashboard extends VBox {
 
     private Label trend;
 
+    private final UserController user_controller;
 
-    public Dashboard(){
+    public Dashboard(UserController user_controller){
         this.controller = new DashboardStatsController(this);
         this.cm = cm;
-
+        this.user_controller = user_controller;
         this.warn_button = new DashboardButton("warn", this.controller);
         this.error_button = new DashboardButton("error", true, this.controller);
         this.critical_button = new DashboardButton("critical", this.controller);
@@ -78,23 +82,59 @@ public class Dashboard extends VBox {
         control.setPadding(new Insets(10));
 
 
-
-
-
-
-
         VBox display = new VBox();
-        display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10");
+        if(this.user_controller.get_user_views_dashboard() == null){
+            display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10");
+            Label l = new Label("Setup a User");
+            l.setStyle("-fx-text-fill: white; -fx-font-size: 15");
+            Label l2 = new Label("+");
+            l2.setStyle("-fx-text-fill: white; -fx-font-size: 30");
+            display.getChildren().addAll(l2, l);
+
+            display.setAlignment(Pos.CENTER);
+        }else{
+            for(UserView uv: this.user_controller.get_user_views_dashboard()){
+                UserView user_view = uv;
+                display.getChildren().add(user_view);
+            }
+            display.setSpacing(10);
+        }
+
+        //display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10");
         HBox.setHgrow(display, Priority.ALWAYS);
         VBox.setVgrow(display, Priority.ALWAYS);
 
-        Label l = new Label("Setup a User");
-        l.setStyle("-fx-text-fill: white; -fx-font-size: 15");
-        Label l2 = new Label("+");
-        l2.setStyle("-fx-text-fill: white; -fx-font-size: 30");
-        display.getChildren().addAll(l2, l);
+        display.setOnMouseEntered(mouseEvent -> {
+            System.out.println("Mouse is drin");
+            HBox user_adding = new HBox();
+            user_adding.setMinHeight(60);
+            user_adding.setAlignment(Pos.CENTER);
+            user_adding.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10; -fx-border-width: 1.5");
+            Pane plus = new Pane();
+            plus.setMinWidth(40);
+            plus.setMaxWidth(40);
+            plus.setMinHeight(40);
+            plus.setMaxHeight(40);
+            Line l = new Line();
+            l.setStartX(10);
+            l.setEndX(30);
+            l.setStartY(20);
+            l.setEndY(20);
+            Line l2 = new Line();
+            l2.setStartX(20);
+            l2.setEndX(20);
+            l2.setStartY(10);
+            l2.setEndY(30);
+            plus.getChildren().addAll(l, l2);
+            plus.setStyle("-fx-background-radius: 30; -fx-background-color: gray");
+            user_adding.getChildren().add(plus);
+            display.getChildren().add(user_adding);
+        });
 
-        display.setAlignment(Pos.CENTER);
+        display.setOnMouseExited(mouseEvent -> {
+            System.out.println("Mouse is draußen");
+            display.getChildren().remove(display.getChildren().size() - 1);
+        });
 
         control.getChildren().add(display);
         return control;

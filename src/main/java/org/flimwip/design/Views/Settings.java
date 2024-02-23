@@ -19,20 +19,19 @@ public class Settings extends VBox {
         VBox user_settings = new VBox();
         user_settings.setPadding(new Insets(10));
         user_settings.setSpacing(10);
+
         HBox box = new HBox();
         box.setSpacing(10);
-        for(UserView uv : this.userController.get_user_views()){
+        for(UserView uv : this.userController.get_user_views_settings()){
             box.getChildren().add(uv);
         }
+        System.out.println("Returned UserViews to Settings");
+
         Label heading = new Label("PosUser");
         heading.setStyle("-fx-text-fill: white; -fx-font-size: 25");
+
         user_settings.getChildren().addAll(heading, box);
         this.getChildren().add(user_settings);
-
-    }
-
-
-    private void build_users(){
 
     }
 }

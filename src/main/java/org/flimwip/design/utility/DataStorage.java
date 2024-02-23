@@ -29,7 +29,7 @@ public class DataStorage {
 
         ArrayList<CheckoutModel> model = new ArrayList<>();
         String line = "";
-        String temp_nl = "109";
+        String temp_nl = "102";
         InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream(filename);
         try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
                 while((line = br.readLine()) != null){

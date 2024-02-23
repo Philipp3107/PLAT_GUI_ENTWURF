@@ -1,5 +1,7 @@
 package org.flimwip.design.Views;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -68,13 +70,22 @@ public class Analyse extends VBox {
 
         //Build up of m
         this.m = new HBox();
-        m.setPrefWidth(1400);
         HBox.setHgrow(m, Priority.ALWAYS);
         VBox.setVgrow(m, Priority.ALWAYS);
 
+
         //setup of main
         this.main = new FlowPane(5, 5);
-        this.main.setPrefWrapLength(1261);
+
+        this.main.setAlignment(Pos.TOP_CENTER);
+        this.controller.stage_width.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                main.setPrefWrapLength(t1.doubleValue());
+                System.out.println("Pref Wrap Length is: " + main.getPrefWrapLength());
+            }
+        });
+        this.main.setPrefWrapLength(this.controller.stage_width.get());
         this.main.setOrientation(Orientation.HORIZONTAL);
 
         //Sorting of the Keys in the DataStorage
@@ -83,7 +94,7 @@ public class Analyse extends VBox {
 
         //Adding the Keys as Branches to the FlowPane
         for(String s: list){
-            Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
+            Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,false, this);
             main.getChildren().add(nl);
         }
 
@@ -159,7 +170,7 @@ public class Analyse extends VBox {
         System.out.println(text);
         this.m.getChildren().remove(this.main);
         this.main = new FlowPane(5, 10);
-        this.main.setPrefWrapLength(1400);
+        this.main.setPrefWrapLength(1786);
         this.main.setOrientation(Orientation.HORIZONTAL);
 
         Set<String> sets = ds.list_keys();
@@ -169,7 +180,7 @@ public class Analyse extends VBox {
         for(String s: list){
             if(s.contains(text) | ds.get_nl_name(s).contains(text.toUpperCase())) {
                 //System.out.println(s)
-                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), false, this);
+                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), ds.getcheckouts(s) ,false, this);
                 this.main.getChildren().add(nl);
             }
         }
