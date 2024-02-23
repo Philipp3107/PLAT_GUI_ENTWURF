@@ -115,14 +115,6 @@ public class Analyse extends VBox {
 
     }
 
-    private void setup_fav(){
-
-    }
-
-    private void setup_main(){
-
-    }
-
     /**
      * Build the Seatch Text Field
      * @return TextField
