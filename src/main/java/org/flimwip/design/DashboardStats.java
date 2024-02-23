@@ -169,7 +169,7 @@ public class DashboardStats extends Application {
 
 
     //Das soll nur für die letzten 30 Tage gehen
-    public static HBox get_box(String first, String second, String name){
+    public static HBox get_box(String first, String second, String name, double size){
         int type = 0;
         if(name.equals("warn")){
             type = 0;
@@ -240,7 +240,7 @@ public class DashboardStats extends Application {
 
 
         //Breite von jedem Rechteck ist rect_width
-        int width = 816;
+        int width = (int) size;
         double rect_width = Math.floor((double) width /lineCount);
 
         graph.setAlignment(Pos.BASELINE_LEFT);

@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -129,10 +130,23 @@ public class Analyse extends VBox {
      */
     private TextField serach_text_field(){
         TextField searching = new TextField();
-        searching.setOnKeyPressed(keyEvent -> {
-            search = searching.getText();
-            filter_center(search);
 
+        searching.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.BACK_SPACE){
+                String temp = searching.getText();
+                if(!this.search.equals(temp)){
+                    this.search = temp;
+                }else if(!this.search.isEmpty()){
+                    this.search = search.substring(0, search.length() -1);
+                }
+            }else if(keyEvent.getCode() == KeyCode.ESCAPE){
+                this.requestFocus();
+
+            }else{
+                this.search += keyEvent.getText();
+            }
+            System.out.println(search);
+            filter_center(search);
         });
         return searching;
     }

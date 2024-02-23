@@ -55,18 +55,19 @@ public class NetCon{
     public boolean get_connection() throws IOException{
             String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
             ProcessBuilder pb = new ProcessBuilder(command);
+        //System.out.println(pb.command());
             //net use \\DE0666CPOS20002\c$ /u:fc.de.bauhaus.intra\pos-install M6kUVm3T && explorer \\DE0666CPOS20002\c$\gkretail\pos-full\log
             //Der Befehl wurde erfolgreich ausgeführt.
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
             //System.out.println(pb.command());
-            //int i = 0;
+            int i = 0;
             while(!stdInput.ready()){
-                /*custom timeout handling
+                //custom timeout handling
                 System.out.print("Watingin: " + i + "\r");
                 i++;
                 if(i >= 500000){
                     return false;
-                }*/
+                }
             }
 
             String line;
