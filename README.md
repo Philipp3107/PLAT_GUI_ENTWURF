@@ -12,7 +12,7 @@ Make usage of Method invoker
 - ```keepif``` : original to reduced Logfile if criteria is okay
 - ```eliminate``` : not to reduced Logfile
 - ```bridge``` : marks a section with a below or above Line, is a ```eleminate``` if no other line is specified
--``` userflow```: set seperate and is translated into Keys pressed on UI
+- ``` userflow```: set seperate and is translated into Keys pressed on UI
 
 ## Questions
 - how to invoke setter with args
