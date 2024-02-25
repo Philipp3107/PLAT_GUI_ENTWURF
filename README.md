@@ -4,6 +4,9 @@ This Application provides a simple and easy to understand User Interface to hand
 
 
 ## Future criterias
+
+Make usage of Method invoker
+
 ### How to handle lines
 - ```keep``` : original to reduced Logfile
 - ```keepif``` : original to reduced Logfile if criteria is okay
