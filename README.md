@@ -13,3 +13,8 @@ Make usage of Method invoker
 - ```eliminate``` : not to reduced Logfile
 - ```bridge``` : marks a section with a below or above Line, is a ```eleminate``` if no other line is specified
 -``` userflow```: set seperate and is translated into Keys pressed on UI
+
+## Questions
+- how to invoke setter with args
+- how to invode generic setter with args
+- how to strcture Files when no specific variable is given (hashmap for key value invokation?)
