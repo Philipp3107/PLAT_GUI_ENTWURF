@@ -6,6 +6,8 @@ This Application provides a simple and easy to understand User Interface to hand
 ## Future criterias
 
 Make usage of Method invoker
+Make use of lambdas
+make use of Predicate
 
 ### How to handle lines
 - ```keep``` : original to reduced Logfile
