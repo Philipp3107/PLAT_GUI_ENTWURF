@@ -2,8 +2,7 @@
 This is a GUI Project for an Application which purpose is to analyze log files.
 This Application provides a simple and easy to understand User Interface to handle day to day tasks with LogFiles
 
-It also provides a generic algorithm which functionality is determined by a specified Config file
-
+It also provides a generic algorithm which functionality is determined by a specified Config file to change the algorithm for each team and usecase
 
 ## Future criterias
 
