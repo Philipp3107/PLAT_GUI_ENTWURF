@@ -49,11 +49,11 @@ public class Branch extends VBox {
     //priviate init for setup
     private void init(){
         //standart breite
-        this.setMinWidth(300);
-        this.setMaxWidth(300);
+        this.setMinWidth(170);
+        this.setMaxWidth(170);
         //standart höhe
-        this.setMinHeight(55);
-        this.setMaxHeight(55);
+        this.setMinHeight(100);
+        this.setMaxHeight(100);
         this.setSpacing(5);
 
         //Insets for padding
@@ -68,10 +68,12 @@ public class Branch extends VBox {
 
 
         //in view of nl top right
-        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 20");
         //in view of nl buttom gray
         this.Bundesland.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         //in view of nl top left
+        this.city.setWrapText(true);
+        this.city.setMaxWidth(160);
         this.city.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
 
         //Assembly of contents
@@ -165,22 +167,12 @@ public class Branch extends VBox {
 
     private VBox build_standart_centent(){
         VBox cont = new VBox();
-        HBox box = new HBox(nl_nr);
-        box.setSpacing(5);
-        HBox.setHgrow(box, Priority.ALWAYS);
-        box.setAlignment(Pos.CENTER_RIGHT);
-        HBox top = new HBox(city, box);
-        top.setSpacing(5);
 
-        HBox checkouts = new HBox();
+        VBox top = new VBox(this.nl_nr, city);
+        top.setSpacing(5);
         Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
         l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        checkouts.getChildren().add(l);
-        checkouts.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(checkouts, Priority.ALWAYS);
-        HBox bl_co_wrapper = new HBox();
-        bl_co_wrapper.getChildren().addAll(Bundesland, checkouts);
-        cont.getChildren().addAll(top, bl_co_wrapper);
+        cont.getChildren().addAll(top, Bundesland, l);
         return cont;
     }
 }

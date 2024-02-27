@@ -45,7 +45,7 @@ public class Check_Connection implements Runnable {
             t.start();
         }else{
             this.k.set_offline();
-
+            semaphore.release();
         }
     }
 

@@ -172,7 +172,7 @@ public class Main extends Application {
         root.setCenter(this.dashboard);
 
         /* Setting Stage and Scene */
-        Scene scene = new Scene(root, 1559, 700);
+        Scene scene = new Scene(root, 1290, 700);
         stage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
