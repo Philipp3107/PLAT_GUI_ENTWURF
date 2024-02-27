@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 /**
- * Sets the Files found in the {@link Checkout Checkouts} directory as Files to the {@link Checkout}
- * <br>
- * If the {@link NetCon Connection} could be to the {@link Checkout} could be established, the found Files will be set to {@link Checkout#files Files} for later use.
+ * FetchFiles is a class that represents a task to fetch files from a specific checkout.
  */
 public class FetchFiles implements Runnable{
+
     /**
-     * The id of the Checkout in its complete Form {@code DE0XXXCPOS20XXX}
+     * Represents the identifier of a checkout.
      */
     private final String kassenid;
+
     /**
      * The {@link Semaphore} to manage all Threads running simultaniously
      */
@@ -40,11 +40,19 @@ public class FetchFiles implements Runnable{
     }
 
 
+    /**
+     * Fetches files from a specific checkout.
+     * Implements the Runnable interface for running the task in a separate thread.
+     */
     @Override
     public void run(){
+        String branch = null;
+        String checkout_id = null;
+        if(this.kassenid.length() >= 12){
+            branch = this.kassenid.substring(3, 6);
+            checkout_id = this.kassenid.substring(12);
+        }
 
-        String branch = this.kassenid.substring(3, 6);
-        String checkout_id = this.kassenid.substring(12);
         System.out.println(branch);
         System.out.println(checkout_id);
         NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
