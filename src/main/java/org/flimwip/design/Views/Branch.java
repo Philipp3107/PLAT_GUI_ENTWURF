@@ -10,15 +10,43 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Models.CheckoutModel;
-
 import java.util.ArrayList;
 
 
+/**
+ * Represents a branch of a store.
+ */
 public class Branch extends VBox {
 
+    /**
+     * The label that displays the city where the branch is located.
+     */
     private Label city;
+    /**
+     * This variable represents the ID of a branch.
+     */
     private String nl_id;
+    /**
+     * Represents a label for the state (Bundesland) of a branch.
+     * The label displays the state name in gray color with a bold font.
+     * It is used in the Branch view of the Analyse class.
+     */
     private Label Bundesland;
+    /**
+     * Represents a favorite flag for a branch.
+     *
+     * The `favorite` variable is used to indicate whether a branch is marked as a favorite.
+     * It is a boolean type, where `true` means the branch is a favorite and `false` means it is not.
+     *
+     * This variable is a private member of the `Branch` class.
+     *
+     * Example usage:
+     *
+     * ```java
+     * Branch branch = new Branch(nl_id, city, bundesland, kassen, favorite, analyse);
+     * boolean isFavorite = branch.isFavorite();
+     * ```
+     */
     private boolean favorite;
     private Label nl_nr;
 
@@ -33,6 +61,16 @@ public class Branch extends VBox {
     private boolean in_favorite_view = false;
 
     //Konstruktor
+    /**
+     * Represents a branch of a store.
+     *
+     * @param nl_id       the ID of the branch
+     * @param city        the city where the branch is located
+     * @param bundesland  the state where the branch is located
+     * @param kassen      the list of checkout models in the branch
+     * @param favorite    true if the branch is marked as favorite, false otherwise
+     * @param analyse     the analysis object associated with the branch
+     */
     public Branch(String nl_id, String city, String bundesland, ArrayList<CheckoutModel> kassen, boolean favorite, Analyse analyse){
         this.nl_id = nl_id;
         this.nl_nr = new Label("0" + nl_id);
@@ -45,8 +83,9 @@ public class Branch extends VBox {
         init();
     }
 
-
-    //priviate init for setup
+    /**
+     * Initializes the Branch view with default attributes and sets up the layout and content.
+     */
     private void init(){
         //standart breite
         this.setMinWidth(300);
@@ -55,8 +94,6 @@ public class Branch extends VBox {
         this.setMinHeight(55);
         this.setMaxHeight(55);
         this.setSpacing(5);
-
-        //Insets for padding
         this.setPadding(new Insets(7));
         if(this.location.equals("Labor")){
             //Style specific for Labor-NL
@@ -84,14 +121,8 @@ public class Branch extends VBox {
         //   |----------------------------|
         //
 
-
-
         this.content = build_standart_centent();
         this.getChildren().addAll(content);
-
-
-
-
         this.setOnMouseClicked(mouseEvent -> {
 
             if(mouseEvent.getButton() == MouseButton.SECONDARY){
