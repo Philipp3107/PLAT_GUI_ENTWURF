@@ -91,7 +91,7 @@ public class BranchView extends BorderPane {
         this.top_content.getChildren().addAll(kassen);
         this.top_content.setOrientation(Orientation.HORIZONTAL);
         this.top_content.setMaxHeight(60);
-        this.top_content.setPrefWrapLength(900);
+        this.top_content.setPrefWrapLength(1200);
         this.top_content.setPadding(new Insets(10));
     }
 
@@ -155,7 +155,7 @@ public class BranchView extends BorderPane {
             ScrollPane scroller = new ScrollPane(flow);
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
-            scroller.setMaxWidth(1130);
+            scroller.setMaxWidth(1500);
             scroller.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
             box.getChildren().add(scroller);
             this.setCenter(box);
@@ -183,21 +183,6 @@ public class BranchView extends BorderPane {
         return file;
     }
 
-
-    public LogFile build_file(int i){
-        String number = String.valueOf(i);
-        for(int j = number.length(); j < 5 - number.length(); j++){
-            number = "0" + number;
-        }
-        String filename = "pos-debug.log-20231111" + number + ".zip";
-        String filesize = "1234.7kb";
-        String change_time = "11.11.2023";
-        LogFile file = new LogFile(filename, filesize, change_time, this.fc);
-        this.fc.add_file(file);
-        return file;
-    }
-
-
     public void show_menu(){
         Popup popup = new Popup();
         VBox box = new VBox();
@@ -211,7 +196,7 @@ public class BranchView extends BorderPane {
         im.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    System.out.println("Running Import " + i );
+                    //System.out.println("Running Import " + i );
                 }
                 this.fc.deselect_all();
             });
@@ -226,7 +211,7 @@ public class BranchView extends BorderPane {
         im2.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    System.out.println("Running Import Analyse " + i);
+                    //System.out.println("Running Import Analyse " + i);
 
                 }
                 this.fc.deselect_all();

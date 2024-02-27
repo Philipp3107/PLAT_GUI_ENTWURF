@@ -28,13 +28,27 @@ public class LogFile extends HBox {
         this.setSpacing(10);
         this.setMinHeight(24);
         this.setMaxHeight(24);
-        this.setMinWidth(545);
-        this.setMaxWidth(545);
+        this.setMinWidth(480);
+        this.setMaxWidth(480);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(6));
         this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
         Label name = new Label(this.name);
-        Label size = new Label(this.size);
+        int file_size = Integer.parseInt(this.size);
+        Label size = null;
+        if(file_size >= 1000){
+
+           size = new Label((file_size / 1000) + " MB");
+            System.out.println("File size is: " + (file_size / 1000) + " MB");
+        }else if(file_size >= 1000000){
+
+            size = new Label((file_size / 1000000) + " GBö");
+            System.out.println("File size is: " + (file_size / 1000000) + "GB");
+        }else{
+            size = new Label(this.size + " KB");
+            System.out.println("File size is: " + file_size  + " KB");
+        }
+
         Label time = new Label(this.change);
         name.setStyle("-fx-text-fill: white");
         size.setStyle("-fx-text-fill: white");
