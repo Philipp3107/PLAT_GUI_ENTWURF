@@ -36,8 +36,8 @@ public class Main extends Application {
     private DashboardStatsController dash_controller;
     private BorderPane root;
     private Dashboard dashboard;
-    String username = "KotteP";
-    String pw = "Werterzu900!";
+    String username = "";
+    String pw = "";
     private Analyse analyse;
     private Settings settings;
 

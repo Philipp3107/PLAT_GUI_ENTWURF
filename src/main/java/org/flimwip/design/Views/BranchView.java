@@ -196,7 +196,7 @@ public class BranchView extends BorderPane {
         im.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    //System.out.println("Running Import " + i );
+                    System.out.println("Running Import " + i );
                 }
                 this.fc.deselect_all();
             });
@@ -211,7 +211,7 @@ public class BranchView extends BorderPane {
         im2.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    //System.out.println("Running Import Analyse " + i);
+                    System.out.println("Running Import Analyse " + i);
 
                 }
                 this.fc.deselect_all();
