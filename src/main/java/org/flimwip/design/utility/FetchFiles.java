@@ -27,6 +27,8 @@ public class FetchFiles implements Runnable{
      */
     private final Checkout k;
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
     /**
      * Contstructor
      * @param kassenid String -> Id of the Checkout
@@ -34,6 +36,7 @@ public class FetchFiles implements Runnable{
      * @param k Checkout -> View to update
      */
     public FetchFiles(String kassenid, Semaphore semaphore, Checkout k){
+        logger.set_Level(LoggingLevels.FINE);
         this.kassenid = kassenid;
         this.semaphore = semaphore;
         this.k = k;
@@ -53,13 +56,12 @@ public class FetchFiles implements Runnable{
             checkout_id = this.kassenid.substring(12);
         }
 
-        System.out.println(branch);
-        System.out.println(checkout_id);
+        logger.log(LoggingLevels.FINE, "Fetching files from checkout: " + this.kassenid + ", Branch: " + branch);
         NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
 
         try{
             semaphore.acquire();
-            System.out.println("KassenID ist: " + this.kassenid);
+            logger.log(LoggingLevels.INFO,"KassenID is: " + this.kassenid);
             if(connection.get_connection()){
                 File f = new File("\\\\" + this.kassenid + "\\c$\\gkretail\\pos-full\\log");
                 if(f.listFiles() != null){
@@ -71,8 +73,10 @@ public class FetchFiles implements Runnable{
             }else{
                 this.k.set_offline();
             }
-        }catch(InterruptedException e){ System.out.println("Interrupted while acquiring Semaphore");
-        }catch (IOException e) { System.out.println("IOException Occured: " + e.getLocalizedMessage());
+        }catch(InterruptedException e){
+            logger.log_exception(e);
+        }catch (IOException e) {
+            logger.log_exception(e);
         }finally { semaphore.release();}
     }
 

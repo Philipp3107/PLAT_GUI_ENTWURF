@@ -16,8 +16,8 @@ public class SideBar extends HBox {
         /* Style der Sidebar auf dem HomeScreen */
         this.setMinHeight(80);
         this.setMaxHeight(80);
-        this.setStyle("-fx-background-color: #232323; -fx-background-radius: 0 0 20 20");
-        this.setSpacing(15);
+        this.setStyle("-fx-background-color: #232323");
+        this.setSpacing(10);
 
         /* Buttons für den Homescreen */
         String[] button_names = {"Dashboard", "Analyse", "Einstellungen"};
@@ -30,7 +30,7 @@ public class SideBar extends HBox {
         }
         controller.set_main_menu_buttons(buttons);
 
-        this.setPadding(new Insets(14));
+        this.setPadding(new Insets(8));
         this.setAlignment(Pos.TOP_LEFT);
         for(MainMenuButton mmb : buttons){
             this.getChildren().add(mmb);

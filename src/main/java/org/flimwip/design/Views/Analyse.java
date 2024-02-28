@@ -15,6 +15,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +34,8 @@ public class Analyse extends VBox {
      * DataStorage for the {@link Checkout Checkouts}
      */
     private final DataStorage ds;
+
+    private MyLogger logger = new MyLogger(this.getClass());
 
     /**
      * Main FlowPain for displaying all Branches
@@ -57,20 +61,41 @@ public class Analyse extends VBox {
 
     private ArrayList<String> list;
 
+<<<<<<< ours
+    private Label heading;
+    private Label favortites;
+
+    private HBox fav;
+
+
+
+=======
+>>>>>>> theirs
     /**
      * Constructor
      * @param controller providing basic functionality
      * @param ds DataStorage for the {@link Checkout Checkouts}
      */
     public Analyse(MainController controller, DataStorage ds) {
+        logger.set_Level(LoggingLevels.FINE);
         this.ds = ds;
         this.controller = controller;
 
+        init();
+    }
+
+    private void init(){
         // Favorites currently not in use
+<<<<<<< ours
+        this.fav = new HBox();
+=======
         HBox fav = new HBox();
+>>>>>>> theirs
         this.favorites = new FlowPane(5, 10);
         favorites.setOrientation(Orientation.HORIZONTAL);
+        this.favorites.setPadding(new Insets(15));
         favorites.setMaxHeight(100);
+        favorites.setAlignment(Pos.TOP_CENTER);
 
         //Build up of m
         this.m = new HBox();
@@ -86,7 +111,12 @@ public class Analyse extends VBox {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 main.setPrefWrapLength(t1.doubleValue());
+<<<<<<< ours
+                favorites.setPrefWrapLength(t1.doubleValue());
                 System.out.println("Pref Wrap Length is: " + main.getPrefWrapLength());
+=======
+                logger.log(LoggingLevels.INFO, "Pref Wrap length changed to", String.valueOf(main.getPrefWrapLength()));
+>>>>>>> theirs
             }
         });
         this.main.setPrefWrapLength(this.controller.stage_width.get());
@@ -114,7 +144,8 @@ public class Analyse extends VBox {
         sp.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
 
         //Heading for this View
-        Label heading = new Label("Niederlassungen");
+        this.heading = new Label("Niederlassungen");
+        heading.setPadding(new Insets(10));
         heading.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
 
         TextField searching = serach_text_field();
@@ -124,18 +155,31 @@ public class Analyse extends VBox {
         HBox.setHgrow(search, Priority.ALWAYS);
         search.setPadding(new Insets(0, 20, 0, 0));
 
-        heading.setPadding(new Insets(10));
         this.getChildren().addAll(new HBox(heading, search), fav, sp);
         this.setMinHeight(600);
-
-
     }
 
     public void setup_fav(String nl_id){
         for(String s: this.list){
             if(s.equals(nl_id)){
+<<<<<<< ours
+
                 Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
                 this.favorites.getChildren().add(nl);
+                this.favorites.setStyle("-fx-background-color: blue");
+                HBox search_field = new HBox(serach_text_field());
+                HBox.setHgrow(search_field, Priority.ALWAYS);
+                search_field.setAlignment(Pos.CENTER_RIGHT);
+                search_field.setPadding(new Insets(0, 20, 0, 0));
+                Label heading = new Label("Favoriten");
+                heading.setPadding(new Insets(10));
+                heading.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
+                this.getChildren().add(0, new HBox(heading, search_field));
+
+=======
+                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
+                this.favorites.getChildren().add(nl);
+>>>>>>> theirs
             }
         }
     }
@@ -165,7 +209,7 @@ public class Analyse extends VBox {
             }else{
                 this.search += keyEvent.getText();
             }
-            System.out.println(search);
+            logger.log(LoggingLevels.INFO, "Search changed to:", search);
             filter_center(search);
         });
         return searching;
@@ -176,7 +220,6 @@ public class Analyse extends VBox {
      * @param text to Filter with
      */
     public void filter_center(String text){
-        System.out.println(text);
         this.m.getChildren().remove(this.main);
         this.main = new FlowPane(5, 10);
         this.main.setPrefWrapLength(1786);
@@ -188,7 +231,6 @@ public class Analyse extends VBox {
 
         for(String s: list){
             if(s.contains(text) | ds.get_nl_name(s).contains(text.toUpperCase())) {
-                //System.out.println(s)
                 Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), ds.getcheckouts(s) ,false, this);
                 this.main.getChildren().add(nl);
             }

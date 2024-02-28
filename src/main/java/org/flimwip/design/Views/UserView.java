@@ -11,17 +11,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.User;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
+
 public class UserView extends HBox {
 
     private final User user;
 
+    private MyLogger logger = new MyLogger(this.getClass());
     private Button b;
     private final UserController user_controller;
     public UserView(User user, UserController user_controller){
+        logger.set_Level(LoggingLevels.FINE);
         this.user = user;
         this.user_controller = user_controller;
         init();
-        System.out.println("Builded userview for: " + this.user.getName());
+        logger.log(LoggingLevels.INFO, "Builded Userview for", user.getName());
     }
 
     private void init(){
