@@ -48,14 +48,10 @@ public class Analyse extends VBox {
      */
     private ScrollPane sp;
 
-    private FlowPane favorites;
-
     /**
      * Container for {@link Analyse#main}
      */
     private HBox m;
-
-    private ArrayList<String> list;
 
     /**
      * Constructor
@@ -68,7 +64,7 @@ public class Analyse extends VBox {
 
         // Favorites currently not in use
         HBox fav = new HBox();
-        this.favorites = new FlowPane(5, 10);
+        FlowPane favorites = new FlowPane(5, 10);
         favorites.setOrientation(Orientation.HORIZONTAL);
         favorites.setMaxHeight(100);
 
@@ -93,9 +89,9 @@ public class Analyse extends VBox {
         this.main.setOrientation(Orientation.HORIZONTAL);
 
         //Sorting of the Keys in the DataStorage
-        ArrayList<String> list = new ArrayList<>(ds.list_keys().stream().toList());
+        List<String> list = new ArrayList<>(ds.list_keys().stream().toList());
         Collections.sort(list);
-        this.list = list;
+
         //Adding the Keys as Branches to the FlowPane
         for(String s: list){
             Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,false, this);

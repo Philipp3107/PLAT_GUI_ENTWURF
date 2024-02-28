@@ -57,11 +57,8 @@ public class Branch extends VBox {
 
     private ArrayList<CheckoutModel> kassen;
 
-    private VBox content;
+    private MyLogger logger = new MyLogger(this.getClass());
 
-    private boolean in_favorite_view = false;
-
-    //Konstruktor
     /**
      * Represents a branch of a store.
      *
@@ -72,14 +69,14 @@ public class Branch extends VBox {
      * @param favorite    true if the branch is marked as favorite, false otherwise
      * @param analyse     the analysis object associated with the branch
      */
-
     public Branch(String nl_id, String city, String bundesland, ArrayList<CheckoutModel> kassen, boolean favorite, Analyse analyse){
         this.nl_id = nl_id;
-        this.nl_nr = new Label("0" + nl_id);
+        this.nl_nr = new Label(nl_id);
         this.city = new Label(city);
         this.Bundesland = new Label(bundesland);
         this.favorite = favorite;
         this.analyse = analyse;
+
         this.location = bundesland;
         this.kassen = kassen;
         init();
@@ -94,11 +91,11 @@ public class Branch extends VBox {
         this.setMinWidth(170);
         this.setMaxWidth(170);
         //standart höhe
-        this.setMinHeight(100);
-        this.setMaxHeight(100);
+        this.setMinHeight(55);
+        this.setMaxHeight(55);
         this.setSpacing(5);
+        //Insets for setPadding
 
-        //Insets for padding
         this.setPadding(new Insets(7));
         if(this.location.equals("Labor")){
             //Style specific for Labor-NL
@@ -110,12 +107,10 @@ public class Branch extends VBox {
 
 
         //in view of nl top right
-        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 20");
+        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         //in view of nl buttom gray
         this.Bundesland.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         //in view of nl top left
-        this.city.setWrapText(true);
-        this.city.setMaxWidth(160);
         this.city.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
 
         //Assembly of contents
@@ -127,11 +122,23 @@ public class Branch extends VBox {
         //   |bundesland        Kassen: 9 |
         //   |----------------------------|
         //
+        HBox box = new HBox(nl_nr);
+        HBox.setHgrow(box, Priority.ALWAYS);
+        box.setAlignment(Pos.CENTER_RIGHT);
+        HBox top = new HBox(city, box);
+        top.setSpacing(5);
 
 
 
-        this.content = build_standart_centent();
-        this.getChildren().addAll(content);
+        HBox checkouts = new HBox();
+        Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
+        l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        checkouts.getChildren().add(l);
+        checkouts.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(checkouts, Priority.ALWAYS);
+        HBox bl_co_wrapper = new HBox();
+        bl_co_wrapper.getChildren().addAll(Bundesland, checkouts);
+        this.getChildren().addAll(top, bl_co_wrapper);
 
 
 
@@ -141,13 +148,13 @@ public class Branch extends VBox {
             if(mouseEvent.getButton() == MouseButton.SECONDARY){
                 if(!in_favorite_view){
                     in_favorite_view = true;
-                    System.out.println("Secondary button was clicked on " + this.nl_id);
+                    logger.log(LoggingLevels.INFO, "Secondary button was clicked on", this.nl_id);
                     this.getChildren().remove(content);
                     this.content = build_favortie_content();
                     this.getChildren().add(content);
                 }else{
                     in_favorite_view = false;
-                    System.out.println("Secondary button was clicked on " + this.nl_id);
+                    logger.log(LoggingLevels.INFO, "Secondary button was clicked on", this.nl_id);
                     this.getChildren().remove(content);
                     this.content = build_standart_centent();
                     this.getChildren().add(content);
@@ -157,8 +164,6 @@ public class Branch extends VBox {
                 this.analyse.display_nl(nl_id);
             }
 
-        });
-    }
 
     private VBox build_favortie_content(){
         //Assembly of contents
@@ -216,5 +221,7 @@ public class Branch extends VBox {
         l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         cont.getChildren().addAll(top, Bundesland, l);
         return cont;
+    }
+        });
     }
 }
