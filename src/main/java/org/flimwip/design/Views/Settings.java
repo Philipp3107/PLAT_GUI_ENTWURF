@@ -6,11 +6,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 public class Settings extends VBox {
     private VBox users;
+
+    private MyLogger logger = new MyLogger(this.getClass());
     private final UserController userController;
     public Settings(UserController userController){
+        logger.set_Level(LoggingLevels.FINE);
         this.userController = userController;
         init();
     }
@@ -25,7 +30,7 @@ public class Settings extends VBox {
         for(UserView uv : this.userController.get_user_views_settings()){
             box.getChildren().add(uv);
         }
-        System.out.println("Returned UserViews to Settings");
+        logger.log(LoggingLevels.INFO, "Returned UserViews to Settings");
 
         Label heading = new Label("PosUser");
         heading.setStyle("-fx-text-fill: white; -fx-font-size: 25");

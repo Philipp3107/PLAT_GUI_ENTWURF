@@ -15,6 +15,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +35,8 @@ public class Analyse extends VBox {
      */
     private final DataStorage ds;
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
     /**
      * Main FlowPain for displaying all Branches
      */
@@ -48,10 +52,14 @@ public class Analyse extends VBox {
      */
     private ScrollPane sp;
 
+    private FlowPane favorites;
+
     /**
      * Container for {@link Analyse#main}
      */
     private HBox m;
+
+    private ArrayList<String> list;
 
     /**
      * Constructor
@@ -59,12 +67,13 @@ public class Analyse extends VBox {
      * @param ds DataStorage for the {@link Checkout Checkouts}
      */
     public Analyse(MainController controller, DataStorage ds) {
+        logger.set_Level(LoggingLevels.FINE);
         this.ds = ds;
         this.controller = controller;
 
         // Favorites currently not in use
         HBox fav = new HBox();
-        FlowPane favorites = new FlowPane(5, 10);
+        this.favorites = new FlowPane(5, 10);
         favorites.setOrientation(Orientation.HORIZONTAL);
         favorites.setMaxHeight(100);
 
@@ -82,16 +91,16 @@ public class Analyse extends VBox {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 main.setPrefWrapLength(t1.doubleValue());
-                System.out.println("Pref Wrap Length is: " + main.getPrefWrapLength());
+                logger.log(LoggingLevels.INFO, "Pref Wrap length changed to", String.valueOf(main.getPrefWrapLength()));
             }
         });
         this.main.setPrefWrapLength(this.controller.stage_width.get());
         this.main.setOrientation(Orientation.HORIZONTAL);
 
         //Sorting of the Keys in the DataStorage
-        List<String> list = new ArrayList<>(ds.list_keys().stream().toList());
+        ArrayList<String> list = new ArrayList<>(ds.list_keys().stream().toList());
         Collections.sort(list);
-
+        this.list = list;
         //Adding the Keys as Branches to the FlowPane
         for(String s: list){
             Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,false, this);
@@ -161,7 +170,7 @@ public class Analyse extends VBox {
             }else{
                 this.search += keyEvent.getText();
             }
-            System.out.println(search);
+            logger.log(LoggingLevels.INFO, "Search changed to:", search);
             filter_center(search);
         });
         return searching;
@@ -172,7 +181,6 @@ public class Analyse extends VBox {
      * @param text to Filter with
      */
     public void filter_center(String text){
-        System.out.println(text);
         this.m.getChildren().remove(this.main);
         this.main = new FlowPane(5, 10);
         this.main.setPrefWrapLength(1786);
@@ -184,7 +192,6 @@ public class Analyse extends VBox {
 
         for(String s: list){
             if(s.contains(text) | ds.get_nl_name(s).contains(text.toUpperCase())) {
-                //System.out.println(s)
                 Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s), ds.getcheckouts(s) ,false, this);
                 this.main.getChildren().add(nl);
             }

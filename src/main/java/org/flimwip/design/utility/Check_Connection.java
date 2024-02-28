@@ -10,11 +10,13 @@ import java.util.concurrent.Semaphore;
 public class Check_Connection implements Runnable {
 
     private String checkout;
+    private MyLogger logger = new MyLogger(this.getClass());
     private Checkout k;
     private String nl;
     private Semaphore semaphore;
     private String ip_to_look;
     public Check_Connection(String nl, String checkout, Checkout k, Semaphore semaphore){
+        logger.set_Level(LoggingLevels.FINE);
         this.checkout = checkout;
         this.k = k;
         this.nl = nl;
@@ -28,12 +30,11 @@ public class Check_Connection implements Runnable {
 
     @Override
     public void run(){
-        System.out.println("Starting ping for" + this.k.getId());
-        System.out.println("IP: " + this.ip_to_look);
+        logger.log(LoggingLevels.INFO, "Startet ping for", this.k.getId());
         try{
             this.semaphore.acquire();
         } catch (InterruptedException e) {
-            System.out.println("Interrupted while acquiring Semaphore");
+            logger.log_exception(e);
         }
 
 
@@ -45,7 +46,7 @@ public class Check_Connection implements Runnable {
             t.start();
         }else{
             this.k.set_offline();
-
+            semaphore.release();
         }
     }
 
@@ -60,7 +61,7 @@ public class Check_Connection implements Runnable {
     public boolean ping(String ip) {
 
         try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(new ProcessBuilder("ping", ip).start().getInputStream()));) {
-            System.out.println(new ProcessBuilder("ping", ip).command());
+            logger.log(LoggingLevels.DEBUG, "Executing command", "ping", ip);
             this.k.set_searching();
             while (!stdInput.ready()) {
                 //while the Process
@@ -68,9 +69,8 @@ public class Check_Connection implements Runnable {
 
             String line;
             while ((line = stdInput.readLine()) != null) {
-                //System.out.println("Checkout_Connection -> Line is: " + line);
                 if (line.contains("Verloren = 0")) {
-                    System.out.println("Checkout_Connection -> Ping erfolgreich");
+                    logger.log(LoggingLevels.INFO, "Ping erflogreich");
                     return true;
                 }
             }

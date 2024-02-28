@@ -4,6 +4,9 @@ import javafx.beans.property.Property;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.UserView;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -14,28 +17,27 @@ public class UserController {
 
     private ArrayList<UserView> user_views_settings;
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
     private ArrayList<User> pos_user;
     public UserController(){
-        System.out.println("UserController -> Initializing Users");
+        logger.set_Level(LoggingLevels.FINE);
         load_users();
-        System.out.println("UserController -> loaded users");
+        logger.log(LoggingLevels.INFO, "Loaded Users");
         this.user_views_dashboard = new ArrayList<>();
         this.user_views_settings = new ArrayList<>();
         for(User user : pos_user){
             this.user_views_dashboard.add(new UserView(user, this));
             this.user_views_settings.add(new UserView(user, this));
-            System.out.println("UserController -> Build user: " + user.getName());
+            logger.log(LoggingLevels.INFO, "Build User: " + user.getName());
         }
-        System.out.println("UserController -> builded user views");
     }
 
     public ArrayList<UserView> get_user_views_dashboard(){
-        System.out.println("returned user views to dashbaord");
         return this.user_views_dashboard;
     }
 
     public ArrayList<UserView> get_user_views_settings(){
-        System.out.println("returned user views to Settings");
         return this.user_views_settings;
     }
 
@@ -50,7 +52,7 @@ public class UserController {
                         view.set_deselected();
                     }
                 }
-                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+                logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }else{
                 user.setSelected(true);
                 for(UserView view : user_views_settings){
@@ -58,7 +60,7 @@ public class UserController {
                         view.set_selected();
                     }
                 }
-                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+                logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }
         }
         //Dashboard
@@ -70,7 +72,7 @@ public class UserController {
                         view.set_deselected();
                     }
                 }
-                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+                logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }else{
                 user.setSelected(true);
                 for(UserView view : user_views_dashboard){
@@ -78,7 +80,7 @@ public class UserController {
                         view.set_selected();
                     }
                 }
-                System.out.println("user " + user.getName() + " set to " + user.isSelected());
+                logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }
         }
         rewrite_users();
@@ -115,12 +117,11 @@ public class UserController {
         String file = "H:\\PLAT\\Data\\Users";
         for(User user : pos_user){
             File f = new File(file + "\\" + user.getUsername() + ".properties");
-            System.out.println(f.exists());
+            logger.log(LoggingLevels.INFO, "File", f.getName(), "exists");
             Properties properties;
             try(BufferedReader br = new BufferedReader(new FileReader(f.getAbsolutePath()))){
                 properties = new Properties();
                 properties.load(br);
-                System.out.println(properties.getProperty("name"));
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

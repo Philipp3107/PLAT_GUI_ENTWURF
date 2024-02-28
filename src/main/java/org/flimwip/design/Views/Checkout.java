@@ -13,10 +13,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Models.CheckoutModel;
-import org.flimwip.design.utility.Check_Connection;
-import org.flimwip.design.utility.CredentialManager;
-import org.flimwip.design.utility.FetchFiles;
-import org.flimwip.design.utility.StandortTranslator;
+import org.flimwip.design.utility.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +37,8 @@ public class Checkout extends VBox {
     private boolean online = false;
     private File[] files;
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
 
     /**
      * Contructor
@@ -61,7 +60,7 @@ public class Checkout extends VBox {
         try {
             search_for_connection();
         } catch (IOException | ExecutionException | InterruptedException e) {
-            System.out.println("Exception Occured: " + e.getLocalizedMessage());
+            logger.log_exception(e);
         }
     }
 
@@ -134,7 +133,6 @@ public class Checkout extends VBox {
                 );
                 time.setOnFinished(actionEvent -> {
                     this.l.setTextFill(Color.WHITE);
-                    //System.out.println("Adding to " + this.getId());
 
                 });
                 time.play();
@@ -175,7 +173,6 @@ public class Checkout extends VBox {
 
                 } else {
                     selected = true;
-                    //System.out.println("Im selected: " + this.getId());
                     cont.set_selected_checkout(this.getId());
                     this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
                     this.cont.set_version_on_view(this.version);
@@ -192,7 +189,6 @@ public class Checkout extends VBox {
      * Possablilty to remotely deselect a checkout
      */
     public void unselect() {
-        //System.out.println("Im getting unselected: " + this.getId());
         if (this.getChildren().size() > 1) {
             this.getChildren().remove(this.getChildren().size() - 1);
         }
@@ -207,7 +203,6 @@ public class Checkout extends VBox {
      * Possibility to remove the focus off of a checkout
      */
     public void remove_focus() {
-        //System.out.println("Removing from " + this.getId());
         if (!selected) {
             this.l.setTextFill(Color.BLACK);
         }
@@ -223,7 +218,6 @@ public class Checkout extends VBox {
      * @throws InterruptedException
      */
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
-        //System.out.println("Starting thread for Location: " + this.location + " and ID: " + this.checkout);
         Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore));
         th.setDaemon(true);
         th.setName("Thread [" + this.checkout + "]");
@@ -235,7 +229,6 @@ public class Checkout extends VBox {
      * Setting the Checkout online making it clickable and the circle green
      */
     public void set_online() {
-        //System.out.println("Setting online [" + this.checkout + "]");
         this.c.setFill(Color.GREEN);
         this.online = true;
     }
@@ -244,7 +237,6 @@ public class Checkout extends VBox {
      * Setting the Checkout to seraching. In this state the Checkout in the BranchView is not Clickable and the Circle has the color Yellow.
      */
     public void set_searching() {
-        //System.out.println("Setting searching [" + this.checkout + "]");
         this.c.setFill(Color.ORANGE);
     }
 
@@ -252,7 +244,6 @@ public class Checkout extends VBox {
      * Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.
      */
     public void set_offline() {
-        //System.out.println("Setting offline [" + this.checkout + "]");
         this.c.setFill(Color.RED);
     }
 

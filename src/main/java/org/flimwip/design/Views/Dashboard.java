@@ -16,6 +16,8 @@ import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.DashboardStats;
 import org.flimwip.design.utility.CredentialManager;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.io.IOException;
 
@@ -27,6 +29,8 @@ public class Dashboard extends VBox {
     private DashboardStatsController controller;
 
     private CredentialManager cm;
+
+    private MyLogger logger = new MyLogger(this.getClass());
 
     //Statisktik
     private VBox stats = null;
@@ -105,7 +109,7 @@ public class Dashboard extends VBox {
         VBox.setVgrow(display, Priority.ALWAYS);
 
         display.setOnMouseEntered(mouseEvent -> {
-            System.out.println("Mouse is drin");
+            logger.log(LoggingLevels.INFO, "Mouse is inside of Users");
             HBox user_adding = new HBox();
             user_adding.setMinHeight(60);
             user_adding.setAlignment(Pos.CENTER);
@@ -132,7 +136,7 @@ public class Dashboard extends VBox {
         });
 
         display.setOnMouseExited(mouseEvent -> {
-            System.out.println("Mouse is draußen");
+            logger.log(LoggingLevels.INFO, "Mouse is outside of Users");
             display.getChildren().remove(display.getChildren().size() - 1);
         });
 
@@ -179,8 +183,8 @@ public class Dashboard extends VBox {
             if(keyEvent.getCode() == KeyCode.ESCAPE){
                 controls.requestFocus();
             }else if(keyEvent.getCode() == KeyCode.ENTER){
-                System.out.println(password.getText());
-                System.out.println(username.getText());
+                logger.log(LoggingLevels.INFO, "Password:", password.getText());
+                logger.log(LoggingLevels.INFO, "Username:", password.getText());
                 try {
                     CredentialManager.set_new_credentials(username.getText(), password.getText());
                 } catch (IOException e) {
@@ -194,8 +198,8 @@ public class Dashboard extends VBox {
             if(keyEvent.getCode() == KeyCode.ESCAPE){
                 controls.requestFocus();
             }else if(keyEvent.getCode() == KeyCode.ENTER){
-                System.out.println(password.getText());
-                System.out.println(username.getText());
+                logger.log(LoggingLevels.INFO, "Password:", password.getText());
+                logger.log(LoggingLevels.INFO, "Username:", password.getText());
                 try {
                     CredentialManager.set_new_credentials(username.getText(), password.getText());
                 } catch (IOException e) {
@@ -228,8 +232,8 @@ public class Dashboard extends VBox {
         b.setPrefWidth(466);
         b.setDisable(true);
         b.setOnAction(actionEvent -> {
-            System.out.println(password.getText());
-            System.out.println(username.getText());
+            logger.log(LoggingLevels.INFO, "Password:", password.getText());
+            logger.log(LoggingLevels.INFO, "Username:", password.getText());
             try {
                 CredentialManager.set_new_credentials(username.getText(), password.getText());
             } catch (IOException e) {

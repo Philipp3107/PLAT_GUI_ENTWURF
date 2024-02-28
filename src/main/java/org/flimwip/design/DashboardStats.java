@@ -15,6 +15,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.flimwip.design.utility.CredentialManager;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class DashboardStats extends Application {
         try(BufferedReader br = new BufferedReader(new FileReader("src/main/resources/dummy_data_errors.csv"))){
             while((line = br.readLine()) != null){
                 String[] splitted = line.split(";");
-                //System.out.println(splitted[0]);
+
                 temp.add(Long.parseLong(splitted[0]));
             }
         }
@@ -102,6 +104,9 @@ public class DashboardStats extends Application {
     }
 
     public static Label getTrend(String name){
+        MyLogger logger = new MyLogger(DashboardStats.class);
+        logger.set_Level(LoggingLevels.FINE);
+
         int type = 0;
         if(name.equals("warn")){
             type = 0;
@@ -121,7 +126,6 @@ public class DashboardStats extends Application {
         try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
             while((line = br.readLine()) != null){
                 String[] splitted = line.split(";");
-                //System.out.println(splitted[0]);
                 temp.add(Long.parseLong(splitted[type]));
             }
         } catch (IOException e) {
@@ -146,10 +150,10 @@ public class DashboardStats extends Application {
         //overall = 480;
 
         trend = (double) (trendSum / 10);
-        System.out.println("Overall is :" + overall);
-        System.out.println("trend is : " + trend);
-        System.out.println("Percentage is :" +  ((trend * (100 / overall)) - 100));
+        logger.log(LoggingLevels.INFO, "Overall is:", String.valueOf(overall));
+        logger.log(LoggingLevels.INFO, "Trend is:", String.valueOf(trend));;
         double percentage = (trend * (100 / overall)) - 100;
+        logger.log(LoggingLevels.INFO, "Percentage is:", String.valueOf(percentage));
 
 
         Label l = new Label();
@@ -170,6 +174,8 @@ public class DashboardStats extends Application {
 
     //Das soll nur für die letzten 30 Tage gehen
     public static HBox get_box(String first, String second, String name, double size){
+        MyLogger logger = new MyLogger(DashboardStats.class);
+        logger.set_Level(LoggingLevels.FINE);
         int type = 0;
         if(name.equals("warn")){
             type = 0;
@@ -193,7 +199,6 @@ public class DashboardStats extends Application {
             try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
                 while((line = br.readLine()) != null){
                     String[] splitted = line.split(";");
-                    //System.out.println(splitted[0]);
                     temp.add(Long.parseLong(splitted[type]));
                 }
             }
@@ -205,25 +210,6 @@ public class DashboardStats extends Application {
         //long lineCount = 30;
         long lineCount = temp.size();
 
-        //Umschreiben der Liste zu den Werten der letzen 30 tagen
-
-        /*ArrayList<Long> temp2 = new ArrayList<>();
-        if(temp.size() > 30){
-            for(int i = temp.size() - 30; i < temp.size(); i++){
-                temp2.add(temp.get(i));
-            }
-        }else {
-            for(int i = 0; i < 30 - temp.size(); i++){
-                temp2.add(0L);
-            }
-
-            for(int i = 0; i < 30 - temp2.size(); i++){
-                temp2.add(temp.get(i));
-            }
-        }
-        temp = temp2;*/
-
-
         //größer wert
         long biggest = 0;
         for(Long l : temp){
@@ -232,10 +218,8 @@ public class DashboardStats extends Application {
             }
         }
 
-
-        System.out.println(biggest);
         double quotient = (double) 220 / biggest;
-        System.out.println("Quotient ist: " +  quotient);
+        logger.log(LoggingLevels.INFO, "Quotient is:", quotient);
 
 
 
