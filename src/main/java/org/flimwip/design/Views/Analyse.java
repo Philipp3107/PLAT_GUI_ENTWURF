@@ -61,16 +61,11 @@ public class Analyse extends VBox {
 
     private ArrayList<String> list;
 
-<<<<<<< ours
     private Label heading;
     private Label favortites;
 
     private HBox fav;
 
-
-
-=======
->>>>>>> theirs
     /**
      * Constructor
      * @param controller providing basic functionality
@@ -86,11 +81,7 @@ public class Analyse extends VBox {
 
     private void init(){
         // Favorites currently not in use
-<<<<<<< ours
         this.fav = new HBox();
-=======
-        HBox fav = new HBox();
->>>>>>> theirs
         this.favorites = new FlowPane(5, 10);
         favorites.setOrientation(Orientation.HORIZONTAL);
         this.favorites.setPadding(new Insets(15));
@@ -111,12 +102,8 @@ public class Analyse extends VBox {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 main.setPrefWrapLength(t1.doubleValue());
-<<<<<<< ours
                 favorites.setPrefWrapLength(t1.doubleValue());
-                System.out.println("Pref Wrap Length is: " + main.getPrefWrapLength());
-=======
                 logger.log(LoggingLevels.INFO, "Pref Wrap length changed to", String.valueOf(main.getPrefWrapLength()));
->>>>>>> theirs
             }
         });
         this.main.setPrefWrapLength(this.controller.stage_width.get());
@@ -162,8 +149,6 @@ public class Analyse extends VBox {
     public void setup_fav(String nl_id){
         for(String s: this.list){
             if(s.equals(nl_id)){
-<<<<<<< ours
-
                 Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
                 this.favorites.getChildren().add(nl);
                 this.favorites.setStyle("-fx-background-color: blue");
@@ -175,11 +160,6 @@ public class Analyse extends VBox {
                 heading.setPadding(new Insets(10));
                 heading.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
                 this.getChildren().add(0, new HBox(heading, search_field));
-
-=======
-                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
-                this.favorites.getChildren().add(nl);
->>>>>>> theirs
             }
         }
     }
