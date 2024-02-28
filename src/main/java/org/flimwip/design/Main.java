@@ -1,5 +1,6 @@
 package org.flimwip.design;
 
+import com.sun.javafx.logging.PlatformLogger;
 import javafx.application.Application;
 
 import javafx.beans.value.ChangeListener;
@@ -12,30 +13,62 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Views.*;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-
+/**
+ * This class serves as the main entry point for the application. It manages the
+ * initialization of the application stage and scene, user authentication,
+ * controllers for different views in the application, and changing views
+ * in response to user actions. It is responsible for events related to
+ * login, changing views and running the main functionality.
+ */
 public class Main extends Application {
 
+    // ANSI escape code for Green text
+    /*public static final String ANSI_GREEN = "\u001B[32m";
+    // ANSI escape code for resetting console color
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = Logger.getLogger(Main.class.getName());
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setFormatter(new Formatter() {
+            @Override
+            public String format(LogRecord record) {
+                if (record.getLevel().equals(Level.INFO)) {
+                    return ANSI_GREEN + super.format(record) + ANSI_RESET;
+                } else {
+                    return super.format(record);
+                }
+            }
+        });
+        LOGGER.addHandler(consoleHandler);
+        LOGGER.setUseParentHandlers(false);
+    }*/
+
     /* Controllers */
+
     private CheckoutSelectionController checkoutSelectionController;
 
     private MainController mainController = new MainController(this);
     private DashboardStatsController dash_controller;
     private BorderPane root;
     private Dashboard dashboard;
+
     String username = "";
     String pw = "";
     private Analyse analyse;
@@ -43,64 +76,11 @@ public class Main extends Application {
 
     private boolean logged_in = false;
 
-    public boolean login(Stage stage) {
-
-        int[] return_value = {0};
-        HBox box = new HBox();
-
-        VBox left = new VBox();
-        left.setPadding(new Insets(20));
-        left.setSpacing(20);
-        Label plat = new Label("PLAT");
-        plat.setStyle("-fx-font-size: 40;");
-        left.setAlignment(Pos.CENTER);
-        HBox.setHgrow(left, Priority.ALWAYS);
-
-        TextField username = new TextField();
-        username.setPromptText("Username");
-
-        TextField password = new TextField();
-        password.setPromptText("Password");
-
-        left.getChildren().addAll(plat, username, password);
-        box.getChildren().add(left);
-
-        VBox right = new VBox();
-        right.setAlignment(Pos.CENTER);
-        right.setSpacing(20);
-        right.setPadding(new Insets(20));
-        Circle image = new Circle(75, Color.valueOf("#743790"));
-        //right.setStyle("-fx-background-color: blue");
-        right.setPadding(new Insets(20));
-        HBox.setHgrow(right, Priority.ALWAYS);
-
-        Button login = new Button("Login");
-        login.setMinWidth(150);
-        login.setMaxWidth(150);
-        login.setOnAction(actionEvent -> {
-            return_value[0] = 1;
-            stage.close();
-
-        });
-        Button exit = new Button("Exit");
-        exit.setOnAction(actionEvent -> {
-            return_value[0] = 2;
-            stage.close();
-        });
-        exit.setMinWidth(150);
-        exit.setMaxWidth(150);
-
-        right.getChildren().addAll(image, login, exit);
-        box.getChildren().add(right);
-        Scene scene = new Scene(box, 500, 300);
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();
-        return true;
-    }
+    private MyLogger logger = new MyLogger(this.getClass());
 
     @Override
     public void start(Stage stage) throws Exception {
+        logger.log(LoggingLevels.FINE, "Test ob logging funktioniert");
         show_login(stage);
     }
 
@@ -130,8 +110,10 @@ public class Main extends Application {
         b.setOnAction(actionEvent -> {
             if(user_name.getText().equals(username) && password.getText().equals(pw)){
                 logged_in = true;
+                logger.log(LoggingLevels.FINE, "Login Ergolgreich");
                 run_main(stage);
             }else{
+                logger.log(LoggingLevels.FATAL, "Login fehlgeschlagen, Applikation wird beendet");
                 stage.close();
             }
 
@@ -177,6 +159,7 @@ public class Main extends Application {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 mainController.stage_width.set(t1.doubleValue());
+
             }
         });
         stage.setX(40);
@@ -186,13 +169,8 @@ public class Main extends Application {
         stage.setMinWidth(1264);
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
-            System.out.println("Width is: " + t1);
+            logger.log(LoggingLevels.INFO, "Width is: " + t1);
         });
-            /*scene.setOnMouseMoved(mouseEvent -> {
-
-                System.out.println(Toolkit.getDefaultToolkit().getScreenResolution());
-                System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
-            });*/
         stage.setResizable(true);
         stage.setMaximized(false);
 
