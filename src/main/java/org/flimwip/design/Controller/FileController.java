@@ -3,6 +3,8 @@ package org.flimwip.design.Controller;
 import org.flimwip.design.Views.Checkout;
 import org.flimwip.design.Views.LogFile;
 import org.flimwip.design.Views.BranchView;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,8 @@ import java.util.ArrayList;
  * This Controller controls all {@link LogFile} and the actions that are performed with them
  */
 public class FileController {
+
+    private MyLogger logger = new MyLogger(this.getClass());
 
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout}
@@ -26,6 +30,7 @@ public class FileController {
      */
     private final BranchView branch_view;
     public FileController(BranchView branch_view){
+        this.logger.set_Level(LoggingLevels.FINE);
         this.files = new ArrayList<>();
         this.selected = new ArrayList<>();
         this.branch_view = branch_view;
@@ -38,7 +43,7 @@ public class FileController {
      */
     public void add_file(LogFile file){
         files.add(file);
-        System.out.println(file.getId() + " added");
+        logger.log(LoggingLevels.INFO, "Adedd: " + file.getId());
     }
 
     /**
@@ -46,11 +51,10 @@ public class FileController {
      * @param file {@link LogFile}
      */
     public void set_selected(LogFile file){
-        System.out.println("Set selected " + file.getId());
+        logger.log(LoggingLevels.INFO, "Selected: " + file.getId());
         for(LogFile cf : files){
-            System.out.println(cf.getId());
-            System.out.println(file.getId());
             if(!cf.getId().equals(file.getId())){
+                logger.log(LoggingLevels.INFO, "Deselected: " + cf.getId());
                 cf.deselect();
             }
         }
@@ -164,9 +168,9 @@ public class FileController {
      * If a right Click occures the {@link BranchView} shows a PopUp with further actions
      */
     public void handle_secondary_click(){
+        logger.log(LoggingLevels.INFO, "Opening menu for:");
         for(LogFile f : selected){
-            System.out.println(f.getId());
-
+            logger.log(LoggingLevels.INFO, f.getId());
         }
         branch_view.show_menu();
     }
