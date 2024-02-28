@@ -1,7 +1,9 @@
 package org.flimwip.design.utility;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MyLogger {
 
@@ -17,6 +19,24 @@ public class MyLogger {
 
     public void log_exception(Exception e){
         log(LoggingLevels.FATAL, "An " + e.getClass().getName() + " occured. With cause: " + e.getCause());
+    }
+
+    @SafeVarargs
+    public final <T> void log(LoggingLevels level, T... args){
+        List<String> args_list = new ArrayList<>();
+        for(T t: args){
+            if(t instanceof String){
+                args_list.add((String) t);
+            }else{
+                args_list.add(String.valueOf(t));
+            }
+        }
+        String[] args_arr = new String[args_list.size()];
+        for(int i = 0; i< args_list.size(); i++){
+            args_arr[i] = args_list.get(i);
+        }
+
+        log(level, args_arr);
     }
 
     public void log(LoggingLevels level, String... args){
@@ -48,7 +68,7 @@ public class MyLogger {
 
 
         if(log){
-            StringBuilder logging = new StringBuilder(level.get_color() + timeStamp + " " + level.get_desc() + " [" + c.getName() + "]");
+            StringBuilder logging = new StringBuilder(level.get_color() + timeStamp + " " + level.get_desc() + " [" + c.getName() + "] " + "{ " +Thread.currentThread().getName() +" } ");
             for(String s : args){
                 logging.append(" ").append(s);
             }
