@@ -39,14 +39,11 @@ public class LogFile extends HBox {
         if(file_size >= 1000){
 
            size = new Label((file_size / 1000) + " MB");
-            System.out.println("File size is: " + (file_size / 1000) + " MB");
         }else if(file_size >= 1000000){
 
-            size = new Label((file_size / 1000000) + " GBö");
-            System.out.println("File size is: " + (file_size / 1000000) + "GB");
+            size = new Label((file_size / 1000000) + " GB");
         }else{
             size = new Label(this.size + " KB");
-            System.out.println("File size is: " + file_size  + " KB");
         }
 
         Label time = new Label(this.change);
@@ -56,13 +53,10 @@ public class LogFile extends HBox {
 
 
         this.setOnMouseClicked(mouseEvent -> {
-            System.out.println(this.getId() + "clicked");
 
             if(mouseEvent.getButton().toString().equals("PRIMARY") && !mouseEvent.isShiftDown()){
-                System.out.println("Primary key");
                 this.fc.set_selected(this);
             }else if(mouseEvent.getButton().toString().equals("PRIMARY")){
-                System.out.println("Primary Key and shíft");
                 if(this.fc.get_selected_size() >= 1){
                     this.fc.multi_select(this);
                 }else{
@@ -84,7 +78,6 @@ public class LogFile extends HBox {
 
 
     public void deselect(){
-        System.out.println("Deselecting " + this.getId());
         this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
     }
 

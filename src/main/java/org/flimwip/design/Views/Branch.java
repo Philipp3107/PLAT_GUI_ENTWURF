@@ -10,6 +10,8 @@ import org.flimwip.design.Models.CheckoutModel;
 
 import java.util.ArrayList;
 
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 /**
  * Represents a branch of a store.
@@ -59,6 +61,11 @@ public class Branch extends VBox {
      *
      * @param nl_id       the ID of the branch
      * @param city        the city where the branch is located
+    private VBox content;
+
+    private boolean in_favorite_view = false;
+
+    //Konstruktor
      * @param bundesland  the state where the branch is located
      * @param kassen      the list of checkout models in the branch
      * @param favorite    true if the branch is marked as favorite, false otherwise
@@ -66,11 +73,12 @@ public class Branch extends VBox {
      */
     public Branch(String nl_id, String city, String bundesland, ArrayList<CheckoutModel> kassen, boolean favorite, Analyse analyse){
         this.nl_id = nl_id;
-        this.nl_nr = new Label(nl_id);
+        this.nl_nr = new Label("0" + nl_id);
         this.city = new Label(city);
         this.Bundesland = new Label(bundesland);
         this.favorite = favorite;
         this.analyse = analyse;
+        logger.set_Level(LoggingLevels.FINE);
         this.location = bundesland;
         this.kassen = kassen;
         init();
@@ -84,10 +92,9 @@ public class Branch extends VBox {
         this.setMinWidth(300);
         this.setMaxWidth(300);
         //standart höhe
-        this.setMinHeight(55);
-        this.setMaxHeight(55);
+        this.setMinHeight(100);
+        this.setMaxHeight(100);
         this.setSpacing(5);
-        //Insets for setPadding
 
         this.setPadding(new Insets(7));
         if(this.location.equals("Labor")){
@@ -96,11 +103,12 @@ public class Branch extends VBox {
         }else{
             //overall Style
             this.setStyle("-fx-background-color: #454545; ;-fx-background-radius: 5;");
+        //Insets for padding
         }
 
 
         //in view of nl top right
-        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        this.nl_nr.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 20");
         //in view of nl buttom gray
         this.Bundesland.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
         //in view of nl top left
@@ -111,27 +119,17 @@ public class Branch extends VBox {
         //   |----------------------------|
         //   | city | <--HGrow--> nl_nr   |
         //   |----------------------------|
+        this.city.setWrapText(true);
+        this.city.setMaxWidth(160);
         //   |                            |
         //   |bundesland        Kassen: 9 |
         //   |----------------------------|
         //
-        HBox box = new HBox(nl_nr);
-        HBox.setHgrow(box, Priority.ALWAYS);
-        box.setAlignment(Pos.CENTER_RIGHT);
-        HBox top = new HBox(city, box);
-        top.setSpacing(5);
 
 
 
-        HBox checkouts = new HBox();
-        Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
-        l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        checkouts.getChildren().add(l);
-        checkouts.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(checkouts, Priority.ALWAYS);
-        HBox bl_co_wrapper = new HBox();
-        bl_co_wrapper.getChildren().addAll(Bundesland, checkouts);
-        this.getChildren().addAll(top, bl_co_wrapper);
+        this.content = build_standart_centent();
+        this.getChildren().addAll(content);
 
 
 

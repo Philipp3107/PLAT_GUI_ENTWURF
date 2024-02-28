@@ -13,6 +13,7 @@ import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.CheckoutModel;
+import org.flimwip.design.utility.MyLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class BranchView extends BorderPane {
     private Analyse analyse;
 
     private FileController fc;
+
+    private MyLogger logger = new MyLogger(this.getClass());
 
 
     private Semaphore semaphore;
@@ -196,7 +199,7 @@ public class BranchView extends BorderPane {
         im.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    //System.out.println("Running Import " + i );
+
                 }
                 this.fc.deselect_all();
             });
@@ -211,7 +214,6 @@ public class BranchView extends BorderPane {
         im2.setOnAction(actionEvent -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-                    //System.out.println("Running Import Analyse " + i);
 
                 }
                 this.fc.deselect_all();
