@@ -2,6 +2,7 @@ package org.flimwip.design.utility;
 
 import org.flimwip.design.Models.CheckoutModel;
 
+import javax.management.ObjectInstance;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +41,8 @@ import java.util.Set;
  */
 public class DataStorage {
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
     /**
      * Represents the filename of a file in the system.
      * The filename should be a string value that uniquely identifies the file.
@@ -71,7 +74,7 @@ public class DataStorage {
      * @param filename the name of the file to read from
      */
     public DataStorage(String filename){
-
+        this.logger.set_Level(LoggingLevels.FINE);
         this.filename = filename;
         init();
     }
@@ -109,9 +112,9 @@ public class DataStorage {
                 }
 
         } catch (FileNotFoundException e) {
-            System.out.println("LogFile " + this.filename + " could not be found.");
+            logger.log(LoggingLevels.ERROR, "Logfile " + this.filename + " could not be found!");
         } catch (IOException e) {
-            System.out.println("An exception occoured.");
+            logger.log(LoggingLevels.FATAL, "An " + e.getClass().getName() + " occured. Cause: " + e.getCause());
         }
     }
 
