@@ -61,6 +61,11 @@ public class Analyse extends VBox {
 
     private ArrayList<String> list;
 
+    private Label heading;
+    private Label favortites;
+
+    private HBox fav;
+
     /**
      * Constructor
      * @param controller providing basic functionality
@@ -71,11 +76,17 @@ public class Analyse extends VBox {
         this.ds = ds;
         this.controller = controller;
 
+        init();
+    }
+
+    private void init(){
         // Favorites currently not in use
-        HBox fav = new HBox();
+        this.fav = new HBox();
         this.favorites = new FlowPane(5, 10);
         favorites.setOrientation(Orientation.HORIZONTAL);
+        this.favorites.setPadding(new Insets(15));
         favorites.setMaxHeight(100);
+        favorites.setAlignment(Pos.TOP_CENTER);
 
         //Build up of m
         this.m = new HBox();
@@ -91,6 +102,7 @@ public class Analyse extends VBox {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 main.setPrefWrapLength(t1.doubleValue());
+                favorites.setPrefWrapLength(t1.doubleValue());
                 logger.log(LoggingLevels.INFO, "Pref Wrap length changed to", String.valueOf(main.getPrefWrapLength()));
             }
         });
@@ -119,7 +131,8 @@ public class Analyse extends VBox {
         sp.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
 
         //Heading for this View
-        Label heading = new Label("Niederlassungen");
+        this.heading = new Label("Niederlassungen");
+        heading.setPadding(new Insets(10));
         heading.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
 
         TextField searching = serach_text_field();
@@ -129,11 +142,8 @@ public class Analyse extends VBox {
         HBox.setHgrow(search, Priority.ALWAYS);
         search.setPadding(new Insets(0, 20, 0, 0));
 
-        heading.setPadding(new Insets(10));
         this.getChildren().addAll(new HBox(heading, search), fav, sp);
         this.setMinHeight(600);
-
-
     }
 
     public void setup_fav(String nl_id){
@@ -141,6 +151,15 @@ public class Analyse extends VBox {
             if(s.equals(nl_id)){
                 Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
                 this.favorites.getChildren().add(nl);
+                this.favorites.setStyle("-fx-background-color: blue");
+                HBox search_field = new HBox(serach_text_field());
+                HBox.setHgrow(search_field, Priority.ALWAYS);
+                search_field.setAlignment(Pos.CENTER_RIGHT);
+                search_field.setPadding(new Insets(0, 20, 0, 0));
+                Label heading = new Label("Favoriten");
+                heading.setPadding(new Insets(10));
+                heading.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
+                this.getChildren().add(0, new HBox(heading, search_field));
             }
         }
     }

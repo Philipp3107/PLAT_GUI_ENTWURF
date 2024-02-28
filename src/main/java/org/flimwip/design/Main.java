@@ -24,9 +24,6 @@ import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * This class serves as the main entry point for the application. It manages the
  * initialization of the application stage and scene, user authentication,
@@ -68,7 +65,6 @@ public class Main extends Application {
     private DashboardStatsController dash_controller;
     private BorderPane root;
     private Dashboard dashboard;
-
     String username = "";
     String pw = "";
     private Analyse analyse;
@@ -116,7 +112,6 @@ public class Main extends Application {
                 logger.log(LoggingLevels.FATAL, "Login fehlgeschlagen, Applikation wird beendet");
                 stage.close();
             }
-
         });
 
         //Button for closing without login

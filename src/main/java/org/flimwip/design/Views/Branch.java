@@ -10,7 +10,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Models.CheckoutModel;
-
 import java.util.ArrayList;
 
 import org.flimwip.design.utility.LoggingLevels;
@@ -60,15 +59,19 @@ public class Branch extends VBox {
     private ArrayList<CheckoutModel> kassen;
 
     private MyLogger logger = new MyLogger(this.getClass());
+    private VBox content;
+
+    private boolean in_favorite_view = false;
+
+    //Konstruktor
+
 
     /**
      * Represents a branch of a store.
      *
      * @param nl_id       the ID of the branch
      * @param city        the city where the branch is located
-    private VBox content;
 
-    private boolean in_favorite_view = false;
 
     //Konstruktor
      * @param bundesland  the state where the branch is located
@@ -133,26 +136,20 @@ public class Branch extends VBox {
         //   |----------------------------|
         //
 
-
-
         this.content = build_standart_centent();
         this.getChildren().addAll(content);
-
-
-
-
         this.setOnMouseClicked(mouseEvent -> {
 
             if(mouseEvent.getButton() == MouseButton.SECONDARY){
                 if(!in_favorite_view){
                     in_favorite_view = true;
-                    logger.log(LoggingLevels.INFO, "Secondary button was clicked on", this.nl_id);
+                    System.out.println("Secondary button was clicked on " + this.nl_id);
                     this.getChildren().remove(content);
                     this.content = build_favortie_content();
                     this.getChildren().add(content);
                 }else{
                     in_favorite_view = false;
-                    logger.log(LoggingLevels.INFO, "Secondary button was clicked on", this.nl_id);
+                    System.out.println("Secondary button was clicked on " + this.nl_id);
                     this.getChildren().remove(content);
                     this.content = build_standart_centent();
                     this.getChildren().add(content);
@@ -162,6 +159,8 @@ public class Branch extends VBox {
                 this.analyse.display_nl(nl_id);
             }
 
+        });
+    }
 
     private VBox build_favortie_content(){
         //Assembly of contents
@@ -212,14 +211,23 @@ public class Branch extends VBox {
 
     private VBox build_standart_centent(){
         VBox cont = new VBox();
-
-        VBox top = new VBox(this.nl_nr, city);
+        HBox box = new HBox(nl_nr);
+        box.setSpacing(5);
+        HBox.setHgrow(box, Priority.ALWAYS);
+        box.setAlignment(Pos.CENTER_RIGHT);
+        HBox top = new HBox(city, box);
         top.setSpacing(5);
+
+        HBox checkouts = new HBox();
         Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
         l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        cont.getChildren().addAll(top, Bundesland, l);
+        checkouts.getChildren().add(l);
+        checkouts.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(checkouts, Priority.ALWAYS);
+        HBox bl_co_wrapper = new HBox();
+        bl_co_wrapper.getChildren().addAll(Bundesland, checkouts);
+        cont.getChildren().addAll(top, bl_co_wrapper);
         return cont;
-    }
-        });
+
     }
 }
