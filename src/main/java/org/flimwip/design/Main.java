@@ -13,21 +13,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Views.*;
-import org.flimwip.design.utility.CustomFormatter;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
-import java.util.ArrayList;
-import java.util.logging.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class serves as the main entry point for the application. It manages the
@@ -63,21 +61,26 @@ public class Main extends Application {
     }*/
 
     /* Controllers */
+
     private CheckoutSelectionController checkoutSelectionController;
 
     private MainController mainController = new MainController(this);
     private DashboardStatsController dash_controller;
     private BorderPane root;
     private Dashboard dashboard;
-    String username = "KotteP";
-    String pw = "Werterzu900!";
+
+    String username = "";
+    String pw = "";
     private Analyse analyse;
     private Settings settings;
 
     private boolean logged_in = false;
 
+    private MyLogger logger = new MyLogger(this.getClass());
+
     @Override
     public void start(Stage stage) throws Exception {
+        logger.log(LoggingLevels.FINE, "Aufbau Main");
         show_login(stage);
     }
 
@@ -107,8 +110,10 @@ public class Main extends Application {
         b.setOnAction(actionEvent -> {
             if(user_name.getText().equals(username) && password.getText().equals(pw)){
                 logged_in = true;
+                logger.log(LoggingLevels.FINE, "Login Ergolgreich");
                 run_main(stage);
             }else{
+                logger.log(LoggingLevels.FATAL, "Login fehlgeschlagen, Applikation wird beendet");
                 stage.close();
             }
 
@@ -149,12 +154,12 @@ public class Main extends Application {
         root.setCenter(this.dashboard);
 
         /* Setting Stage and Scene */
-        Scene scene = new Scene(root, 1559, 700);
+        Scene scene = new Scene(root, 1290, 700);
         stage.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 mainController.stage_width.set(t1.doubleValue());
-                //LOGGER.log(Level.INFO, "Main -> Stage was resized to " + t1.doubleValue());
+
             }
         });
         stage.setX(40);
@@ -164,13 +169,8 @@ public class Main extends Application {
         stage.setMinWidth(1264);
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
-            System.out.println("Width is: " + t1);
+            logger.log(LoggingLevels.INFO, "Width is: " + t1);
         });
-            /*scene.setOnMouseMoved(mouseEvent -> {
-
-                System.out.println(Toolkit.getDefaultToolkit().getScreenResolution());
-                System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
-            });*/
         stage.setResizable(true);
         stage.setMaximized(false);
 

@@ -136,8 +136,13 @@ public class Analyse extends VBox {
 
     }
 
-    private void setup_fav(){
-
+    public void setup_fav(String nl_id){
+        for(String s: this.list){
+            if(s.equals(nl_id)){
+                Branch nl = new Branch(s, ds.get_nl_name(s), ds.get_nl_region(s),ds.getcheckouts(s) ,true, this);
+                this.favorites.getChildren().add(nl);
+            }
+        }
     }
 
     private void setup_main(){
