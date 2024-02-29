@@ -137,10 +137,13 @@ public class Main extends Application {
     private void run_main(Stage stage) {
         //login(stage);
         DataStorage ds = new DataStorage("NL_Liste.csv");
-        this.vendor = new Vendor();
+
         this.checkoutSelectionController = new CheckoutSelectionController(null);
         UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
+        this.vendor = new Vendor(user_controller, ds);
+
+        user_controller.set_vendor(this.vendor);
         /* Alle verwendeten BorderPane(Panes) */
         this.dashboard = new Dashboard(user_controller);
         this.analyse = new Analyse(this.mainController, ds);
@@ -166,13 +169,19 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(1264);
 
+        stage.heightProperty().addListener((observableValue, number, t1) -> {
+            logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
+            this.vendor.set_to_parent_height(t1.doubleValue() - 120);
+        });
+
         stage.widthProperty().addListener((observableValue, number, t1) -> {
-            logger.log(LoggingLevels.INFO, "Width is: " + t1);
+            logger.log(LoggingLevels.DEBUG, "Width is: " + t1);
         });
         stage.setResizable(true);
         stage.setMaximized(false);
-
         stage.show();
+
+        this.vendor.set_to_parent_height(stage.heightProperty().get() - 120);
     }
 
     public void set_center(String name) {

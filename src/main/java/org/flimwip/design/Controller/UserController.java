@@ -4,6 +4,7 @@ import javafx.beans.property.Property;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.UserView;
+import org.flimwip.design.Views.Vendor;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 
@@ -13,11 +14,14 @@ import java.util.Properties;
 
 public class UserController {
 
+    private User selected;
     private ArrayList<UserView> user_views_dashboard;
 
     private ArrayList<UserView> user_views_settings;
 
     private MyLogger logger = new MyLogger(this.getClass());
+
+    private Vendor vendor = null;
 
     private ArrayList<User> pos_user;
     public UserController(){
@@ -29,6 +33,11 @@ public class UserController {
         for(User user : pos_user){
             this.user_views_dashboard.add(new UserView(user, this));
             this.user_views_settings.add(new UserView(user, this));
+
+            if(user.isSelected()){
+                this.selected = user;
+                logger.log(LoggingLevels.INFO, "Selected User is: " + user.getName());
+            }
             logger.log(LoggingLevels.INFO, "Build User: " + user.getName());
         }
     }
@@ -41,8 +50,13 @@ public class UserController {
         return this.user_views_settings;
     }
 
+    public User get_selected_user(){
+        return this.selected;
+    }
 
-
+    public void set_vendor(Vendor vendor){
+        this.vendor = vendor;
+    }
     public void change_selected(String name){
         for(User user: pos_user){
             if(!user.getName().equals(name)){
@@ -55,6 +69,9 @@ public class UserController {
                 logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }else{
                 user.setSelected(true);
+                this.vendor.update_user(user);
+                this.selected = user;
+                logger.log(LoggingLevels.DEBUG, "New selected User is: " + user.getName());
                 for(UserView view : user_views_settings){
                     if(view.get_users_name().equals(user.getName())){
                         view.set_selected();
