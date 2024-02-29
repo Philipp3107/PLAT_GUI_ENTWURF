@@ -49,22 +49,27 @@ public class XML_Vendor_Parser {
             XMLEventWriter eventWriter = XMLOutputFactory.newInstance().createXMLEventWriter(new FileOutputStream(configFile));
             XMLEventFactory eventFactory = XMLEventFactory.newFactory();
             eventWriter.add(eventFactory.createStartDocument("utf-16"));
+            eventWriter.add(eventFactory.createSpace("\n"));
             eventWriter.add(eventFactory.createStartElement("", "", "config"));
             for(PopulationFile pf : files){
-
+                eventWriter.add(eventFactory.createSpace("\n    "));
                 eventWriter.add(eventFactory.createStartElement("", "", "element"));
                 eventWriter.add(eventFactory.createAttribute("name" , pf.get_name()));
+                eventWriter.add(eventFactory.createSpace("\n        "));
                 eventWriter.add(eventFactory.createStartElement("", "", "from"));
                 eventWriter.add(eventFactory.createAttribute("absolute", pf.get_from_absolut() ? "true" : "false"));
                 eventWriter.add(eventFactory.createCharacters(pf.get_from()));
                 eventWriter.add(eventFactory.createEndElement("", "", "from"));
+                eventWriter.add(eventFactory.createSpace("\n        "));
                 eventWriter.add(eventFactory.createStartElement("", "", "to"));
                 eventWriter.add(eventFactory.createAttribute("absolute", pf.get_to_absolute() ? "true" : "false"));
                 eventWriter.add(eventFactory.createCharacters(pf.get_to()));
                 eventWriter.add(eventFactory.createEndElement("", "", "to"));
+                eventWriter.add(eventFactory.createSpace("\n    "));
                 eventWriter.add(eventFactory.createEndElement("", "", "element"));
 
             }
+            eventWriter.add(eventFactory.createSpace("\n"));
             eventWriter.add(eventFactory.createEndElement("", "", "config"));
         } catch (XMLStreamException e) {
             throw new RuntimeException(e);
