@@ -70,6 +70,8 @@ public class Main extends Application {
     private Analyse analyse;
     private Settings settings;
 
+    private Vendor vendor;
+
     private boolean logged_in = false;
 
     private MyLogger logger = new MyLogger(this.getClass());
@@ -135,6 +137,7 @@ public class Main extends Application {
     private void run_main(Stage stage) {
         //login(stage);
         DataStorage ds = new DataStorage("NL_Liste.csv");
+        this.vendor = new Vendor();
         this.checkoutSelectionController = new CheckoutSelectionController(null);
         UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
@@ -179,6 +182,8 @@ public class Main extends Application {
             this.root.setCenter(this.analyse);
         } else if (name.equals("Einstellungen")) {
             this.root.setCenter(this.settings);
+        }else if (name.equals("Vendor")){
+            this.root.setCenter(this.vendor);
         }
     }
 
