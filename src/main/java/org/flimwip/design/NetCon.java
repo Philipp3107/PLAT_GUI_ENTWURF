@@ -65,9 +65,6 @@ public class NetCon{
                 //custom timeout handling
                 System.out.print("Watingin: " + i + "\r");
                 i++;
-                if(i >= 500000){
-                    return false;
-                }
             }
 
             String line;

@@ -1,9 +1,10 @@
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Properties;
+import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.flimwip.design.Encryption;
@@ -11,33 +12,42 @@ import org.flimwip.design.Encryption;
 public class TestCryptics {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException {
-        System.out.println("Testing Cryptics");
-        String user_password = "Werterzu900!";
-        String password = "M6kUVm3T";
+        //Creating a Signature object
+        Signature sign = Signature.getInstance("SHA256withRSA");
+
+        //Creating KeyPair generator object
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+
+        //Initializing the key pair generator
+        keyPairGen.initialize(2048);
+
+        //Generating the pair of keys
+        KeyPair pair = keyPairGen.generateKeyPair();
+        KeyPair pair2 = keyPairGen.genKeyPair();
+
+        //Creating a Cipher object
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+
+        //Initializing a Cipher object
+        cipher.init(Cipher.ENCRYPT_MODE, pair.getPublic());
+
+        //Adding data to the cipher
+        byte[] input = "M6kUVm3T".getBytes();
+        cipher.update(input);
+
+        //encrypting the data
+        byte[] cipherText = cipher.doFinal();
+        System.out.println(new String(cipherText, StandardCharsets.UTF_16));
 
 
-        byte[] salt = new String("694201111").getBytes();
+        //Initializing the same cipher for decryption
+        cipher.init(Cipher.DECRYPT_MODE, pair.getPrivate());
 
-        int iterationCounte = 69420;
-        int keyLength = 128;
-        SecretKeySpec key = null;
-        try{
-            key = Encryption.createSecretKey(user_password.toCharArray(), salt, iterationCounte, keyLength);
+        System.out.println("Private key");
+        System.out.println(pair2.getPrivate().toString());
 
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeySpecException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        System.out.println("Original is: " + password);
-        String encrypted = Encryption.encrypt(password, key);
-        System.out.println("Encrypted is: " + encrypted);
-        String decrypted = Encryption.decrypt(encrypted, key);
-        System.out.println("Decrypted is: " + decrypted);
-
-        String decripling = Encryption.decrypt("vbLrtqwlnukBK1N1Lz1KxA==:GjtU80ZJlpp3l/D9RQoSgA==", key);
-        System.out.println(decripling);
+        //Decrypting the text
+        byte[] decipheredText = cipher.doFinal(cipherText);
+        System.out.println(new String(decipheredText));
     }
 }
