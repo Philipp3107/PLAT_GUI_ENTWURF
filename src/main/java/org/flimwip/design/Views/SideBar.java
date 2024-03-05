@@ -14,8 +14,8 @@ public class SideBar extends HBox {
         this.controller = controller;
 
         /* Style der Sidebar auf dem HomeScreen */
-        this.setMinHeight(80);
-        this.setMaxHeight(80);
+        this.setMinHeight(60);
+        this.setMaxHeight(60);
         this.setStyle("-fx-background-color: #232323");
         this.setSpacing(10);
 

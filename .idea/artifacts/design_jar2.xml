@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact name="design:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/design_jar2</output-path>
+    <root id="root">
+      <element id="archive" name="design.jar">
+        <element id="module-output" name="design" />
+      </element>
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:20.0.1" />
+      <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.1.2" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:20.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:20.0.1" />
+    </root>
+  </artifact>
+</component>

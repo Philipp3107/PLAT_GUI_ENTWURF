@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact name="design:jar">
+  <artifact type="javafx" name="design:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/design_jar</output-path>
     <root id="root">
       <element id="archive" name="design.jar">

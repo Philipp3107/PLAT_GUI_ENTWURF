@@ -69,7 +69,7 @@ public class UserController {
                 logger.log(LoggingLevels.INFO, "User:", user.getName(),"is", (user.isSelected() ? "selected": "deselected"));
             }else{
                 user.setSelected(true);
-                this.vendor.update_user(user);
+                //this.vendor.update_user(user);
                 this.selected = user;
                 logger.log(LoggingLevels.DEBUG, "New selected User is: " + user.getName());
                 for(UserView view : user_views_settings){

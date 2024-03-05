@@ -141,9 +141,10 @@ public class Main extends Application {
         this.checkoutSelectionController = new CheckoutSelectionController(null);
         UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
-        this.vendor = new Vendor(user_controller, ds);
+        //this.vendor = new Vendor(user_controller, ds);
+        this.vendor = new Vendor();
 
-        user_controller.set_vendor(this.vendor);
+        //user_controller.set_vendor(this.vendor);
         /* Alle verwendeten BorderPane(Panes) */
         this.dashboard = new Dashboard(user_controller);
         this.analyse = new Analyse(this.mainController, ds);
@@ -171,7 +172,8 @@ public class Main extends Application {
 
         stage.heightProperty().addListener((observableValue, number, t1) -> {
             logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
-            this.vendor.set_to_parent_height(t1.doubleValue() - 120);
+            //this.vendor.setHeightToSplitPane(t1.doubleValue());
+            //this.vendor.set_to_parent_height(t1.doubleValue() - 120);
         });
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
@@ -180,8 +182,8 @@ public class Main extends Application {
         stage.setResizable(true);
         stage.setMaximized(false);
         stage.show();
-
-        this.vendor.set_to_parent_height(stage.heightProperty().get() - 120);
+        //this.vendor.setHeightToSplitPane(stage.heightProperty().doubleValue());
+        //this.vendor.set_to_parent_height(stage.heightProperty().get() - 120);
     }
 
     public void set_center(String name) {
