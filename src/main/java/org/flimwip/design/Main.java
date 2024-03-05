@@ -67,7 +67,7 @@ public class Main extends Application {
     private Dashboard dashboard;
     String username = "";
     String pw = "";
-    private Analyse analyse;
+    private Analyse2 analyse;
     private Settings settings;
 
     private Vendor vendor;
@@ -147,7 +147,7 @@ public class Main extends Application {
         //user_controller.set_vendor(this.vendor);
         /* Alle verwendeten BorderPane(Panes) */
         this.dashboard = new Dashboard(user_controller);
-        this.analyse = new Analyse(this.mainController, ds);
+        this.analyse = new Analyse2(ds, mainController);
         root = new BorderPane();
 
         /* Formatierung Root */
@@ -166,7 +166,7 @@ public class Main extends Application {
         });
         stage.setX(40);
         stage.setY(40);
-        //scene.getStylesheets().add(getClass().getResource("/org/flimwip/design/fontstyle.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/org/flimwip/design/fontstyle.css").toExternalForm());
         stage.setScene(scene);
         stage.setMinWidth(1264);
 

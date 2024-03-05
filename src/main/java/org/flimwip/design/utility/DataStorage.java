@@ -1,12 +1,11 @@
 package org.flimwip.design.utility;
 
 import org.flimwip.design.Models.CheckoutModel;
+import org.flimwip.design.Views.Branch;
 
 import javax.management.ObjectInstance;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class serves as a data storage for {@link org.flimwip.design.Views.Checkout}.
@@ -49,6 +48,8 @@ public class DataStorage {
      */
     private String filename;
 
+    private List<Branch> branches;
+
     /**
      * HashMap variable used to store checkout data.
      * Key: String - represents the branch ID.
@@ -77,6 +78,8 @@ public class DataStorage {
         this.logger.set_Level(LoggingLevels.FINE);
         this.filename = filename;
         init();
+
+        build_branches();
     }
 
     /**
@@ -143,6 +146,26 @@ public class DataStorage {
             return kassen.get(nl).get(0).region();
         }else{
             return null;
+        }
+    }
+
+    public List<Branch> get_branches(){
+        return branches;
+    }
+
+    private void build_branches(){
+        this.branches = new ArrayList<>();
+        Comparator<String> c = new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        };
+        ArrayList<String> keys = new ArrayList<>(list_keys());
+        keys.sort(c);
+        for(String key: keys){
+            Branch b = new Branch(key, get_nl_name(key), get_nl_region(key), getcheckouts(key), false, null);
+            this.branches.add(b);
         }
     }
 }

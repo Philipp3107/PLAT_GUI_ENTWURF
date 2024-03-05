@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import org.flimwip.design.Views.helpers.ProgressView;
 
 public class Vendor extends VBox {
-
     private ProgressView p;
     private int step = 1;
     private HBox top;
