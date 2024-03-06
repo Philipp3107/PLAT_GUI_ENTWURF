@@ -40,9 +40,9 @@ public class MainMenuButton extends HBox {
 
     private void init(){
         this.setMaxHeight(30);
-        this.setAlignment(Pos.CENTER);
+        this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(12));
-        this.setStyle("-fx-background-color: #565656; -fx-background-radius: 10");
+        this.setStyle("-fx-background-color: #232323; -fx-background-radius: 2");
         l = new Label(this.text);
         this.l.setTextFill(Color.WHITE);
         l.setStyle("-fx-font-size: 15; -fx-font-weight: bold");
@@ -78,7 +78,7 @@ public class MainMenuButton extends HBox {
 
     public void deselect(){
         this.l.setTextFill(Color.WHITE);
-        this.setStyle("-fx-background-color: #565656; -fx-background-radius: 10");
+        this.setStyle("-fx-background-color: #232323; -fx-background-radius: 2");
         try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "light/" + this.imagename);) {
             this.image = new Image(stream);
             this.imageView.setImage(this.image);
@@ -89,7 +89,7 @@ public class MainMenuButton extends HBox {
     }
     private void on_hover_start(){
         if(!this.selected){
-            this.setStyle("-fx-background-color: white; -fx-background-radius: 10");
+            this.setStyle("-fx-background-color: #999999; -fx-background-radius: 2");
             this.l.setTextFill(Color.BLACK);
             image = null;
             try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
@@ -103,9 +103,9 @@ public class MainMenuButton extends HBox {
     }
     private void on_hover_end(){
         if(!selected) {
-            this.setStyle("-fx-background-color: #565656; -fx-background-radius: 10");
+            this.setStyle("-fx-background-color: #232323; -fx-background-radius: 2");
             this.l.setTextFill(Color.WHITE);
-            try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "dark/" + this.imagename);) {
+            try (InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "light/" + this.imagename);) {
                 this.imageView.setImage(new Image(stream));
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -118,7 +118,7 @@ public class MainMenuButton extends HBox {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.setStyle("-fx-background-color: white; -fx-background-radius: 10");
+        this.setStyle("-fx-background-color: #999999; -fx-background-radius: 2");
         this.l.setTextFill(Color.BLACK);
         this.selected = true;
         this.controller.deselect_main_menu_buttons(this.getId());
@@ -131,7 +131,7 @@ public class MainMenuButton extends HBox {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.setStyle("-fx-background-color: white; -fx-background-radius: 10");
+        this.setStyle("-fx-background-color: #999999; -fx-background-radius: 2");
         this.l.setTextFill(Color.BLACK);
         this.selected = true;
     }

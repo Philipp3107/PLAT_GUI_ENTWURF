@@ -8,9 +8,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
@@ -19,6 +23,7 @@ import javax.swing.text.html.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class Analyse2 extends VBox {
 
@@ -26,6 +31,8 @@ public class Analyse2 extends VBox {
 
    private MyLogger logger = new MyLogger(this.getClass());
    private FlowPane allFlowPane;
+
+   private String search = "";
    private ScrollPane allScrollPane;
    private ObservableList<String>  favoritesList = FXCollections.observableArrayList();
    private ObservableList<String> allList;
@@ -46,7 +53,10 @@ public class Analyse2 extends VBox {
 
        Label favoritesLabel = new Label("Favorites");
        setStyleForLabel(favoritesLabel);
-       this.getChildren().add(favoritesLabel);
+       TextField searching = serach_text_field();
+
+
+       this.getChildren().addAll(new HBox(favoritesLabel, new Spacer(), searching));
        addFavoritesChangeListener();
        this.getChildren().add(favoritesFlowPane);
        Label label = new Label("Niederlassungen");
@@ -55,6 +65,52 @@ public class Analyse2 extends VBox {
        this.getChildren().add(allScrollPane);
 
    }
+
+    private TextField serach_text_field(){
+        TextField searching = new TextField();
+
+        searching.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.BACK_SPACE){
+                String temp = searching.getText();
+                if(!this.search.equals(temp)){
+                    this.search = temp;
+                }else if(!this.search.isEmpty()){
+                    this.search = search.substring(0, search.length() -1);
+                }
+            }else if(keyEvent.getCode() == KeyCode.ESCAPE){
+                this.requestFocus();
+
+            }else{
+                this.search += keyEvent.getText();
+            }
+
+            logger.log(LoggingLevels.INFO, "Search changed to:", search);
+            filter_center(search);
+        });
+        return searching;
+    }
+
+    public void filter_center(String text) {
+        this.getChildren().remove(allScrollPane);
+        allScrollPane = new ScrollPane();
+        allScrollPane.setFitToWidth(true);
+        allScrollPane.setContent(allFlowPane);
+        allScrollPane.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c;");
+
+        this.allFlowPane = new FlowPane(5, 5);
+        Set<String> sets = dataStorage.list_keys();
+        List<String> list = new ArrayList<>(sets.stream().toList());
+        Collections.sort(list);
+
+        for (String s : list) {
+            if (s.contains(text) | dataStorage.get_nl_name(s).contains(text.toUpperCase())) {
+                Branch nl = new Branch(s, dataStorage.get_nl_name(s), dataStorage.get_nl_region(s), dataStorage.getcheckouts(s) ,false, this);
+                this.allFlowPane.getChildren().add(nl);
+            }
+        }
+        allScrollPane.setContent(allFlowPane);
+        this.getChildren().add(allScrollPane);
+    }
 
    private void setUpLists() {
 
@@ -142,4 +198,12 @@ public class Analyse2 extends VBox {
            favoritesList.remove(nl_id);
        }
    }
+
+    void display_nl(String nl_id){
+        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this));
+    }
+
+    public void go_back(){
+        this.mainController.set_main_center("Analyse");
+    }
 }

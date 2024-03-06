@@ -152,7 +152,7 @@ public class Main extends Application {
 
         /* Formatierung Root */
         root.setStyle("-fx-background-color: #6c708c");
-        root.setTop(new SideBar(mainController));
+        root.setLeft(new SideBar(mainController));
         root.setCenter(this.dashboard);
 
         /* Setting Stage and Scene */
@@ -161,7 +161,7 @@ public class Main extends Application {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 mainController.stage_width.set(t1.doubleValue());
-
+                vendor.resize(t1.doubleValue() - 200);
             }
         });
         stage.setX(40);

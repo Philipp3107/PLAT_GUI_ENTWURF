@@ -40,7 +40,7 @@ public class BranchView extends BorderPane {
 
     private String nl_id;
 
-    private Analyse analyse;
+    private Analyse2 analyse;
 
     private FileController fc;
 
@@ -48,7 +48,7 @@ public class BranchView extends BorderPane {
 
 
     private Semaphore semaphore;
-    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse analyse){
+    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse2 analyse){
         this.fc = new FileController(this);
         this.analyse = analyse;
         this.checkoutModels = kassen;

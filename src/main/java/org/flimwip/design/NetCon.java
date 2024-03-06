@@ -63,8 +63,11 @@ public class NetCon{
             int i = 0;
             while(!stdInput.ready()){
                 //custom timeout handling
-                System.out.print("Watingin: " + i + "\r");
+                //System.out.print("Watingin: " + i + "\r");
                 i++;
+                if(i >= 2500000){
+                    return false;
+                }
             }
 
             String line;
