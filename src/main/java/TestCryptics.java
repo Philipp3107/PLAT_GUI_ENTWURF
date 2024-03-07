@@ -1,13 +1,7 @@
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Properties;
 import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.flimwip.design.Encryption;
 
 public class TestCryptics {
 

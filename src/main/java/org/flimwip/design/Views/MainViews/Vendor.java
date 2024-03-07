@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.MainViews;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ public class Vendor extends VBox {
     }
     private void setStyleAndAddProgressView() {
         this.setStyle("-fx-background-color: #6c708c");
-        this.p = new ProgressView(10, 1184, 70);
+        this.p = new ProgressView(5, 1184, 70);
         this.getChildren().add(p);
     }
     private void addButtons(){

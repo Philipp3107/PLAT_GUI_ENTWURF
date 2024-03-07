@@ -1,4 +1,4 @@
-package org.flimwip.design;
+package org.flimwip.design.utility;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,9 +14,6 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.flimwip.design.utility.CredentialManager;
-import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
 
 import java.io.*;
 import java.util.ArrayList;

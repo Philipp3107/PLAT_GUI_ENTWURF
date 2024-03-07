@@ -1,6 +1,8 @@
-package org.flimwip.design.utility;
+package org.flimwip.design.utility.Runnables;
 
-import org.flimwip.design.Views.Checkout;
+import org.flimwip.design.Views.Temp.Checkout;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;

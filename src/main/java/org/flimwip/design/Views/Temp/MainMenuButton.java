@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.Temp;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,12 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import org.flimwip.design.Controller.MainController;
-import org.flimwip.design.utility.CredentialManager;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 
 /**

@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.helpers;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

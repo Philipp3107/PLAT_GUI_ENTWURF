@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.MainViews;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.UserController;
-import org.flimwip.design.DashboardStats;
+import org.flimwip.design.utility.DashboardStats;
+import org.flimwip.design.Views.Temp.DashboardButton;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;

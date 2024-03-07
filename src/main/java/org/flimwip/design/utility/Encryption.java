@@ -1,4 +1,4 @@
-package org.flimwip.design;
+package org.flimwip.design.utility;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

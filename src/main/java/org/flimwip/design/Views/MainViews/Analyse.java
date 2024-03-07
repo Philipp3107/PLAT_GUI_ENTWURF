@@ -1,14 +1,10 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.MainViews;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -17,8 +13,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.controlsfx.dialog.Wizard;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Views.Temp.Branch;
+import org.flimwip.design.Views.Temp.BranchView;
+import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;

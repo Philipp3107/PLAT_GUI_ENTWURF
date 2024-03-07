@@ -1,6 +1,5 @@
 package org.flimwip.design;
 
-import com.sun.javafx.logging.PlatformLogger;
 import javafx.application.Application;
 
 import javafx.beans.value.ChangeListener;
@@ -19,7 +18,8 @@ import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
-import org.flimwip.design.Views.*;
+import org.flimwip.design.Views.MainViews.*;
+import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
@@ -70,7 +70,7 @@ public class Main extends Application {
     private Analyse2 analyse;
     private Settings settings;
 
-    private Vendor vendor;
+    private Vendor_AI_ vendor;
 
     private boolean logged_in = false;
 
@@ -141,10 +141,10 @@ public class Main extends Application {
         this.checkoutSelectionController = new CheckoutSelectionController(null);
         UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
-        //this.vendor = new Vendor(user_controller, ds);
-        this.vendor = new Vendor();
+        //this.Vendor_AI_ = new Vendor_AI_(user_controller, ds);
+        this.vendor = new Vendor_AI_(ds);
 
-        //user_controller.set_vendor(this.vendor);
+        //user_controller.set_Vendor_AI_(this.Vendor_AI_);
         /* Alle verwendeten BorderPane(Panes) */
         this.dashboard = new Dashboard(user_controller);
         this.analyse = new Analyse2(ds, mainController);
@@ -173,7 +173,7 @@ public class Main extends Application {
         stage.heightProperty().addListener((observableValue, number, t1) -> {
             logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
             //this.vendor.setHeightToSplitPane(t1.doubleValue());
-            //this.vendor.set_to_parent_height(t1.doubleValue() - 120);
+            //this.Vendor_AI_.set_to_parent_height(t1.doubleValue() - 120);
         });
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
@@ -182,8 +182,8 @@ public class Main extends Application {
         stage.setResizable(true);
         stage.setMaximized(false);
         stage.show();
-        //this.vendor.setHeightToSplitPane(stage.heightProperty().doubleValue());
-        //this.vendor.set_to_parent_height(stage.heightProperty().get() - 120);
+        //this.Vendor_AI_.setHeightToSplitPane(stage.heightProperty().doubleValue());
+        //this.Vendor_AI_.set_to_parent_height(stage.heightProperty().get() - 120);
     }
 
     public void set_center(String name) {
@@ -193,7 +193,7 @@ public class Main extends Application {
             this.root.setCenter(this.analyse);
         } else if (name.equals("Einstellungen")) {
             this.root.setCenter(this.settings);
-        }else if (name.equals("Vendor")){
+        }else if (name.equals("Vendor_AI_")){
             this.root.setCenter(this.vendor);
         }
     }

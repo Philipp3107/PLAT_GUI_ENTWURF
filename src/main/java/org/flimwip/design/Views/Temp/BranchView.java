@@ -1,9 +1,8 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.Temp;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -13,6 +12,8 @@ import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.CheckoutModel;
+import org.flimwip.design.Views.MainViews.Analyse;
+import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.utility.MyLogger;
 
 import java.io.File;

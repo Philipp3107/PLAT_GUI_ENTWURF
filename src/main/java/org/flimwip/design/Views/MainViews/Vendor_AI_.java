@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.MainViews;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;

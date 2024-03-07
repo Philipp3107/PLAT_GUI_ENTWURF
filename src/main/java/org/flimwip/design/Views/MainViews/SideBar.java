@@ -1,11 +1,10 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.MainViews;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Views.Temp.MainMenuButton;
 
 public class SideBar extends HBox {
 
@@ -20,7 +19,7 @@ public class SideBar extends HBox {
         this.setSpacing(10);
 
         /* Buttons für den Homescreen */
-        String[] button_names = {"Dashboard", "Analyse", "Einstellungen", "Vendor"};
+        String[] button_names = {"Dashboard", "Analyse", "Einstellungen", "Vendor_AI_"};
         String[] button_images = {"dashboard.png" ,"cellularbars.png", "cellularbars.png", "dashboard.png"};
         MainMenuButton[] buttons = new MainMenuButton[button_names.length];
 

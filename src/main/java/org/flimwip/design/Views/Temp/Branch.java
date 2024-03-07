@@ -1,10 +1,7 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.Temp;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
@@ -12,8 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Models.CheckoutModel;
 import java.util.ArrayList;
-import java.util.Objects;
 
+import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 

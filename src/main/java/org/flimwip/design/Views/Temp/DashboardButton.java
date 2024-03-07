@@ -1,14 +1,11 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.Temp;
 
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.flimwip.design.Controller.DashboardStatsController;
-import org.flimwip.design.utility.CredentialManager;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class DashboardButton extends ImageView {
 

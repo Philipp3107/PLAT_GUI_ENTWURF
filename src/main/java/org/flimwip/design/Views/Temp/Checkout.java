@@ -1,4 +1,4 @@
-package org.flimwip.design.Views;
+package org.flimwip.design.Views.Temp;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -14,10 +14,11 @@ import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.*;
+import org.flimwip.design.utility.Runnables.Check_Connection;
+import org.flimwip.design.utility.Runnables.FetchFiles;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.*;
 
 public class Checkout extends VBox {
