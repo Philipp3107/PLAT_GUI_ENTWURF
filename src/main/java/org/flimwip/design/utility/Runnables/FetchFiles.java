@@ -30,7 +30,7 @@ public class FetchFiles implements Runnable{
      */
     private final Checkout k;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private final MyLogger logger = new MyLogger(this.getClass());
 
     /**
      * Contstructor
@@ -76,11 +76,9 @@ public class FetchFiles implements Runnable{
             }else{
                 this.k.set_offline();
             }
-        }catch(InterruptedException e){
+        }catch(InterruptedException | IOException e){
             logger.log_exception(e);
-        }catch (IOException e) {
-            logger.log_exception(e);
-        }finally { semaphore.release();}
+        } finally { semaphore.release();}
     }
 
 }

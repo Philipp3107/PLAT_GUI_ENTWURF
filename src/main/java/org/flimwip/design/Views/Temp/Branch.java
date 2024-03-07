@@ -159,7 +159,7 @@ public class Branch extends VBox{
                 }
 
             }else{
-                //this.analyse.display_nl(nl_id);
+                this.analyse.display_nl(nl_id);
             }
 
         });

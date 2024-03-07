@@ -52,6 +52,12 @@ public class NetCon{
         }
     }*/
 
+    /**
+     * Retrieves a connection to a remote server using the net use command.
+     *
+     * @return true if the connection to the server was successfully established, false otherwise.
+     * @throws IOException if an I/O error occurs.
+     */
     public boolean get_connection() throws IOException{
             String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
             ProcessBuilder pb = new ProcessBuilder(command);
@@ -59,8 +65,11 @@ public class NetCon{
             int i = 0;
             while(!stdInput.ready()){
                 //custom timeout handling
-                System.out.print("Watingin: " + i + "\r");
+                //System.out.print("Watingin: " + i + "\r");
                 i++;
+                if(i >= 2500000){
+                    return false;
+                }
             }
 
             String line;

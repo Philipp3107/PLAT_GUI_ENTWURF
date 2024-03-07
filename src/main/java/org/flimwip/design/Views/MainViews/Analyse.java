@@ -14,9 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
+<<<<<<< HEAD:src/main/java/org/flimwip/design/Views/MainViews/Analyse.java
 import org.flimwip.design.Views.Temp.Branch;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.Views.Temp.Checkout;
+=======
+import org.flimwip.design.Views.helpers.Spacer;
+>>>>>>> 4d3046acd6c7ce677fd37b72922e869d19c5d1c8:src/main/java/org/flimwip/design/Views/Analyse.java
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
@@ -89,7 +93,7 @@ public class Analyse extends VBox {
         HBox.setHgrow(label, Priority.ALWAYS);
         Label favorites = new Label("Favortien");
         favorites.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
-        label.getChildren().add(favorites);
+        label.getChildren().addAll(favorites);
         this.fav_flow = new FlowPane(5, 5);
         this.fav_flow.getChildren().addAll(fav_obs);
 
@@ -227,7 +231,7 @@ public class Analyse extends VBox {
     }
 
     void display_nl(String nl_id){
-        this.controller.set_center_to_nl(new BranchView(nl_id, ds.getcheckouts(nl_id), this));
+        //this.controller.set_center_to_nl(new BranchView(nl_id, ds.getcheckouts(nl_id), this));
     }
 
     public void go_back(){
