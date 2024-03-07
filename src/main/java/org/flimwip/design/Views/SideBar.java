@@ -23,8 +23,8 @@ public class SideBar extends VBox {
         this.setAlignment(Pos.CENTER);
 
         /* Buttons für den Homescreen */
-        String[] button_names = {"Dashboard", "Analyse", "Einstellungen", "Vendor"};
-        String[] button_images = {"dashboard.png" ,"cellularbars.png", "cellularbars.png", "dashboard.png"};
+        String[] button_names = {/*"Dashboard",*/ "Analyse", "Einstellungen", "Vendor"};
+        String[] button_images = {/*"dashboard.png", */"cellularbars.png", "cellularbars.png", "dashboard.png"};
         MainMenuButton[] buttons = new MainMenuButton[button_names.length];
 
         for(int i = 0; i < button_names.length; i++){

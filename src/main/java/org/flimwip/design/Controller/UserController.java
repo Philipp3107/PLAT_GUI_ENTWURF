@@ -1,10 +1,7 @@
 package org.flimwip.design.Controller;
 
-import javafx.beans.property.Property;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.UserView;
-import org.flimwip.design.Views.Vendor;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 
@@ -20,8 +17,6 @@ public class UserController {
     private ArrayList<UserView> user_views_settings;
 
     private MyLogger logger = new MyLogger(this.getClass());
-
-    private Vendor vendor = null;
 
     private ArrayList<User> pos_user;
     public UserController(){
@@ -52,10 +47,6 @@ public class UserController {
 
     public User get_selected_user(){
         return this.selected;
-    }
-
-    public void set_vendor(Vendor vendor){
-        this.vendor = vendor;
     }
     public void change_selected(String name){
         for(User user: pos_user){

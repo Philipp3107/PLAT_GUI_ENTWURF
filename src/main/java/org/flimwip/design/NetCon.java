@@ -52,6 +52,12 @@ public class NetCon{
         }
     }*/
 
+    /**
+     * Retrieves a connection to a remote server using the net use command.
+     *
+     * @return true if the connection to the server was successfully established, false otherwise.
+     * @throws IOException if an I/O error occurs.
+     */
     public boolean get_connection() throws IOException{
             String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
             ProcessBuilder pb = new ProcessBuilder(command);

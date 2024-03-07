@@ -70,7 +70,7 @@ public class MainMenuButton extends HBox {
         this.setSpacing(15);
         this.getChildren().addAll(imageView, l);
 
-        if(this.text.equals("Dashboard")){
+        if(this.text.equals("Analyse")){
             select_on_start();
         }
 
