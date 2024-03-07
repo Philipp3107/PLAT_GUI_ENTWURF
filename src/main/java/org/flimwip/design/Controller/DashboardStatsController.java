@@ -1,7 +1,7 @@
 package org.flimwip.design.Controller;
 
-import org.flimwip.design.Views.Dashboard;
-import org.flimwip.design.Views.DashboardButton;
+import org.flimwip.design.Views.MainViews.Dashboard;
+import org.flimwip.design.Views.Temp.DashboardButton;
 
 /**
  * This Controller controls the Statistics on the Dashboard
@@ -52,7 +52,7 @@ public class DashboardStatsController {
     }
 
     /**
-     * Changes the Stats on teh {@link Dashboard} to the given category
+     * Changes the Stats on the {@link Dashboard} to the given category
      * @param category The Category the Stats will be set to. Possible categories are "error", "warn" and "critical"
      */
     public void change(String category){

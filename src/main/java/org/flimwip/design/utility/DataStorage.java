@@ -1,21 +1,21 @@
 package org.flimwip.design.utility;
 
 import org.flimwip.design.Models.CheckoutModel;
-import org.flimwip.design.Views.Branch;
+import org.flimwip.design.Views.Temp.Branch;
+import org.flimwip.design.Views.Temp.Checkout;
 
-import javax.management.ObjectInstance;
 import java.io.*;
 import java.util.*;
 
 /**
- * This class serves as a data storage for {@link org.flimwip.design.Views.Checkout}.
+ * This class serves as a data storage for {@link Checkout}.
  * It provides methods for initializing data from a file, obtaining checkouts for a branch,
  * getting branch name and region, and listing all keys of the stored data.
  *
  * {@code filename} is used to describe the location of the file used for data initialization.
  *
- * The data is stored in the form of a HashMap, with {@code org.flimwip.design.Views.Branch} as
- * key and an ArrayList of {@link org.flimwip.design.Views.Checkout}s as value.
+ * The data is stored in the form of a HashMap, with {@code org.flimwip.design.Views.Temp.Branch} as
+ * key and an ArrayList of {@link Checkout}s as value.
  *
  * It depends on {@link CheckoutModel} class for its structure to store checkouts.
  *

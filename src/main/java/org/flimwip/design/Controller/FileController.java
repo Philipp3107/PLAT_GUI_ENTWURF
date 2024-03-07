@@ -1,8 +1,8 @@
 package org.flimwip.design.Controller;
 
-import org.flimwip.design.Views.Checkout;
-import org.flimwip.design.Views.LogFile;
-import org.flimwip.design.Views.BranchView;
+import org.flimwip.design.Views.Temp.Checkout;
+import org.flimwip.design.Views.helpers.LogFile;
+import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 
@@ -13,6 +13,11 @@ import java.util.ArrayList;
  */
 public class FileController {
 
+    /**
+     * Logger instance used for logging messages within the class.
+     * It provides logging functionality with different logging levels.
+     * Messages logged with this logger will be written to the console.
+     */
     private MyLogger logger = new MyLogger(this.getClass());
 
     /**
@@ -29,6 +34,10 @@ public class FileController {
      * The {@link BranchView} this Controller belongs to
      */
     private final BranchView branch_view;
+    /**
+     * Represents a controller for managing files in a file system.
+     * This class is responsible for initializing the controller and managing the list of files and selected files.
+     */
     public FileController(BranchView branch_view){
         this.logger.set_Level(LoggingLevels.FINE);
         this.files = new ArrayList<>();

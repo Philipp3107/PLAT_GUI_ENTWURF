@@ -1,8 +1,8 @@
 package org.flimwip.design.Controller;
 
-import org.flimwip.design.Views.Checkout;
-import org.flimwip.design.Views.MainMenuButton;
-import org.flimwip.design.Views.BranchView;
+import org.flimwip.design.Views.Temp.Checkout;
+import org.flimwip.design.Views.Temp.MainMenuButton;
+import org.flimwip.design.Views.Temp.BranchView;
 
 import java.io.File;
 
@@ -31,6 +31,12 @@ public class CheckoutSelectionController {
     public CheckoutSelectionController(BranchView view){
         this.view = view;
     }
+    /**
+     * Sets the selected checkout based on the given ID.
+     * Unselects all other checkouts and updates the view accordingly.
+     *
+     * @param id The ID of the checkout to be selected
+     */
     public void set_selected_checkout(String id){
         boolean selected = false;
         for(Checkout k : kassen){
@@ -85,7 +91,7 @@ public class CheckoutSelectionController {
     }
 
     /**
-     * TO provide a list of all checkouts of the given branch for further actions
+     * To provide a list of all checkouts of the given branch for further actions
      * @param kassen -> Array of Checkout
      */
     public void set_checkouts(Checkout[] kassen){
@@ -101,11 +107,4 @@ public class CheckoutSelectionController {
         return selected;
     }
 
-
-    /**
-     * Currently not in use
-     * @param files
-     */
-    public void display_files(File[] files){
-    }
 }

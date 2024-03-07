@@ -1,10 +1,10 @@
 package org.flimwip.design;
 
-import com.sun.javafx.logging.PlatformLogger;
 import javafx.application.Application;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,16 +13,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
-import org.flimwip.design.Views.*;
+import org.flimwip.design.Views.Temp.BranchView;
+import org.flimwip.design.utility.ConfigurationManager;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.Views.MainViews.*;
 
 /**
  * This class serves as the main entry point for the application. It manages the
@@ -33,44 +34,18 @@ import org.flimwip.design.utility.MyLogger;
  */
 public class Main extends Application {
 
-    // ANSI escape code for Green text
-    /*public static final String ANSI_GREEN = "\u001B[32m";
-    // ANSI escape code for resetting console color
-    public static final String ANSI_RESET = "\u001B[0m";
-
-    private static final Logger LOGGER;
-
-    static {
-        LOGGER = Logger.getLogger(Main.class.getName());
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new Formatter() {
-            @Override
-            public String format(LogRecord record) {
-                if (record.getLevel().equals(Level.INFO)) {
-                    return ANSI_GREEN + super.format(record) + ANSI_RESET;
-                } else {
-                    return super.format(record);
-                }
-            }
-        });
-        LOGGER.addHandler(consoleHandler);
-        LOGGER.setUseParentHandlers(false);
-    }*/
-
-    /* Controllers */
-
     private CheckoutSelectionController checkoutSelectionController;
 
     private MainController mainController = new MainController(this);
     private DashboardStatsController dash_controller;
     private BorderPane root;
-    private Dashboard dashboard;
+    //private Dashboard dashboard;
     String username = "";
     String pw = "";
     private Analyse2 analyse;
     private Settings settings;
 
-    private Vendor vendor;
+    private Vendor_AI_ vendor;
 
     private boolean logged_in = false;
 
@@ -135,75 +110,59 @@ public class Main extends Application {
     }
 
     private void run_main(Stage stage) {
-        //login(stage);
+        ConfigurationManager.fetch_configs();
         DataStorage ds = new DataStorage("NL_Liste.csv");
 
         this.checkoutSelectionController = new CheckoutSelectionController(null);
         UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
-        this.vendor = new Vendor(user_controller, ds);
+        this.vendor = new Vendor_AI_(ds, user_controller);
 
-        user_controller.set_vendor(this.vendor);
+        //user_controller.set_Vendor_AI_(this.Vendor_AI_);
         /* Alle verwendeten BorderPane(Panes) */
-        this.dashboard = new Dashboard(user_controller);
+        //this.dashboard = new Dashboard(user_controller);
         this.analyse = new Analyse2(ds, mainController);
         root = new BorderPane();
 
         /* Formatierung Root */
         root.setStyle("-fx-background-color: #6c708c");
-        root.setTop(new SideBar(mainController));
-        root.setCenter(this.dashboard);
+        root.setLeft(new SideBar(mainController));
+        root.setCenter(this.analyse);
 
         /* Setting Stage and Scene */
         Scene scene = new Scene(root, 1290, 700);
-        stage.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                mainController.stage_width.set(t1.doubleValue());
-
-            }
-        });
         stage.setX(40);
         stage.setY(40);
         scene.getStylesheets().add(getClass().getResource("/org/flimwip/design/fontstyle.css").toExternalForm());
         stage.setScene(scene);
-        stage.setMinWidth(1264);
+        stage.setMinWidth(1290);
 
         stage.heightProperty().addListener((observableValue, number, t1) -> {
             logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
-            this.vendor.set_to_parent_height(t1.doubleValue() - 120);
+            this.vendor.resize(null, t1.doubleValue());
         });
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
+            mainController.stage_width.set(t1.doubleValue());
             logger.log(LoggingLevels.DEBUG, "Width is: " + t1);
+            this.vendor.resize(t1.doubleValue(), null);
         });
         stage.setResizable(true);
         stage.setMaximized(false);
+        System.out.println(stage.widthProperty());
+        System.out.println(stage.heightProperty());
         stage.show();
-
-        this.vendor.set_to_parent_height(stage.heightProperty().get() - 120);
     }
 
     public void set_center(String name) {
-        if (name.equals("Dashboard")) {
-            this.root.setCenter(this.dashboard);
-        } else if (name.equals("Analyse")) {
-            this.root.setCenter(this.analyse);
-        } else if (name.equals("Einstellungen")) {
-            this.root.setCenter(this.settings);
-        }else if (name.equals("Vendor")){
-            this.root.setCenter(this.vendor);
+        switch (name) {
+            case "Analyse" -> {
+                this.root.setCenter(this.analyse);
+                break;
+            }
+            case "Einstellungen" -> this.root.setCenter(this.settings);
+            case "Vendor" -> this.root.setCenter(this.vendor);
         }
-    }
-
-    private void show_popup(Scene scene) {
-        Popup login = new Popup();
-        HBox popup_view = new HBox();
-        popup_view.setMinWidth(200);
-        popup_view.setMinHeight(200);
-        login.getContent().add(popup_view);
-        login.setAutoHide(false);
-        login.show(scene.getWindow());
     }
 
     public void set_center_to_nl(BranchView view) {

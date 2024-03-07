@@ -2,8 +2,8 @@ package org.flimwip.design.Controller;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import org.flimwip.design.Main;
-import org.flimwip.design.Views.MainMenuButton;
-import org.flimwip.design.Views.BranchView;
+import org.flimwip.design.Views.Temp.MainMenuButton;
+import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
 
@@ -26,8 +26,9 @@ public class MainController {
   public SimpleDoubleProperty stage_width;
 
     /**
-     * Constructor
-     * @param main {@link Main}
+     * Constructs a new MainController object.
+     *
+     * @param main The Main object representing the main entry point of the application.
      */
     public MainController(Main main){
         logger.set_Level(LoggingLevels.FINE);
