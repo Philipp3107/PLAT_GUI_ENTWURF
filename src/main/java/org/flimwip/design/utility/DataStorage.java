@@ -82,22 +82,6 @@ public class DataStorage {
         build_branches();
     }
 
-    public HashMap<String, ArrayList<String>> fetch_hash_map(){
-        HashMap<String, ArrayList<String>> new_kassen = new HashMap<>();
-        List<String> nls = new ArrayList<>(kassen.keySet());
-        Collections.sort(nls);
-
-        nls.forEach(key -> {
-            List<CheckoutModel> cm = new ArrayList<>(kassen.get(key));
-            ArrayList<String> new_cm = new ArrayList<>();
-            cm.forEach(cm_key -> {
-                new_cm.add(cm_key.checkout_id());
-            });
-            new_kassen.put(key, new_cm);
-        });
-        return new_kassen;
-    }
-
     /**
      * Initializes the data storage by reading the contents of the specified file.
      */

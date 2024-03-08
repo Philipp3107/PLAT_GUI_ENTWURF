@@ -16,9 +16,5 @@ public @interface ServiceM {
      * This provides params when generating docs.
      */
     public String[] params();
-
-    public String[] returns();
-
-    public String[] thrown();
 }
 

@@ -13,7 +13,8 @@ public class Start {
 
     public static void main(String[] args) {
         //Main.main(args);
-        /*for(Field field : Sampleclass.class.getDeclaredFields()){
+
+        for(Field field : Sampleclass.class.getDeclaredFields()){
             System.out.println(field.getName());
             ServiceATT att = field.getAnnotation(ServiceATT.class);
             System.out.println(att.desc());
@@ -32,9 +33,8 @@ public class Start {
                         System.out.println(s);
                     }
                 }
-        }*/
+        }
         //TestMainObservable.main(args);
-        TesterStart.main(args);
     }
 
 

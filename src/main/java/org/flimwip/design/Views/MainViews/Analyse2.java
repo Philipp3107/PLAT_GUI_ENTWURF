@@ -14,9 +14,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
+<<<<<<< HEAD:src/main/java/org/flimwip/design/Views/MainViews/Analyse2.java
 import org.flimwip.design.Views.Temp.Branch;
-import org.flimwip.design.Views.Temp.BranchView;
+=======
 import org.flimwip.design.Views.helpers.Spacer;
+>>>>>>> 4d3046acd6c7ce677fd37b72922e869d19c5d1c8:src/main/java/org/flimwip/design/Views/Analyse2.java
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
@@ -200,7 +202,7 @@ public class Analyse2 extends VBox {
        }
    }
 
-    public void display_nl(String nl_id){
+    void display_nl(String nl_id){
         this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this));
     }
 
