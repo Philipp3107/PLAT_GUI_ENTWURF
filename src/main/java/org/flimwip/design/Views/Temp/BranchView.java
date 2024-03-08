@@ -13,6 +13,7 @@ import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.Views.MainViews.Analyse;
+import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.utility.MyLogger;
 
