@@ -14,12 +14,12 @@ public class Sampleclass {
         this.name = name;
     }
 
-    @ServiceM(desc = "Getter method for name", params = {})
+    @ServiceM(desc = "Getter method for name", params = {}, returns = {"String - name : Name der Smapleclass"}, thrown = {})
     public String getName() {
         return name;
     }
 
-    @ServiceM(desc = "Setter method for name", params = {"name"})
+    @ServiceM(desc = "Setter method for name", params = {"name: String"}, returns = {}, thrown = {})
     public void setName(String name) {
         this.name = name;
     }

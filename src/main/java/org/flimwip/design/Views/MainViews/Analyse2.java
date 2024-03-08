@@ -200,8 +200,8 @@ public class Analyse2 extends VBox {
        }
    }
 
-    void display_nl(String nl_id){
-        //this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this));
+    public void display_nl(String nl_id){
+        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this));
     }
 
     public void go_back(){
