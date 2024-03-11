@@ -33,12 +33,14 @@ import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.Runnables.JobHistoryFetcher;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Job extends VBox {
@@ -69,23 +71,6 @@ public class Job extends VBox {
     private TesterStart vendor;
     private CircleLoader loader = new CircleLoader();
     public Job(DataStorage ds, UserController user_controller, TesterStart vendor){
-
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    System.out.println("Im just a background Thread and do almost nothing");
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
-        t.setDaemon(true);
-        t.setPriority(2);
-        t.start();
 
         double random = Math.random() * 49000000 + 10000;
         this.setId(String.valueOf(random));
@@ -131,6 +116,7 @@ public class Job extends VBox {
             this.loader.update(this.complete_progress.doubleValue());
             rebuild_top();
             if(newValue.doubleValue() >= 1.0){
+                update_jobs();
                 this.checks = FXCollections.observableArrayList();
                 this.file_list = new ArrayList<>();
                 this.path = "";
@@ -142,6 +128,7 @@ public class Job extends VBox {
                 this.getChildren().remove(bottom);
                 create_bottom();
                 this.getChildren().add(2, bottom);
+                this.vendor.delete_current_job(this.getId());
             }
         });
 
@@ -160,7 +147,7 @@ public class Job extends VBox {
                     create_middle();
                     rebuild_top();
                 }
-
+                System.out.println(c);
             }
         });
     }
@@ -660,6 +647,38 @@ public class Job extends VBox {
         }else{
             File f = new File(destination);
             f.mkdirs();
+        }
+    }
+
+    private void update_jobs(){
+        File f = new File("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT_Files\\job-history.txt");
+
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy;HH:mm:ss").format(Calendar.getInstance().getTime());
+        List<String> nl_list = new ArrayList<>();
+        for(String s : this.checks){
+
+            String temp = s.split(" ")[0];
+            System.out.println(temp);
+            if(!nl_list.contains(temp)){
+                nl_list.add(temp);
+            }
+        }
+
+        StringBuilder write_nl = new StringBuilder(nl_list.get(0));
+        if(nl_list.size()>= 2){
+            for(int i = 1; i < nl_list.size(); i++){
+                write_nl.append(",").append(nl_list.get(i));
+            }
+        }
+
+
+        try(FileWriter fw = new FileWriter(f, true);
+            BufferedWriter bw = new BufferedWriter(fw)){
+            bw.newLine();
+            System.out.println(this.checks.size());
+            bw.write(timeStamp+ ";" + this.title + ";" + write_nl + ";" + this.file_list.size() + ";" + this.checks.size() + ";Philipp Kotte");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

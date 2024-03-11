@@ -1,6 +1,8 @@
 package org.flimwip.design;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,10 +17,18 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.Models.JobHistoryItem;
 import org.flimwip.design.Views.helpers.Job;
 import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.utility.Runnables.JobHistoryFetcher;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class TesterStart extends Application {
 
@@ -27,6 +37,8 @@ public class TesterStart extends Application {
 
     private HBox content;
 
+    ScrollPane history_sp;
+
     Font headline = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
     Font sub = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
 
@@ -34,6 +46,7 @@ public class TesterStart extends Application {
     private UserController us;
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         this.ds = new DataStorage("NL_Liste.csv");
         this.us = new UserController();
         create_main_content();
@@ -44,7 +57,13 @@ public class TesterStart extends Application {
         Scene scene = new Scene(this.main_content, 1200, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
+        run_thread();
+    }
 
+    private void run_thread(){
+        Thread t = new Thread(new JobHistoryFetcher(this));
+        t.setDaemon(true);
+        t.start();
     }
 
     public void create_content() {
@@ -61,8 +80,8 @@ public class TesterStart extends Application {
         main_content.setStyle("-fx-background: #2f2f2f; -fx-border-color: #2f2f2f");
     }
 
-    public ScrollPane build_history(){
-        ScrollPane sp = new ScrollPane();
+    public void build_history(){
+        history_sp = new ScrollPane();
         VBox history_view = new VBox();
         VBox.setVgrow(history_view, Priority.ALWAYS);
         history_view.setSpacing(5);
@@ -78,58 +97,21 @@ public class TesterStart extends Application {
         options.getChildren().add(title);
         history_view.getChildren().add(options);
 
-        String[] autor = {"Dündar, Mehmet", "Gorth, Kai", "Barmann, Marcus","Dündar, Mehmet", "Gorth, Kai", "Barmann, Marcus","Barmann, Marcus", "Barmann, Marcus","Barmann, Marcus"};
-        String[] zeit = {"13:25", "13:30", "13:45", "14:25", "14:30", "14:45", "15:25", "15:30", "15:45"};
-        String[] names = {"Push files to 107", "Push files to 108", "Push files to 108", "update lizenz 666", "neue Treiber 4POS", "Push files to 107", "Push files to 108", "Push files to 108", "update lizenz 666"};
-            /*
-            name; time; job_name; file_count; nl;
-
-             */
-        for(int i = 0; i < autor.length; i++){
-
-            VBox history_item = new VBox();
-            history_item.setSpacing(5);
-            history_item.setPadding(new Insets(5));
-            history_item.setStyle("-fx-border-color: #555555");
-
-            Label l = new Label(names[i] +" -> 107");
-            l.setFont(sub);
-            HBox info = new HBox();
-
-            Label author = new Label(autor[i]);
-            author.setTextFill(Color.valueOf("#AAAAAA"));
-            Label time = new Label(zeit[i]);
-            time.setTextFill(Color.valueOf("#AAAAAA"));
-            info.getChildren().addAll(author, new Spacer(), time);
-            history_item.getChildren().addAll(l, info);
-            history_view.getChildren().add(history_item);
+        File f = new File("L:\\POS-Systeme\\TeamPOS_INTERN\\02 Mitarbeiter\\Philipp Kotte\\PLAT_Files\\job-history.txt");
+        try {
+            Files.lines(Path.of(f.getAbsolutePath())).forEach(key -> {
+                String[] lines = key.split(";");
+                JobHistoryItem jhi = new JobHistoryItem(lines[0],lines[1],lines[2], lines[3], lines[4], lines[5], lines[6]);
+                history_view.getChildren().add(jhi);
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
-        for(int i = 0; i < autor.length; i++){
-
-            VBox history_item = new VBox();
-            history_item.setSpacing(5);
-            history_item.setPadding(new Insets(5));
-            history_item.setStyle("-fx-border-color: #555555");
-
-            Label l = new Label(names[i] +" -> 107");
-            l.setFont(sub);
-            HBox info = new HBox();
-
-            Label author = new Label(autor[i]);
-            author.setTextFill(Color.valueOf("#AAAAAA"));
-            Label time = new Label(zeit[i]);
-            time.setTextFill(Color.valueOf("#AAAAAA"));
-            info.getChildren().addAll(author, new Spacer(), time);
-            history_item.getChildren().addAll(l, info);
-            history_view.getChildren().add(history_item);
-        }
-
-        sp.setContent(history_view);
-        sp.setMinWidth(250);
-        sp.setMaxWidth(250);
-        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        return sp;
+        history_sp.setContent(history_view);
+        history_sp.setMinWidth(250);
+        history_sp.setMaxWidth(250);
+        history_sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
     }
 
@@ -156,8 +138,10 @@ public class TesterStart extends Application {
             if(history_open){
                 this.content.getChildren().remove(this.content.getChildren().size()-2);
             }else{
-                ScrollPane sp = build_history();
-                this.content.getChildren().add(this.content.getChildren().size() -1, sp);
+                Thread t = new Thread(new JobHistoryFetcher(this));
+                t.setDaemon(true);
+                build_history();
+                this.content.getChildren().add(this.content.getChildren().size() -1, history_sp);
             }
             history_open = !history_open;
 
@@ -209,13 +193,17 @@ public class TesterStart extends Application {
 
     }
 
+    public synchronized void update_history(){
+        Platform.runLater(() -> {
+            this.content.getChildren().remove(this.content.getChildren().size()-2);
+            build_history();
+            this.content.getChildren().add(this.content.getChildren().size() -1, history_sp);
+        });
+
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
-
-
 
 }
