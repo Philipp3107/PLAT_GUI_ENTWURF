@@ -23,4 +23,9 @@ public class Sampleclass {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public void nonsense(String iwas, String iwas_w){
+
+    }
 }

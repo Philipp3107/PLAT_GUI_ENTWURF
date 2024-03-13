@@ -12,7 +12,7 @@ public class Start {
 
 
     public static void main(String[] args) {
-        //Main.main(args);
+        Main.main(args);
         /*for(Field field : Sampleclass.class.getDeclaredFields()){
             System.out.println(field.getName());
             ServiceATT att = field.getAnnotation(ServiceATT.class);
@@ -34,7 +34,7 @@ public class Start {
                 }
         }*/
 
-        TesterStart.main(args);
+        // TesterStart.main(args);
     }
 
 

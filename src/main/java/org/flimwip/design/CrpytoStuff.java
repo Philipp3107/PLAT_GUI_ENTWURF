@@ -4,6 +4,7 @@ import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.*;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -11,11 +12,25 @@ import java.security.spec.X509EncodedKeySpec;
 
 public class CrpytoStuff implements Serializable{
 
-    private static String CREED_PRIVATE = "H:\\PLAT\\Data\\certs_prv";
+    //private static String CREED_PRIVATE = "H:\\PLAT\\Data\\certs_prv";
 
-    private static String CREED_PUBLIC = "H:\\PLAT\\Data\\certs_pub";
+    //private static String CREED_PUBLIC = "H:\\PLAT\\Data\\certs_pub";
+
+    private static String CREED_PUBLIC = "/Users/philippkotte/PLAT/Data/certs_pub";
+
+    private static String CREED_PRIVATE = "/Users/philippkotte/PLAT/Data/certs_prv";
 
     private KeyPair pair;
+
+    private boolean first_login = true;
+
+    public CrpytoStuff(){
+        try {
+            start_up();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static String print(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
@@ -25,11 +40,29 @@ public class CrpytoStuff implements Serializable{
         return sb.toString();
     }
 
-    private void start_up(){
-        //Hier muss das keypair generiert werden für den Fall das es die erste Anmeldung ist.
-        //ansonsten soll hier der Key geladen werden um ihn direkt abrufbereit zu haben.
+    private void start_up() throws NoSuchAlgorithmException {
+        //check if first login
+        if(!new File(CREED_PRIVATE).exists() && !new File(CREED_PUBLIC).exists()){
+            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA"); //Creating KeyPair generator object
+            keyPairGen.initialize(2048);                                        //Initializing the key pair generator
+            this.pair = keyPairGen.generateKeyPair();
+        }else{
+            first_login = true;
+        }
     }
 
+    public boolean get_first_login(){
+        return this.first_login;
+    }
+
+    /**
+     * Loads and returns a private key using the specified password.
+     *
+     * @param password the password to use for retrieving the private key
+     * @return the loaded private key
+     * @throws NoSuchAlgorithmException if the specified key algorithm is not available
+     * @throws InvalidKeySpecException if the provided key specification is invalid
+     */
     private PrivateKey load_private_key(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKey key = null;
         try {
@@ -43,6 +76,14 @@ public class CrpytoStuff implements Serializable{
         return kf.generatePrivate(new PKCS8EncodedKeySpec(key.getEncoded()));
     }
 
+    /**
+     * Loads and returns a public key using the specified password.
+     *
+     * @param password the password to use for retrieving the public key
+     * @return the loaded public key
+     * @throws NoSuchAlgorithmException if the specified key algorithm is not available
+     * @throws InvalidKeySpecException  if the provided key specification is invalid
+     */
     private PublicKey load_public_key(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKey key = null;
         try {
@@ -56,6 +97,13 @@ public class CrpytoStuff implements Serializable{
         return kf.generatePublic(new X509EncodedKeySpec(key.getEncoded()));
     }
 
+    /**
+     * Saves the public key using the specified password.
+     *
+     * @param password the password to use for saving the public key
+     * @param key the public key to be saved
+     * @return true if the public key is saved successfully, false otherwise
+     */
     private boolean save_public_key(String password, PublicKey key){
         try {
             return saving_key(password, key, CREED_PUBLIC);
@@ -65,6 +113,15 @@ public class CrpytoStuff implements Serializable{
         }
     }
 
+    /**
+     * Saves the private key using the specified password.
+     *
+     * @param password the password to use for saving the private key
+     * @param key the private key to be saved
+     * @return true if the private key is saved successfully, false otherwise
+     * @throws CertificateException if there is an error with the certificate
+     * @throws NoSuchAlgorithmException if the specified key algorithm is not available
+     */
     private boolean save_private_key(String password, PrivateKey key){
         try {
             return saving_key(password, key, CREED_PRIVATE);
@@ -76,9 +133,46 @@ public class CrpytoStuff implements Serializable{
 
 
 
-    public void encrypt() throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    /**
+     * Encrypts the given input using the RSA encryption algorithm with ECB mode and PKCS1 padding.
+     *
+     * @param input the input to be encrypted
+     * @return the encrypted text
+     * @throws NoSuchPaddingException     if the specified padding scheme is not available
+     * @throws NoSuchAlgorithmException if the specified encryption algorithm is not available
+     * @throws InvalidKeyException       if the provided key is invalid
+     * @throws IllegalBlockSizeException if the input length is incorrect for the given cipher
+     * @throws BadPaddingException       if there is an error in the padding
+     */
+    public String encrypt(String input) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, pair.getPublic());
+        cipher.update(input.getBytes());
+        byte[] encipheredText = cipher.doFinal();
+        String temp = print(encipheredText);
+        System.out.println(temp);
+        return temp;
+    }
+
+    /**
+     * Decrypts the given input using the RSA encryption algorithm with ECB mode and PKCS1 padding.
+     *
+     * @param input the input to be decrypted
+     * @return the decrypted text
+     * @throws NoSuchPaddingException     if the specified padding scheme is not available
+     * @throws NoSuchAlgorithmException if the specified encryption algorithm is not available
+     * @throws InvalidKeyException       if the provided key is invalid
+     * @throws IllegalBlockSizeException if the input length is incorrect for the given cipher
+     * @throws BadPaddingException       if there is an error in the padding
+     */
+    public String decrypting(String input) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        cipher.init(Cipher.DECRYPT_MODE, pair.getPrivate());
+        cipher.update(input.getBytes());
+        byte[] decipheredText = cipher.doFinal();
+        String temp = print(decipheredText);
+        System.out.println(temp);
+        return temp;
     }
 
 
@@ -172,6 +266,8 @@ public class CrpytoStuff implements Serializable{
         }
     }
 
+
+
     public static SecretKey retreiving_key(String pw, String path) throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException, UnrecoverableEntryException {
         KeyStore keyStore = KeyStore.getInstance("JCEKS");
         char[] password = pw.toCharArray();
@@ -180,7 +276,9 @@ public class CrpytoStuff implements Serializable{
         KeyStore.ProtectionParameter protectionParam = new KeyStore.PasswordProtection(password);
         KeyStore.SecretKeyEntry secretKeyEnt = (KeyStore.SecretKeyEntry)keyStore.getEntry("secretKeyAlias", protectionParam);
         SecretKey mysecretKey = secretKeyEnt.getSecretKey();
+
         return mysecretKey;
+
     }
 
 
