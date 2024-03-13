@@ -1,10 +1,12 @@
 package org.flimwip.design.Controller;
 
+import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.MainViews.UserView;
 import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PersitenzManager;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class UserController {
      * This class provides the necessary properties and methods to manage a selected User.
      */
     private User selected;
+    private AppUser app_user;
     /**
      * List of user views displayed in the dashboard.
      */
@@ -66,11 +69,11 @@ public class UserController {
      */
     private ArrayList<User> pos_user;
 
-
     /**
      * The UserController class represents a controller for managing users.
      */
     public UserController(){
+        fetch_app_user();
         logger.set_Level(LoggingLevels.FINE);
         load_users();
         logger.log(LoggingLevels.INFO, "Loaded Users");
@@ -86,6 +89,23 @@ public class UserController {
             }
             logger.log(LoggingLevels.INFO, "Build User: " + user.getName());
         }
+    }
+
+    private void fetch_app_user(){
+        //Use persistence to fetch the User and set the app_user to that
+        if(PersitenzManager.does_data_exist()){
+            this.app_user = PersitenzManager.load_app_user();
+        }else{
+            this.app_user = null;
+        }
+    }
+
+    public AppUser get_app_user(){
+        return this.app_user;
+    }
+
+    public void set_app_user(AppUser app_user){
+        this.app_user = app_user;
     }
 
     /**
@@ -123,6 +143,7 @@ public class UserController {
     public void set_vendor(Vendor vendor){
         this.vendor = vendor;
     }
+
     /**
      * Changes the selected user based on the given name.
      *
@@ -174,7 +195,6 @@ public class UserController {
         rewrite_users();
     }
 
-
     /**
      * Loads the users from the specified file and initializes the UserController's pos_user list.
      * Only users listed in the specified file will be loaded.
@@ -200,10 +220,6 @@ public class UserController {
             }
         }
     }
-
-
-
-
 
     /**
      * Rewrites the properties files of the users in the pos_user list.

@@ -11,7 +11,7 @@ public @interface ServiceCR {
     /**
      * This provides description when generating docs.
      */
-    public String desc() default "";
+    public String desc();
     /**
      * This provides params when generating docs.
      */

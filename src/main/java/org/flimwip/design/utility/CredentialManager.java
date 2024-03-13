@@ -8,6 +8,7 @@ public class CredentialManager {
     private static final String DIR = "H:\\PLAT\\Data\\";
 
 
+
     /**
      * Fetches the Username from the Credentials File and provieds it statically
      * @return String: Username either "" or provided by user
@@ -49,7 +50,6 @@ public class CredentialManager {
             return password;
 
         }
-
 
 
     /**

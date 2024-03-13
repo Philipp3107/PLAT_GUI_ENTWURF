@@ -1,5 +1,8 @@
 package org.flimwip.design.Views.helpers;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -21,7 +24,7 @@ public class CircleLoader extends Group {
 
     private Color standart_fill = Color.GRAY;
 
-    private Color inner_fill = Color.valueOf("#6c708c");
+    private Color inner_fill = Color.valueOf("#2f2f2f");
 
     private Color standart_green = Color.valueOf("#50ad50");
     public CircleLoader(){
@@ -31,6 +34,7 @@ public class CircleLoader extends Group {
 
     private void init()
     {
+
         //Builing outer circle
         outer = new Circle();
         outer.setRadius(outer_radius);
@@ -53,6 +57,7 @@ public class CircleLoader extends Group {
 
 
     public void update(double percentage){
-        this.arc.setLength(-360 * percentage);
+        arc.setLength(-360 * percentage);
+
     }
 }
