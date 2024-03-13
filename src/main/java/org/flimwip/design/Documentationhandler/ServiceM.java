@@ -11,13 +11,16 @@ public @interface ServiceM {
     /**
      * This provides description when generating docs.
      */
-    public String desc() default "";
+    public String desc();
     /**
      * This provides params when generating docs.
      */
+
+    public String category();
+
     public String[] params();
 
-    public String[] returns();
+    public String returns();
 
     public String[] thrown();
 }
