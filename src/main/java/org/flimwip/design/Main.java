@@ -26,16 +26,20 @@ import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Views.helpers.Spacer;
-import org.flimwip.design.utility.ConfigurationManager;
-import org.flimwip.design.utility.DataStorage;
-import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.*;
 import org.flimwip.design.Views.MainViews.*;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,17 +77,30 @@ public class Main extends Application {
 
     private final MyLogger logger = new MyLogger(this.getClass());
 
+    private UserController user_controller;
+
     private Rectangle rect2;
-    Font minimal = Font.font("Verdana", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 10);
 
     Font medium = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20);
     Font maximal = Font.font("Verdana", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 40);
+
+    private Cryptographer cryptographer;
 
     private Label startup_search;
 
     @Override
     public void start(Stage stage) throws Exception {
+        Image logo = null;
+        try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream("logo_2.png");) {
+            assert stream != null;
+            logo = new Image(stream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage.getIcons().add(logo);
+        stage.setTitle("PLAT");
         logger.log(LoggingLevels.FINE, "Aufbau Main");
+        this.user_controller = new UserController();
         //show_login(stage);
         hochfahren(stage);
     }
@@ -91,8 +108,6 @@ public class Main extends Application {
         rect2 = new Rectangle();
         logger.log(LoggingLevels.FINE, "hochfahren");
         VBox box = new VBox();
-
-
 
         rect2.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -130,12 +145,14 @@ public class Main extends Application {
         ImageView v = new ImageView(logo);
 
         HBox oben = new HBox();
-
-        oben.getChildren().addAll(v, title);
-        oben.setSpacing(15);
+        HBox title_h = new HBox();
+        HBox.setHgrow(title_h, Priority.ALWAYS);
+        title_h.getChildren().add(title);
+        title_h.setAlignment(Pos.CENTER);
+        oben.getChildren().addAll(v, title_h);
+        oben.setSpacing(30);
         oben.setPadding(new Insets(10));
         oben.setAlignment(Pos.CENTER_LEFT);
-
 
         box.getChildren().addAll(oben, new Spacer(false), startup_search, p);
         box.setPadding(new Insets(10));
@@ -144,7 +161,6 @@ public class Main extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-
 
         Thread thread = new Thread(() -> {
                 //checken ob die Keys da sind
@@ -252,15 +268,38 @@ public class Main extends Application {
     private void show_login(Stage stage) {
 
         logger.log(LoggingLevels.FINE, "login");
-
+        cryptographer = new Cryptographer();
         stage = new Stage();
 
         VBox login = null;
 
-        CrpytoStuff cryptographer = new CrpytoStuff();
-        if(cryptographer.get_first_login()){
+        if(cryptographer.get_first_login() && user_controller.get_app_user() == null){
             login = generate_first_login();
         }else{
+            //generate_login();
+
+            System.out.println(user_controller.get_app_user().toString());
+            cryptographer.start_authentication("Werterzu900!&W");
+            if(cryptographer.verification_success()){
+                String decrypted = null;
+                try {
+                    decrypted = cryptographer.decrypt(user_controller.get_app_user().get_password());
+                } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException e) {
+                    logger.log_exception(e);
+                }
+
+                String decrypted_username = null;
+                try {
+                    decrypted_username = cryptographer.decrypt(user_controller.get_app_user().get_username());
+                } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException e) {
+                    logger.log_exception(e);
+                }
+                System.out.println(decrypted);
+                System.out.println(decrypted_username);
+            }else{
+                logger.log(LoggingLevels.FATAL, "Password Verification failed");
+            }
+
 
         }
 
@@ -271,7 +310,8 @@ public class Main extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        stage.getIcons().add(logo);
+        stage.setTitle("PLAT");
         ImageView v = new ImageView(logo);
 
         //Ground for the Dialog
@@ -389,12 +429,36 @@ public class Main extends Application {
             if(last_name.getText().isEmpty()){
                 last_name.setStyle("-fx-border-color: red; -fx-border-width: 2");
             }
+            if(!name.getText().isEmpty() && !last_name.getText().isEmpty() && !username.getText().isEmpty() && !pw_one.getText().isEmpty() && pw_one.getText().equals(pw_two.getText())){
+                if(password_valid(pw_one.getText())){
+                    String encyrpted = "";
+                    try {
+                        encyrpted = cryptographer.encrypt(pw_one.getText());
+                    } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String encyrpted_username = "";
+                    try {
+                        encyrpted_username = cryptographer.encrypt(username.getText());
+                    } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException e) {
+                        throw new RuntimeException(e);
+                    }
+                    AppUser app_user = new AppUser(name.getText(), last_name.getText(), encyrpted_username,encyrpted );
+                    PersitenzManager.save_app_user(app_user);
+                    cryptographer.start_authentication(pw_one.getText());
+                }
+            }
         });
 
         box.getChildren().addAll(user, username, pw_one, pw_two, submit);
         return box;
     }
 
+    private VBox generate_login(){
+        VBox box = new VBox();
+        return box;
+    }
     private boolean password_valid(String pw) {
         //matching length of min 12
         boolean length = pw.length() >= 12;
@@ -427,8 +491,6 @@ public class Main extends Application {
 
         return length && caps && lows && spec;
     }
-
-
     private Pane buidl_length_checker(int length){
         Pane p = new Pane();
         Rectangle r = new Rectangle();
@@ -460,8 +522,6 @@ public class Main extends Application {
         p.getChildren().add(r2);
         return p;
     }
-
-
     private HBox build_checker(String pw, String text, String regex){
         HBox box = new HBox();
         Pattern pattern = Pattern.compile(regex);
@@ -503,13 +563,11 @@ public class Main extends Application {
         password.getChildren().addAll(length, capital, lower, special);
         return password;
     }
-
     private void run_main(Stage stage) {
         ConfigurationManager.fetch_configs();
         DataStorage ds = new DataStorage("NL_Liste.csv");
 
         //this.checkoutSelectionController = new CheckoutSelectionController(null);
-        UserController user_controller = new UserController();
         this.settings = new Settings(user_controller);
         this.vendor = new Vendor_AI_(ds, user_controller);
 
