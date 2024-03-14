@@ -14,7 +14,6 @@ public class StandortTranslator {
         for(StandortCase s: StandortCase.values()){
             if(s.KENNUMMER == id){
                 city = s.STANDORT;
-                System.out.println(city);
             }
         }
         if(city.isEmpty()){

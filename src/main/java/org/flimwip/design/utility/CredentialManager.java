@@ -1,13 +1,12 @@
 package org.flimwip.design.utility;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class CredentialManager {
 
     private static final String CREDENTIALS = "H:\\PLAT\\Data\\Credentials.csv";
     private static final String DIR = "H:\\PLAT\\Data\\";
+
 
 
     /**
@@ -51,7 +50,6 @@ public class CredentialManager {
             return password;
 
         }
-
 
 
     /**

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <element name="Datei 1">
+        <from absolute="true">Das hier ist ein Standartpfad -von1-</from>
+        <to absolute="true">Das hier ist ein Standartpfad -zu1-</to>
+    </element>
+    <element name="Datei 2">
+        <from absolute="true">Das hier ist ein Standartpfad -von2-</from>
+        <to absolute="true">Das hier ist ein Standartpfad -zu2-</to>
+    </element>
+    <element name="Datei 3">
+        <from absolute="true">Das hier ist ein Standartpfad -von3-</from>
+        <to absolute="true">Das hier ist ein Standartpfad -zu3-</to>
+    </element>
+    <element name="Datei 4">
+        <from absolute="true">Das hier ist ein Standartpfad -von4-</from>
+        <to absolute="true">Das hier ist ein Standartpfad -zu4-</to>
+    </element>
+</config>

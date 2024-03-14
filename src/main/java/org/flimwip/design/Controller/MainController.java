@@ -1,13 +1,18 @@
 package org.flimwip.design.Controller;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import org.flimwip.design.Main;
-import org.flimwip.design.Views.MainMenuButton;
-import org.flimwip.design.Views.BranchView;
+import org.flimwip.design.Views.Temp.MainMenuButton;
+import org.flimwip.design.Views.Temp.BranchView;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.MyLogger;
 
 /**
  * This Controller controls the Main actions of the Applications {@link Main} View
  */
 public class MainController {
+
+    private MyLogger logger = new MyLogger(this.getClass());
     /**
      * {@link Main} of the Application
      */
@@ -18,12 +23,18 @@ public class MainController {
      */
   private MainMenuButton[] mmb;
 
+  public SimpleDoubleProperty stage_width;
+
     /**
-     * Constructor
-     * @param main {@link Main}
+     * Constructs a new MainController object.
+     *
+     * @param main The Main object representing the main entry point of the application.
      */
     public MainController(Main main){
+        logger.set_Level(LoggingLevels.FINE);
+        this.stage_width = new SimpleDoubleProperty(0);
         this.main = main;
+
     }
 
     /**
@@ -49,7 +60,7 @@ public class MainController {
     public void deselect_main_menu_buttons(String id){
         for(MainMenuButton mmb : mmb){
             if(mmb.getId().equals(id)){
-                System.out.println(id+ " was clicked");
+                logger.log(LoggingLevels.INFO, mmb.getId() + " was pressed");
             }else{
                 mmb.deselect();
             }

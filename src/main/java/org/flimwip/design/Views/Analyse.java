@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.DataStorage;
 
 import java.util.ArrayList;
@@ -155,9 +156,9 @@ public class Analyse extends VBox {
 
     }
 
-    void display_nl(String nl_id){
+    /*void display_nl(String nl_id){
         this.controller.set_center_to_nl(new BranchView(nl_id, ds.getcheckouts(nl_id), this));
-    }
+    }*/
 
     public void go_back(){
         this.controller.set_main_center("Analyse");

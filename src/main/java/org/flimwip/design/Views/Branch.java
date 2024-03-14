@@ -103,8 +103,8 @@ public class Branch extends VBox {
 
 
 
-        this.setOnMouseClicked(mouseEvent -> {
+        /*this.setOnMouseClicked(mouseEvent -> {
             this.analyse.display_nl(nl_id);
-        });
+        });*/
     }
 }

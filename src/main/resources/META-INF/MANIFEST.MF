@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Main-Class: org.flimwip.design.Start
-Class-Path: javafx-fxml-20.0.1.jar controlsfx-11.1.2.jar javafx-base-20.
- 0.1.jar javafx-graphics-20.0.1-win.jar javafx-controls-20.0.1.jar javaf
- x-graphics-20.0.1.jar javafx-fxml-20.0.1-win.jar javafx-controls-20.0.1
- -win.jar javafx-base-20.0.1-win.jar
+Class-Path: javafx-base-20.0.1-win.jar javafx-fxml-20.0.1.jar javafx-bas
+ e-20.0.1.jar javafx-graphics-20.0.1.jar javafx-fxml-20.0.1-win.jar java
+ fx-graphics-20.0.1-win.jar controlsfx-11.1.2.jar javafx-controls-20.0.1
+ -win.jar javafx-controls-20.0.1.jar
 
