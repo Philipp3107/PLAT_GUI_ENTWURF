@@ -13,18 +13,32 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.flimwip.design.Controller.CheckoutSelectionController;
-import org.flimwip.design.Controller.DashboardStatsController;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.AppUser;
@@ -33,18 +47,6 @@ import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.*;
 import org.flimwip.design.Views.MainViews.*;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * This class serves as the main entry point for the application. It manages the
  * initialization of the application stage and scene, user authentication,
@@ -57,38 +59,23 @@ public class Main extends Application {
     //private static String CREED_PRIVATE = "H:\\PLAT\\Data\\certs_prv";
 
     //private static String CREED_PUBLIC = "H:\\PLAT\\Data\\certs_pub";
-
-    private boolean length_okay = false;
-    private boolean caps_okay = false;
-    private boolean lower_okay = false;
-    private boolean special_okay = false;
     private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";
+    private static String PROFILE_PICTURE = "/Users/philippkotte/Desktop/profile_picture/profile_picture";
+    private static String PROFILE_PICTURE_FOLDER = "/Users/philippkotte/Desktop/profile_picture";
     private MainController mainController = new MainController(this);
     private BorderPane root;
-
-    String username = "";
-    String pw = "";
     private Analyse2 analyse;
     private Settings settings;
-
     private Vendor_AI_ vendor;
-
-    private boolean logged_in = false;
-
     private final MyLogger logger = new MyLogger(this.getClass());
-
     private UserController user_controller;
-
     private Rectangle rect2;
-
+    Font label_font = Font.font("Verdana", FontWeight.MEDIUM, FontPosture.REGULAR, 16);
     Font minimal = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 13);
     Font medium = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 20);
     Font maximal = Font.font("Verdana", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 40);
-
     private Cryptographer cryptographer;
-
     private Label startup_search;
-
     @Override
     public void start(Stage stage) throws Exception {
         Image logo = null;
@@ -232,7 +219,7 @@ public class Main extends Application {
                         logger.log(LoggingLevels.ERROR, "File: " + files[i] + " couldn't be found!");
                     }
                     try {
-                        Thread.sleep(30);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -291,16 +278,16 @@ public class Main extends Application {
         ImageView v = new ImageView(logo);
 
         //Ground for the Dialog
-        VBox box = new VBox();
+        HBox box = new HBox();
 
-        box.setSpacing(5);
+        box.setSpacing(15);
         box.requestFocus();
         box.setPadding(new Insets(15));
         box.setStyle("-fx-background-color: white");
-        box.getChildren().add(v);
+        //box.getChildren().add(v);
         box.setAlignment(Pos.TOP_CENTER);
         box.getChildren().add(login);
-        Scene scene = new Scene(box, 400, 500);
+        Scene scene = new Scene(box, 600, 400);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.DECORATED);
@@ -316,8 +303,8 @@ public class Main extends Application {
         //Field and formating for first name
         TextField name = new TextField();
         name.setPromptText("Vorname");
-        name.setMinWidth(180);
-        name.setMaxWidth(180);
+        name.setMinWidth(240);
+        name.setMaxWidth(240);
         name.textProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue.length() >= 2){
                 name.setStyle("-fx-border-color: green; -fx-border-width: 2");
@@ -326,11 +313,14 @@ public class Main extends Application {
             }
         }));
 
+        name.setFont(label_font);
+
 
         TextField last_name = new TextField();
+        last_name.setFont(label_font);
         last_name.setPromptText("Nachname");
-        last_name.setMinWidth(180);
-        last_name.setMaxWidth(180);
+        last_name.setMinWidth(240);
+        last_name.setMaxWidth(240);
         last_name.textProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue.length() >= 2){
                 last_name.setStyle("-fx-border-color: green; -fx-border-width: 2");
@@ -339,16 +329,22 @@ public class Main extends Application {
             }
         }));
 
-        user.getChildren().addAll(name, last_name);
 
+        VBox b = new VBox(name, last_name);
+        b.setSpacing(10);
+
+
+        user.getChildren().addAll(b, new Spacer(), build_profile_picture());
         TextField username = new TextField();
         username.setPromptText("Username");
+        username.setFont(label_font);
 
         PasswordField pw_one = new PasswordField();
         pw_one.setPromptText("Password");
+        pw_one.setFont(label_font);
         PasswordField pw_two = new PasswordField();
         pw_two.setPromptText("Password bestätigen");
-
+        pw_two.setFont(label_font);
         Button submit = new Button("Log in");
         //change listener for name and lastname
         name.textProperty().addListener((observable, old, t1) -> {
@@ -377,7 +373,6 @@ public class Main extends Application {
                 }else{
                     pw_one.setStyle("-fx-border-color: green; -fx-border-width: 2");
                 }
-                System.out.println(lower_okay + " " + caps_okay + " " + length_okay + " " + special_okay);
             }
 
         });
@@ -432,6 +427,105 @@ public class Main extends Application {
         return box;
     }
 
+    private Pane build_profile_picture(){
+
+        Pane p = new Pane();
+        p.setMinSize(80, 80);
+        p.setMaxSize(80, 80);
+
+
+        Circle circle = new Circle(40, Color.GRAY);
+        circle.setLayoutX(40);
+        circle.setLayoutY(40);
+
+        p.getChildren().add(circle);
+
+        Image camera = null;
+        try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream("camera@2x2.png");) {
+            assert stream != null;
+            camera = new Image(stream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ImageView v = new ImageView(camera);
+        v.setFitHeight(32);
+        v.setFitWidth(40);
+        v.setLayoutY(24);
+        v.setLayoutX(20);
+        p.getChildren().add(v);
+
+        //pane for Drag action
+        p.setOnDragEntered(event -> {
+            logger.log(LoggingLevels.DEBUG, "Drag detected");
+            circle.setStroke(Color.GRAY);
+            circle.setFill(Color.TRANSPARENT);
+            circle.setStrokeDashOffset(3);
+            circle.setStrokeLineCap(StrokeLineCap.ROUND);
+            circle.setStrokeWidth(2);
+            circle.getStrokeDashArray().addAll(5d, 5d);
+
+        });
+
+        /*p.setOnDragExited(event -> {
+            circle.setStroke(Color.GRAY);
+            circle.setFill(Color.GRAY);
+            circle.setStrokeDashOffset(0);
+            circle.setStrokeLineCap(StrokeLineCap.ROUND);
+            circle.setStrokeWidth(0);
+            circle.getStrokeDashArray().clear();
+        });*/
+
+        p.setOnDragOver(event -> {
+            if (event.getGestureSource() != p && event.getDragboard().hasFiles()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            event.consume();
+        });
+
+        p.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasFiles()) {
+                success = true;
+                if(db.getFiles().size() >= 1){
+                    logger.log(LoggingLevels.DEBUG, "zu viele Bilder, nur erstes wird genommen");
+                }
+                File f = db.getFiles().get(0);
+                logger.log(LoggingLevels.DEBUG, "File " + f.getAbsoluteFile().getName() + " found!");
+                String[] temp = f.getAbsoluteFile().getName().split("\\.");
+                String type = temp[temp.length - 1];
+                logger.log(LoggingLevels.DEBUG, "File type is " + type);
+                //copy File to PLAT directory
+                //use it from there
+                for(File pb : new File(PROFILE_PICTURE_FOLDER).listFiles()){
+                    pb.delete();
+                }
+                logger.log(LoggingLevels.DEBUG, "Saving file as " + PROFILE_PICTURE + "." + "type");
+                try {
+                    Files.copy(Path.of(f.getAbsolutePath()), Path.of(PROFILE_PICTURE + "." + type), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Image pp = null;
+                try(InputStream stream = new FileInputStream(PROFILE_PICTURE + "." + type);) {
+                    assert stream != null;
+                    pp = new Image(stream);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                circle.setFill(new ImagePattern(pp));
+                if(p.getChildren().size() > 1){
+                    p.getChildren().remove(v);
+                }
+
+
+
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+        return p;
+    }
     private VBox generate_login(Stage stage){
         VBox box = new VBox();
         box.setAlignment(Pos.CENTER);
@@ -596,20 +690,15 @@ public class Main extends Application {
         while(m.find()){
             matches++;
         }
-
         Label l = new Label(text);
         Circle c = new Circle(6, Color.GRAY);
         if(matches == 0){
             c.setFill(Color.RED);
-            caps_okay = false;
         }else if(matches == 1){
             c.setFill(Color.ORANGE);
-            caps_okay = false;
         }else if(matches >= 2){
             c.setFill(Color.GREEN);
-            caps_okay = true;
         }
-
         box.getChildren().addAll(l, new Spacer(), c);
         return box;
     }

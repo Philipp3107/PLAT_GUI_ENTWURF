@@ -89,7 +89,7 @@ public class Dashboard extends VBox {
 
         VBox display = new VBox();
         if(this.user_controller.get_user_views_dashboard() == null){
-            display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ; ;-fx-border-radius: 10");
+            display.setStyle("-fx-border-color: gray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round ;-fx-border-radius: 10");
             Label l = new Label("Setup a User");
             l.setStyle("-fx-text-fill: white; -fx-font-size: 15");
             Label l2 = new Label("+");

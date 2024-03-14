@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class JobHistoryItem extends VBox implements Comparable<JobHistoryItem>{
 
-    //11.03.2024;11:20:25;Push to 107;107;Test.txt;1;Philipp Kotte
+    //11.03.2024;11:20:25;Push to 107;107;RandomArtGenerator.txt;1;Philipp Kotte
     private String day, month, year, hour, minute, second, title, author;
     private String[] nl, files, checkouts;
 
