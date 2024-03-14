@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.AppUser;
+import org.flimwip.design.Views.Branch;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Views.helpers.Spacer;
@@ -62,6 +63,8 @@ public class Main extends Application {
     private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";
     private static String PROFILE_PICTURE = "/Users/philippkotte/Desktop/profile_picture/profile_picture";
     private static String PROFILE_PICTURE_FOLDER = "/Users/philippkotte/Desktop/profile_picture";
+
+    private boolean chose_profile_pciture = false;
     private MainController mainController = new MainController(this);
     private BorderPane root;
     private Analyse2 analyse;
@@ -305,6 +308,8 @@ public class Main extends Application {
         name.setPromptText("Vorname");
         name.setMinWidth(240);
         name.setMaxWidth(240);
+        name.setMinHeight(30);
+        name.setMaxHeight(30);
         name.textProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue.length() >= 2){
                 name.setStyle("-fx-border-color: green; -fx-border-width: 2");
@@ -335,10 +340,13 @@ public class Main extends Application {
 
 
         user.getChildren().addAll(b, new Spacer(), build_profile_picture());
-        TextField username = new TextField();
-        username.setPromptText("Username");
-        username.setFont(label_font);
 
+        VBox left_username = new VBox();
+        left_username.setSpacing(5);
+        Label desc = new Label("Username will be generated");
+        Label username = new Label();
+        username.setFont(label_font);
+        left_username.getChildren().addAll(desc, username);
         PasswordField pw_one = new PasswordField();
         pw_one.setPromptText("Password");
         pw_one.setFont(label_font);
@@ -358,7 +366,6 @@ public class Main extends Application {
                 username.setText(t1 + name.getText(0, 1));
                 }
         });
-
         //change listener for pw_one and pw_two
         pw_one.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -376,7 +383,6 @@ public class Main extends Application {
             }
 
         });
-
         pw_two.textProperty().addListener(((observable, oldValue, newValue) -> {
             if(newValue.equals(pw_one.getText())){
                 pw_two.setStyle("-fx-border-color: green; -fx-border-width: 2");
@@ -386,8 +392,6 @@ public class Main extends Application {
                 submit.setStyle("-fx-background-color: green");
             }
         }));
-
-
         submit.setStyle("-fx-background-color: #999");
         submit.setFont(medium);
         submit.setMinWidth(370);
@@ -423,20 +427,22 @@ public class Main extends Application {
             }
         });
 
-        box.getChildren().addAll(user, username, pw_one, pw_two, submit);
+        box.getChildren().addAll(user, left_username, pw_one, pw_two, submit);
         return box;
     }
 
     private Pane build_profile_picture(){
 
         Pane p = new Pane();
-        p.setMinSize(80, 80);
-        p.setMaxSize(80, 80);
+        p.setMinSize(70, 70);
+        p.setMaxSize(70, 70);
 
 
-        Circle circle = new Circle(40, Color.GRAY);
-        circle.setLayoutX(40);
-        circle.setLayoutY(40);
+        Circle circle = new Circle(35, Color.GRAY);
+        circle.setLayoutX(35);
+        circle.setLayoutY(35);
+
+
 
         p.getChildren().add(circle);
 
@@ -450,8 +456,8 @@ public class Main extends Application {
         ImageView v = new ImageView(camera);
         v.setFitHeight(32);
         v.setFitWidth(40);
-        v.setLayoutY(24);
-        v.setLayoutX(20);
+        v.setLayoutY(19);
+        v.setLayoutX(15);
         p.getChildren().add(v);
 
         //pane for Drag action
@@ -498,7 +504,9 @@ public class Main extends Application {
                 //copy File to PLAT directory
                 //use it from there
                 for(File pb : new File(PROFILE_PICTURE_FOLDER).listFiles()){
-                    pb.delete();
+                    if(pb.getName().contains("profile_picture")){
+                        pb.delete();
+                    }
                 }
                 logger.log(LoggingLevels.DEBUG, "Saving file as " + PROFILE_PICTURE + "." + "type");
                 try {
@@ -517,13 +525,29 @@ public class Main extends Application {
                 if(p.getChildren().size() > 1){
                     p.getChildren().remove(v);
                 }
-
-
-
             }
             event.setDropCompleted(success);
             event.consume();
         });
+        if(new File(PROFILE_PICTURE + ".png").exists() || new File(PROFILE_PICTURE + ".jpg").exists() || new File(PROFILE_PICTURE + ".jpeg").exists()){
+            Image pp = null;
+            File load = null;
+            for(File f : new File(PROFILE_PICTURE_FOLDER).listFiles()){
+                if(f.getAbsoluteFile().getName().contains("profile_picture")){
+                    load = f;
+                }
+            }
+            try(InputStream stream = new FileInputStream(load);) {
+                assert stream != null;
+                pp = new Image(stream);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            circle.setFill(new ImagePattern(pp));
+            if(p.getChildren().size() > 1){
+                p.getChildren().remove(v);
+            }
+        }
         return p;
     }
     private VBox generate_login(Stage stage){
