@@ -40,7 +40,7 @@ import java.util.*;
  */
 public class DataStorage {
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
     /**
      * Represents the filename of a file in the system.

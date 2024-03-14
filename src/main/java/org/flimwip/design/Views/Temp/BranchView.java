@@ -12,10 +12,9 @@ import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Models.CheckoutModel;
-import org.flimwip.design.Views.MainViews.Analyse;
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +45,7 @@ public class BranchView extends BorderPane {
 
     private FileController fc;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
 
     private Semaphore semaphore;

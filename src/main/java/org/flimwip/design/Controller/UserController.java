@@ -5,7 +5,7 @@ import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.MainViews.UserView;
 import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 import org.flimwip.design.utility.PersitenzManager;
 
 import java.io.*;
@@ -53,9 +53,9 @@ public class UserController {
 
     /**
      * Logger for logging application events and exceptions.
-     * Uses the MyLogger class for logging functionality.
+     * Uses the PKLogger class for logging functionality.
      */
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
     /**
      * Holds the instance of the Vendor class.

@@ -42,7 +42,7 @@ public class MainMenuButton extends HBox {
         this.setStyle("-fx-background-color: #232323; -fx-background-radius: 2");
         l = new Label(this.text);
         this.l.setTextFill(Color.WHITE);
-        l.setStyle("-fx-font-size: 15; -fx-font-weight: bold");
+        l.setStyle("-fx-font-size: 12; -fx-font-weight: bold");
         image = null;
 
         try(InputStream stream = MainMenuButton.class.getClassLoader().getResourceAsStream(this.path + "light/" + this.imagename);) {

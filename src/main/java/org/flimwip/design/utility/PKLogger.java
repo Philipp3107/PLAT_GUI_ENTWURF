@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MyLogger {
+public class PKLogger {
 
     private Class c;
     private LoggingLevels level;
-    public MyLogger(Class c){
+    public PKLogger(Class c){
         this.c = c;
     }
 

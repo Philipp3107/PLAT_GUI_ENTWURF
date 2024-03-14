@@ -1,5 +1,7 @@
 package org.flimwip.design;
 
+import org.flimwip.design.Documentationhandler.ServiceM;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,6 +60,11 @@ public class NetCon{
      * @return true if the connection to the server was successfully established, false otherwise.
      * @throws IOException if an I/O error occurs.
      */
+    @ServiceM(desc = "Retrieves a connection to a remote server using the net use command.",
+              category = "Method",
+              params = {},
+              returns = "",
+              thrown = {"None"})
     public boolean get_connection() throws IOException{
             String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
             ProcessBuilder pb = new ProcessBuilder(command);
@@ -87,6 +94,16 @@ public class NetCon{
     }
 
 
+    /**
+     * Closes the connection to a remote server.
+     *
+     * @throws IOException if an I/O error occurs.
+     */
+    @ServiceM(desc = "Closes the connection to a remote server.",
+              category = "Method",
+              params = {"None"},
+              returns = "void",
+              thrown = {"IOException -> if an I/O error occurs."})
     public void close_connection() throws IOException{
         String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/d"};
         ProcessBuilder pb = new ProcessBuilder(command);
@@ -104,6 +121,18 @@ public class NetCon{
         }
     }
 
+    /**
+     * Pings the given IP address to check if it is reachable.
+     *
+     * @param ip the IP address to ping
+     * @return true if the IP address is reachable, false otherwise
+     * @throws IOException if an I/O error occurs
+     */
+    @ServiceM(desc = "Pings the given IP address to check if it is reachable.",
+              category = "Method",
+              params = {"ip: String -> the IP address to ping"},
+              returns = "boolean -> true if the IP address is reachable, false otherwise",
+              thrown = {"IOException if an I/O error occurs"})
     public boolean PingIpAddr(String ip) throws IOException{
         ProcessBuilder pb = new ProcessBuilder("ping", ip);
         //ProcessBuilder pb = new ProcessBuilder("ping", "-c 5", ip);

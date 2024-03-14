@@ -38,7 +38,7 @@ public class Checkout extends VBox {
     private boolean online = false;
     private File[] files;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
 
     /**

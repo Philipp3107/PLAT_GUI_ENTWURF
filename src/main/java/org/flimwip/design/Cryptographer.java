@@ -1,7 +1,7 @@
 package org.flimwip.design;
 
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,7 +18,7 @@ public class Cryptographer {
     private boolean first_login = false;
 
     private boolean verification_good = true;
-    private MyLogger logger = new MyLogger(Cryptographer.class);
+    private PKLogger logger = new PKLogger(Cryptographer.class);
     //private static String CREED_SEC = "H:\\PLAT\\Data\\common\\certs_sec";
 
     private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";

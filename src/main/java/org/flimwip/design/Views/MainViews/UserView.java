@@ -12,13 +12,13 @@ import javafx.scene.shape.Circle;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 public class UserView extends HBox {
 
     private final User user;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     private Button b;
     private final UserController user_controller;
     public UserView(User user, UserController user_controller){

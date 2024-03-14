@@ -8,7 +8,7 @@ import java.io.*;
 
 public class PersitenzManager {
 
-    private static final MyLogger logger = new MyLogger(PersitenzManager.class);
+    private static final PKLogger logger = new PKLogger(PersitenzManager.class);
 
     @ServiceATT(desc = "The Path on where the Userdata should be", type = "String")
     private static final String USER_FILE = "/Users/philippkotte/Desktop/USER_FILE.ser";

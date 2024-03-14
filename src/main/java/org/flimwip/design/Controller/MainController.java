@@ -5,14 +5,14 @@ import org.flimwip.design.Main;
 import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 /**
  * This Controller controls the Main actions of the Applications {@link Main} View
  */
 public class MainController {
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     /**
      * {@link Main} of the Application
      */

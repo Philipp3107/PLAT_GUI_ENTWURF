@@ -1,27 +1,19 @@
 package org.flimwip.design;
 
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.JobHistoryItem;
 import org.flimwip.design.Views.helpers.Job;
-import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.Runnables.JobHistoryFetcher;
 
@@ -30,9 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class TesterStart extends Application {
-
-    private ScrollPane main_content;
+public class TesterStart extends ScrollPane {
     private boolean history_open = false;
 
     private HBox content;
@@ -44,19 +34,24 @@ public class TesterStart extends Application {
 
     private DataStorage ds;
     private UserController us;
-    @Override
-    public void start(Stage primaryStage) throws Exception {
 
-        this.ds = new DataStorage("NL_Liste.csv");
-        this.us = new UserController();
+    public TesterStart(DataStorage ds, UserController us){
+        this.ds = ds;
+        this.us = us;
+
+        init();
+    }
+    public void init(){
         create_main_content();
         create_content();
         this.content.getChildren().add(new Job(ds, us, this));
         job_builder();
-        this.main_content.setContent(content);
-        Scene scene = new Scene(this.main_content, 1200, 800);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.setContent(content);
+        this.setMinHeight(800);
+        this.setMaxHeight(800);
+        //Scene scene = new Scene(this.main_content, 1200, 800);
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
         run_thread();
     }
 
@@ -68,16 +63,15 @@ public class TesterStart extends Application {
 
     public void create_content() {
         this.content = new HBox();
-        this.content.setMinHeight(800);
-        this.content.setMaxHeight(800);
+        this.content.setMinHeight(780);
+        this.content.setMaxHeight(780);
         this.content.setStyle("-fx-background-color: #2f2f2f;");
     }
 
     public void create_main_content(){
-        this.main_content = new ScrollPane();
-        this.main_content.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        this.main_content.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        main_content.setStyle("-fx-background: #2f2f2f; -fx-border-color: #2f2f2f");
+        this.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        this.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        this.setStyle("-fx-background: #2f2f2f; -fx-border-color: #2f2f2f");
     }
 
     public void build_history(){
@@ -200,10 +194,6 @@ public class TesterStart extends Application {
             this.content.getChildren().add(this.content.getChildren().size() -1, history_sp);
         });
 
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
 }

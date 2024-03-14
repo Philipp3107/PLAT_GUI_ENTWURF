@@ -6,12 +6,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 public class Settings extends VBox {
     private VBox users;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     private final UserController userController;
     public Settings(UserController userController){
         logger.set_Level(LoggingLevels.FINE);

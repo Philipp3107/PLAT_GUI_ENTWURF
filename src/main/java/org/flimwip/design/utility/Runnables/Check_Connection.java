@@ -2,7 +2,7 @@ package org.flimwip.design.utility.Runnables;
 
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.concurrent.Semaphore;
 public class Check_Connection implements Runnable {
 
     private String checkout;
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     private Checkout k;
     private String nl;
     private Semaphore semaphore;

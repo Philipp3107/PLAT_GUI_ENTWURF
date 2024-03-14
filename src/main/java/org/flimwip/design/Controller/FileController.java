@@ -4,7 +4,7 @@ import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class FileController {
      * It provides logging functionality with different logging levels.
      * Messages logged with this logger will be written to the console.
      */
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout}

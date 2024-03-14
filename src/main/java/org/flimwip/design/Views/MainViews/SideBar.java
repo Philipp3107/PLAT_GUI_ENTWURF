@@ -17,8 +17,8 @@ public class SideBar extends VBox {
         this.controller = controller;
 
         /* Style der Sidebar auf dem HomeScreen */
-        this.setMinWidth(200);
-        this.setMaxWidth(200);
+        this.setMinWidth(150);
+        this.setMaxWidth(150);
         this.setStyle("-fx-background-color: #232323");
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
@@ -37,17 +37,8 @@ public class SideBar extends VBox {
 
         this.setPadding(new Insets(8));
         this.setAlignment(Pos.TOP_CENTER);
-        int i = 0;
         for(MainMenuButton mmb : buttons){
             this.getChildren().add(mmb);
-            if(i < button_names.length -1 ){
-                Rectangle rect = new Rectangle();
-                rect.setWidth(170);
-                rect.setHeight(1);
-                rect.setFill(Color.WHITE);
-                this.getChildren().add(rect);
-            }
-            i++;
         }
 
 

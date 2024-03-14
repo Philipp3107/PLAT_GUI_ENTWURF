@@ -18,7 +18,7 @@ import org.flimwip.design.Views.Temp.Branch;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class Analyse extends VBox {
      */
     private final DataStorage ds;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
 
     /**

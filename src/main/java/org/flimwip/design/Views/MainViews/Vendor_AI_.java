@@ -10,7 +10,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,22 +22,15 @@ import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.CheckoutModel;
-import org.flimwip.design.NetCon;
-import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 public class Vendor_AI_ extends VBox {
 
@@ -61,7 +53,7 @@ public class Vendor_AI_ extends VBox {
 
     private Button deleteButton;
 
-    private final MyLogger logger = new MyLogger(this.getClass());
+    private final PKLogger logger = new PKLogger(this.getClass());
 
     // Create TextField for the branch filter
     private final TextField branchFilterTextField = new TextField();

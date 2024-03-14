@@ -19,7 +19,7 @@ import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +30,7 @@ public class Analyse2 extends VBox {
 
    private FlowPane favoritesFlowPane;
 
-   private MyLogger logger = new MyLogger(this.getClass());
+   private PKLogger logger = new PKLogger(this.getClass());
    private FlowPane allFlowPane;
 
    private String search = "";

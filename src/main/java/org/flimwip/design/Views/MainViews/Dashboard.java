@@ -18,7 +18,7 @@ import org.flimwip.design.utility.DashboardStats;
 import org.flimwip.design.Views.Temp.DashboardButton;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class Dashboard extends VBox {
 
     private CredentialManager cm;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
     //Statisktik
     private VBox stats = null;

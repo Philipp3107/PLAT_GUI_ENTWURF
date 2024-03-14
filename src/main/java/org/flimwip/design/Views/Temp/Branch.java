@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 /**
  * Represents a branch of a store.
@@ -57,7 +57,7 @@ public class Branch extends VBox{
 
     private ArrayList<CheckoutModel> kassen;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     private VBox content;
 
     private boolean in_favorite_view = false;

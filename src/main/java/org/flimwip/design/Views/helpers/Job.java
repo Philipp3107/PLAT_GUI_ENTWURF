@@ -1,7 +1,6 @@
 package org.flimwip.design.Views.helpers;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -24,22 +23,17 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.flimwip.design.Controller.UserController;
-import org.flimwip.design.Models.User;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.TesterStart;
-import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
-import org.flimwip.design.utility.Runnables.JobHistoryFetcher;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -63,7 +57,7 @@ public class Job extends VBox {
     private boolean middle_options = false;
     private ScrollPane checks_and_nls;
     private ScrollPane sp;
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     HashMap<String, ArrayList<String>> data;
     Font headline = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
     Font publish = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 13);

@@ -4,7 +4,7 @@ import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class FetchFiles implements Runnable{
      */
     private final Checkout k;
 
-    private final MyLogger logger = new MyLogger(this.getClass());
+    private final PKLogger logger = new PKLogger(this.getClass());
 
     /**
      * Contstructor
