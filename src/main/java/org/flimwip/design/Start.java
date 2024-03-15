@@ -1,44 +1,39 @@
 package org.flimwip.design;
 
-import javafx.stage.Stage;
-import org.flimwip.design.Controller.CheckoutSelectionController;
-import org.flimwip.design.Controller.DashboardStatsController;
 import org.flimwip.design.Documentationhandler.ServiceATT;
 import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Models.AppUser;
-import org.flimwip.design.Models.PopulationFile;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.jar.Attributes;
 
 public class Start {
 
 
     public static void main(String[] args) {
-        Main.main(args);
+        //Main.main(args);
 
         //Building documentation
-        /*Class c = DashboardStatsController.class;
+        Class c = AppUser.class;
 
 
-        ServiceC class_defeinition = (ServiceC) c.getAnnotation(ServiceC.class);
+        ServiceC class_definition = (ServiceC) c.getAnnotation(ServiceC.class);
 
         String folder = c.getPackageName().split("design.")[1];
-        System.out.println("<card-summary> " + class_defeinition.desc() + " </card-summary>");
+        System.out.println("<card-summary> " + class_definition.desc() + " </card-summary>");
 
         System.out.println("<available-only-for> Folder "+ folder + " </available-only-for>");
 
         System.out.println("<chapter title=\"Description\" id=\"description\">");
-        System.out.println("<p>" + class_defeinition.desc() + " </p>");
+        System.out.println("<p>" + class_definition.desc() + " </p>");
         System.out.println("</chapter>");
 
 
 
         //<chapter title="Attributes" id="attributes">
         System.out.println("<chapter title=\"Attributes\" id=\"attributes\">");
-        System.out.println("<available-only-for> since v.1.2</available-only-for>");
+
         System.out.println("<deflist>");
         for(Field field : c.getDeclaredFields()){
 
@@ -146,7 +141,7 @@ public class Start {
             System.out.println("</def>");
         }
         System.out.println("</deflist>");
-        System.out.println("</chapter>");*/
+        System.out.println("</chapter>");
 
 
         // TesterStart.main(args);
