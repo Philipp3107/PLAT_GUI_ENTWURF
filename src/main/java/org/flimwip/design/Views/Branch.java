@@ -7,42 +7,57 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import org.flimwip.design.Documentationhandler.*;
+
 
 /**
  * This class represents a Branch, extending the VBox class. It seems to be a part of a graphical user interface.
  * Represents a branch with city, id, state, favorite toggle and related analysis.
  * This class contains several private member variables, a constructor, and a method for initialization.
  */
+@ServiceC(desc="This class represents a Branch, extending the VBox class. It seems to be a part of a graphical user interface. Represents a branch with city, id, state, favorite toggle and related analysis. This class contains several private member variables, a constructor, and a method for initialization.")
 public class Branch extends VBox {
 
     /**
      * A label that shows the city associated with the branch.
      */
+    @ServiceATT(desc="A label that shows the city associated with the branch.",
+                type="Label")
     private Label city;
 
     /**
      * A unique identifier for the branch.
      */
+    @ServiceATT(desc="A unique identifier for the branch.",
+                 type="String")
     private String nl_id;
 
     /**
      * A label that shows the state associated with the branch.
      */
+    @ServiceATT(desc="A label that shows the state associated with the branch.",
+                type="Label")
     private Label Bundesland;
 
     /**
      * A boolean value indicating whether the branch is a favorite.
      */
+    @ServiceATT(desc="A boolean value indicating whether the branch is a favorite.",
+                type="boolean")
     private boolean favorite;
 
     /**
      * A label showing the number/nr related to the branch.
      */
+    @ServiceATT(desc="A label showing the number/nr related to the branch.",
+                type="Label")
     private Label nl_nr;
 
     /**
      * An Analyse object associated with the branch.
      */
+    @ServiceATT(desc="An Analyse object associated with the branch.",
+                type="Analyse")
     private Analyse analyse;
 
     /**
@@ -53,6 +68,8 @@ public class Branch extends VBox {
      * @param favorite Indicate whether the branch is a favorite.
      * @param analyse An Analyse object related to the branch.
      */
+    @ServiceCR(desc="The constructor for Branch class. Initializes a new Branch object with provided id, city, state, favorite state and analysis.",
+               params={"nl_id: String -> Unique identifier associated with the branch.","city: String ->  Name of the city related to the branch.","bundesland: String -> Name of the state related to the branch.","favorite: boolean -> Indicate whether the branch is a favorite.","analyse: Analyse -> An Analyse object related to the branch."})
     public Branch(String nl_id, String city, String bundesland, boolean favorite, Analyse analyse){
         this.nl_id = nl_id;
         this.nl_nr = new Label(nl_id);
@@ -67,6 +84,11 @@ public class Branch extends VBox {
     /**
      * A private method for the initialization of the Branch object.
      */
+    @ServiceM(desc="<##>A private method for the initialization of the Branch object.",
+               category="Method",
+               params={"None"},
+               returns="void",
+               thrown={"None"})
     private void init(){
         //standart breite
         this.setMinWidth(240);

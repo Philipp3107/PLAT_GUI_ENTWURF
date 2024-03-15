@@ -16,4 +16,6 @@ public @interface ServiceCR {
      * This provides params when generating docs.
      */
     public String[] params();
+
+    public String[] related() default {"None"};
 }

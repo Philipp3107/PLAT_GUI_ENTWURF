@@ -16,28 +16,69 @@ import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.*;
 import org.flimwip.design.utility.Runnables.Check_Connection;
 import org.flimwip.design.utility.Runnables.FetchFiles;
+import org.flimwip.design.Documentationhandler.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.*;
 
+@ServiceC(desc="Displays a checkout on the Branchview.")
 public class Checkout extends VBox {
 
+    @ServiceATT(desc="The location of the Branch the checkout is in.",
+                type="String")
     private final String location;
+    
+    @ServiceATT(desc="The city of the Branch the checkout is in.",
+                type="String")
     private final String city;
+    
+    @ServiceATT(desc="Animation Duration for hover action.",
+                type="Duration")
     private final Duration duration = Duration.seconds(0.05);
+    
+    @ServiceATT(desc="Identifiert of the checkout.",
+                type="String")
     private final String checkout;
+    
+    @ServiceATT(desc="Holds the information if the checkout is currently selected.",
+                type="boolean")
     private boolean selected = false;
+    
+    @ServiceATT(desc="The Software version the checkout is currently running.",
+                type="String")
     private String version;
+    
+    @ServiceATT(desc="Displays the identifier of the checkout.",
+                type="Label")
     private Label l;
+    
+    @ServiceATT(desc="Controller to switch the view between the selected Checkouts.",
+                type="CheckoutSelectionController")
     private final CheckoutSelectionController cont;
+    
+    @ServiceATT(desc="CheckoutModel with the information that this checkout view will be filled with.",
+                type="CheckoutModel")
     private CheckoutModel km;
+    
+    @ServiceATT(desc="Circle that displays if the checkout can be reached or not.",
+                type="Circle")
     private Circle c;
+    
+    @ServiceATT(desc="Semaphore to schedule mudlithreading tasks for multiple Checkouts.",
+                type="Semaphore")
     private Semaphore semaphore;
-    private boolean active = false;
+    
+    @ServiceATT(desc="Holds the information if the checkout could be reached and therefore is online.",
+                type="boolean")
     private boolean online = false;
+    
+    @ServiceATT(desc="All the Files that could be found on the checkout in the gkretail/pos-full/log folder.",
+                type="File[]")
     private File[] files;
-
+    
+    @ServiceATT(desc="Logger to print inforamtions to the Console.",
+                type="PKLogger")
     private PKLogger logger = new PKLogger(this.getClass());
 
 
@@ -49,6 +90,12 @@ public class Checkout extends VBox {
      * @param checkoutSelectionController {@link CheckoutSelectionController} -> Controller to handle the UI changes
      * @param semaphore {@link Semaphore} -> Handling of the permits for currently running background operations
      */
+    @ServiceCR(desc="Constructor of the Checkout class",
+               params={"location: String -> Location of the Checkout",
+                       "checkout: String -> ID of the Checkout",
+                       "version: String -> current Software-Version of the Checkout",
+                       "checkoutSelectionController: CheckoutSelectionController -> Controller to handle the UI changes",
+                       "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
     public Checkout(String location, String checkout, String version, CheckoutSelectionController checkoutSelectionController, Semaphore semaphore) {
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
         this.semaphore = semaphore;
@@ -71,6 +118,10 @@ public class Checkout extends VBox {
      * @param controller {@link CheckoutSelectionController} -> Controller to handle the UI changes
      * @param semaphore {@link Semaphore} -> Handling of the permits for currently running background operations
      */
+    @ServiceCR(desc="Constructor of the Checkout class",
+               params={"km: CheckoutModel -> Model for the Checkout with all information",
+                       "controller: CheckoutSelectionController -> Controller to handle the UI changes",
+                       "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
     public Checkout(CheckoutModel km, CheckoutSelectionController controller, Semaphore semaphore) {
         this.city = km.branch_name();
         this.semaphore = semaphore;
@@ -87,6 +138,11 @@ public class Checkout extends VBox {
     /**
      * Initializer for the CheckoutView
      */
+    @ServiceM(desc="<##>Initializer for the CheckoutView",
+              category="Method",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     private void init() {
         //setting the Insets
         Insets set = new Insets(6, 10, 6, 10);
@@ -189,6 +245,11 @@ public class Checkout extends VBox {
     /**
      * Possablilty to remotely deselect a checkout
      */
+    @ServiceM(desc="<##>Function to remotely deselect a checkout",
+              category="Method",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void unselect() {
         if (this.getChildren().size() > 1) {
             this.getChildren().remove(this.getChildren().size() - 1);
@@ -203,6 +264,11 @@ public class Checkout extends VBox {
     /**
      * Possibility to remove the focus off of a checkout
      */
+    @ServiceM(desc="<##>Funtion to remove the focus off of a checkout",
+              category="Method",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void remove_focus() {
         if (!selected) {
             this.l.setTextFill(Color.BLACK);
@@ -218,6 +284,13 @@ public class Checkout extends VBox {
      * @throws ExecutionException
      * @throws InterruptedException
      */
+    @ServiceM(desc="<##>Starting the Search for Connection",
+              category="Method",
+              params={"Noen"},
+              returns="void",
+              thrown={"IOException -> if the path to the Checkout is incorrect and there is no InputStream to read",
+                      "ExcutionException -> if the Execution of the CommandLine command failed",
+                      "InterruptedException -> if the Thread on which this operation runs is interrupted unexpectedly"})
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
         Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore));
         th.setDaemon(true);
@@ -229,6 +302,11 @@ public class Checkout extends VBox {
     /**
      * Setting the Checkout online making it clickable and the circle green
      */
+    @ServiceM(desc="<##>Setting the Checkout online making it clickable and the circle green",
+              category="Setter",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void set_online() {
         this.c.setFill(Color.GREEN);
         this.online = true;
@@ -237,6 +315,11 @@ public class Checkout extends VBox {
     /**
      * Setting the Checkout to seraching. In this state the Checkout in the BranchView is not Clickable and the Circle has the color Yellow.
      */
+    @ServiceM(desc="<##>Setting the Checkout to seraching. In this state the Checkout in the BranchView is not Clickable and the Circle has the color Yellow.",
+              category="Setter",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void set_searching() {
         this.c.setFill(Color.ORANGE);
     }
@@ -244,6 +327,11 @@ public class Checkout extends VBox {
     /**
      * Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.
      */
+    @ServiceM(desc="<##>Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.",
+              category="Setter",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void set_offline() {
         this.c.setFill(Color.RED);
     }
@@ -253,14 +341,24 @@ public class Checkout extends VBox {
      *
      * @param files File[] -> Array of files found by {@link FetchFiles}
      */
+    @ServiceM(desc="<##>Adds the Files found by the Runnable FetchFiles",
+              category="Setter",
+              params={"files File[] -> Array of files found by FetchFiles"},
+              returns="void",
+              thrown={"None"})
     public void set_files(File[] files) {
         this.files = files;
     }
 
     /**
      * Returns the File[] for use in BranchView
-     * @return
+     * @return File[] -> all Files found on the Checkout
      */
+    @ServiceM(desc="<##>Returns the File[] for use in BranchView",
+              category="Getter",
+              params={"None"},
+              returns="File[] -> all Files found on the Checkout",
+              thrown={"None"})
     public File[] getFiles() {
         return this.files;
     }

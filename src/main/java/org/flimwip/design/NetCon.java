@@ -1,26 +1,30 @@
 package org.flimwip.design;
 
-import org.flimwip.design.Documentationhandler.ServiceM;
+import org.flimwip.design.Documentationhandler.*;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class NetCon{
 
+@ServiceC(desc="This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username.")
+public class NetCon{
+    @ServiceATT(desc="Holds the Branch for which the connections will be established and closed",
+                type="String")
     private String nl;
+    @ServiceATT(desc="Holds the Checkout for which the connections will be established and closed",
+                type="String")
     private String checkout;
+    @ServiceATT(desc="Holds the password with which the connections will be established and closed",
+                type="String")
     private String password;
+    @ServiceATT(desc="Holds the username with which the connections will be established and closed",
+                type="String")
     private String username;
 
+    @ServiceCR(desc="The Constructor of the NetCon-Class",
+               params={"String: nl -> Branch for the Connection", "String: checkout -> Checkout for the Connection", "String: password -> Password for the Connection", "String: username -> Username for the Connection"})
     public NetCon(String nl, String checkout, String username, String password){
         this.nl = nl;
         this.checkout = checkout;

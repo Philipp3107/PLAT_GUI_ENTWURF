@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+
 public class HelperFailureData {
     public static void main(String[] args) throws IOException {
         List<String> checkouts = new ArrayList<String>();

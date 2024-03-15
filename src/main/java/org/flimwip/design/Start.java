@@ -8,19 +8,26 @@ import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.PopulationFile;
+import org.flimwip.design.Views.Temp.BranchView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.jar.Attributes;
 
+@ServiceC(desc="This is the Launcher class.")
 public class Start {
 
 
+    @ServiceM(desc="The Launchers Main Method. It starts the Main method of the class extending Application to start the Applcaication.",
+              category="Method",
+              params={"String[] args: Arguments"},
+              returns="void",
+              thrown={"None"})
     public static void main(String[] args) {
-        Main.main(args);
+        //Main.main(args);
 
         //Building documentation
-        /*Class c = DashboardStatsController.class;
+        Class c = BranchView.class;
 
 
         ServiceC class_defeinition = (ServiceC) c.getAnnotation(ServiceC.class);
@@ -39,21 +46,24 @@ public class Start {
         //<chapter title="Attributes" id="attributes">
         System.out.println("<chapter title=\"Attributes\" id=\"attributes\">");
         System.out.println("<available-only-for> since v.1.2</available-only-for>");
-        System.out.println("<deflist>");
+        System.out.println("<deflist type=\"wide\">");
         for(Field field : c.getDeclaredFields()){
 
             ServiceATT att = field.getAnnotation(ServiceATT.class);
-            System.out.println("<def title=\"" + field.getName() + ": " + att.type() + "\">");
-            System.out.println(att.desc());
-            System.out.println("</def>");
-
+            if(att != null){
+                System.out.println(field);
+                System.out.println(att.desc());
+                System.out.println("<def title=\"" + field.getName() + ": " + att.type() + "\">");
+                System.out.println(att.desc());
+                System.out.println("</def>");
+            }
         }
         System.out.println("</deflist>");
         System.out.println("</chapter>");
 
         System.out.println("<chapter title=\"Methods\" id=\"methods\">");
         System.out.println("<available-only-for> since v.1.2</available-only-for>");
-        System.out.println("<deflist>");
+        System.out.println("<deflist type=\"wide\">");
         boolean build_methods = false;
         for(Method method: c.getDeclaredMethods()){
                 ServiceM def = method.getAnnotation(ServiceM.class);
@@ -89,7 +99,7 @@ public class Start {
 
         System.out.println("<chapter title=\"Getter\" id=\"getter\">");
         System.out.println("<available-only-for> since v.1.2</available-only-for>");
-        System.out.println("<deflist>");
+        System.out.println("<deflist type=\"wide\">");
         boolean build_getter = false;
         for(Method method: c.getDeclaredMethods()){
             ServiceM def = method.getAnnotation(ServiceM.class);
@@ -120,7 +130,7 @@ public class Start {
 
         System.out.println("<chapter title=\"Setter\" id=\"setter\">");
         System.out.println("<available-only-for> since v.1.2</available-only-for>");
-        System.out.println("<deflist>");
+        System.out.println("<deflist type=\"wide\">");
         boolean build_setter = false;
         for(Method method: c.getDeclaredMethods()){
             ServiceM def = method.getAnnotation(ServiceM.class);
@@ -146,7 +156,7 @@ public class Start {
             System.out.println("</def>");
         }
         System.out.println("</deflist>");
-        System.out.println("</chapter>");*/
+        System.out.println("</chapter>");
 
 
         // TesterStart.main(args);

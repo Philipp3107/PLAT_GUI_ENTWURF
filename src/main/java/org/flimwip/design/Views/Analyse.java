@@ -13,42 +13,56 @@ import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.DataStorage;
+import org.flimwip.design.Documentationhandler.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@ServiceC(desc="This class shows all Branches and their checkouts in germany for the User. The View contains a Searchfile dfor filtering the branches with wildcard searching, a favorites line where all the as favorite saved Branches are located and a main part where all Branches are listed.")
 public class Analyse extends VBox {
 
     /**
      * {@link MainController} used for this Controller
      */
+    @ServiceATT(desc="MainController used for this Controller",
+                type="MainController")
     private final MainController controller;
 
     /**
      * DataStorage for the {@link Checkout Checkouts}
      */
+    @ServiceATT(desc="DataStorage for the Checkouts",
+                type="DataStorage")
     private final DataStorage ds;
 
     /**
      * Main FlowPain for displaying all Branches
      */
+    @ServiceATT(desc="Main FlowPain for displaying all Branches",
+                type="FlowPane")
     private FlowPane main;
 
     /**
      * The String with which the User is currently filtering the Branches
      */
+    @ServiceATT(desc="The String with which the User is currently filtering the Branches",
+                type="String")
     private String search = "";
 
     /**
      * ScrollPane for displaying the FlowPane {@link Analyse#main}
      */
+    @ServiceATT(desc="ScrollPane for displaying the FlowPane",
+                 type="ScrollPane")
     private ScrollPane sp;
 
     /**
      * Container for {@link Analyse#main}
      */
+    @ServiceATT(desc="Container for the main FlowPane",
+                type="HBox")
     private HBox m;
 
     /**
@@ -56,6 +70,8 @@ public class Analyse extends VBox {
      * @param controller providing basic functionality
      * @param ds DataStorage for the {@link Checkout Checkouts}
      */
+    @ServiceCR(desc="Constructor of the Analyse class",
+               params={"controller: MainController ->  providing basic functionality", "ds: DataStorage -> to load the Checkouts"})
     public Analyse(MainController controller, DataStorage ds) {
         this.ds = ds;
         this.controller = controller;
@@ -120,6 +136,11 @@ public class Analyse extends VBox {
      * Build the Seatch Text Field
      * @return TextField
      */
+    @ServiceM(desc="<##>Build the Seatch Text Field",
+              category="Method",
+              params={"None"},
+              returns="TextFiled -> TextField used for searching",
+              thrown={"None"})
     private TextField serach_text_field(){
         TextField searching = new TextField();
         searching.setOnKeyPressed(keyEvent -> {
@@ -134,6 +155,11 @@ public class Analyse extends VBox {
      * Filters the {@link Analyse#sp MainScollPane} based on the Text
      * @param text to Filter with
      */
+    @ServiceM(desc="<##>Filters the MainScollPane based on the Text",
+              category="Method",
+              params={"text: String -> text to filter with"},
+              returns="void",
+              thrown={"None"})
     public void filter_center(String text){
         System.out.println(text);
         this.m.getChildren().remove(this.main);
@@ -160,6 +186,11 @@ public class Analyse extends VBox {
         this.controller.set_center_to_nl(new BranchView(nl_id, ds.getcheckouts(nl_id), this));
     }*/
 
+    @ServiceM(desc="<##>Returns the view from a branch to the Analyse view",
+              category="Method",
+              params={"None"},
+              returns="void",
+              thrown={"None"})
     public void go_back(){
         this.controller.set_main_center("Analyse");
     }

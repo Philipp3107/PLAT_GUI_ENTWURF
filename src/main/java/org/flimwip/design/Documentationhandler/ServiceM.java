@@ -19,19 +19,26 @@ public @interface ServiceM {
     /**
      * This provides description when generating docs.
      */
-    @ServiceM(desc = "This provides description when generating docs.", params = {"String description"}, returns = "String")
     public String desc();
 
-    @ServiceM(desc = "This provides the category when generating docs. Getter methods get the catergory Getter, Setter methods get the catergory Setter and any other Method gets the category Method", params = {"String description"}, returns = "String")
+    /**
+     * This provides a category when generatin docs.
+     */
     public String category() default "Method";
 
     /**
      * This provides params when generating docs.
      */
     public String[] params();
-
+    /**
+     * This provides return values when generating docs.
+     */
     public String returns();
-
+    /**
+     * This provides thrown Exceptions when generating docs.
+     */
     public String[] thrown() default {"None"};
+
+    public String[] related() default {"None"};
 }
 
