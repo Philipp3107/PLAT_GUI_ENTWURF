@@ -15,7 +15,7 @@ public class RandomArtGenerator {
 
     @ServiceATT(desc="Holds the Path for where the RandomArtImages are stored",
                 type="String")
-    public static final String RANDOM_ART_PATH = "/Users/philippkotte/Desktop/profile_picture/image";
+    public static final String RANDOM_ART_PATH = "/Users/philippkotte/Desktop/pb2/profile_picture";
     
     public static void main(String[] args) throws IOException {
         for(int k = 0;k < 300; k++){
@@ -65,6 +65,50 @@ public class RandomArtGenerator {
         File outputfile = new File(RANDOM_ART_PATH + k + ".jpg");
         ImageIO.write(buffered_image, "jpg", outputfile);
         }
+    }
+
+    public static void build_random_image() throws IOException {
+            int[][] seeds = new int[4][4];
+            for(int i = 0 ; i < 4; i++){
+                for(int j = 0; j < 4; j++){
+                    seeds[i][j] = new Random().nextInt(3);
+                    //System.out.println(seeds[i][j]);
+                }
+            }
+
+            int width = 800;
+            int height = 800;
+            BufferedImage buffered_image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            int seed_1;
+            int seed_2;
+                seed_1= getRandomLowSeed();
+                seed_2 = getRandomHighSeed();
+
+            System.out.println(STR."Seed one \{seed_1}  and Seed two: \{seed_2}");
+            for(int x = 0; x < width; x++){
+
+                int r = getRandomNumber();
+
+                for(int y = 0; y < height; y++){
+                    int g = getRandomNumber();
+                    int b = getRandomNumber();
+                    Color c = null;
+
+                    if(seeds[x / 200][y/200] == 0){
+                        c = new Color(seed_1, seed_2, b);
+                    }else if(seeds[x / 200][y/200] == 1){
+                        c = new Color(r, seed_1, seed_2);
+                    }else if(seeds[x / 200][y/200] == 2) {
+                        c = new Color(seed_2, g, seed_1);
+                    }
+                    buffered_image.setRGB(x, y, c.getRGB());
+                    //System.out.println(buffered_image.getRGB(x, y));
+                }
+            }
+
+            File outputfile = new File(STR."\{RANDOM_ART_PATH}.jpg");
+
+            ImageIO.write(buffered_image, "jpg", outputfile);
     }
     
     @ServiceM(desc="Used to generate a random Number between 1 and 255",

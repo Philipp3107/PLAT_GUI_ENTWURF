@@ -1,7 +1,7 @@
 package org.flimwip.design.utility.Runnables;
 
 import javafx.concurrent.Task;
-import org.flimwip.design.TesterStart;
+import org.flimwip.design.Views.MainViews.Vendor;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class JobHistoryFetcher extends Task<Void> {
 
-    private TesterStart ts;
+    private Vendor ts;
 
-    public JobHistoryFetcher(TesterStart ts){
+    public JobHistoryFetcher(Vendor ts){
         this.ts = ts;
     }
 

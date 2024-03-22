@@ -1,5 +1,6 @@
 package org.flimwip.design.Controller;
 
+import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.MainViews.UserView;
@@ -91,6 +92,16 @@ public class UserController {
             }
             logger.log(LoggingLevels.INFO, "Build User: " + user.getName());
         }
+    }
+
+    /**
+     * Sets the AppUser of this class for all depending classes to the given AppUser.
+     *
+     * @param user The AppUser to set as the app_user.
+     */
+    @ServiceM(desc = "Sets the AppUser of this class for all depending classes to the given AppUser", params = {"user The AppUser to set as the app_user."}, returns = "")
+    public void set_aupp_user(AppUser user){
+        this.app_user = app_user;
     }
 
     public void set_verified_password(String pw){

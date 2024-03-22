@@ -97,6 +97,9 @@ public class JobHistoryItem extends VBox implements Comparable<JobHistoryItem>{
         }
     }
 
+    /**
+     * Initializes the JobHistoryItem object by setting properties and adding child nodes.
+     */
     private void init(){
         this.setSpacing(5);
         this.setPadding(new Insets(5));

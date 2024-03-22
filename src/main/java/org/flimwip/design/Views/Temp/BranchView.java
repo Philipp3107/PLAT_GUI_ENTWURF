@@ -492,5 +492,4 @@ public class BranchView extends BorderPane {
         popup.setAutoHide(true);
         popup.show(Window.getWindows().get(0));
     }
-
 }

@@ -98,12 +98,13 @@ public class Main extends Application {
     private Settings settings;
     @ServiceATT(desc = "The Vendor helps at populating files to the checkouts",
             type = "TestStarter")
-    private TesterStart vendor;
+    private Vendor vendor;
 
     @ServiceATT(desc = "Prints messages for debugging and controll",
             type = "PKLogger")
     private final PKLogger logger = new PKLogger(this.getClass());
-    @ServiceATT(desc = "The UserController holds the current PosUser, the AppUser and manages them for switching or editing", type = "UserController")
+    @ServiceATT(desc = "The UserController holds the current PosUser, the AppUser and manages them for switching or editing",
+            type = "UserController")
     private UserController user_controller;
     @ServiceATT(desc = "Rectangle used for the Startup sequenze. Works as Loading bar",
             type = "Rectangel")
@@ -524,6 +525,14 @@ public class Main extends Application {
                         throw new RuntimeException(e);
                     }
                     AppUser app_user = new AppUser(name.getText(), last_name.getText(), encyrpted_username, encyrpted);
+                    if(!chose_profile_pciture){
+                        try {
+                            RandomArtGenerator.build_random_image();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    user_controller.set_app_user(app_user);
                     PersitenzManager.save_app_user(app_user);
                     cryptographer.start_authentication(pw_one.getText());
                     run_main(stage);
@@ -730,7 +739,7 @@ public class Main extends Application {
             }
 
             if (username.getText().length() >= 2 && password_valid(password.getText())) {
-                System.out.println(user_controller.get_app_user().toString());
+                //System.out.println(user_controller.get_app_user().toString());
                 cryptographer.start_authentication(password.getText());
                 if (cryptographer.verification_success()) {
                     user_controller.set_verified_password(password.getText());
@@ -923,7 +932,7 @@ public class Main extends Application {
 
         //this.checkoutSelectionController = new CheckoutSelectionController(null);
         this.settings = new Settings(user_controller);
-        this.vendor = new TesterStart(ds, user_controller);
+        this.vendor = new Vendor(ds, user_controller);
 
         //user_controller.set_Vendor_AI_(this.Vendor_AI_);
         /* Alle verwendeten BorderPane(Panes) */

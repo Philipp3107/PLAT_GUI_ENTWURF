@@ -2,17 +2,33 @@ package org.flimwip.design.Views.MainViews;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Views.Temp.MainMenuButton;
+import org.flimwip.design.Documentationhandler.*;
 
+/**
+ * The SideBar class represents a sidebar component in the application.
+ */
+@ServiceC(desc="The SideBar class represents a sidebar component in the application.",
+          related={"Main"})
 public class SideBar extends VBox {
 
+    /**
+     * The controller variable is an instance of the MainController class.
+     */
+    @ServiceATT(desc="The controller variable is an instance of the MainController class.",
+                type="MainController",
+                related={"MainController"})
     private MainController controller;
+    /**
+     * The SideBar class represents a sidebar component in the application.
+     *
+     * @param controller The controller object of the MainController class.
+     */
+    @ServiceCR(desc="The SideBar class represents a sidebar component in the application.",
+               params={"controller: MainController -> The controller object of the MainController class."},
+               related={"None"})
     public SideBar(MainController controller){
         this.controller = controller;
 
@@ -24,8 +40,8 @@ public class SideBar extends VBox {
         this.setAlignment(Pos.CENTER);
 
         /* Buttons für den Homescreen */
-        String[] button_names = {/*"Dashboard",*/ "Analyse", "Einstellungen", "Vendor"};
-        String[] button_images = {/*"dashboard.png", */"cellularbars.png", "cellularbars.png", "dashboard.png"};
+        String[] button_names = {/*"Dashboard",*/ "Analyse",  "Vendor", "Einstellungen"};
+        String[] button_images = {/*"dashboard.png", */"cellularbars.png", "dashboard.png", "cellularbars.png"};
         MainMenuButton[] buttons = new MainMenuButton[button_names.length];
 
         for(int i = 0; i < button_names.length; i++){

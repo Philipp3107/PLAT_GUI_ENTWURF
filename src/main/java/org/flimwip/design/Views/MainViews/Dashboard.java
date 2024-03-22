@@ -19,37 +19,151 @@ import org.flimwip.design.Views.Temp.DashboardButton;
 import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
+import org.flimwip.design.Documentationhandler.*;
 
 import java.io.IOException;
 
+/**
+ * This class represents a Dashboard.
+ * It extends the javafx.scene.layout.VBox class.
+ */
+@ServiceC(desc="This class represents a Dashboard.",
+related={"None"})
 public class Dashboard extends VBox {
 
+    /**
+     * This variable represents a DashboardButton object.
+     */
+    @ServiceATT(desc="The warn_button variable is an instance of the DashboardButton class. It represents a button on the dashboard that is used to show warning.",
+                type="DashboardButton",
+                related={"DashboardButton"})
     private final DashboardButton warn_button;
+    /**
+     * The error_button variable is an instance of the DashboardButton class. It represents a button on the dashboard that is used to handle errors.
+     *
+     * The DashboardButton class extends ImageView and provides methods and properties for controlling the appearance and behavior of the button.
+     */
+    @ServiceATT(desc="The error_button variable is an instance of the DashboardButton class. It represents a button on the dashboard that is used to show errors.",
+                type="DashboardButton",
+                related={"DashboardButton"})
     private final DashboardButton error_button;
+    /**
+     *
+     * This variable represents a button on the dashboard that is critical in nature.
+     */
+    @ServiceATT(desc="The critical_button variable is an instance of the DashboardButton class. It represents a button on the dashboard that is used to show criticals.",
+                type="DashboardButton",
+                related={"DashboardButton"})
     private final DashboardButton critical_button;
+    /**
+     * This variable represents a DashboardStatsController object.
+     */
+    @ServiceATT(desc="This variable represents a DashboardStatsController object.",
+                type="DashboardStatsController",
+                related={"DashboardStatsController"})
     private DashboardStatsController controller;
 
+    /**
+     * The CredentialManager instance for managing user credentials.
+     * Use the static methods of the CredentialManager class to interact with the credentials.
+     */
+    @ServiceATT(desc="The CredentialManager instance for managing user credentials. Use the static methods of the CredentialManager class to interact with the credentials.",
+                type="CredentialManager",
+                related={"CredentialManager"})
     private CredentialManager cm;
 
+    /**
+     * Logger instance used for logging messages and exceptions.
+     *
+     * This logger is configured with the class name of the containing class.
+     */
+    @ServiceATT(desc="Logger instance used for logging messages and exceptions. This logger is configured with the class name of the containing class.",
+                type="PKLogger",
+                related={"PKLogger"})
     private PKLogger logger = new PKLogger(this.getClass());
 
-    //Statisktik
+    /**
+     * The stats variable is a private instance of the VBox class, representing the statistics section of the Dashboard.
+     * It is used to display and control the statistics on the Dashboard.
+     */
+    
+    @ServiceATT(desc="The stats variable is a private instance of the VBox class, representing the statistics section of the Dashboard. It is used to display and control the statistics on the Dashboard.",
+                type="VBox",
+                related={"None"})
     private VBox stats = null;
 
+    /**
+     * Represents the center left section of the Dashboard.
+     * It is a private field of the Dashboard class.
+     * The HBox layout is used to contain the elements in a horizontal line.
+     */
+    @ServiceATT(desc="Represents the center left section of the Dashboard. It is a private field of the Dashboard class. The HBox layout is used to contain the elements in a horizontal line.",
+                type="HBox",
+                related={"None"})
     private HBox center_left;
 
+    /**
+     * Variable center represents an HBox control that is used in the Dashboard class to display the center section of the dashboard.
+     *
+     * This control is a container that arranges its child nodes in a horizontal layout. It is part of the JavaFX framework.
+     */
+    @ServiceATT(desc="Variable center represents an HBox control that is used in the Dashboard class to display the center section of the dashboard. This control is a container that arranges its child nodes in a horizontal layout. It is part of the JavaFX framework.",
+                type="HBox",
+                related={"None"})
     private HBox center;
 
+    /**
+     * The center_right variable represents a VBox control that is part of the Dashboard class.
+     * It is used to display the content in the right side of the dashboard.
+     */
+    @ServiceATT(desc="The center_right variable represents a VBox control that is part of the Dashboard class. It is used to display the content in the right side of the dashboard.",
+                type="VBox",
+                related={"VBox"})
     private VBox center_right;
 
+    /**
+     * This variable represents a VBox element.
+     */
+    @ServiceATT(desc="This variable represents a VBox element. It displays the hedaer of the statistics",
+                type="VBox",
+                related={"None"})
     private VBox text;
 
+    /**
+     * Represents a top container widget used in a Dashboard.
+     * It is used to show the Header and the statistics
+     */
+    @ServiceATT(desc="Represents a top container widget used in a Dashboard. It is used to show the Header and the statistics",
+                type="HBox",
+                related={"None"})
     private HBox top;
 
+    /**
+     * The trend variable is a private Label object.
+     */
+    @ServiceATT(desc="The trend variable is a private Label object.",
+                type="Label",
+                related={"Noen"})
     private Label trend;
 
+    /**
+     * The UserController class represents a controller for managing users.
+     *
+     * This class provides methods for manipulating and retrieving user data.
+     */
+    @ServiceATT(desc="The UserController class represents a controller for managing users. This class provides methods for manipulating and retrieving user data.",
+                type="UserController",
+                related={"UserController"})
     private final UserController user_controller;
 
+    /**
+     * Creates a Dashboard object.
+     *
+     * @param user_controller the UserController object
+     */
+    @ServiceCR(desc="Creates a Dashboard object.",
+               params={"user_controller: UserController the UserController object"},
+               related={"Main"})
     public Dashboard(UserController user_controller){
         this.controller = new DashboardStatsController(this);
         this.cm = cm;
@@ -78,6 +192,17 @@ public class Dashboard extends VBox {
 
     }
 
+    /**
+     * Builds and returns a VBox control representing a dashboard.
+     *
+     * @return The VBox control representing the dashboard.
+     */
+    @ServiceM(desc="<##>Builds and returns a VBox control representing a dashboard.",
+              category="Method",
+              params={"None"},
+              returns="VBox -> control representing the dashboard.",
+              thrown={"None"},
+              related={"None"})
     public VBox build_control(){
         VBox control = new VBox();
         //control.setStyle("-fx-background-color: blue");
@@ -145,6 +270,17 @@ public class Dashboard extends VBox {
         return control;
     }
 
+    /**
+     * Builds and returns a VBox control representing the controls for managing credentials.
+     *
+     * @return The VBox control representing the controls for managing credentials.
+     */
+    @ServiceM(desc="<##>Builds and returns a VBox control representing the controls for managing credentials.",
+              category="Method",
+              params={"None"},
+              returns="VBox -> control representing the controls for managing credentials.",
+              thrown={"None"},
+              related={"None"})
     public VBox build_controls(){
         //Hauptbox
         VBox controls = new VBox();
@@ -247,6 +383,19 @@ public class Dashboard extends VBox {
         return controls;
     }
 
+    /**
+     * Builds and returns a VBox control representing the stats section of the dashboard.
+     *
+     * @param color1 the color code for the primary color
+     * @param color2 the color code for the secondary color
+     * @return The VBox control representing the stats section
+     */
+    @ServiceM(desc="<##>Builds and returns a VBox control representing the stats section of the dashboard.",
+              category="Method",
+              params={"color1: Color ->  the color code for the primary color", "color2: Color -> the color code for the secondary color"},
+              returns="VBox -> control representing the stats section",
+              thrown={"None"},
+              related={"None"})
     private VBox build_stats(String color1, String color2){
     VBox stats = new VBox();
     stats.setStyle("-fx-background-color: #373737; -fx-background-radius: 10");
@@ -306,6 +455,17 @@ public class Dashboard extends VBox {
     }
 
 
+    /**
+     * Changes the stats section of the dashboard based on the given name.
+     *
+     * @param name the name of the stats section to be changed (error, warn, critical)
+     */
+    @ServiceM(desc="<##>Changes the stats section of the dashboard based on the given name.",
+              category="Method",
+              params={"name: String -> the name of the stats section to be changed (error, warn, critical)"},
+              returns="void",
+              thrown={"None"},
+              related={"None"})
     public void change_stats(String name){
 
         double temp = this.widthProperty().get() / 3;
@@ -342,6 +502,17 @@ public class Dashboard extends VBox {
         }
     }
 
+    /**
+     * Changes the header section of the dashboard based on the given name.
+     *
+     * @param name the name of the header section to be changed (error, warn, critical)
+     */
+    @ServiceM(desc="<##>Changes the header section of the dashboard based on the given name.",
+              category="Method",
+              params={"name: String -> the name of the header section to be changed (error, warn, critical)"},
+              returns="void",
+              thrown={"None"},
+              related={"None"})
     private void change_header(String name){
         if(name.equals("error")){
             Label titel = new Label("ERRORS");

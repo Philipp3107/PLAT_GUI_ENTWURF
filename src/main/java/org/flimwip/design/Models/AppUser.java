@@ -1,10 +1,16 @@
 package org.flimwip.design.Models;
 
+import javafx.scene.image.Image;
 import org.flimwip.design.Documentationhandler.ServiceATT;
 import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceCR;
 import org.flimwip.design.Documentationhandler.ServiceM;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.PKLogger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 
 @ServiceC(desc = "This class represents an App user. It encapsulates the user first name, last name, username, and password. The class uses annotations such as ServiceC, ServiceATT, and ServiceM for describing the class, attributes, and methods respectively. It includes a constructor, getters and setters for each of the attributes, and a static method used for testing.")
@@ -21,14 +27,19 @@ public class AppUser implements Serializable {
     @ServiceATT(desc = "The password the User set themselves", type="String")
     private String password;
 
+    @ServiceATT(desc="The path for the profile picture",
+                type="String")
+    private String profile_picture_path = "/Users/philippkotte/Desktop/profile_picture/profile_picture.jpg";
+    private PKLogger logger = new PKLogger(AppUser.class);
+
     @ServiceCR(desc = "Constructor of the AppUser class", params = {"String: firstname", "String: last_name", "String: username", "String: password"})
     public AppUser(String first_name, String last_name, String username, String password){
+        logger.set_Level(LoggingLevels.FINE);
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
         this.password = password;
     }
-
 
     @ServiceM(desc = "Method to get first name", category = "Getter", params = {"None"}, returns = "String: first_name", thrown = "None")
     public String get_first_name() {

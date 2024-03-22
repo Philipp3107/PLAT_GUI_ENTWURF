@@ -8,6 +8,7 @@ import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.PopulationFile;
+import org.flimwip.design.Views.Temp.BackButton;
 import org.flimwip.design.Views.Temp.BranchView;
 
 import java.lang.reflect.Field;
@@ -24,10 +25,10 @@ public class Start {
               returns="void",
               thrown={"None"})
     public static void main(String[] args) {
-        //Main.main(args);
+        Main.main(args);
 
         //Building documentation
-        Class c = BranchView.class;
+        /*Class c = AppUser.class;
 
 
         ServiceC class_defeinition = (ServiceC) c.getAnnotation(ServiceC.class);
@@ -156,10 +157,10 @@ public class Start {
             System.out.println("</def>");
         }
         System.out.println("</deflist>");
-        System.out.println("</chapter>");
+        System.out.println("</chapter>");*/
 
 
-        // TesterStart.main(args);
+        // Vendor.main(args);
     }
 
 
