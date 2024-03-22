@@ -1,5 +1,6 @@
 package org.flimwip.design.Controller;
 
+import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.User;
 import org.flimwip.design.Views.MainViews.UserView;
@@ -93,14 +94,29 @@ public class UserController {
         }
     }
 
+    /**
+     * Sets the verified password for the user.
+     *
+     * @param pw The verified password to be set for the user.
+     */
     public void set_verified_password(String pw){
         this.verified_password = pw;
     }
 
+    /**
+     * Retrieves the verified password of the user.
+     *
+     * @return The verified password of the user.
+     */
     public String get_verified_password(){
         return this.verified_password;
     }
 
+    /**
+     * Fetches the app user using persistence.
+     * If the user data exists, it loads the app user from the persistence manager.
+     * If the user data does not exist, it sets the app user to null.
+     */
     private void fetch_app_user(){
         //Use persistence to fetch the User and set the app_user to that
         if(PersitenzManager.does_data_exist()){
@@ -110,10 +126,20 @@ public class UserController {
         }
     }
 
+    /**
+     * Retrieves the app user.
+     *
+     * @return The app user.
+     */
     public AppUser get_app_user(){
         return this.app_user;
     }
 
+    /**
+     * Sets the app user for the controller.
+     *
+     * @param app_user The app user to be set.
+     */
     public void set_app_user(AppUser app_user){
         this.app_user = app_user;
     }
