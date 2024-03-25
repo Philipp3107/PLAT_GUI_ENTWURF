@@ -1,5 +1,9 @@
 package org.flimwip.design.Controller;
 
+import org.flimwip.design.Documentationhandler.ServiceATT;
+import org.flimwip.design.Documentationhandler.ServiceC;
+import org.flimwip.design.Documentationhandler.ServiceCR;
+import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.Views.Temp.BranchView;
@@ -11,6 +15,8 @@ import java.util.ArrayList;
 /**
  * This Controller controls all {@link LogFile} and the actions that are performed with them
  */
+@ServiceC(desc="This Controller controls all LogFile and the actions that are performed with them",
+          related={"LogFile"})
 public class FileController {
 
     /**
@@ -18,26 +24,43 @@ public class FileController {
      * It provides logging functionality with different logging levels.
      * Messages logged with this logger will be written to the console.
      */
+    @ServiceATT(desc="Logger instance used for logging messages within the class. t provides logging functionality with different logging levels. Messages logged with this logger will be written to the console.",
+                type="PKLogger",
+                related={"PKLogger"})
     private PKLogger logger = new PKLogger(this.getClass());
 
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout}
      */
+    @ServiceATT(desc="ArrayList of all LogFiles of the Checkout",
+                type="ArrayList<LogFile>",
+                related={"LogFile", "Checkout"})
     private final ArrayList<LogFile> files;
 
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout} that are selected
      */
+    @ServiceATT(desc="ArrayList of all LogFiles of the Checkout that are selected",
+                type="ArrayList<LogFile>",
+                related={"LogFile","Checkout"})
     private final ArrayList<LogFile> selected;
 
     /**
      * The {@link BranchView} this Controller belongs to
      */
+    @ServiceATT(desc="The BranchView this Controller belongs to",
+                type="BranchView",
+                related={"BranchView"})
     private final BranchView branch_view;
     /**
-     * Represents a controller for managing files in a file system.
-     * This class is responsible for initializing the controller and managing the list of files and selected files.
+     * Represents a controller for managing files in a file system. This class is responsible for initializing the controller
+     * and managing the list of files and selected files.
+     *
+     * @param branch_view The BranchView instance used by the controller.
      */
+    @ServiceCR(desc="Represents a controller for managing files in a file system. This class is responsible for initializing the controller and managing the list of files and selected files.",
+               params={"branch_view: BranchView -> The BranchView instance used by the controller."},
+               related={"BranchView"})
     public FileController(BranchView branch_view){
         this.logger.set_Level(LoggingLevels.FINE);
         this.files = new ArrayList<>();
@@ -50,6 +73,12 @@ public class FileController {
      *  Adds a File to the List of Files that are in the {@link Checkout} log directory
      * @param file {@link LogFile}
      */
+    @ServiceM(desc="Adds a File to the List of Files that are in the Checkout log directory",
+             category="Method",
+             params={"file: LogFile"},
+             returns="void",
+             thrown={"None"},
+             related={"Checkout", "LogFile"})
     public void add_file(LogFile file){
         files.add(file);
         logger.log(LoggingLevels.INFO, "Adedd: " + file.getId());
@@ -59,6 +88,12 @@ public class FileController {
      * This Method gets executed when a single files was clicked. It Clears the {@code ArrayList<LogFile> selected} and adds it to it
      * @param file {@link LogFile}
      */
+    @ServiceM(desc="This Method gets executed when a single files was clicked. It Clears the {@code ArrayList<LogFile> selected} and adds it to it",
+            category="Method",
+            params={"file: LogFile"},
+            returns="void",
+            thrown={"None"},
+            related={"Checkout", "LogFile"})
     public void set_selected(LogFile file){
         logger.log(LoggingLevels.INFO, "Selected: " + file.getId());
         for(LogFile cf : files){
@@ -80,6 +115,12 @@ public class FileController {
      * All selectd files will be added to {@code ArrayList<LogFile> selected}.
      * @param file {@link LogFile}
      */
+    @ServiceM(desc="This Method is for Multiselection between files. It gets Executed when a File is already in the ArrayList<LogFile> selected list. The user now needs to hold shift and click on another file. Is the index of the second File, bigger than the first, then all Files downward from the first to the second selected File will be selected.Is the index of the second File, smaller than the first, then all Files upward from the first the the second selected File will be selected. All selectd files will be added to ArrayList<LogFile> selected.",
+             category="Method",
+             params={"file: LogFile"},
+             returns="void",
+             thrown={"None"},
+             related={"LogFile"})
     public void multi_select(LogFile file) {
 
         //If selected is Empty the File will be added to the list
@@ -151,6 +192,12 @@ public class FileController {
      * Adds the given {@link LogFile} to the selected list. If its already in it it does nothing
      * @param file {@link LogFile}
      */
+    @ServiceM(desc="Adds the given LogFile to the selected list. If its already in it it does nothing",
+             category="Method",
+             params={"file: LogFile"},
+             returns="void",
+             thrown={"None"},
+             related={"LogFile"})
     public void add_to_selected(LogFile file){
         boolean add = true;
         for(LogFile cf : selected){
@@ -168,6 +215,12 @@ public class FileController {
      * Returns the size of the selected {@link LogFile}s
      * @return int Size of {@link FileController#selected} {@code ArrayList<LogFile>}
      */
+    @ServiceM(desc="Returns the size of the selected LogFiles",
+             category="Getter",
+             params={"None"},
+             returns="int Size of ArrayList<LogFile>}",
+             thrown={"None"},
+             related={"LogFile"})
     public int get_selected_size(){
         return this.selected.size();
     }
@@ -176,6 +229,12 @@ public class FileController {
      * Handles the secondary Click which means the click of the selected Files with the right mouse button.
      * If a right Click occures the {@link BranchView} shows a PopUp with further actions
      */
+    @ServiceM(desc="Handles the secondary Click which means the click of the selected Files with the right mouse button. If a right Click occures the BranchView shows a PopUp with further actions",
+             category="Method",
+             params={"None"},
+             returns="void",
+             thrown={"None"},
+             related={"BranchView"})
     public void handle_secondary_click(){
         logger.log(LoggingLevels.INFO, "Opening menu for:");
         for(LogFile f : selected){
@@ -187,6 +246,12 @@ public class FileController {
     /**
      * Clears the List of selected {@link LogFile}s
      */
+    @ServiceM(desc="Clears the List of selected LogFiles",
+             category="Method",
+             params={"None"},
+             returns="void",
+             thrown={"None"},
+             related={"LogFile"})
     public void deselect_all(){
         for(LogFile cf : selected){
             cf.deselect();

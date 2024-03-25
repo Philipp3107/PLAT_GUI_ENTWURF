@@ -112,7 +112,7 @@ public class Analyse extends VBox {
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         VBox.setVgrow(sp, Priority.ALWAYS);
         HBox.setHgrow(sp, Priority.ALWAYS);
-        sp.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
+        sp.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6");
 
         //Heading for this View
         Label heading = new Label("Niederlassungen");

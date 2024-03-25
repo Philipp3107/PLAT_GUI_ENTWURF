@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.flimwip.design.Controller.CheckoutSelectionController;
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.utility.*;
 import org.flimwip.design.utility.Runnables.Check_Connection;
@@ -81,6 +82,8 @@ public class Checkout extends VBox {
                 type="PKLogger")
     private PKLogger logger = new PKLogger(this.getClass());
 
+    private UserController uc;
+
 
     /**
      * Contructor
@@ -96,8 +99,9 @@ public class Checkout extends VBox {
                        "version: String -> current Software-Version of the Checkout",
                        "checkoutSelectionController: CheckoutSelectionController -> Controller to handle the UI changes",
                        "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
-    public Checkout(String location, String checkout, String version, CheckoutSelectionController checkoutSelectionController, Semaphore semaphore) {
+    public Checkout(String location, String checkout, String version, CheckoutSelectionController checkoutSelectionController, Semaphore semaphore, UserController uc) {
         this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
+        this.uc = uc;
         this.semaphore = semaphore;
         this.setId(location + checkout);
         this.checkout = checkout;
@@ -122,8 +126,9 @@ public class Checkout extends VBox {
                params={"km: CheckoutModel -> Model for the Checkout with all information",
                        "controller: CheckoutSelectionController -> Controller to handle the UI changes",
                        "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
-    public Checkout(CheckoutModel km, CheckoutSelectionController controller, Semaphore semaphore) {
+    public Checkout(CheckoutModel km, CheckoutSelectionController controller, Semaphore semaphore, UserController uc) {
         this.city = km.branch_name();
+        this.uc = uc;
         this.semaphore = semaphore;
         this.checkout = km.checkout_id();
         this.location = km.branch();
@@ -292,7 +297,7 @@ public class Checkout extends VBox {
                       "ExcutionException -> if the Execution of the CommandLine command failed",
                       "InterruptedException -> if the Thread on which this operation runs is interrupted unexpectedly"})
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
-        Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore));
+        Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore, uc));
         th.setDaemon(true);
         th.setName("Thread [" + this.checkout + "]");
         th.start();

@@ -1,5 +1,9 @@
 package org.flimwip.design;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -7,13 +11,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -40,6 +42,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.util.Duration;
 import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Documentationhandler.ServiceATT;
@@ -71,39 +74,57 @@ public class Main extends Application {
     //private static String PROFILE_PICTURE_FOLDER = "H:\\PLAT\\Data\\profile_picture
     */
     //File and Folder Strings for mac
-    @ServiceATT(desc = "This holds the Location of the secret key",
+    /*@ServiceATT(desc = "This holds the Location of the secret key",
             type = "String")
-    private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";
+    private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";*/
+
+    @ServiceATT(desc="Holds the Location of the Secretkey on Windows",
+            type="String")
+    private static String CREED_SEC = "H:\\PLAT\\Data\\common\\certs_sec";
     @ServiceATT(desc = "This holds the Location of the profile picture",
             type = "String")
-    private static String PROFILE_PICTURE = "/Users/philippkotte/Desktop/profile_picture/profile_picture";
+    private static String PROFILE_PICTURE = "H:\\PLAT\\Data\\common\\profile_picture\\profile_picture";
+
     @ServiceATT(desc = "This holds the Location of the profile picture folder",
             type = "String")
-    private static String PROFILE_PICTURE_FOLDER = "/Users/philippkotte/Desktop/profile_picture";
+    private static String PROFILE_PICTURE_FOLDER = "H:\\PLAT\\Data\\common\\profile_picture";
+
+    /*@ServiceATT(desc = "This holds the Location of the profile picture",
+            type = "String")
+    private static String PROFILE_PICTURE = "/Users/philippkotte/Desktop/profile_picture/profile_picture";*/
+    /*@ServiceATT(desc = "This holds the Location of the profile picture folder",
+            type = "String")
+    private static String PROFILE_PICTURE_FOLDER = "/Users/philippkotte/Desktop/profile_picture";*/
 
     @ServiceATT(desc = "Indicates wether the user has chosen a profile picture at sing in",
             type = "boolean")
     private boolean chose_profile_pciture = false;
     @ServiceATT(desc = "Main Controller of the Application",
-            type = "MainController")
+            type = "MainController", related = {"MainController"})
     private MainController mainController = new MainController(this);
     @ServiceATT(desc = "Ground of the Application. After Login every view is displayed as a part of root",
             type = "BorderPane")
     private BorderPane root;
     @ServiceATT(desc = "Analyse view to switch between branches and import Files",
-            type = "Analyse")
+            type = "Analyse", related = {"Analyse2"})
     private Analyse2 analyse;
     @ServiceATT(desc = "In the Settings view the user can switch between Pos-Users, change settings for himself",
-            type = "Settings")
+            type = "Settings", related = {"Settings"})
     private Settings settings;
     @ServiceATT(desc = "The Vendor helps at populating files to the checkouts",
-            type = "TestStarter")
-    private TesterStart vendor;
+            type = "TestStarter", related = {"Vendor"})
+    private Vendor vendor;
+
+    @ServiceATT(desc="The Dashboard builds the Landingpage of this application and shows the most important information.",
+            type="Dashboard",
+            related={"Dashboard"})
+    private Dashboard dashboard;
 
     @ServiceATT(desc = "Prints messages for debugging and controll",
-            type = "PKLogger")
+            type = "PKLogger", related = {"PKLogger"})
     private final PKLogger logger = new PKLogger(this.getClass());
-    @ServiceATT(desc = "The UserController holds the current PosUser, the AppUser and manages them for switching or editing", type = "UserController")
+    @ServiceATT(desc = "The UserController holds the current PosUser, the AppUser and manages them for switching or editing",
+            type = "UserController", related = {"UserController"})
     private UserController user_controller;
     @ServiceATT(desc = "Rectangle used for the Startup sequenze. Works as Loading bar",
             type = "Rectangel")
@@ -123,11 +144,15 @@ public class Main extends Application {
     Font maximal = Font.font("Verdana", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 40);
 
     @ServiceATT(desc = "Used for User authentication, encrypting and decrypting",
-            type = "Cryptographer")
+            type = "Cryptographer", related = {"Cryptographer"})
     private Cryptographer cryptographer;
     @ServiceATT(desc = "This Label shows the Users on which step the Application is in the start up sequenze.",
-            type = "Label")
+            type = "Label", related = {"None"})
     private Label startup_search;
+
+
+    private StackPane bottom_root = new StackPane();
+
 
     /**
      * Starts the application by initializing the main stage and setting up the user interface.
@@ -524,6 +549,14 @@ public class Main extends Application {
                         throw new RuntimeException(e);
                     }
                     AppUser app_user = new AppUser(name.getText(), last_name.getText(), encyrpted_username, encyrpted);
+                    if(!chose_profile_pciture){
+                        try {
+                            RandomArtGenerator.build_random_image();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    user_controller.set_app_user(app_user);
                     PersitenzManager.save_app_user(app_user);
                     cryptographer.start_authentication(pw_one.getText());
                     run_main(stage);
@@ -721,6 +754,46 @@ public class Main extends Application {
             }
         }));
 
+        password.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER){
+                if (username.getText().isEmpty()) {
+                    username.setStyle("-fx-border-color: red; -fx-border-width: 2");
+                }
+                if (!password_valid(password.getText())) {
+                    password.setStyle("-fx-border-color: red; -fx-border-width: 2");
+                }
+
+                if (username.getText().length() >= 2 && password_valid(password.getText())) {
+                    //System.out.println(user_controller.get_app_user().toString());
+                    cryptographer.start_authentication(password.getText());
+                    if (cryptographer.verification_success()) {
+                        user_controller.set_verified_password(password.getText());
+                        String decrypted = null;
+                        try {
+                            decrypted = cryptographer.decrypt(user_controller.get_app_user().get_password());
+                        } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException |
+                                 IllegalBlockSizeException | BadPaddingException e) {
+                            logger.log_exception(e);
+                        }
+
+                        String decrypted_username = null;
+                        try {
+                            decrypted_username = cryptographer.decrypt(user_controller.get_app_user().get_username());
+                        } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException |
+                                 IllegalBlockSizeException | BadPaddingException e) {
+                            logger.log_exception(e);
+                        }
+                        System.out.println(decrypted);
+                        System.out.println(decrypted_username);
+                        run_main(stage);
+                    } else {
+                        logger.log(LoggingLevels.FATAL, "Password Verification failed");
+                        fail.setText("Passwort oder Username falsch");
+                    }
+                }
+            }
+        });
+
         submit.setOnAction(event -> {
             if (username.getText().isEmpty()) {
                 username.setStyle("-fx-border-color: red; -fx-border-width: 2");
@@ -730,7 +803,7 @@ public class Main extends Application {
             }
 
             if (username.getText().length() >= 2 && password_valid(password.getText())) {
-                System.out.println(user_controller.get_app_user().toString());
+                //System.out.println(user_controller.get_app_user().toString());
                 cryptographer.start_authentication(password.getText());
                 if (cryptographer.verification_success()) {
                     user_controller.set_verified_password(password.getText());
@@ -923,28 +996,30 @@ public class Main extends Application {
 
         //this.checkoutSelectionController = new CheckoutSelectionController(null);
         this.settings = new Settings(user_controller);
-        this.vendor = new TesterStart(ds, user_controller);
+        this.vendor = new Vendor(ds, user_controller, this.mainController, this);
 
         //user_controller.set_Vendor_AI_(this.Vendor_AI_);
         /* Alle verwendeten BorderPane(Panes) */
-        //this.dashboard = new Dashboard(user_controller);
-        this.analyse = new Analyse2(ds, mainController);
+        this.dashboard = new Dashboard(user_controller);
+        this.analyse = new Analyse2(ds, mainController, user_controller);
         root = new BorderPane();
 
         /* Formatierung Root */
-        root.setStyle("-fx-background-color: #6c708c");
-        root.setLeft(new SideBar(mainController));
-        root.setCenter(this.analyse);
+        root.setStyle("-fx-background-color: #cfd2e6");
+        root.setLeft(new SideBar(mainController, user_controller, this));
+        root.setCenter(this.dashboard);
 
         /* Setting Stage and Scene */
-        Scene scene = new Scene(root, 1290, 829);
+        this.bottom_root.getChildren().add(root);
+        Scene scene = new Scene(bottom_root, 1435, 864);
         stage.setX(40);
         stage.setY(40);
+        stage.setMinHeight(864);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/design/fontstyle.css")).toExternalForm());
         stage.setScene(scene);
-        stage.setMinWidth(1290);
 
         stage.heightProperty().addListener((observableValue, number, t1) -> {
+            mainController.stage_height.set(t1.doubleValue());
             logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
         });
 
@@ -966,14 +1041,12 @@ public class Main extends Application {
      *             Possible values: "Analyse", "Einstellungen", "Vendor"
      */
     @ServiceM(desc = "Sets the center of the Main view to the given destination.",
-            params = {"name the name of the destination to set the center to Possible values: \"Analyse\", \"Einstellungen\", \"Vendor\""},
+            params = {"name the name of the destination to set the center to Possible values: \"Dashboard\", \"Analyse\", \"Einstellungen\", \"Vendor\""},
             returns = "void")
     public void set_center(String name) {
         switch (name) {
-            case "Analyse" -> {
-                this.root.setCenter(this.analyse);
-                break;
-            }
+            case "Dashboard" -> this.root.setCenter(this.dashboard);
+            case "Analyse" -> this.root.setCenter(this.analyse);
             case "Einstellungen" -> this.root.setCenter(this.settings);
             case "Vendor" -> this.root.setCenter(this.vendor);
         }
@@ -989,6 +1062,55 @@ public class Main extends Application {
             returns = "void")
     public void set_center_to_nl(BranchView view) {
         this.root.setCenter(view);
+    }
+
+    public void show_job_alert(String name){
+        logger.log(LoggingLevels.DEBUG, "Adding Pane to bottom_root");
+        Pane p = new Pane();
+        p.setMinWidth(200);
+        p.setMaxWidth(200);
+        p.setMinHeight(200);
+        p.setMaxHeight(200);
+        p.setLayoutY(20);
+        //c$\gkretail\publishing
+        p.toFront();
+        p.setPadding(new Insets(10));
+        this.bottom_root.setAlignment(Pos.TOP_CENTER);
+        Label l = new Label(STR."\{name} published new files.");
+        Font headline = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
+        l.setFont(headline);
+        l.setLayoutY(-40);
+        l.setPadding(new Insets(10));
+        l.setMinWidth(50);
+        l.setMinHeight(30);
+        l.setStyle("-fx-background-color: #699b8455; -fx-text-fill: white; -fx-background-radius: 10");
+        p.getChildren().add(l);
+        this.bottom_root.getChildren().add(p);
+
+        Timeline move_down = new Timeline(
+                new KeyFrame(Duration.seconds(0.4), new KeyValue(l.layoutYProperty(), 20, Interpolator.EASE_IN))
+        );
+
+        Timeline move_up_and_vanish = new Timeline(
+                new KeyFrame(Duration.seconds(0.3), new KeyValue(l.layoutYProperty(), -40, Interpolator.EASE_IN))
+        );
+
+        move_down.play();
+
+        move_down.setOnFinished(event ->{
+            move_up_and_vanish.setDelay(Duration.seconds(15));
+            move_up_and_vanish.play();
+        });
+
+
+        move_up_and_vanish.setOnFinished(event -> {
+            logger.log(LoggingLevels.DEBUG, "Removing Pane from bottom_root");
+            this.bottom_root.getChildren().remove(p);
+        });
+
+
+
+
     }
 
     /**

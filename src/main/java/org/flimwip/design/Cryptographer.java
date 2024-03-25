@@ -30,13 +30,13 @@ public class Cryptographer {
                 type="PKLogger")
     private PKLogger logger = new PKLogger(Cryptographer.class);
     
-    //@ServiceATT(desc="Holds the Location of the Secretkey on Windows",
-    //            type="String")
-    //private static String CREED_SEC = "H:\\PLAT\\Data\\common\\certs_sec";
-
-    @ServiceATT(desc="Holds the Location of the Secretkey on MacOS",
+    @ServiceATT(desc="Holds the Location of the Secretkey on Windows",
                 type="String")
-    private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";
+    private static String CREED_SEC = "H:\\PLAT\\Data\\common\\certs_sec";
+
+    /*@ServiceATT(desc="Holds the Location of the Secretkey on MacOS",
+                type="String")
+    private static String CREED_SEC = "/Users/philippkotte/Desktop/certs_sec";*/
 
     @ServiceCR(desc="Constructor of the Cryptographer Class",
                params={"None"})
@@ -126,7 +126,7 @@ public class Cryptographer {
             return new String(decrypted, StandardCharsets.UTF_8);
     }
     
-    @ServiceM(desc="<##>Returns if the verifivation was a success or not",
+    @ServiceM(desc="Returns if the verifivation was a success or not",
               category="Method",
               params={"None"},
               returns="boolean -> true if the verification was successful",
@@ -135,7 +135,7 @@ public class Cryptographer {
         return verification_good;
     }
 
-    @ServiceM(desc="<##>Testmethod for this class",
+    @ServiceM(desc="Testmethod for this class",
               category="Method",
               params={"args: String[] -> Arguments"},
               returns="void",
@@ -150,7 +150,7 @@ public class Cryptographer {
         System.out.println("Decrypted data: " + decryptedText);
     }
     
-    @ServiceM(desc="<##>Saves the Key in a KeyStorage with the given Password and Key",
+    @ServiceM(desc="Saves the Key in a KeyStorage with the given Password and Key",
               category="Method",
               params={"pw: String -> Password given by the user", "key: Key -> generated Key to save"},
               returns="boolean -> true if saving was successful",

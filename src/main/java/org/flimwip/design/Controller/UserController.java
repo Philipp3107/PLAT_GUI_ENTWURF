@@ -1,8 +1,12 @@
 package org.flimwip.design.Controller;
-
+import org.flimwip.design.Documentationhandler.ServiceATT;
 import org.flimwip.design.Documentationhandler.ServiceC;
+import org.flimwip.design.Documentationhandler.ServiceCR;
+import org.flimwip.design.Documentationhandler.ServiceM;
 import org.flimwip.design.Models.AppUser;
 import org.flimwip.design.Models.User;
+import org.flimwip.design.Views.MainViews.Dashboard;
+import org.flimwip.design.Views.MainViews.Settings;
 import org.flimwip.design.Views.MainViews.UserView;
 import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.LoggingLevels;
@@ -16,6 +20,8 @@ import java.util.Properties;
 /**
  * The UserController class represents a controller for managing users.
  */
+@ServiceC(desc = "The UserController class represents a controller for managing users.",
+          related = {"Main", "Settings", "Vendor", "Job", "UserView", "User", "Dashboard"})
 public class UserController {
 
     /**
@@ -23,13 +29,31 @@ public class UserController {
      *
      * This class provides the necessary properties and methods to manage a selected User.
      */
+    @ServiceATT(desc="Represents a selected User.",
+                type="User",
+                related={"User"})
     private User selected;
+    /**
+     * This variable represents an instance of the {@link AppUser} class.
+     */
+    @ServiceATT(desc="This variable represents an instance of the AppUser class.",
+                type="AppUser",
+                related={"AppUser"})
     private AppUser app_user;
 
+    /**
+     * The verified password of the user.
+     */
+    @ServiceATT(desc="The verified password of the user.",
+                type="String",
+                related={"None"})
     private String verified_password = null;
     /**
      * List of user views displayed in the dashboard.
      */
+    @ServiceATT(desc="List of user views displayed in the dashboard.",
+                type="ArrayList<UserView>",
+                related={"UserView"})
     private ArrayList<UserView> user_views_dashboard;
 
     /**
@@ -50,12 +74,18 @@ public class UserController {
      *
      * See UserView class for more details on the structure of each UserView object.
      */
+    @ServiceATT(desc="List of user views displayed in the dashboard.",
+                type="ArrayList<UserView>",
+                related={"UserView"})
     private ArrayList<UserView> user_views_settings;
 
     /**
      * Logger for logging application events and exceptions.
      * Uses the PKLogger class for logging functionality.
      */
+    @ServiceATT(desc="Logger for logging application events and exceptions. Uses the PKLogger class for logging functionality.",
+                type="PKLogger",
+                related={"PKLogger"})
     private PKLogger logger = new PKLogger(this.getClass());
 
     /**
@@ -65,16 +95,25 @@ public class UserController {
      *
      * @see Vendor
      */
+    @ServiceATT(desc="Holds the instance of the Vendor class.",
+                type="Vendor",
+                related={"Vendor"})
     private Vendor vendor = null;
 
     /**
      * Stores the list of user objects.
      */
+    @ServiceATT(desc="Stores the list of user objects.",
+                type="ArrayList<User>",
+                related={"User"})
     private ArrayList<User> pos_user;
 
     /**
      * The UserController class represents a controller for managing users.
      */
+    @ServiceCR(desc="The UserController class represents a controller for managing users.",
+               params={"None"},
+               related={"None"})
     public UserController(){
         fetch_app_user();
         logger.set_Level(LoggingLevels.FINE);
@@ -95,10 +134,31 @@ public class UserController {
     }
 
     /**
-     * Sets the verified password for the user.
+     * Sets the AppUser of this class for all depending classes to the given AppUser.
      *
-     * @param pw The verified password to be set for the user.
+     * @param user The AppUser to set as the app_user.
      */
+    @ServiceM(desc="Sets the AppUser of this class for all depending classes to the given AppUser",
+             category="Setter",
+             params={"None"},
+             returns="void",
+             thrown={"None"},
+             related={"AppUser"})
+    public void set_aupp_user(AppUser user){
+        this.app_user = app_user;
+    }
+
+    /**
+     * Sets the verified password of the user.
+     *
+     * @param pw The verified password to set.
+     */
+    @ServiceM(desc="Sets the verified password of the user.",
+             category="Setter",
+             params={"pw: String -> The verified password to set."},
+             returns="void",
+             thrown={"None"},
+             related={"None"})
     public void set_verified_password(String pw){
         this.verified_password = pw;
     }
@@ -108,6 +168,12 @@ public class UserController {
      *
      * @return The verified password of the user.
      */
+    @ServiceM(desc="Retrieves the verified password of the user.",
+             category="Getter",
+             params={"None"},
+             returns="String",
+             thrown={"None"},
+             related={"None"})
     public String get_verified_password(){
         return this.verified_password;
     }
@@ -117,6 +183,12 @@ public class UserController {
      * If the user data exists, it loads the app user from the persistence manager.
      * If the user data does not exist, it sets the app user to null.
      */
+    @ServiceM(desc="Fetches the app user using persistence. If the user data exists, it loads the app user from the persistence manager. If the user data does not exist, it sets the app user to null.",
+             category="Method",
+             params={"None"},
+             returns="void",
+             thrown={"None"},
+             related={"AppUser", "PersitenzManager"})
     private void fetch_app_user(){
         //Use persistence to fetch the User and set the app_user to that
         if(PersitenzManager.does_data_exist()){
@@ -131,6 +203,12 @@ public class UserController {
      *
      * @return The app user.
      */
+    @ServiceM(desc="Retrieves the app user.",
+             category="Getter",
+             params={"None"},
+             returns="AppUser",
+             thrown={"None"},
+             related={"AppUser"})
     public AppUser get_app_user(){
         return this.app_user;
     }
@@ -140,6 +218,12 @@ public class UserController {
      *
      * @param app_user The app user to be set.
      */
+    @ServiceM(desc="Sets the app user for the controller.",
+             category="Setter",
+             params={"app_user: AppUser -> The app user to be set."},
+             returns="void",
+             thrown={"None"},
+             related={"None"})
     public void set_app_user(AppUser app_user){
         this.app_user = app_user;
     }
@@ -149,6 +233,12 @@ public class UserController {
      *
      * @return An ArrayList of UserView objects representing the views of the users on the dashboard.
      */
+    @ServiceM(desc="Retrieves the views of the users displayed on the dashboard.",
+             category="Getter",
+             params={"None"},
+             returns="ArrayList<UserView>",
+             thrown={"None"},
+             related={"UserView", "Dashboard"})
     public ArrayList<UserView> get_user_views_dashboard(){
         return this.user_views_dashboard;
     }
@@ -158,6 +248,12 @@ public class UserController {
      *
      * @return An ArrayList of UserView objects representing the settings of user views.
      */
+    @ServiceM(desc="Retrieves the settings of user views.",
+             category="Getter",
+             params={"None"},
+             returns="ArrayList<UserView>",
+             thrown={"None"},
+             related={"UserView", "Settings"})
     public ArrayList<UserView> get_user_views_settings(){
         return this.user_views_settings;
     }
@@ -167,17 +263,14 @@ public class UserController {
      *
      * @return The selected user.
      */
+    @ServiceM(desc="Retrieves the selected user.",
+             category="Getter",
+             params={"None"},
+             returns="User",
+             thrown={"None"},
+             related={"User"})
     public User get_selected_user(){
         return this.selected;
-    }
-
-    /**
-     * Sets the vendor for the controller.
-     *
-     * @param vendor The vendor object to be set as the vendor.
-     */
-    public void set_vendor(Vendor vendor){
-        this.vendor = vendor;
     }
 
     /**
@@ -185,6 +278,12 @@ public class UserController {
      *
      * @param name The name of the user to be selected.
      */
+    @ServiceM(desc="hanges the selected user based on the given name.",
+             category="Method",
+             params={"name: String"},
+             returns="void",
+             thrown={"None"},
+             related={"None"})
     public void change_selected(String name){
         for(User user: pos_user){
             if(!user.getName().equals(name)){
@@ -235,6 +334,12 @@ public class UserController {
      * Loads the users from the specified file and initializes the UserController's pos_user list.
      * Only users listed in the specified file will be loaded.
      */
+    @ServiceM(desc="Loads the users from the specified file and initializes the UserController's pos_user list. Only users listed in the specified file will be loaded.",
+             category="Method",
+             params={"None"},
+             returns="void",
+             thrown={"None"},
+             related={"User"})
     private void load_users(){
         String file = "H:\\PLAT\\Data\\Users";
         File user_dir = new File(file);
@@ -268,6 +373,12 @@ public class UserController {
      *
      * @throws RuntimeException if there is an error reading or writing the properties file.
      */
+    @ServiceM(desc="Rewrites the properties files of the users in the pos_user list. This method reads the properties file associated with each user in the pos_user list, updates the <code>default</code> property with the selected status of the user, and then writes back the properties file with the updated content. The format of the properties file is key-value pairs, with the key <code>default</code> representing the selected status of the user. The value is set to <code>true</code> if the user is selected, and <code>false</code> if the user is not selected.",
+             category="Method",
+             params={"None"},
+             returns="void",
+             thrown={"RuntimeException if there is an error reading or writing the properties file."},
+             related={"User"})
     private void rewrite_users(){
         String file = "H:\\PLAT\\Data\\Users";
         for(User user : pos_user){

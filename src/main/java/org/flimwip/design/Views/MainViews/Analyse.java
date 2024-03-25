@@ -123,7 +123,7 @@ public class Analyse extends VBox {
         sp.setFitToWidth(true);
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        sp.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
+        sp.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6");
         this.getChildren().addAll(nl_label, sp);
     }
 

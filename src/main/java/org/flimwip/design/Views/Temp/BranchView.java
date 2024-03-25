@@ -6,11 +6,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
@@ -180,6 +182,8 @@ public class BranchView extends BorderPane {
                 type="Semaphore",
                 related={"None"})
     private Semaphore semaphore;
+
+    private UserController user_controller;
     
     /**
      * Represents a branch view.
@@ -191,7 +195,8 @@ public class BranchView extends BorderPane {
     @ServiceCR(desc="Represents a branch view.",
                params={"nl_id: String -> The ID of the branch.", "kassen: ArrayList\\<CheckoutModel\\> -> The list of checkout models.", "analyse: Analyse2 -> The analysis view."},
                related={"Analyse2", "CheckoutModel", "LogFile"})
-    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse2 analyse){
+    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse2 analyse, UserController user_controller){
+        this.user_controller = user_controller;
         this.fc = new FileController(this);
         this.analyse = analyse;
         this.checkoutModels = kassen;
@@ -216,7 +221,7 @@ public class BranchView extends BorderPane {
         this.version.setStyle("-fx-text-fill: black");
         this.city = new Label("Standort: ");
         this.heading = new Label("NL " + this.checkoutModels.get(0).branch_name() + " (" + this.nl_id + ")");
-        this.heading.setStyle("-fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 25; -fx-text-fill: white");
+        this.heading.setStyle("-fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 25; -fx-text-fill: #444444");
         this.heading.setPadding(new Insets(0, 0, 0, 10));
         set_side();
         set_top();
@@ -297,7 +302,7 @@ public class BranchView extends BorderPane {
         this.kassen = new Checkout[checkoutModels.size()];
         int i = 0;
         for(CheckoutModel km : checkoutModels){
-            Checkout k = new Checkout(km.branch(), km.checkout_id(), km.version(), this.controller , this.semaphore);
+            Checkout k = new Checkout(km.branch(), km.checkout_id(), km.version(), this.controller , this.semaphore, this.user_controller);
             kassen[i] = k;
             i++;
         }
@@ -401,7 +406,12 @@ public class BranchView extends BorderPane {
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
             scroller.setMaxWidth(1500);
-            scroller.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
+            scroller.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6");
+            scroller.setOnKeyPressed(event -> {
+                if(event.getCode() == KeyCode.ESCAPE){
+                    fc.deselect_all();
+                }
+            });
             box.getChildren().add(scroller);
             this.setCenter(box);
         }
@@ -492,5 +502,4 @@ public class BranchView extends BorderPane {
         popup.setAutoHide(true);
         popup.show(Window.getWindows().get(0));
     }
-
 }

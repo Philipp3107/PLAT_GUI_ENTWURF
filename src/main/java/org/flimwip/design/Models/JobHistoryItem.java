@@ -63,6 +63,8 @@ public class JobHistoryItem extends VBox implements Comparable<JobHistoryItem>{
         return checkouts;
     }
 
+    public String get_author(){return this.author;}
+
     private Label author_label, time_label;
 
     private Font sub = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 10);
@@ -97,6 +99,9 @@ public class JobHistoryItem extends VBox implements Comparable<JobHistoryItem>{
         }
     }
 
+    /**
+     * Initializes the JobHistoryItem object by setting properties and adding child nodes.
+     */
     private void init(){
         this.setSpacing(5);
         this.setPadding(new Insets(5));
@@ -114,7 +119,7 @@ public class JobHistoryItem extends VBox implements Comparable<JobHistoryItem>{
 
         this.author_label = new Label(this.author);
         this.author_label.setTextFill(Color.valueOf("#AAAAAA"));
-        this.time_label = new Label(this.hour + ":" + this.minute);
+        this.time_label = new Label(this.day+"." + this.month + "." + this.year + " "+this.hour + ":" + this.minute);
         this.time_label.setTextFill(Color.valueOf("#AAAAAA"));
         info.getChildren().addAll(this.author_label, new Spacer(), this.time_label);
 

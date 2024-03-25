@@ -1,5 +1,6 @@
 package org.flimwip.design.utility.Runnables;
 
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
@@ -17,8 +18,11 @@ public class Check_Connection implements Runnable {
     private String nl;
     private Semaphore semaphore;
     private String ip_to_look;
-    public Check_Connection(String nl, String checkout, Checkout k, Semaphore semaphore){
+
+    private UserController u_c;
+    public Check_Connection(String nl, String checkout, Checkout k, Semaphore semaphore, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
+        this.u_c = u_c;
         this.checkout = checkout;
         this.k = k;
         this.nl = nl;
@@ -43,7 +47,7 @@ public class Check_Connection implements Runnable {
         if(ping(this.ip_to_look)){
             //Fetch Data from Checkout
             semaphore.release();
-            Thread t = new Thread(new FetchFiles(this.ip_to_look, this.semaphore, this.k));
+            Thread t = new Thread(new FetchFiles(this.ip_to_look, this.semaphore, this.k, this.u_c));
             t.setDaemon(true);
             t.start();
         }else{

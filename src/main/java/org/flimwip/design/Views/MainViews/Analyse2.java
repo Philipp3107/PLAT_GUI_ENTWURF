@@ -14,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.flimwip.design.Controller.MainController;
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Views.Temp.Branch;
 import org.flimwip.design.Views.Temp.BranchView;
 import org.flimwip.design.Views.helpers.Spacer;
@@ -42,8 +43,11 @@ public class Analyse2 extends VBox {
 
    private MainController mainController;
 
-   public Analyse2(DataStorage dataStorage, MainController mainController) {
+   private UserController user_controller;
+
+   public Analyse2(DataStorage dataStorage, MainController mainController, UserController user_controller) {
        logger.set_Level(LoggingLevels.FINE);
+       this.user_controller = user_controller;
        this.dataStorage = dataStorage;
        this.mainController = mainController;
        this.setPadding(new Insets(10));
@@ -96,7 +100,7 @@ public class Analyse2 extends VBox {
         allScrollPane = new ScrollPane();
         allScrollPane.setFitToWidth(true);
         allScrollPane.setContent(allFlowPane);
-        allScrollPane.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c;");
+        allScrollPane.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6;");
 
         this.allFlowPane = new FlowPane(5, 5);
         Set<String> sets = dataStorage.list_keys();
@@ -155,11 +159,11 @@ public class Analyse2 extends VBox {
        allScrollPane = new ScrollPane();
        allScrollPane.setFitToWidth(true);
        allScrollPane.setContent(allFlowPane);
-       allScrollPane.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c;");
+       allScrollPane.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6;");
    }
 
    private void setStyleForLabel(Label label) {
-       label.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: white");
+       label.setStyle("-fx-font-weight: bold; -fx-font-family: 'Fira Mono'; -fx-font-size: 30; -fx-text-fill: #444444");
    }
 
 
@@ -201,7 +205,7 @@ public class Analyse2 extends VBox {
    }
 
     public void display_nl(String nl_id){
-        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this));
+        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this, this.user_controller));
     }
 
     public void go_back(){

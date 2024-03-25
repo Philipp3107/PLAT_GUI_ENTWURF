@@ -54,13 +54,13 @@ public class MainMenuButton extends HBox {
         init();
     }
 
-    @ServiceM(desc="<##>Builds the MainMenuButton",
+    @ServiceM(desc="Builds the MainMenuButton",
               category="Method",
               params={"None"},
               returns="void",
               thrown={"None"})
     private void init(){
-        this.setMaxHeight(30);
+        this.setMaxHeight(20);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(12));
         this.setStyle("-fx-background-color: #232323; -fx-background-radius: 2");
@@ -89,15 +89,15 @@ public class MainMenuButton extends HBox {
         });
 
         this.setSpacing(15);
-        this.getChildren().addAll(imageView, l);
+        this.getChildren().add(l);
 
-        if(this.text.equals("Analyse")){
+        if(this.text.equals("Dashboard")){
             select_on_start();
         }
 
     }
     
-    @ServiceM(desc="<##>Deselects the current Button. Gets executed from the MainController",
+    @ServiceM(desc="Deselects the current Button. Gets executed from the MainController",
               category="Method",
               params={"None"},
               returns="void",

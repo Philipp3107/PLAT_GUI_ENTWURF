@@ -1,5 +1,6 @@
 package org.flimwip.design.utility.Runnables;
 
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.CredentialManager;
@@ -32,14 +33,17 @@ public class FetchFiles implements Runnable{
 
     private final PKLogger logger = new PKLogger(this.getClass());
 
+    private UserController u_c;
+
     /**
      * Contstructor
      * @param kassenid String -> Id of the Checkout
      * @param semaphore Semaphore -> Management for all Runnables, Limitations to 10
      * @param k Checkout -> View to update
      */
-    public FetchFiles(String kassenid, Semaphore semaphore, Checkout k){
+    public FetchFiles(String kassenid, Semaphore semaphore, Checkout k, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
+        this.u_c = u_c;
         this.kassenid = kassenid;
         this.semaphore = semaphore;
         this.k = k;
@@ -60,7 +64,7 @@ public class FetchFiles implements Runnable{
         }
 
         logger.log(LoggingLevels.FINE, "Fetching files from checkout: " + this.kassenid + ", Branch: " + branch);
-        NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
+        NetCon connection = new NetCon(branch, checkout_id, u_c.get_selected_user().getUsername(), u_c.get_selected_user().getPassword());
 
         try{
             semaphore.acquire();

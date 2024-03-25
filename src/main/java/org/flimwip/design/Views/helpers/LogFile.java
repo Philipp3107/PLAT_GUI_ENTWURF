@@ -3,6 +3,7 @@ package org.flimwip.design.Views.helpers;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import org.flimwip.design.Controller.FileController;
@@ -32,7 +33,7 @@ public class LogFile extends HBox {
         this.setMaxWidth(480);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(6));
-        this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
+        this.setStyle("-fx-background-color: #5a5b64; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
         Label name = new Label(this.name);
         int file_size = Integer.parseInt(this.size);
         Label size = null;
@@ -50,6 +51,7 @@ public class LogFile extends HBox {
         name.setStyle("-fx-text-fill: white");
         size.setStyle("-fx-text-fill: white");
         time.setStyle("-fx-text-fill: white");
+
 
 
         this.setOnMouseClicked(mouseEvent -> {
@@ -78,7 +80,7 @@ public class LogFile extends HBox {
 
 
     public void deselect(){
-        this.setStyle("-fx-background-color: #56565655; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
+        this.setStyle("-fx-background-color: #5a5b64; -fx-border-color: #232323; -fx-border-radius: 7; -fx-background-radius: 7");
     }
 
     public void select(){
