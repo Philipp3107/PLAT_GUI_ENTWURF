@@ -28,13 +28,13 @@ public class Start {
               returns="void",
               thrown={"None"})
     public static void main(String[] args) {
-        Main.main(args);
+        //Main.main(args);
 
 
         ArrayList<String> realted = new ArrayList<>();
 
         //Building documentation
-        /*Class c = Cryptographer.class;
+        Class c = Cryptographer.class;
 
 
         ServiceC class_defeinition = (ServiceC) c.getAnnotation(ServiceC.class);
@@ -273,7 +273,7 @@ public class Start {
         }
 
         System.out.println("</category>");
-        System.out.println("</seealso>");*/
+        System.out.println("</seealso>");
 
         // Vendor.main(args);
     }
