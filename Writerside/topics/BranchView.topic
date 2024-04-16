@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="BranchView" id="BranchView">
+
+    <card-summary> The BranchView class represents a view for a branch in a checkout system. It extends the BorderPane class. </card-summary>
+    <available-only-for> Folder Views.Temp </available-only-for>
+    <chapter title="Description" id="description">
+        <p>The BranchView class represents a view for a branch in a checkout system. It extends the BorderPane class. </p>
+    </chapter>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="wide">
+            private javafx.scene.control.Label org.flimwip.design.Views.Temp.BranchView.version
+            Represents a label for displaying a version number.
+            <def title="version: Label">
+                Represents a label for displaying a version number.
+            </def>
+            private javafx.scene.control.Label org.flimwip.design.Views.Temp.BranchView.city
+            Represents a label for displaying the city of a checkout.
+            <def title="city: Label">
+                Represents a label for displaying the city of a checkout.
+            </def>
+            private javafx.scene.control.Label org.flimwip.design.Views.Temp.BranchView.heading
+            The heading label for the BranchView.
+            <def title="heading: Label">
+                The heading label for the BranchView.
+            </def>
+            private org.flimwip.design.Controller.CheckoutSelectionController org.flimwip.design.Views.Temp.BranchView.controller
+            This variable represents an instance of the CheckoutSelectionController class. It is used to handle most of the events on the BranchView that could not be handled by the Checkout or the BranchView themselves. The CheckoutSelectionController is initialized with a reference to the parent BranchView instance.
+            <def title="controller: CheckoutSelectionController">
+                This variable represents an instance of the CheckoutSelectionController class. It is used to handle most of the events on the BranchView that could not be handled by the Checkout or the BranchView themselves. The CheckoutSelectionController is initialized with a reference to the parent BranchView instance.
+            </def>
+            private javafx.scene.layout.VBox org.flimwip.design.Views.Temp.BranchView.side
+            Represents a VBox container used in the BranchView class. The side VBox container is typically used to display additional information or controls in the UI.
+            <def title="side: VBox">
+                Represents a VBox container used in the BranchView class. The side VBox container is typically used to display additional information or controls in the UI.
+            </def>
+            private javafx.scene.layout.VBox org.flimwip.design.Views.Temp.BranchView.top
+            The private variable 'top' represents a VBox (Vertical Box) used in the 'BranchView' class. It serves as the top section of the UI layout and contains various elements of the user interface. The 'top' VBox provides a container for arranging and positioning UI components vertically. It is used to group and organize elements such as buttons, labels, and other controls.
+            <def title="top: VBox">
+                The private variable 'top' represents a VBox (Vertical Box) used in the 'BranchView' class. It serves as the top section of the UI layout and contains various elements of the user interface. The 'top' VBox provides a container for arranging and positioning UI components vertically. It is used to group and organize elements such as buttons, labels, and other controls.
+            </def>
+            private javafx.scene.layout.VBox org.flimwip.design.Views.Temp.BranchView.kassen_info
+            Kassen_info is used in the BranchView class to display information about a selected checkout. It is a VBox container that holds various labels and buttons related to the selected checkout. It is primarily used to provide information such as the checkout's version number and location.
+            <def title="kassen_info: VBox">
+                Kassen_info is used in the BranchView class to display information about a selected checkout. It is a VBox container that holds various labels and buttons related to the selected checkout. It is primarily used to provide information such as the checkout's version number and location.
+            </def>
+            private javafx.scene.layout.FlowPane org.flimwip.design.Views.Temp.BranchView.top_content
+            This variable represents the top content of the BranchView, which is a FlowPane object. The FlowPane is used to display the content at the top of the view. It has a horizontal gap of 5 and a vertical gap of 10 between its children nodes.
+            <def title="top_content: FlowPane">
+                This variable represents the top content of the BranchView, which is a FlowPane object. The FlowPane is used to display the content at the top of the view. It has a horizontal gap of 5 and a vertical gap of 10 between its children nodes.
+            </def>
+            private javafx.scene.layout.HBox org.flimwip.design.Views.Temp.BranchView.top_wrapper
+            Represents a top wrapper for a BranchView.
+            <def title="top_wrapper: HBox">
+                Represents a top wrapper for a BranchView.
+            </def>
+            private java.util.ArrayList org.flimwip.design.Views.Temp.BranchView.checkoutModels
+            The checkoutModels variable represents a list of CheckoutModel objects. Each CheckoutModel object contains details about a checkout in a branch, such as branch name, region, checkout ID, and version. This variable is used in the BranchView class to store the checkout models for a particular branch It is a private field, meaning it can only be accessed within the class where it is declared.
+            <def title="checkoutModels: ArrayList<CheckoutModel>">
+                The checkoutModels variable represents a list of CheckoutModel objects. Each CheckoutModel object contains details about a checkout in a branch, such as branch name, region, checkout ID, and version. This variable is used in the BranchView class to store the checkout models for a particular branch It is a private field, meaning it can only be accessed within the class where it is declared.
+            </def>
+            private org.flimwip.design.Views.Temp.Checkout[] org.flimwip.design.Views.Temp.BranchView.kassen
+            Private variable representing an array of Checkout objects. The 'kassen' array stores all the Checkout objects related to the branch.
+            <def title="kassen: Checkout[]">
+                Private variable representing an array of Checkout objects. The 'kassen' array stores all the Checkout objects related to the branch.
+            </def>
+            private java.lang.String org.flimwip.design.Views.Temp.BranchView.nl_id
+            The nl_id variable represents an identifier used in the BranchView class. This variable is used to uniquely identify a branch or checkout. The nl_id variable is set and used within the BranchView and CheckoutSelectionController classes. The value of nl_id is typically provided as a parameter to methods in the BranchView and CheckoutSelectionController classes for various operations and comparisons. It is recommended to ensure the nl_id variable is properly set before using it in any methods or operations that rely on its value.
+            <def title="nl_id: String">
+                The nl_id variable represents an identifier used in the BranchView class. This variable is used to uniquely identify a branch or checkout. The nl_id variable is set and used within the BranchView and CheckoutSelectionController classes. The value of nl_id is typically provided as a parameter to methods in the BranchView and CheckoutSelectionController classes for various operations and comparisons. It is recommended to ensure the nl_id variable is properly set before using it in any methods or operations that rely on its value.
+            </def>
+            private org.flimwip.design.Views.MainViews.Analyse2 org.flimwip.design.Views.Temp.BranchView.analyse
+            Private variable representing an instance of the Analyse2 class.
+            <def title="analyse: Analyse2">
+                Private variable representing an instance of the Analyse2 class.
+            </def>
+            private org.flimwip.design.Controller.FileController org.flimwip.design.Views.Temp.BranchView.fc
+            Represents a controller for managing files in a file system. This class is responsible for initializing the controller and managing the list of files and selected files.
+            <def title="fc: FileController">
+                Represents a controller for managing files in a file system. This class is responsible for initializing the controller and managing the list of files and selected files.
+            </def>
+            private org.flimwip.design.utility.PKLogger org.flimwip.design.Views.Temp.BranchView.logger
+            The logger variable is an instance of the PKLogger class. It is used for logging messages and exceptions. The logger is initialized with the class object of the current class using the constructor:
+            <def title="logger: PKLogger">
+                The logger variable is an instance of the PKLogger class. It is used for logging messages and exceptions. The logger is initialized with the class object of the current class using the constructor:
+            </def>
+            private java.util.concurrent.Semaphore org.flimwip.design.Views.Temp.BranchView.semaphore
+            Semaphore is a synchronization primitive that limits the number of threads that can access a certain resource concurrently. It maintains a set of permits, which are acquired and released by threads to control access to the resource.
+            <def title="semaphore: Semaphore">
+                Semaphore is a synchronization primitive that limits the number of threads that can access a certain resource concurrently. It maintains a set of permits, which are acquired and released by threads to control access to the resource.
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="wide">
+            <def title="build_file: Logfile -> The built LogFile object.">
+                <p>Builds a LogFile object based on the given File.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - f: File -> The File object to build LogFile from.</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - RuntimeException -> If an error occurs while retrieving file information. </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="show_menu: void">
+                <p>Shows a menu with different options when a right-click occurs. This method creates a Popup object and adds buttons and their actions to it. The menu is displayed near the clicked position.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="init: void">
+                <p>Initializes the BranchView. This method sets the necessary components and properties of the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="wide">
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="wide">
+            <def title="set_side: void">
+                <p>Sets the necessary components and properties of the "side" section in the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+            <def title="go_back: void">
+                <p>Goes back to the previous view by setting the main center to "Analyse" in the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="set_center: void">
+                <p>Sets the center of the BranchView based on the given ID.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - id: String -> The ID of the center to set.</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="set_top: void">
+                <p>Sets the necessary components and properties of the top section in the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+            <def title="setVersion: void">
+                <p>Sets the version of the branch view.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - s: String -> The version to set.</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="set_city: void">
+                <p>Sets the city of the branch in the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - s: String -> The city to set.</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PUBLIC]</p>
+            </def>
+            <def title="set_top_content: void">
+                <p>Sets the necessary components and properties of the top content section in the BranchView.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+            <def title="setting_kassen: void">
+                <p>Set up the kassen array with Checkout objects based on the checkoutModels list. Add the kassen array to the controller's checkouts.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+            <def title="seting_kassen_info: void">
+                <p>Sets the necessary components and properties of the "kassen_info" section in the BranchView. This method sets the minimum and maximum height of the "kassen_info" to 30 pixels, the minimum width to 120 pixels, and adds padding around it. It also adds the "version" and "city" labels to the "kassen_info" section.</p>
+                <p> <u><b>Parameters:</b></u></p>
+                <p> - None</p>
+                <p> <u><b>Thrown:</b></u></p>
+                <p> - None </p>
+                <p> <u><b>Access:</b></u> [PRIVATE]</p>
+            </def>
+        </deflist>
+    </chapter>
+</topic>

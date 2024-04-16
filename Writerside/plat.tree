@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="plat"
+                  name="plat" start-page="topics_Getting-Started.md">
+
+    <toc-element topic="topics_Getting-Started.md"/>
+    <toc-element topic="Checkout.topic"/>
+    <toc-element topic="LogFile.topic"/>
+    <toc-element topic="MainMenuButtons.topic"/>
+    <toc-element topic="Vendor.topic"/>
+    <toc-element topic="Job.topic"/>
+    <toc-element topic="UserView.topic"/>
+    <toc-element topic="Dashboard.topic"/>
+    <toc-element topic="PersitenzManager.topic"/>
+    <toc-element topic="PKLogger.topic"/>
+    <toc-element topic="None.topic"/>
+    <toc-element topic="Main.topic"/>
+    <toc-element topic="Settings.topic"/>
+    <toc-element topic="PLAT.topic">
+        <toc-element topic="Getting-Started.md"/>
+        <toc-element topic="Users.topic"/>
+        <toc-element topic="Algorithm.topic"/>
+    </toc-element>
+    <toc-element topic="DevDocs.topic">
+        <toc-element topic="Structure.topic">
+            <toc-element topic="Folders.topic">
+                <toc-element topic="Models.topic"/>
+                <toc-element topic="Controller.topic"/>
+            </toc-element>
+            <toc-element topic="Files.topic">
+                <toc-element topic="AppUser.topic"/>
+                <toc-element topic="PopulationFile.topic"/>
+                <toc-element topic="User.topic"/>
+                <toc-element topic="BranchView.topic"/>
+                <toc-element topic="CSC.topic" >
+                </toc-element>
+                <toc-element topic="DashboardStatsController.topic"/>
+                <toc-element topic="FileController.topic"/>
+                <toc-element topic="MainController.topic"/>
+                <toc-element topic="UserController.topic"/>
+                <toc-element topic="NetCon.topic"/>
+            </toc-element>
+            <toc-element topic="Cryptographer.topic"/>
+        </toc-element>
+    </toc-element>
+    <toc-element topic="Planned-features.topic"/>
+</instance-profile>

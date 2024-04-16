@@ -1011,10 +1011,9 @@ public class Main extends Application {
 
         /* Setting Stage and Scene */
         this.bottom_root.getChildren().add(root);
-        Scene scene = new Scene(bottom_root, 1435, 864);
+        Scene scene = new Scene(bottom_root, 1435, 820);
         stage.setX(40);
         stage.setY(40);
-        stage.setMinHeight(864);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/org/flimwip/design/fontstyle.css")).toExternalForm());
         stage.setScene(scene);
 
