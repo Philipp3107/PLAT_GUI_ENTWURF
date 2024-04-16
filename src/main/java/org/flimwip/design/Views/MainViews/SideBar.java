@@ -16,8 +16,6 @@ import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Documentationhandler.*;
 import org.flimwip.design.Views.helpers.Spacer;
 
-import java.awt.*;
-
 /**
  * The SideBar class represents a sidebar component in the application.
  */
@@ -60,8 +58,8 @@ public class SideBar extends VBox {
         this.setAlignment(Pos.CENTER);
 
         /* Buttons für den Homescreen */
-        String[] button_names = {"Dashboard", "Analyse",  "Vendor", "Einstellungen"};
-        String[] button_images = {"dashboard.png", "cellularbars.png", "dashboard.png", "cellularbars.png"};
+        String[] button_names = {"Dashboard", "Analyse",  "Vendor"};
+        String[] button_images = {"dashboard.png", "cellularbars.png", "dashboard.png"};
         MainMenuButton[] buttons = new MainMenuButton[button_names.length];
 
         for(int i = 0; i < button_names.length; i++){
@@ -85,7 +83,24 @@ public class SideBar extends VBox {
         Label name = new Label(STR."\{user_controller.get_app_user().get_first_name()} \{user_controller.get_app_user().get_last_name()}");
         name.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
         name.setOnMouseClicked(event -> main.show_job_alert("Philipp Kotte"));
-        this.getChildren().addAll(new Spacer(false),c, name);
+        VBox profile = new VBox(c, name);
+        profile.setAlignment(Pos.CENTER);
+        profile.setPadding(new Insets(20, 0, 20, 0));
+
+        profile.setOnMouseEntered(event -> {
+            profile.setStyle("-fx-background-color: #999999; -fx-background-radius: 10");
+        });
+
+        profile.setOnMouseExited(event -> {
+            profile.setStyle("");
+        });
+
+        profile.setOnMouseClicked(event -> {
+            this.main.set_center("Einstellungen");
+        });
+
+
+        this.getChildren().addAll(new Spacer(false), profile);
     }
 
     public void update_profile_picture(){

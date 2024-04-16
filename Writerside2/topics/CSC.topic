@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<!--suppress WrsTopicContentTopicUnused -->
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="CheckoutSelectionController" id="CSC">
+    <card-summary> This Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible </card-summary>
+    <available-only-for> Folder Controller </available-only-for>
+    <chapter title="Description" id="description">
+        <p>This Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible </p>
+    </chapter>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="kassen: String">
+                <p>List of all Checkout for this Branch.</p>
+            </def>
+            <def title="selected: String">
+                <p>The currently selected Checkout of the Branch.</p>
+            </def>
+            <def title="view: String">
+                <p>The BranchView to which this controller belongs.</p>
+            </def>
+            <def title="mmb: MainMenuButton[]">
+                <p>The array of MainMenuButton objects representing the main menu buttons.</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title=" CheckoutSelectionController ">
+                Controller class handling the selection and manipulation of checkouts in the BranchView.
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="set_city_on_view: void ">
+            <p>To provide the selected checkouts current location (location of the branch)</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String city → city where the checkout is located </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="set_checkouts: void ">
+            <p>To provide a list of all checkouts of the given branch for further actions</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String kassen -> Array of Checkout </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="set_mouse_focus: void ">
+            <p>To remove the focus of the checkouts where the mouse isn't currently over</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String checkout_id -> id of the selected checkout </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="getSelected: Checkout selected ">
+            <p>Return the current selected Checkout from the controller</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="set_version_on_view: void ">
+            <p>To provied the selected checkouts current version number on the BranchView</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String version → version of the checkout </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="set_selected_checkout: void ">
+            <p>Sets the selected checkout based on the given ID. Unselects all other checkouts and updates the view accordingly.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String id -> The ID of the checkout to be selected </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+        <def title="Ich glaub hier is nix drin">
+            Setter, Setter, ... Oh, hier steht ja gar nichts.
+        </def>
+        </deflist>
+    </chapter>
+    <seealso>
+        <category ref="related">
+            <a href="None.topic"/>
+        </category>
+    </seealso>
+</topic>

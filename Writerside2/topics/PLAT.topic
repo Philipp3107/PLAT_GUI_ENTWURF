@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="PLAT" id="PLAT">
+
+    <section-starting-page>
+        <title>PLAT - Guide</title>
+        <description>
+        Starting Page für alles was du brauchst
+        </description>
+        <spotlight>
+            <a href="Getting-Started.md"
+               description="Sed condimentum feugiat sagittis" type="start"/>
+            <a href="Users.topic"
+               description="Sed condimentum feugiat sagittis" type="account"/>
+        </spotlight>
+
+        <primary>
+            <title>Main topics</title>
+            <a href="Algorithm.topic" type="check-list"/>
+        </primary>
+
+        <secondary><title>Highlighted group</title></secondary>
+
+        <misc>
+            <cards narrow="true">
+                <title>Custom cards</title>
+                <a href="DevDocs.topic"/>
+                <a href=""/>
+            </cards>
+
+            <links narrow="true">
+                <group>
+                    <title>Custom links</title>
+                </group>
+            </links>
+        </misc>
+    </section-starting-page>
+</topic>

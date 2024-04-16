@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="DevDocs" id="DevDocs">
+
+    <section-starting-page>
+        <title>Developer Documentation</title>
+        <description>
+            Developer Documentation for the code
+        </description>
+        <spotlight>
+            <a href="Structure.topic" type="development" summary="All Folders and Files"/>
+            <a href="Planned-features.topic" type="offer">Features in the Future</a>
+        </spotlight>
+
+        <primary>
+            <title>Main topics</title>
+            <a href="Algorithm.topic" type="mixed"/>
+        </primary>
+
+        <secondary><title>Highlighted group</title></secondary>
+
+        <misc>
+            <cards narrow="true">
+                <title>Custom cards</title>
+                <a href=""/>
+            </cards>
+
+            <links narrow="true">
+                <group>
+                    <title>Custom links</title>
+                </group>
+            </links>
+        </misc>
+    </section-starting-page>
+</topic>

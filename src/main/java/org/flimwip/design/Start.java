@@ -15,6 +15,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.jar.Attributes;
 
@@ -27,9 +30,8 @@ public class Start {
               params={"String[] args: Arguments"},
               returns="void",
               thrown={"None"})
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Main.main(args);
-
 
         ArrayList<String> realted = new ArrayList<>();
 

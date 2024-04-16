@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="MainController" id="MainController">
+
+    <var name="id_postfix"></var>
+    <card-summary> This Controller controls the Main actions of the Applications Main View </card-summary>
+    <available-only-for> Folder Controller </available-only-for>
+    <chapter title="Description" id="description">
+        <p>This Controller controls the Main actions of the Applications Main View </p>
+    </chapter>
+    <p> <u><b>Related:</b></u></p>
+    <a href="Main.topic"/>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="logger: PKLogger">
+                <p>The logger variable is an instance of the PKLogger class that provides logging functionality with different</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="PKLogger.topic"/>
+            </def>
+            <def title="main: Main">
+                <p>Main of the Application</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="Main.topic"/>
+            </def>
+            <def title="mmb: MainMenuButton">
+                <p>List of MainMenuButtons</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="MainMenuButtons.topic"/>
+            </def>
+            <def title="stage_width: SimpleDoubleProperty">
+                <p>SimpleDoubleProperty representing the width of the stage.</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title=" MainController "><p>
+                Constructs a new MainController object.
+            </p>
+                <p> <u><b>Related:</b></u></p>
+                <p><a href="Main.topic"/></p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="deselect_main_menu_buttons: void ">
+            <p>Deslects The MainMenuButton if another one was Clicked</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - id: String -> ID of the clicked MainMenuButton </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title=" set_main_center: void">
+            <p>sets the Center of Main to the given destination</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - dest: String -> Destination for the {@link Main} View</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+                <def title="Related:">
+                    <a href="Main.topic"/>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title=" set_center_to_nl: void">
+            <p>Sets the center of the MainController to the given BranchView.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - view: BranchView The BranchView representing the destination for the MainController view.</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+                <def title="Related:">
+                    <a href="BranchView.topic"/>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title=" set_main_menu_buttons: void">
+            <p>Adds an Array of MainMenuButtons to this controller for further actions</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - mmb: MainMenuButtons -> The array of MainMenuButtons to be added.</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+                <def title="Related:">
+                    <a href="MainMenuButtons.topic"/>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <seealso>
+        <category ref="related">
+            <a href="Main.topic"/>
+            <a href="PKLogger.topic"/>
+            <a href="MainMenuButtons.topic"/>
+            <a href="None.topic"/>
+        </category>
+        <category ref="related">
+            <a href="BranchView.topic"/>
+        </category>
+    </seealso>
+</topic>

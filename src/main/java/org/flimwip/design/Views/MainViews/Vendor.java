@@ -1,12 +1,10 @@
 package org.flimwip.design.Views.MainViews;
 
-import com.sun.javafx.scene.control.VirtualScrollBar;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;

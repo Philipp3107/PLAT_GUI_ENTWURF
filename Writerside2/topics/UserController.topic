@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="UserController" id="UserController">
+
+    <var name="id_postfix"/>
+    <card-summary> The UserController class represents a controller for managing users. </card-summary>
+    <available-only-for> Folder Controller </available-only-for>
+    <chapter title="Description" id="description">
+        <p>The UserController class represents a controller for managing users. </p>
+    </chapter>
+    <p> <u><b>Related:</b></u></p>
+    <a href="Main.topic"/>
+    <a href="Settings.topic"/>
+    <a href="Vendor.topic"/>
+    <a href="Job.topic"/>
+    <a href="UserView.topic"/>
+    <a href="User.topic"/>
+    <a href="Dashboard.topic"/>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="selected: User">
+                <p>Represents a selected User.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="User.topic"/>
+            </def>
+            <def title="app_user: AppUser">
+                <p>This variable represents an instance of the AppUser class.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="AppUser.topic"/>
+            </def>
+            <def title="verified_password: String">
+                <p>The verified password of the user.</p>
+            </def>
+            <def title="user_views_dashboard: ArrayList<UserView>">
+                <p>List of user views displayed in the dashboard.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="UserView.topic"/>
+            </def>
+            <def title="user_views_settings: ArrayList<UserView>">
+                <p>List of user views displayed in the dashboard.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="UserView.topic"/>
+            </def>
+            <def title="logger: PKLogger">
+                <p>Logger for logging application events and exceptions. Uses the PKLogger class for logging functionality.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="PKLogger.topic"/>
+            </def>
+            <def title="vendor: Vendor">
+                <p>Holds the instance of the Vendor class.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="Vendor.topic"/>
+            </def>
+            <def title="pos_user: ArrayList<User>">
+                <p>Stores the list of user objects.</p>
+                <p> <u><b>Related:</b></u></p>
+                <a href="User.topic"/>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            public org.flimwip.design.Controller.UserController()
+            The UserController class represents a controller for managing users.
+            <def title=" UserController ">
+                The UserController class represents a controller for managing users.
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+            <chapter title="load_users: void ">
+                <p>Loads the users from the specified file and initializes the UserController's pos_user list. Only users listed in the specified file will be loaded.</p>
+                <deflist type="full">
+                    <def title="Paramaters:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Thrown:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Access:">
+                        <p>[PRIVATE]</p>
+                    </def>
+                </deflist>
+            </chapter>
+            <chapter title="rewrite_users: void ">
+                <p>Rewrites the properties files of the users in the pos_user list. This method reads the properties file associated with each user in the pos_user list, updates the <code>default</code> property with the selected status of the user, and then writes back the properties file with the updated content. The format of the properties file is key-value pairs, with the key <code>default</code> representing the selected status of the user. The value is set to <code>true</code> if the user is selected, and <code>false</code> if the user is not selected.</p>
+                <deflist type="full">
+                    <def title="Paramaters:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Thrown:">
+                        <p> - RuntimeException if there is an error reading or writing the properties file. </p>
+                    </def>
+                    <def title="Access:">
+                        <p>[PRIVATE]</p>
+                    </def>
+                </deflist>
+            </chapter>
+            <chapter title="fetch_app_user: void ">
+                <p>Fetches the app user using persistence. If the user data exists, it loads the app user from the persistence manager. If the user data does not exist, it sets the app user to null.</p>
+                <deflist type="full">
+                    <def title="Paramaters:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Thrown:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Access:">
+                        <p>[PRIVATE]</p>
+                    </def>
+                </deflist>
+            </chapter>
+            <chapter title="change_selected: void ">
+                <p>hanges the selected user based on the given name.</p>
+                <deflist type="full">
+                    <def title="Paramaters:">
+                        <p> - name: String </p>
+                    </def>
+                    <def title="Thrown:">
+                        <p> - None </p>
+                    </def>
+                    <def title="Access:">
+                        <p>[PUBLIC]</p>
+                    </def>
+                </deflist>
+            </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="get_verified_password: String ">
+            <p>Retrieves the verified password of the user.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="get_user_views_dashboard: ArrayList<UserView> ">
+            <p>Retrieves the views of the users displayed on the dashboard.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="get_user_views_settings: ArrayList<UserView> ">
+            <p>Retrieves the settings of user views.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="get_app_user: AppUser ">
+            <p>Retrieves the app user.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="get_selected_user: User ">
+            <p>Retrieves the selected user.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title=" set_verified_password: void">
+            <p>Sets the verified password of the user.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - pw: String -> The verified password to set.</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title=" set_app_user: void">
+            <p>Sets the app user for the controller.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - app_user: AppUser -> The app user to be set.</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title=" set_aupp_user: void">
+            <p>Sets the AppUser of this class for all depending classes to the given AppUser</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+                <def title="Related:">
+                    <a href="AppUser.topic"/>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <seealso>
+        <category ref="related">
+            <a href="Main.topic"/>
+            <a href="Settings.topic"/>
+            <a href="Vendor.topic"/>
+            <a href="Job.topic"/>
+        </category>
+        <category ref="related">
+            <a href="User.topic"/>
+            <a href="Dashboard.topic"/>
+            <a href="AppUser.topic"/>
+            <a href="None.topic"/>
+        </category>
+        <category ref="related">
+            <a href="PersitenzManager.topic"/>
+        </category>
+    </seealso>
+</topic>
