@@ -6,30 +6,5 @@ classDiagram
     Main: - PROFILE_PICTURE - String
     Main: - PROFILE_PICTURE_FOLDER - String
 
-    Vendor: temp
-    Analyse: temp
-    MainController: temp
-    UserController: temp
-    PKLogger: temp
-    Settings: temp
-    Cryptographer: temp
-    DataStorage: temp
 
     Start *-- Main
-    Main *--Vendor
-    Main *-- Analyse
-    Main *-- Settings
-    Main *-- MainController
-    Main *-- UserController
-    Main *-- PKLogger
-    Main *-- Cryptographer
-
-    Settings*--PKLogger
-    Settings*--UserController
-
-    Vendor *-- DataStorage
-    Vendor *-- UserController
-
-    Analyse *-- PKLogger
-    Analyse *-- DataStorage
-    Analyse *-- MainController
