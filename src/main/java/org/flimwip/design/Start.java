@@ -33,11 +33,13 @@ public class Start {
     public static void main(String[] args) throws SQLException {
         Main.main(args);
 
-        ArrayList<String> realted = new ArrayList<>();
+        //Terminal.main(args);
+
+
 
         //Building documentation
         /*Class c = Cryptographer.class;
-
+        ArrayList<String> realted = new ArrayList<>();
 
         ServiceC class_defeinition = (ServiceC) c.getAnnotation(ServiceC.class);
 

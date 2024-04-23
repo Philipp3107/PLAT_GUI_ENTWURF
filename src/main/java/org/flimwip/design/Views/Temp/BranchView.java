@@ -8,12 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Models.CheckoutModel;
+import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.utility.LoggingLevels;
@@ -26,6 +28,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -183,6 +187,8 @@ public class BranchView extends BorderPane {
                 related={"None"})
     private Semaphore semaphore;
 
+
+    private Rectangle loader;
     private UserController user_controller;
     
     /**
@@ -228,8 +234,6 @@ public class BranchView extends BorderPane {
         seting_kassen_info();
         this.top_wrapper.getChildren().addAll(side, top, kassen_info);
         this.setTop(top_wrapper);
-
-
     }
     /**
      * Sets the necessary components and properties of the "side" section in the BranchView.
@@ -431,6 +435,7 @@ public class BranchView extends BorderPane {
               related={"LogFile"})
     public LogFile build_file(File f){
         String name = f.getName();
+        String id = f.getAbsolutePath();
         String date = null;
         try {
             date = String.valueOf(Files.getLastModifiedTime(Path.of(f.getAbsolutePath()))).split("T")[0];
@@ -444,7 +449,7 @@ public class BranchView extends BorderPane {
             throw new RuntimeException(e);
         }
 
-        LogFile file = new LogFile(name, size, date, this.fc);
+        LogFile file = new LogFile(name, id,size, date, this.fc);
         this.fc.add_file(file);
         return file;
     }
@@ -470,12 +475,61 @@ public class BranchView extends BorderPane {
 
         Button im = new Button("Import");
         im.setOnAction(actionEvent -> {
-            Thread t = new Thread(() -> {
-                for(int i = 0; i < 10000000; i++){
+            this.fc.get_selected_size();
+            System.out.println(this.getWidth());
+            Pane p = new Pane();
+            Rectangle r = new Rectangle();
+            r.setWidth(this.getWidth());
+            r.setHeight(10);
+            p.getChildren().add(r);
+            this.setBottom(p);
 
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<LogFile> files = fc.get_selected_files();
+                    String nl = "";
+                    String checkout = "";
+                    String id = files.get(0).getId();
+                    System.out.println(id);
+                    //----- matcher for nl number
+                    Pattern pattern = Pattern.compile("DE0[0-9]{3}CPOS", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher = pattern.matcher(id);
+                    boolean matchFound = matcher.find();
+                    if(matchFound) {
+                        nl = matcher.group().split("DE0")[1].split("CPOS")[0];
+                    } else {
+                        System.out.println("Match not found");
+                    }
+
+                    //----- matcher for pos number
+
+                    Pattern pattern2 = Pattern.compile("CPOS20[0-9]{3}", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher2 = pattern2.matcher(id);
+                    boolean matchFound2 = matcher2.find();
+                    if(matchFound2) {
+                        checkout = matcher2.group().split("CPOS20")[1];
+                    } else {
+                        System.out.println("Match not found");
+                    }
+
+                    for(int i = 0; i < files.size(); i++){
+                        NetCon connection = new NetCon(nl, checkout, user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
+                        try {
+                            connection.get_connection();
+                            System.out.println("Connection could be established for download");
+                            connection.close_connection();
+                            System.out.println("Connection closed");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    fc.deselect_all();
                 }
-                this.fc.deselect_all();
-            });
+            };
+
+
+            Thread t = new Thread(runnable);
             t.setDaemon(true);
             t.start();
             popup.hide();

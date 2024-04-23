@@ -140,6 +140,8 @@ public class Checkout extends VBox {
 
     }
 
+
+
     /**
      * Initializer for the CheckoutView
      */
@@ -368,4 +370,11 @@ public class Checkout extends VBox {
         return this.files;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public String getCheckout() {
+        return checkout;
+    }
 }

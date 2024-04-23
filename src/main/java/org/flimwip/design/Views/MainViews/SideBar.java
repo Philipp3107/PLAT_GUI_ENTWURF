@@ -53,17 +53,16 @@ public class SideBar extends VBox {
         /* Style der Sidebar auf dem HomeScreen */
         this.setMinWidth(150);
         this.setMaxWidth(150);
-        this.setStyle("-fx-background-color: #232323");
+        this.setStyle("-fx-background-color: #9A0D0D");
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
 
         /* Buttons für den Homescreen */
-        String[] button_names = {"Dashboard", "Analyse",  "Vendor"};
-        String[] button_images = {"dashboard.png", "cellularbars.png", "dashboard.png"};
+        String[] button_names = {"Dashboard", "Analyse", "Terminal",  "Vendor"};
         MainMenuButton[] buttons = new MainMenuButton[button_names.length];
 
         for(int i = 0; i < button_names.length; i++){
-            MainMenuButton b = new MainMenuButton(button_images[i], button_names[i], controller);
+            MainMenuButton b = new MainMenuButton(button_names[i], controller);
 
             buttons[i] = b;
         }

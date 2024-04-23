@@ -56,7 +56,7 @@ public class JobHistoryFetcher extends Task<Void> {
                 ts.update_history();
             }
             String timeStamp = new SimpleDateFormat("dd.MM.yyyy;HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
-            logger.log(LoggingLevels.DEBUG, STR."Zeilen: \{lines} \{timeStamp}");
+            //logger.log(LoggingLevels.DEBUG, STR."Zeilen: \{lines} \{timeStamp}");
 
             try {
                 Thread.sleep(500);
