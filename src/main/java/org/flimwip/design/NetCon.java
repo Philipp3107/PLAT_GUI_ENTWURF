@@ -10,12 +10,7 @@ import java.util.ArrayList;
 
 @ServiceC(desc="This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username.")
 public class NetCon{
-    @ServiceATT(desc="Holds the Branch for which the connections will be established and closed",
-                type="String")
-    private String nl;
-    @ServiceATT(desc="Holds the Checkout for which the connections will be established and closed",
-                type="String")
-    private String checkout;
+    private String ip;
     @ServiceATT(desc="Holds the password with which the connections will be established and closed",
                 type="String")
     private String password;
@@ -25,9 +20,8 @@ public class NetCon{
 
     @ServiceCR(desc="The Constructor of the NetCon-Class",
                params={"String: nl -> Branch for the Connection", "String: checkout -> Checkout for the Connection", "String: password -> Password for the Connection", "String: username -> Username for the Connection"})
-    public NetCon(String nl, String checkout, String username, String password){
-        this.nl = nl;
-        this.checkout = checkout;
+    public NetCon(String ip, String username, String password){
+        this.ip = ip;
         this.password = password;
         this.username = username;
     }
@@ -70,13 +64,12 @@ public class NetCon{
               returns = "",
               thrown = {"None"})
     public boolean get_connection() throws IOException{
-            String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/u:fc.de.bauhaus.intra\\" + this.username , this.password};
+            String[] command = new String[]{"net", "use", STR."\\\\\{this.ip}", STR."/u:fc.de.bauhaus.intra\\\{this.username}", this.password};
             ProcessBuilder pb = new ProcessBuilder(command);
+            System.out.println(pb.command());
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
             int i = 0;
             while(!stdInput.ready()){
-                //custom timeout handling
-                //System.out.print("Watingin: " + i + "\r");
                 i++;
                 if(i >= 2500000){
                     return false;
@@ -89,6 +82,7 @@ public class NetCon{
             while((line = stdInput.readLine()) != null){
                 output.add(line);
                 System.out.println("Line in NetCon: " + line);
+
             }
 
             /*for(String s : output){
@@ -103,13 +97,16 @@ public class NetCon{
      *
      * @throws IOException if an I/O error occurs.
      */
+    //  net use 10.250.172.141\c$
+    //10.49.243.101
+    //net use \\10.49.243.101\c$ /u:fc.de.bauhaus.intra\pos-intall M6kUVm3T && explorer \\10.49.243.101\c$
     @ServiceM(desc = "Closes the connection to a remote server.",
               category = "Method",
               params = {"None"},
               returns = "void",
               thrown = {"IOException -> if an I/O error occurs."})
     public void close_connection() throws IOException{
-        String[] command = new String[]{"net", "use", "\\\\" + "DE0" + this.nl + "CPOS20" + this.checkout + "\\c$" , "/d"};
+        String[] command = new String[]{"net", "use", "\\\\" ,this.ip , "/d"};
         ProcessBuilder pb = new ProcessBuilder(command);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(pb.start().getInputStream()));
 

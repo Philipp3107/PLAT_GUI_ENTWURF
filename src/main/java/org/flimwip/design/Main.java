@@ -115,6 +115,7 @@ public class Main extends Application {
             type = "TestStarter", related = {"Vendor"})
     private Vendor vendor;
 
+    private TerminalEmbed terminal;
     @ServiceATT(desc="The Dashboard builds the Landingpage of this application and shows the most important information.",
             type="Dashboard",
             related={"Dashboard"})
@@ -997,6 +998,7 @@ public class Main extends Application {
         //this.checkoutSelectionController = new CheckoutSelectionController(null);
         this.settings = new Settings(user_controller);
         this.vendor = new Vendor(ds, user_controller, this.mainController, this);
+        this.terminal = new TerminalEmbed();
 
         //user_controller.set_Vendor_AI_(this.Vendor_AI_);
         /* Alle verwendeten BorderPane(Panes) */
@@ -1019,11 +1021,13 @@ public class Main extends Application {
 
         stage.heightProperty().addListener((observableValue, number, t1) -> {
             mainController.stage_height.set(t1.doubleValue());
+            this.terminal.setMaxHeight(t1.doubleValue());
             logger.log(LoggingLevels.DEBUG, "Height is: " + t1);
         });
 
         stage.widthProperty().addListener((observableValue, number, t1) -> {
             mainController.stage_width.set(t1.doubleValue());
+            this.terminal.setMaxWidth(t1.doubleValue());
             logger.log(LoggingLevels.DEBUG, "Width is: " + t1);
         });
         stage.setResizable(true);
@@ -1048,6 +1052,7 @@ public class Main extends Application {
             case "Analyse" -> this.root.setCenter(this.analyse);
             case "Einstellungen" -> this.root.setCenter(this.settings);
             case "Vendor" -> this.root.setCenter(this.vendor);
+            case "Terminal" -> this.root.setCenter(this.terminal);
         }
     }
 

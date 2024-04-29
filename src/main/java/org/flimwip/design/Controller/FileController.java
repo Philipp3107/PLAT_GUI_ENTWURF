@@ -259,4 +259,8 @@ public class FileController {
         this.selected.clear();
 
     }
+
+    public ArrayList<LogFile> get_selected_files(){
+        return this.selected;
+    }
 }

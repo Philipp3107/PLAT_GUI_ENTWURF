@@ -16,12 +16,12 @@ public class LogFile extends HBox {
 
     private FileController fc;
 
-    public LogFile(String name, String size, String change, FileController fc){
+    public LogFile(String name, String id, String size, String change, FileController fc){
         this.name = name;
         this.size = size;
         this.change = change;
         this.fc = fc;
-        this.setId(name);
+        this.setId(id);
         init();
     }
 

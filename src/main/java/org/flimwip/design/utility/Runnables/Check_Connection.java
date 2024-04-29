@@ -11,32 +11,22 @@ import java.io.InputStreamReader;
 import java.util.concurrent.Semaphore;
 
 public class Check_Connection implements Runnable {
-
-    private String checkout;
-    private PKLogger logger = new PKLogger(this.getClass());
-    private Checkout k;
-    private String nl;
-    private Semaphore semaphore;
-    private String ip_to_look;
-
-    private UserController u_c;
-    public Check_Connection(String nl, String checkout, Checkout k, Semaphore semaphore, UserController u_c){
+    private final PKLogger logger = new PKLogger(this.getClass());
+    private final Checkout k;
+    private final Semaphore semaphore;
+    private final UserController u_c;
+    public Check_Connection(Checkout k, Semaphore semaphore, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
         this.u_c = u_c;
-        this.checkout = checkout;
         this.k = k;
-        this.nl = nl;
         this.semaphore = semaphore;
-        //nur für windows
-        this.ip_to_look = "DE0" + this.nl + "CPOS20" + this.checkout;
-        // für mac
-        //this.ip_to_look = "172.217.16.206";
+
     }
 
 
     @Override
     public void run(){
-        logger.log(LoggingLevels.INFO, "Startet ping for", this.k.getId());
+        logger.log(LoggingLevels.INFO, "Startet ping for", this.k.get_hostname());
         try{
             this.semaphore.acquire();
         } catch (InterruptedException e) {
@@ -44,10 +34,10 @@ public class Check_Connection implements Runnable {
         }
 
 
-        if(ping(this.ip_to_look)){
+        if(ping(k.get_ip())){
             //Fetch Data from Checkout
             semaphore.release();
-            Thread t = new Thread(new FetchFiles(this.ip_to_look, this.semaphore, this.k, this.u_c));
+            Thread t = new Thread(new FetchFiles(this.semaphore, this.k, this.u_c));
             t.setDaemon(true);
             t.start();
         }else{
@@ -62,7 +52,6 @@ public class Check_Connection implements Runnable {
      * If the IP is reachable it returns true, otherwise false.
      * @param ip String: IP to ping
      * @return boolean
-     * @throws IOException
      */
     public boolean ping(String ip) {
 
@@ -70,13 +59,13 @@ public class Check_Connection implements Runnable {
             logger.log(LoggingLevels.DEBUG, "Executing command", "ping", ip);
             this.k.set_searching();
             while (!stdInput.ready()) {
-                //while the Process
+
             }
 
             String line;
             while ((line = stdInput.readLine()) != null) {
                 if (line.contains("Verloren = 0")) {
-                    logger.log(LoggingLevels.INFO, "Ping erflogreich");
+                    logger.log(LoggingLevels.INFO, "Ping erflogreich", ip);
                     return true;
                 }
             }

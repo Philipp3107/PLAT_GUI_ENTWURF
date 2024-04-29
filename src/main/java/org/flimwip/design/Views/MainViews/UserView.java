@@ -83,9 +83,9 @@ public class UserView extends HBox {
 
         });
         if(this.b.getText().equals("Default")){
-            this.b.setStyle("-fx-background-color: #743790; ; -fx-font-weight: bold; -fx-text-fill: white");
+            this.b.setStyle("-fx-background-color: #9A0D0D; ; -fx-font-weight: bold; -fx-text-fill: white");
         }else{
-            this.b.setStyle("-fx-text-fill: #743790; -fx-font-weight: bold ; -fx-background-color: white");
+            this.b.setStyle("-fx-text-fill: #9A0D0D; -fx-font-weight: bold ; -fx-background-color: white");
         }
 
     }
@@ -98,12 +98,12 @@ public class UserView extends HBox {
 
     public void set_selected(){
         this.b.setText("Default");
-        this.b.setStyle("-fx-background-color: #743790; ; -fx-font-weight: bold; -fx-text-fill: white");
+        this.b.setStyle("-fx-background-color: #9A0D0D; ; -fx-font-weight: bold; -fx-text-fill: white");
     }
 
     public void set_deselected(){
         this.b.setText("set Default");
-        this.b.setStyle("-fx-text-fill: #743790; -fx-font-weight: bold ; -fx-background-color: white");
+        this.b.setStyle("-fx-text-fill: #9A0D0D; -fx-font-weight: bold ; -fx-background-color: white");
     }
 
     public String get_users_name(){
