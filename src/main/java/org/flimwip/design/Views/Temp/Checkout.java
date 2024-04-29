@@ -26,30 +26,22 @@ import java.util.concurrent.*;
 @ServiceC(desc="Displays a checkout on the Branchview.")
 public class Checkout extends VBox {
 
-    @ServiceATT(desc="The location of the Branch the checkout is in.",
-                type="String")
-    private final String location;
-    
-    @ServiceATT(desc="The city of the Branch the checkout is in.",
-                type="String")
-    private final String city;
-    
+    private final String branch;
+    private final String branch_name;
+    private final String region;
+    private final String checkout_id;
+    private final String betriebsstelle;
+    private final String ip;
+    private final String modell;
+    private final String os;
+    private final String hostname;
     @ServiceATT(desc="Animation Duration for hover action.",
                 type="Duration")
     private final Duration duration = Duration.seconds(0.05);
-    
-    @ServiceATT(desc="Identifiert of the checkout.",
-                type="String")
-    private final String checkout;
-    
+
     @ServiceATT(desc="Holds the information if the checkout is currently selected.",
                 type="boolean")
     private boolean selected = false;
-    
-    @ServiceATT(desc="The Software version the checkout is currently running.",
-                type="String")
-    private String version;
-    
     @ServiceATT(desc="Displays the identifier of the checkout.",
                 type="Label")
     private Label l;
@@ -57,16 +49,11 @@ public class Checkout extends VBox {
     @ServiceATT(desc="Controller to switch the view between the selected Checkouts.",
                 type="CheckoutSelectionController")
     private final CheckoutSelectionController cont;
-    
-    @ServiceATT(desc="CheckoutModel with the information that this checkout view will be filled with.",
-                type="CheckoutModel")
-    private CheckoutModel km;
-    
     @ServiceATT(desc="Circle that displays if the checkout can be reached or not.",
                 type="Circle")
     private Circle c;
     
-    @ServiceATT(desc="Semaphore to schedule mudlithreading tasks for multiple Checkouts.",
+    @ServiceATT(desc="Semaphore to schedule multithreading tasks for multiple Checkouts.",
                 type="Semaphore")
     private Semaphore semaphore;
     
@@ -82,14 +69,12 @@ public class Checkout extends VBox {
                 type="PKLogger")
     private PKLogger logger = new PKLogger(this.getClass());
 
-    private UserController uc;
+    private final UserController uc;
 
 
     /**
      * Contructor
-     * @param location String -> Location of the Checkout
-     * @param checkout String -> ID of the Checkout
-     * @param version String -> current Software-Version of the Checkout
+     * @param cm {@link CheckoutModel} -> Model representing the checkout
      * @param checkoutSelectionController {@link CheckoutSelectionController} -> Controller to handle the UI changes
      * @param semaphore {@link Semaphore} -> Handling of the permits for currently running background operations
      */
@@ -99,15 +84,24 @@ public class Checkout extends VBox {
                        "version: String -> current Software-Version of the Checkout",
                        "checkoutSelectionController: CheckoutSelectionController -> Controller to handle the UI changes",
                        "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
-    public Checkout(String location, String checkout, String version, CheckoutSelectionController checkoutSelectionController, Semaphore semaphore, UserController uc) {
-        this.city = StandortTranslator.getSTANDORT(Integer.parseInt(location));
+    public Checkout(CheckoutModel cm, CheckoutSelectionController checkoutSelectionController, Semaphore semaphore, UserController uc) {
+        /*
+                    String branch, String branch_name, String region, String checkout_id, String betriebsstelle, String ip, String modell, String os
+                     */
+        this.branch = cm.branch();
+        this.branch_name = cm.branch_name();
+        this.region = cm.region();
+        this.checkout_id = cm.checkout_id();
+        this.betriebsstelle = cm.betriebsstelle();
+        this.ip = cm.ip();
+        this.modell = cm.modell();
+        this.os = cm.os();
+        this.hostname = cm.hostname();
         this.uc = uc;
         this.semaphore = semaphore;
-        this.setId(location + checkout);
-        this.checkout = checkout;
-        this.location = location;
+
+        this.setId(cm.ip());
         this.cont = checkoutSelectionController;
-        this.version = version;
         init();
         try {
             search_for_connection();
@@ -117,35 +111,9 @@ public class Checkout extends VBox {
     }
 
     /**
-     * Contructor
-     * @param km {@link CheckoutModel} -> Model for the Checkout with all information
-     * @param controller {@link CheckoutSelectionController} -> Controller to handle the UI changes
-     * @param semaphore {@link Semaphore} -> Handling of the permits for currently running background operations
-     */
-    @ServiceCR(desc="Constructor of the Checkout class",
-               params={"km: CheckoutModel -> Model for the Checkout with all information",
-                       "controller: CheckoutSelectionController -> Controller to handle the UI changes",
-                       "semaphore: Semaphore -> Handling of the permits for currently running background operations"})
-    public Checkout(CheckoutModel km, CheckoutSelectionController controller, Semaphore semaphore, UserController uc) {
-        this.city = km.branch_name();
-        this.uc = uc;
-        this.semaphore = semaphore;
-        this.checkout = km.checkout_id();
-        this.location = km.branch();
-        this.setId(location + checkout);
-        this.cont = controller;
-        this.version = km.version();
-        this.km = km;
-        init();
-
-    }
-
-
-
-    /**
      * Initializer for the CheckoutView
      */
-    @ServiceM(desc="<##>Initializer for the CheckoutView",
+    @ServiceM(desc="Initializer for the CheckoutView",
               category="Method",
               params={"None"},
               returns="void",
@@ -167,7 +135,7 @@ public class Checkout extends VBox {
 
         //Setting Label and Circle for status
         HBox top = new HBox();
-        this.l = new Label(this.checkout);
+        this.l = new Label(String.valueOf(Integer.parseInt(this.ip.split("\\.")[3]) - 100));
         this.l.setStyle("-fx-font-weight: bold;");
         this.l.setTextFill(Color.BLACK);
         c = new Circle(8, Color.GRAY);
@@ -189,13 +157,13 @@ public class Checkout extends VBox {
         this.setStyle("-fx-background-color: #56565644; -fx-border-color: black; -fx-border-radius: 15; -fx-background-radius: 15;");
 
         //Styling for mouse over
-        this.setOnMouseEntered(mouseEvent -> {
+        this.setOnMouseEntered( _ -> {
             if (!selected) {
 
                 Timeline time = new Timeline(
                         new KeyFrame(duration, new KeyValue(this.styleProperty(), "-fx-background-color: #565656; -fx-border-color: #565656; -fx-border-radius: 15; -fx-background-radius: 15;", Interpolator.EASE_IN))
                 );
-                time.setOnFinished(actionEvent -> {
+                time.setOnFinished(_ -> {
                     this.l.setTextFill(Color.WHITE);
 
                 });
@@ -206,12 +174,12 @@ public class Checkout extends VBox {
         });
 
         //Styling for mouse movement
-        this.setOnMouseMoved(mouseEvent -> {
+        this.setOnMouseMoved(_ -> {
             cont.set_mouse_focus(this.getId());
         });
 
         //Styling for mouse exit
-        this.setOnMouseExited(mouseEvent -> {
+        this.setOnMouseExited(_ -> {
             if (!selected) {
                 this.l.setTextFill(Color.BLACK);
                 Timeline time = new Timeline(
@@ -224,7 +192,7 @@ public class Checkout extends VBox {
         });
 
         //handling for on mouse click with showing data and styling
-        this.setOnMouseClicked(mouseEvent -> {
+        this.setOnMouseClicked(_ -> {
             if (online) {
                 if (selected) {
                     selected = false;
@@ -239,8 +207,6 @@ public class Checkout extends VBox {
                     selected = true;
                     cont.set_selected_checkout(this.getId());
                     this.setStyle("-fx-background-color: #232323; -fx-border-color: #232323; -fx-border-radius: 15; -fx-background-radius: 15;");
-                    this.cont.set_version_on_view(this.version);
-                    this.cont.set_city_on_view(this.city);
                     this.cont.set_selected_checkout(this.getId());
                 }
             }
@@ -259,7 +225,7 @@ public class Checkout extends VBox {
               thrown={"None"})
     public void unselect() {
         if (this.getChildren().size() > 1) {
-            this.getChildren().remove(this.getChildren().size() - 1);
+            this.getChildren().removeLast();
         }
         this.selected = false;
         this.setMinHeight(30);
@@ -271,7 +237,7 @@ public class Checkout extends VBox {
     /**
      * Possibility to remove the focus off of a checkout
      */
-    @ServiceM(desc="<##>Funtion to remove the focus off of a checkout",
+    @ServiceM(desc="Function to remove the focus off of a checkout",
               category="Method",
               params={"None"},
               returns="void",
@@ -286,12 +252,8 @@ public class Checkout extends VBox {
 
     /**
      * Starting the Search for Connection
-     *
-     * @throws IOException
-     * @throws ExecutionException
-     * @throws InterruptedException
      */
-    @ServiceM(desc="<##>Starting the Search for Connection",
+    @ServiceM(desc="Starting the Search for Connection",
               category="Method",
               params={"Noen"},
               returns="void",
@@ -299,9 +261,9 @@ public class Checkout extends VBox {
                       "ExcutionException -> if the Execution of the CommandLine command failed",
                       "InterruptedException -> if the Thread on which this operation runs is interrupted unexpectedly"})
     private void search_for_connection() throws IOException, ExecutionException, InterruptedException {
-        Thread th = new Thread(new Check_Connection(this.location, this.checkout, this, this.semaphore, uc));
+        Thread th = new Thread(new Check_Connection( this, this.semaphore, uc));
         th.setDaemon(true);
-        th.setName("Thread [" + this.checkout + "]");
+        th.setName(STR."Thread [\{this.hostname}]");
         th.start();
 
     }
@@ -319,6 +281,10 @@ public class Checkout extends VBox {
         this.online = true;
     }
 
+    public String get_hostname(){
+        return this.hostname;
+    }
+
     /**
      * Setting the Checkout to seraching. In this state the Checkout in the BranchView is not Clickable and the Circle has the color Yellow.
      */
@@ -331,6 +297,9 @@ public class Checkout extends VBox {
         this.c.setFill(Color.ORANGE);
     }
 
+    public String get_ip(){
+        return this.ip;
+    }
     /**
      * Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.
      */
@@ -368,13 +337,5 @@ public class Checkout extends VBox {
               thrown={"None"})
     public File[] getFiles() {
         return this.files;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getCheckout() {
-        return checkout;
     }
 }

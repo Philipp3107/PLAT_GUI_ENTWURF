@@ -5,7 +5,6 @@
 <instance-profile id="plat"
                   name="plat" start-page="topics_Getting-Started.md">
 
-    <toc-element topic="topics_Getting-Started.md"/>
     <toc-element topic="Checkout.topic"/>
     <toc-element topic="LogFile.topic"/>
     <toc-element topic="MainMenuButtons.topic"/>

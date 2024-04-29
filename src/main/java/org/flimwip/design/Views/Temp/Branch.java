@@ -199,19 +199,13 @@ public class Branch extends VBox{
         this.setMinWidth(170);
         this.setMaxWidth(170);
         //standart höhe
-        this.setMinHeight(80);
-        this.setMaxHeight(80);
+        this.setMinHeight(100);
+        this.setMaxHeight(100);
         this.setSpacing(5);
 
         this.setPadding(new Insets(7));
-        if(this.location.equals("Labor")){
-            //Style specific for Labor-NL
-            this.setStyle("-fx-background-color: #212d5d;-fx-background-radius: 5;");
-        }else{
-            //overall Style
-            this.setStyle("-fx-background-color: #454545; ;-fx-background-radius: 5;");
-        //Insets for padding
-        }
+        this.setStyle("-fx-background-color: #454545; ;-fx-background-radius: 5;");
+
 
 
         //in view of nl top right
@@ -276,8 +270,9 @@ public class Branch extends VBox{
         //   +----------------------------+
         //   | city | <--HGrow--> nl_nr   |
         //   +----------------------------+
-        //   |                            |
-        //   |bundesland        Kassen: 9 |
+        //   |bundesland                  |
+        //   |kassen: 9                   |
+        //   |r+v: 5                      |
         //   +----------------------------+
         //
 
@@ -350,8 +345,16 @@ public class Branch extends VBox{
     private VBox build_standart_centent(){
         VBox cont = new VBox();
         Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
+        int count = 0;
+        for(CheckoutModel cm : this.kassen){
+            if(cm.betriebsstelle().equals("Reservieren und Abholen")){
+                count++;
+            }
+        }
+        Label r_v = new Label(STR."R+V: \{count}");
         l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        cont.getChildren().addAll(nl_nr,city, Bundesland, l);
+        r_v.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        cont.getChildren().addAll(nl_nr,city, Bundesland, l, r_v);
         return cont;
 
     }

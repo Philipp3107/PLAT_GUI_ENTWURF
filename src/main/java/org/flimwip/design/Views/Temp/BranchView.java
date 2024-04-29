@@ -14,13 +14,13 @@ import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.Documentationhandler.*;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
-import org.flimwip.design.Documentationhandler.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -94,7 +92,7 @@ public class BranchView extends BorderPane {
     private VBox top = new VBox();
     /**
      * VBox variable representing the kassen_info.
-     *
+     * <p>
      * Kassen_info is used in the BranchView class to display information about a selected checkout.
      * It is a VBox container that holds various labels and buttons related to the selected checkout.
      * It is primarily used to provide information such as the checkout's version number and location.
@@ -131,7 +129,7 @@ public class BranchView extends BorderPane {
     private ArrayList<CheckoutModel> checkoutModels;
     /**
      * Private variable representing an array of Checkout objects.
-     *
+     * <p>
      * The 'kassen' array stores all the Checkout objects related to the branch.
      *
      * @see Checkout
@@ -154,7 +152,7 @@ public class BranchView extends BorderPane {
     private String nl_id;
     /**
      * Private variable representing an instance of the `Analyse2` class.
-     *
+     * <p>
      * This variable is used within the `BranchView` class to handle analysis functionality.
      */
     @ServiceATT(desc="Private variable representing an instance of the Analyse2 class.",
@@ -187,9 +185,7 @@ public class BranchView extends BorderPane {
                 related={"None"})
     private Semaphore semaphore;
 
-
-    private Rectangle loader;
-    private UserController user_controller;
+    private final UserController user_controller;
     
     /**
      * Represents a branch view.
@@ -226,7 +222,7 @@ public class BranchView extends BorderPane {
         this.version = new Label("Version: ");
         this.version.setStyle("-fx-text-fill: black");
         this.city = new Label("Standort: ");
-        this.heading = new Label("NL " + this.checkoutModels.get(0).branch_name() + " (" + this.nl_id + ")");
+        this.heading = new Label(STR."NL \{this.checkoutModels.getFirst().branch_name()} (\{this.nl_id})");
         this.heading.setStyle("-fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 25; -fx-text-fill: #444444");
         this.heading.setPadding(new Insets(0, 0, 0, 10));
         set_side();
@@ -306,7 +302,7 @@ public class BranchView extends BorderPane {
         this.kassen = new Checkout[checkoutModels.size()];
         int i = 0;
         for(CheckoutModel km : checkoutModels){
-            Checkout k = new Checkout(km.branch(), km.checkout_id(), km.version(), this.controller , this.semaphore, this.user_controller);
+            Checkout k = new Checkout(km, this.controller , this.semaphore, this.user_controller);
             kassen[i] = k;
             i++;
         }
@@ -403,9 +399,7 @@ public class BranchView extends BorderPane {
             for(File f: k.getFiles()){
                 flow.getChildren().add(build_file(f));
             }
-            /*for(int i = 0; i < 100; i++){
-                flow.getChildren().add(build_file(i));
-            }*/
+
             ScrollPane scroller = new ScrollPane(flow);
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
@@ -458,7 +452,7 @@ public class BranchView extends BorderPane {
      * This method creates a Popup object and adds buttons and their actions to it.
      * The menu is displayed near the clicked position.
      */
-    @ServiceM(desc="<##>Shows a menu with different options when a right-click occurs. This method creates a Popup object and adds buttons and their actions to it. The menu is displayed near the clicked position.",
+    @ServiceM(desc="Shows a menu with different options when a right-click occurs. This method creates a Popup object and adds buttons and their actions to it. The menu is displayed near the clicked position.",
               category="Method",
               params={"None"},
               returns="void",
@@ -474,7 +468,7 @@ public class BranchView extends BorderPane {
         box.setPadding(new Insets(10));
 
         Button im = new Button("Import");
-        im.setOnAction(actionEvent -> {
+        im.setOnAction(_ -> {
             this.fc.get_selected_size();
             System.out.println(this.getWidth());
             Pane p = new Pane();
@@ -488,33 +482,9 @@ public class BranchView extends BorderPane {
                 @Override
                 public void run() {
                     ArrayList<LogFile> files = fc.get_selected_files();
-                    String nl = "";
-                    String checkout = "";
-                    String id = files.get(0).getId();
-                    System.out.println(id);
-                    //----- matcher for nl number
-                    Pattern pattern = Pattern.compile("DE0[0-9]{3}CPOS", Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = pattern.matcher(id);
-                    boolean matchFound = matcher.find();
-                    if(matchFound) {
-                        nl = matcher.group().split("DE0")[1].split("CPOS")[0];
-                    } else {
-                        System.out.println("Match not found");
-                    }
-
-                    //----- matcher for pos number
-
-                    Pattern pattern2 = Pattern.compile("CPOS20[0-9]{3}", Pattern.CASE_INSENSITIVE);
-                    Matcher matcher2 = pattern2.matcher(id);
-                    boolean matchFound2 = matcher2.find();
-                    if(matchFound2) {
-                        checkout = matcher2.group().split("CPOS20")[1];
-                    } else {
-                        System.out.println("Match not found");
-                    }
 
                     for(int i = 0; i < files.size(); i++){
-                        NetCon connection = new NetCon(nl, checkout, user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
+                        NetCon connection = new NetCon(controller.getSelected().get_ip(), user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
                         try {
                             connection.get_connection();
                             System.out.println("Connection could be established for download");
@@ -538,10 +508,10 @@ public class BranchView extends BorderPane {
         box.getChildren().add(im);
 
         Button im2 = new Button("Import (Analyse)");
-        im2.setOnAction(actionEvent -> {
+        im2.setOnAction(_ -> {
             Thread t = new Thread(() -> {
                 for(int i = 0; i < 10000000; i++){
-
+                    logger.log(LoggingLevels.DEBUG, "Running for all files");
                 }
                 this.fc.deselect_all();
             });
@@ -554,6 +524,6 @@ public class BranchView extends BorderPane {
 
         popup.getContent().add(box);
         popup.setAutoHide(true);
-        popup.show(Window.getWindows().get(0));
+        popup.show(Window.getWindows().getFirst());
     }
 }

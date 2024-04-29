@@ -110,6 +110,13 @@ public class DataStorage {
                 related={"<#related#>"})
     private HashMap<String, ArrayList<CheckoutModel>> kassen = new HashMap<>();
 
+
+    // Key = NL-nr , arraylist[0] = Stadt, arraylist[1] = region
+    private HashMap<String, ArrayList<String>> branches_new = new HashMap<>();
+    // key = nl_nr, arraylist<Checkoutmodel>
+    private HashMap<String, ArrayList<CheckoutModel>> checkouts_new = new HashMap<>();
+
+
     /**
      * Constructs a DataStorage object with the given filename.
      * Initializes the data storage by reading the contents of the specified file.
@@ -119,9 +126,30 @@ public class DataStorage {
     public DataStorage(String filename){
         this.logger.set_Level(LoggingLevels.FINE);
         this.filename = filename;
-        init();
 
+        fetch_seperate_branches();
+        init();
         build_branches();
+    }
+
+    public void fetch_seperate_branches(){
+
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("NL.csv");
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
+            String s = "";
+            while((s=br.readLine()) != null){
+                System.out.println(s);
+                String[] temp = s.split(",");
+                ArrayList<String> info = new ArrayList<>();
+                info.add(temp[1]);
+                info.add(temp[2]);
+                branches_new.put(temp[0], info);
+                checkouts_new.put(temp[0], new ArrayList<>());
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -145,6 +173,16 @@ public class DataStorage {
         return new_kassen;
     }
 
+
+    public CheckoutModel get_checkout_codel(String nl, String checkout){
+        ArrayList<CheckoutModel> cms = this.checkouts_new.get(nl);
+        for (CheckoutModel cm : cms){
+            if(cm.hostname().equals(STR."DE0\{nl}CPOS20\{checkout}")){
+                return cm;
+            }
+        }
+        return null;
+    }
     /**
      * Initializes the data storage by reading the contents of the specified file.
      */
@@ -152,29 +190,41 @@ public class DataStorage {
 
         ArrayList<CheckoutModel> model = new ArrayList<>();
         String line = "";
-        String temp_nl = "102";
-        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream(filename);
+        InputStream stream = CredentialManager.class.getClassLoader().getResourceAsStream("export (1).csv");
         try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
+            int index = 0;
                 while((line = br.readLine()) != null){
+                    if (index != 0){
+                        String[] splitted = line.split(",");
+                        String nl = splitted[6];
+                        System.out.println(nl);
+                        String checkout_id = splitted[4];
+                        String betriebsstelle = splitted[7];
+                        String ip = splitted[9];
+                        String modell = splitted[10];
+                        String os = splitted[12];
+                        String hostname = splitted[8];
+                        String branch_name= "";
+                        String region= "";
+                        if(branches_new.containsKey(nl)){
+                            branch_name = branches_new.get(nl).get(0);
+                            region = branches_new.get(nl).get(1);
+                        }
 
-                    String[] splitted = line.split(";");
+                    /*
+                    String branch, String branch_name, String region, String checkout_id, String betriebsstelle, String ip, String modell, String os
+                     */
+                        CheckoutModel k = new CheckoutModel(nl, branch_name, region, checkout_id, betriebsstelle, hostname, ip, modell, os);
+                        if(checkouts_new.containsKey(nl)){
+                            checkouts_new.get(nl).add(k);
+                        }else{
+                            checkouts_new.put(nl, new ArrayList<>());
+                            checkouts_new.get(nl).add(k);
+                        }
 
-                    String nl = splitted[0];
-                    String nl_name = splitted[1];
-                    String region = splitted[2].split(" ")[2];
-                    boolean mobil = splitted[3].contains("(Mobil)");
-                    String checkout = splitted[4].substring(12, 15);
-                    String version = splitted[8];
-                    CheckoutModel k = new CheckoutModel(nl, nl_name, region, mobil, checkout, version);
-
-                    if(temp_nl.equals(nl)){
-                        model.add(k);
-                    }else{
-                    kassen.put(temp_nl, model);
-                    model = new ArrayList<>();
-                    model.add(k);
-                    temp_nl = nl;
                     }
+
+                    ++index;
                 }
 
         } catch (FileNotFoundException e) {
@@ -192,8 +242,8 @@ public class DataStorage {
      * or null if the branch ID is not found
      */
     public ArrayList<CheckoutModel> getcheckouts(String nl){
-        if(kassen.containsKey(nl)){
-            return kassen.get(nl);
+        if(checkouts_new.containsKey(nl)){
+            return checkouts_new.get(nl);
         }else{
             return null;
         }
@@ -205,7 +255,7 @@ public class DataStorage {
      * @return Set<String> - the set of keys in the kassen HashMap
      */
     public Set<String> list_keys(){
-        return kassen.keySet();
+        return checkouts_new.keySet();
     }
 
     /**
@@ -215,8 +265,8 @@ public class DataStorage {
      * @return the name of the branch with the specified NL ID, or null if the branch ID is not found
      */
     public String get_nl_name(String nl){
-        if(kassen.containsKey(nl)){
-            return kassen.get(nl).get(0).branch_name();
+        if(branches_new.containsKey(nl)){
+            return branches_new.get(nl).get(0);
         }else{
             return null;
         }
@@ -229,8 +279,8 @@ public class DataStorage {
      * @return the region of the branch with the specified NL ID, or null if the branch ID is not found
      */
     public String get_nl_region(String nl){
-        if(kassen.containsKey(nl)){
-            return kassen.get(nl).get(0).region();
+        if(branches_new.containsKey(nl)){
+            return branches_new.get(nl).get(1);
         }else{
             return null;
         }
