@@ -10,4 +10,8 @@
 		<description>Created after removal of "None" from plat</description>
 		<accepts>None.html</accepts>
 	</rule>
+    <rule id="4000f99e">
+        <description>Created after removal of "Topic title" from plat</description>
+        <accepts>Getting-Started.html</accepts>
+    </rule>
 </rules>

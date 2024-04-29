@@ -6,7 +6,6 @@
     
     <toc-element topic="topics_Getting-Started.md"/>
     <toc-element topic="PLAT.topic">
-        <toc-element topic="Getting-Started.md"/>
         <toc-element topic="Users.topic"/>
         <toc-element topic="Algorithm.topic"/>
     </toc-element>
