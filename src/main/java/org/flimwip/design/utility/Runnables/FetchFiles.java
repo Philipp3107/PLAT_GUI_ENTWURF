@@ -1,10 +1,10 @@
 package org.flimwip.design.utility.Runnables;
 
+import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.Temp.Checkout;
-import org.flimwip.design.utility.CredentialManager;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +15,9 @@ import java.util.concurrent.Semaphore;
  */
 public class FetchFiles implements Runnable{
 
-    /**
-     * Represents the identifier of a checkout.
-     */
-    private final String kassenid;
 
     /**
-     * The {@link Semaphore} to manage all Threads running simultaniously
+     * The {@link Semaphore} to manage all Threads running simultaneously
      */
     private final Semaphore semaphore;
 
@@ -30,17 +26,18 @@ public class FetchFiles implements Runnable{
      */
     private final Checkout k;
 
-    private final MyLogger logger = new MyLogger(this.getClass());
+    private final PKLogger logger = new PKLogger(this.getClass());
+
+    private final UserController u_c;
 
     /**
-     * Contstructor
-     * @param kassenid String -> Id of the Checkout
-     * @param semaphore Semaphore -> Management for all Runnables, Limitations to 10
+     * Constructor
+     * @param semaphore Semaphore -> Management for all Runnable, Limitations to 10
      * @param k Checkout -> View to update
      */
-    public FetchFiles(String kassenid, Semaphore semaphore, Checkout k){
+    public FetchFiles(Semaphore semaphore, Checkout k, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
-        this.kassenid = kassenid;
+        this.u_c = u_c;
         this.semaphore = semaphore;
         this.k = k;
     }
@@ -52,21 +49,23 @@ public class FetchFiles implements Runnable{
      */
     @Override
     public void run(){
-        String branch = null;
-        String checkout_id = null;
-        if(this.kassenid.length() >= 12){
-            branch = this.kassenid.substring(3, 6);
-            checkout_id = this.kassenid.substring(12);
+
+        logger.log(LoggingLevels.FINE, STR."Fetching files from checkout: \{this.k.get_hostname()}");
+        NetCon connection = new NetCon(k.get_ip(), u_c.get_selected_user().getUsername(), u_c.get_selected_user().getPassword());
+        try {
+            System.out.println(connection.get_connection());
+            File f = new File(STR."\\\\\{this.k.get_hostname()}\\c$\\gkretail\\pos-full\\log");
+            System.out.println(f.getName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        logger.log(LoggingLevels.FINE, "Fetching files from checkout: " + this.kassenid + ", Branch: " + branch);
-        NetCon connection = new NetCon(branch, checkout_id, CredentialManager.get_username(), CredentialManager.get_password());
-
         try{
             semaphore.acquire();
-            logger.log(LoggingLevels.INFO,"KassenID is: " + this.kassenid);
+            logger.log(LoggingLevels.INFO, STR."KassenID is: \{this.k.get_hostname()}");
             if(connection.get_connection()){
-                File f = new File("\\\\" + this.kassenid + "\\c$\\gkretail\\pos-full\\log");
+                System.out.println(this.k.get_hostname());
+                File f = new File(STR."\\\\\{this.k.get_hostname()}\\c$\\gkretail\\pos-full\\log");
+                System.out.println(f.getName());
                 if(f.listFiles() != null){
                     this.k.set_files(f.listFiles());
                     this.k.set_online();

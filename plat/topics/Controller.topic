@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="Controller" id="Controller" help-id="Controller">
+    <card-summary>
+        This folder holds all the Controllers needed for th Application
+    </card-summary>
+    <section-starting-page>
+        <title>Controller</title>
+        <description>
+            This folder holds all the Controllers needed for th Application
+        </description>
+        <spotlight>
+            <a href="MainController.topic" type="idea"/>
+            <a href="UserController.topic" type="idea"/>
+        </spotlight>
+        <!--    Add several topics that are less important or are relevant only for advanced/experienced users.    -->
+        <primary>
+            <title>Changes</title>
+            <a href="CSC.topic" type="search"/>
+            <a href="DashboardStatsController.topic" type="search"/>
+        </primary>
+
+        <secondary>
+            <title>Contents</title>
+            <a href="CSC.topic" type="tools"/>
+            <a href="DashboardStatsController.topic" type="tools"/>
+            <a href="FileController.topic" type="tools"/>
+            <a href="MainController.topic" type="tools"/>
+            <a href="UserController.topic" type="tools"/>
+        </secondary>
+
+    </section-starting-page>
+
+</topic>

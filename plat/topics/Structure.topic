@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="Structure" id="Structure">
+
+
+    <section-starting-page>
+        <title>Structure - Dateien und Ordner</title>
+        <description>
+
+        </description>
+
+        <!--    Add up to 2 topics that you want to promote. Use the "type" attribute to select an icon.    -->
+        <spotlight>
+            <a href="Folders.topic" type="folder" summary="All Folders and the contents in this Project">Folders</a>
+            <a href="Files.topic" type="file" summary="List of all Files in this Project">Files</a>
+        </spotlight>
+
+        <misc>
+            <cards narrow="true">
+                <title>New Files or Folders</title>
+                <a href="" summary="With a custom card summary"/>
+                <a href="" summary="With a custom card summary"/>
+                <a href="" summary="With a custom card summary">Custom card title</a>
+            </cards>
+
+            <cards narrow="true">
+                <title>Other relevant topics as narrow cards</title>
+                <a href="" summary="With a custom card summary"/>
+                <a href="" summary="With a custom card summary"/>
+                <a href="" summary="With a custom card summary"/>
+                <a href="" summary="With a custom card summary">Custom card title</a>
+                <a href="" summary="With a custom card summary">Custom card title</a>
+                <a href="" summary="With a custom card summary">Custom card title</a>
+            </cards>
+
+            <links narrow="true">
+                <group>
+                    <title>Important Files</title>
+                    <a href=""/>
+                    <a href="" summary="With a custom card summary"/>
+                    <a href="">Custom card title</a>
+                    <a href="" summary="With a custom card summary">Custom card title</a>
+                </group>
+                <group>
+                    <title>New Resources</title>
+                    <a href=""/>
+                    <a href=""/>
+                    <a href="">Custom card title</a>
+                    <a href="">Custom card title</a>
+                </group>
+                <group>
+                    <title>Other new Files</title>
+                    <a href=""/>
+                    <a href=""/>
+                    <a href="">Custom card title</a>
+                    <a href="">Custom card title</a>
+                </group>
+            </links>
+        </misc>
+    </section-starting-page>
+
+</topic>

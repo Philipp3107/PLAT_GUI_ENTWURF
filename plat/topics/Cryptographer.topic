@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="Cryptographer" id="Cryptographer">
+
+    <card-summary> This class is for encrypting and decrypting Userdata and for the authentication on login. </card-summary>
+    <chapter title="Description" id="description">
+        <p>This class is for encrypting and decrypting Userdata and for the authentication on login. </p>
+    </chapter>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="key: SecretKey">
+                <p>SecretKey used to encrypt and decrypt Data that can only be loaded with the correct Password of the User.</p>
+            </def>
+            <def title="first_login: boolean">
+                <p>stores if this is the first login of the User</p>
+            </def>
+            <def title="verification_good: boolean">
+                <p>If the User enters the wrong password and the Application cant fetch the SecretKey, this gets switched to false.</p>
+            </def>
+            <def title="logger: PKLogger">
+                <p>Logger to print Messages to the Console</p>
+            </def>
+            <def title="CREED_SEC: String">
+                <p>Holds the Location of the Secretkey on MacOS</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title=" Cryptographer ">
+                Constructor of the Cryptographer Class
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="main: void ">
+            <p>Testmethod for this class</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - args: String[] -> Arguments </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - Exception -> if the encryption or decryption method throws am Exception </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC, STATIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="generate_key: void ">
+            <p>Generates a Key using the AES-algorithm.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="retreiving_key: void ">
+            <p>Loads the Key from the KeyStorage and puts it into this class</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - pw: String -> the Password provided to read the key </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="get_first_login: boolean -> true if this is the first login of the User. ">
+            <p>Returns if this login is the first login of the User.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="start_authentication: void ">
+            <p>manages the Authentication. If this is the first login it stores the Key, if not, it tries to laod the key using the provided Password.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - pw: String -> Password the User entered. </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="verification_success: boolean -> true if the verification was successful ">
+            <p>Returns if the verifivation was a success or not</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="startup: void ">
+            <p>Starts this class. If this is the first login a key will be generated.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PRIVATE]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="saving_key: boolean -> true if saving was successful ">
+            <p>Saves the Key in a KeyStorage with the given Password and Key</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - pw: String -> Password given by the user </p>
+                    <p> - key: Key -> generated Key to save </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="decrypt: String -> decrypted message ">
+            <p>Decrypts the provided message using the generated Key.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - message: String -> the provided message to decrypt </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - InvalidKeyException -> If the used Key is invalid </p>
+                    <p> - NoSuchPaddingException -> if the encryption padding mismatches </p>
+                    <p> - NoSuchAlgorthmException -> If the used Algorithm to encrypt the Message does not exist. </p>
+                    <p> - IllegalBlockSizeException -> If the size of the to encrypt message mismatches </p>
+                    <p> - BadPaddingException -> If the Padding of the message mismatches with the Algorithm </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="encrypt: String -> encrypted message ">
+            <p>Encrypts the provided message using the generated Key.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - message: String -> the provided message to encrypt </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - InvalidKeyException -> If the used Key is invalid </p>
+                    <p> - NoSuchPaddingException -> if the encryption padding mismatches </p>
+                    <p> - NoSuchAlgorthmException -> If the used Algorithm to encrypt the Message does not exist. </p>
+                    <p> - IllegalBlockSizeException -> If the size of the to encrypt message mismatches </p>
+                    <p> - BadPaddingException -> If the Padding of the message mismatches with the Algorithm </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+        <def title="Ich glaub hier is nix drin">
+            Setter, Setter, ... Oh, hier steht ja gar nichts.
+        </def>
+        </deflist>
+    </chapter>
+    <seealso>
+        <category ref="related">
+        </category>
+    </seealso>
+</topic>

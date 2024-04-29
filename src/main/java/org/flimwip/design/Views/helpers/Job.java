@@ -1,7 +1,6 @@
 package org.flimwip.design.Views.helpers;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -24,22 +23,19 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.flimwip.design.Controller.UserController;
-import org.flimwip.design.Models.User;
+import org.flimwip.design.Models.AppUser;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.NetCon;
-import org.flimwip.design.TesterStart;
 import org.flimwip.design.Views.MainViews.Vendor;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
-import org.flimwip.design.utility.Runnables.JobHistoryFetcher;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -63,17 +59,20 @@ public class Job extends VBox {
     private boolean middle_options = false;
     private ScrollPane checks_and_nls;
     private ScrollPane sp;
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
     HashMap<String, ArrayList<String>> data;
     Font headline = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
     Font publish = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 13);
     private final UserController user_controller;
-    private TesterStart vendor;
+    private Vendor vendor;
     private CircleLoader loader = new CircleLoader();
-    public Job(DataStorage ds, UserController user_controller, TesterStart vendor){
 
+    private final DataStorage ds;
+    public Job(DataStorage ds, UserController user_controller, Vendor vendor){
+        this.ds = ds;
         double random = Math.random() * 49000000 + 10000;
         this.setId(String.valueOf(random));
+        VBox.setVgrow(this, Priority.ALWAYS);
         System.out.println(random);
         this.vendor = vendor;
         logger.set_Level(LoggingLevels.FINE);
@@ -586,13 +585,14 @@ public class Job extends VBox {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    NetCon conn = new NetCon(checkout.split(" ")[0], checkout.split(" ")[1], user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
+                    CheckoutModel cm = ds.get_checkout_codel(checkout.split(" ")[0],checkout.split(" ")[1]);
+                    NetCon conn = new NetCon(cm.ip(), user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
                     try{
                         if(conn.get_connection()){
                             for(String s : file_list){
                                 File from = new File(s);
-                                String to = "\\\\DE0" + checkout.split(" ")[0] + "CPOS20" + checkout.split(" ")[1] + "\\" + path + "\\" + from.getName();
-                                create_down_folder("\\\\DE0" + checkout.split(" ")[0] + "CPOS20" + checkout.split(" ")[1] + "\\" + path);
+                                String to = "\\\\" + cm.hostname() + "\\" + path + "\\" + from.getName();
+                                create_down_folder("\\\\" + cm.hostname() + "\\" + path);
                                 Path destination = Path.of(to);
                                 /*Files.copy(from.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);*/
                                 copyFileUsingStream(from, to);
@@ -676,7 +676,8 @@ public class Job extends VBox {
             BufferedWriter bw = new BufferedWriter(fw)){
             bw.newLine();
             System.out.println(this.checks.size());
-            bw.write(timeStamp+ ";" + this.title + ";" + write_nl + ";" + this.file_list.size() + ";" + this.checks.size() + ";Philipp Kotte");
+            AppUser current_user = user_controller.get_app_user();
+            bw.write(STR."\{timeStamp};\{this.title};\{write_nl};\{this.file_list.size()};\{this.checks.size()};\{current_user.get_first_name()} \{current_user.get_last_name()}");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
