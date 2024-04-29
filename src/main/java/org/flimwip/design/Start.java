@@ -31,9 +31,11 @@ public class Start {
               returns="void",
               thrown={"None"})
     public static void main(String[] args) throws SQLException {
-        Main.main(args);
+        //Main.main(args);
 
-        ArrayList<String> realted = new ArrayList<>();
+        //ArrayList<String> realted = new ArrayList<>();
+
+        new DokumentationBuilder(NetCon.class);
 
         //Building documentation
         /*Class c = Cryptographer.class;
