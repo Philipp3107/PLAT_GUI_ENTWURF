@@ -4,7 +4,7 @@
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
        title="Users" id="Users">
-    <H1>Hallo</H1>
+    <title>Hallo</title>
     <p>Unterschiedliche User in PLAT anlegen und verwalten</p>
 
 </topic>

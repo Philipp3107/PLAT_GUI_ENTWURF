@@ -131,7 +131,6 @@
             <a href="Main.topic"/>
             <a href="PKLogger.topic"/>
             <a href="MainMenuButtons.topic"/>
-            <a href="None.topic"/>
         </category>
         <category ref="related">
             <a href="BranchView.topic"/>

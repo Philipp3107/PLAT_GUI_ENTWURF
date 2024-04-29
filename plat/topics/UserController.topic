@@ -263,7 +263,6 @@
             <a href="User.topic"/>
             <a href="Dashboard.topic"/>
             <a href="AppUser.topic"/>
-            <a href="None.topic"/>
         </category>
         <category ref="related">
             <a href="PersitenzManager.topic"/>

@@ -6,7 +6,7 @@
     <build-profile instance="plat">
         <variables>
             <noindex-content>true</noindex-content>
-            <offline-docs>false</offline-docs>
+            <offline-docs>true</offline-docs>
         </variables>
     </build-profile>
 
