@@ -18,7 +18,7 @@ import org.flimwip.design.Views.Temp.Branch;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.DataStorage;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class Analyse extends VBox {
      */
     private final DataStorage ds;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    private PKLogger logger = new PKLogger(this.getClass());
 
 
     /**
@@ -123,7 +123,7 @@ public class Analyse extends VBox {
         sp.setFitToWidth(true);
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        sp.setStyle("-fx-background: #6c708c; -fx-border-color: #6c708c");
+        sp.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6");
         this.getChildren().addAll(nl_label, sp);
     }
 

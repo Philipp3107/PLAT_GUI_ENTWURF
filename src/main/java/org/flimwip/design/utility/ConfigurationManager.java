@@ -10,7 +10,7 @@ public class ConfigurationManager {
     private static final String DEFAULT_CONFIG_FILE = "config.properties";
     private static final String DEFAULT_CONFIG_PATH = "H:\\PLAT\\Data\\configurations";
 
-    private static final MyLogger logger = new MyLogger(ConfigurationManager.class);
+    private static final PKLogger logger = new PKLogger(ConfigurationManager.class);
     public ConfigurationManager(){
         logger.set_Level(LoggingLevels.FINE);
     }

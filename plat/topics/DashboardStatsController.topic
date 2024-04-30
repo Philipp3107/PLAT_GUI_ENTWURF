@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="DashboardStatsController" id="DashboardStatsController">
+
+    <card-summary> This Controller controls the Statistics on the Dashboard </card-summary>
+    <available-only-for> Folder Controller </available-only-for>
+    <chapter title="Description" id="description">
+        <p>This Controller controls the Statistics on the Dashboard </p>
+    </chapter>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="dashboard: Dashboard">
+                <p>The Dashboard this controller belongs to</p>
+            </def>
+            <def title="buttons: DashboardButton[]">
+                <p>All Dashboard Buttons that are needed to controll the Stats on the Dashboard</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title=" DashboardStatsController ">
+                Constructor of the DasboardStatsController class
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="change: void ">
+            <p>Changes the Stats on the Dashboard to the given category</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String category -> The Category the Stats will be set to. Possible categories are "error", "warn" and "critical" </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="deselect: void ">
+            <p>Once a DashboardButton is pressed, the focus of the other DashboardButton gets taken away. So Only one DashboardButton is selected at a item.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - String button_id -> ID of the DashboardButton </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title=" set_dash_buttons: void">
+            <p>The DashboardButton that switch the Stats on the Dashboard between WARN, ERROR and CRITICAL</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - error DashboardButton</p>
+                    <p> - warn DashboardButton</p>
+                    <p> - critical DashboardButton</p>
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <seealso>
+        <category ref="related">
+        </category>
+    </seealso>
+</topic>

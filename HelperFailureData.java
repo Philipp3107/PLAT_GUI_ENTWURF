@@ -51,7 +51,7 @@ public class HelperFailureData {
         }else{
             System.out.println("Couldn't establish connection");
         }
-        Network_Connection network_con = new Network_Connection("pos-install", nl, checkout, "H:\\Test\\");
+        Network_Connection network_con = new Network_Connection("pos-install", nl, checkout, "H:\\RandomArtGenerator\\");
         if(network_con.get_connection(nl, checkout, "pos-install" , "M6kUVm3T")){
             System.out.println("Connection established");
             //\\DE0300CPOS20001\c$\gkretail\pos-full\log

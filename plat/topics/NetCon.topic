@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="NetCon" id="NetCon">
+
+    <card-summary> This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username. </card-summary>
+    <chapter title="Description" id="description">
+        <p>This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username. </p>
+    </chapter>
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title="nl: String">
+                <p>Holds the Branch for which the connections will be established and closed</p>
+            </def>
+            <def title="checkout: String">
+                <p>Holds the Checkout for which the connections will be established and closed</p>
+            </def>
+            <def title="password: String">
+                <p>Holds the password with which the connections will be established and closed</p>
+            </def>
+            <def title="username: String">
+                <p>Holds the username with which the connections will be established and closed</p>
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Constructor" id="constructor">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist type="full">
+            <def title=" NetCon ">
+                The Constructor of the NetCon-Class
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <chapter title="get_connection:  ">
+            <p>Retrieves a connection to a remote server using the net use command.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                </def>
+                <def title="Thrown:">
+                    <p> - None </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="close_connection: void ">
+            <p>Closes the connection to a remote server.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - None </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - IOException -> if an I/O error occurs. </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+        <chapter title="PingIpAddr: boolean -> true if the IP address is reachable, false otherwise ">
+            <p>Pings the given IP address to check if it is reachable.</p>
+            <deflist type="full">
+                <def title="Paramaters:">
+                    <p> - ip: String -> the IP address to ping </p>
+                </def>
+                <def title="Thrown:">
+                    <p> - IOException if an I/O error occurs </p>
+                </def>
+                <def title="Access:">
+                    <p>[PUBLIC]</p>
+                </def>
+            </deflist>
+        </chapter>
+    </chapter>
+    <chapter title="Getter" id="getter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="Die unendlichen Weiten">
+                Hier könnten ihre Getter stehen
+            </def>
+        </deflist>
+    </chapter>
+    <chapter title="Setter" id="setter">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+        <def title="Ich glaub hier is nix drin">
+            Setter, Setter, ... Oh, hier steht ja gar nichts.
+        </def>
+        </deflist>
+    </chapter>
+    <seealso>
+        <category ref="related">
+        </category>
+    </seealso>
+
+</topic>

@@ -1,7 +1,9 @@
 package org.flimwip.design.utility.Runnables;
 
 import javafx.concurrent.Task;
-import org.flimwip.design.TesterStart;
+import org.flimwip.design.Views.MainViews.Vendor;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.PKLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,13 +16,17 @@ import java.util.List;
 
 public class JobHistoryFetcher extends Task<Void> {
 
-    private TesterStart ts;
+    private Vendor ts;
 
-    public JobHistoryFetcher(TesterStart ts){
+    private final PKLogger logger = new PKLogger(JobHistoryFetcher.class);
+
+    public JobHistoryFetcher(Vendor ts){
         this.ts = ts;
+        logger.set_Level(LoggingLevels.FINE);
     }
 
     public JobHistoryFetcher(){
+        logger.set_Level(LoggingLevels.FINE);
     }
 
     @Override
@@ -34,7 +40,7 @@ public class JobHistoryFetcher extends Task<Void> {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Line_size is : " + line_size);
+        logger.log(LoggingLevels.DEBUG, STR."Line_size is : \{line_size}");
         while(true){
             List<String> temp;
             try {
@@ -49,11 +55,11 @@ public class JobHistoryFetcher extends Task<Void> {
                 line_size = lines;
                 ts.update_history();
             }
-            String timeStamp = new SimpleDateFormat("dd.MM.yyyy;HH:mm:ss").format(Calendar.getInstance().getTime());
-            System.out.println("Zeilen: " + lines + " " + timeStamp);
+            String timeStamp = new SimpleDateFormat("dd.MM.yyyy;HH:mm:ss.SSS").format(Calendar.getInstance().getTime());
+            //logger.log(LoggingLevels.DEBUG, STR."Zeilen: \{lines} \{timeStamp}");
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

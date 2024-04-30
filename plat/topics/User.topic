@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+        <!--suppress WrsTopicContentTopicUnused -->
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       title="User" id="User">
+    <card-summary>
+        The user class represents the user of the system
+    </card-summary>
+    <available-only-for> Folder Models </available-only-for>
+    <chapter title="Description" id="description">
+        <p>
+            The user class represents the user of the system
+        </p>
+    </chapter>
+
+
+    <chapter title="Attributes" id="attributes">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="String name">
+                Name of the user
+            </def>
+            <def title="String description">
+                Description of the user
+            </def>
+            <def title="String username">
+                Username that the user uses to login into the system
+
+            </def>
+            <def title="String password">
+                Password that the user uses to login into the system
+            </def>
+            <def title="boolean selected">
+                Determines if the user is selected or not
+            </def>
+            <def title="UserController user_controller">
+                The <a href="UserController.topic"/> that manages user activities
+            </def>
+        </deflist>
+    </chapter>
+
+    <chapter title="Methods" id="methods">
+        <available-only-for> since v.1.2</available-only-for>
+        <deflist>
+            <def title="public User(name description username password, selected, user_controller)">
+                Constructs a user with the specified name, description, username, password, selected status and the controller.
+            </def>
+        </deflist>
+
+        <chapter title="Getter" id="getter">
+            <available-only-for> since v.1.2</available-only-for>
+            <deflist>
+                <def title="public String getName()" >
+                    Gets the name of the user
+                </def>
+                <def title="public String getDescription()">
+                    Gets the description of the user
+                </def>
+                <def title="public String getUsername()">
+                    Gets the username that the user uses to login into the system
+                </def>
+                <def title="public String getPassword()">
+                    Gets the password that the user uses to login into the system
+                </def>
+                <def title="public boolean isSelected()">
+                    Checks if the user is selected or not
+                </def>
+            </deflist>
+        </chapter>
+
+        <chapter title="Setter" id="setter">
+            <available-only-for> since v.1.2</available-only-for>
+            <deflist>
+                <def title="public String setName()" >
+                    Sets the name of the user
+                </def>
+                <def title="public String setDescription()">
+                    Sets the description of the user
+                </def>
+                <def title="public String setUsername()">
+                    Sets the username that the user uses to login into the system
+                </def>
+                <def title="public String setPassword()">
+                    Sets the password that the user uses to login into the system
+                </def>
+                <def title="public boolean setSelected()">
+                    Sets the selected status of the user
+                </def>
+            </deflist>
+        </chapter>
+
+    </chapter>
+</topic>

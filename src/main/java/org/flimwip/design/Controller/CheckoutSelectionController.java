@@ -14,31 +14,31 @@ import java.io.File;
  * This Controller handles most of the Events on the {@link BranchView} that could not be handled by the {@link Checkout} or the {@link BranchView} themselves.
  * This Controller will be initialized for each {@link BranchView} and the {@link Checkout} needed to be set before the Parental {@link BranchView} is set visible
  */
-@ServiceC(desc = "his Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible")
+@ServiceC(desc = "This Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible")
 public class CheckoutSelectionController {
 
     /**
      * List of all Checkout for this Branch
      */
-    @ServiceATT(desc = "List of all Checkout for this Branch.", type = "String")
+    @ServiceATT(desc = "List of all Checkout for this Branch.", type = "String", related = {"Checkout"})
     private Checkout[] kassen;
 
     /**
      * The currently selected Checkout of the Branch
      */
-    @ServiceATT(desc = "The currently selected Checkout of the Branch.", type = "String")
+    @ServiceATT(desc = "The currently selected Checkout of the Branch.", type = "String", related = {"Checkout"})
     private Checkout selected = null;
 
     /**
      * The BranchView to which this controller belongs
      */
-    @ServiceATT(desc = "The BranchView to which this controller belongs.", type = "String")
+    @ServiceATT(desc = "The BranchView to which this controller belongs.", type = "String", related = {"BranchView"})
     private BranchView view;
 
     /**
      * The array of MainMenuButton objects representing the main menu buttons.
      */
-    @ServiceATT(desc = "The array of MainMenuButton objects representing the main menu buttons.", type = "MainMenuButton[]")
+    @ServiceATT(desc = "The array of MainMenuButton objects representing the main menu buttons.", type = "MainMenuButton[]", related = {"MainMenuButton"})
     private MainMenuButton[] mmb;
 
     /**

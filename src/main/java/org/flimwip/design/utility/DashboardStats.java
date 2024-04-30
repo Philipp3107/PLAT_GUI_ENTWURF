@@ -101,7 +101,7 @@ public class DashboardStats extends Application {
     }
 
     public static Label getTrend(String name){
-        MyLogger logger = new MyLogger(DashboardStats.class);
+        PKLogger logger = new PKLogger(DashboardStats.class);
         logger.set_Level(LoggingLevels.FINE);
 
         int type = 0;
@@ -171,7 +171,7 @@ public class DashboardStats extends Application {
 
     //Das soll nur für die letzten 30 Tage gehen
     public static HBox get_box(String first, String second, String name, double size){
-        MyLogger logger = new MyLogger(DashboardStats.class);
+        PKLogger logger = new PKLogger(DashboardStats.class);
         logger.set_Level(LoggingLevels.FINE);
         int type = 0;
         if(name.equals("warn")){

@@ -12,27 +12,40 @@ import java.util.ArrayList;
 
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.utility.LoggingLevels;
-import org.flimwip.design.utility.MyLogger;
+import org.flimwip.design.utility.PKLogger;
+import org.flimwip.design.Documentationhandler.*;
 
 /**
  * Represents a branch of a store.
  */
+@ServiceC(desc="Represents a branch of a store.",
+related={"None"})
 public class Branch extends VBox{
 
     /**
      * The label that displays the city where the branch is located.
      */
+    @ServiceATT(desc="The label that displays the city where the branch is located.",
+                type="Label",
+                related={"None"})
     private Label city;
     /**
      * This variable represents the ID of a branch.
      */
+    @ServiceATT(desc="This variable represents the ID of a branch.",
+                type="String",
+                related={"None"})
     private String nl_id;
     /**
      * Represents a label for the state (Bundesland) of a branch.
      * The label displays the state name in gray color with a bold font.
      * It is used in the Branch view of the Analyse class.
      */
+    @ServiceATT(desc="Represents a label for the state (Bundesland) of a branch. The label displays the state name in gray color with a bold font. It is used in the Branch view of the Analyse class.",
+                type="Label",
+                related={"Analyse"})
     private Label Bundesland;
+    
     /**
      * Represents a favorite flag for a branch.
      *
@@ -48,18 +61,77 @@ public class Branch extends VBox{
      * boolean isFavorite = branch.isFavorite();
      * ```
      */
+    
+    @ServiceATT(desc="Represents a favorite flag for a branch.",
+                type="boolean",
+                related={"None"})
     private boolean favorite;
+    
+    
+    /**
+     * The nl_nr variable represents a Label in the Branch class, which is a part of the application's UI.
+     */
+    @ServiceATT(desc="The nl_nr variable represents a Label in the Branch class, which is a part of the application's UI.",
+                type="Label",
+                related={"BranchView"})
     private Label nl_nr;
 
+    /**
+     * Analyse2 is a class representing an analysis object associated with a branch.
+     */
+    @ServiceATT(desc="Analyse2 is a class representing an analysis object associated with a branch.",
+                type="Analyse2",
+                related={"Analyse2"})
     private Analyse2 analyse;
 
+    /**
+     * Represents the location of a branch.
+     */
+    @ServiceATT(desc="Represents the location of a branch.",
+                type="String",
+                related={"None"})
     private String location;
 
+    /**
+     * The list of checkout models associated with the branch.
+     *
+     * Each checkout model represents an individual checkout in the branch.
+     */
+    @ServiceATT(desc="The list of checkout models associated with the branch. Each checkout model represents an individual checkout in the branch.",
+                type="ArrayList<CheckoutModel>",
+                related={"CheckoutModel"})
     private ArrayList<CheckoutModel> kassen;
 
-    private MyLogger logger = new MyLogger(this.getClass());
+    /**
+     * Private logger variable used for logging purposes.
+     *
+     * This logger is used to log messages and exceptions. It uses the PKLogger class for logging.
+     * The PKLogger class provides methods to set the log level and log messages or exceptions with different log levels.
+     *
+     * Example usage:
+     * logger.log_exception(e);
+     * logger.log(LoggingLevels.INFO, "This is an information message.");
+     *
+     * @see PKLogger
+     */
+    @ServiceATT(desc="Private logger variable used for logging purposes. This logger is used to log messages and exceptions. It uses the PKLogger class for logging. The PKLogger class provides methods to set the log level and log messages or exceptions with different log levels.",
+                type="PKLogger",
+                related={"PKLogger"})
+    private PKLogger logger = new PKLogger(this.getClass());
+    /**
+     * Represents the content of a branch view.
+     */
+    @ServiceATT(desc="Represents the content of a branch view.",
+                type="VBox",
+                related={"None"})
     private VBox content;
 
+    /**
+     * Indicates whether the item is in the favorite view or not.
+     */
+    @ServiceATT(desc="Indicates whether the item is in the favorite view or not.",
+                type="boolean",
+                related={"None"})
     private boolean in_favorite_view = false;
 
     //Konstruktor
@@ -70,14 +142,19 @@ public class Branch extends VBox{
      *
      * @param nl_id       the ID of the branch
      * @param city        the city where the branch is located
-
-
-    //Konstruktor
      * @param bundesland  the state where the branch is located
      * @param kassen      the list of checkout models in the branch
      * @param favorite    true if the branch is marked as favorite, false otherwise
      * @param analyse     the analysis object associated with the branch
      */
+    @ServiceCR(desc="Represents a branch of a store.",
+               params={"nl_id: String -> the ID of the branch",
+        "city: String -> the city where the branch is located",
+        "bundesland: String ->the state where the branch is located",
+        "kassen: ArrayList<CheckoutModel> -> the list of checkout models in the branch",
+        "favorite: boolean -> true if the branch is marked as favorite, false otherwise",
+        "analyse: Analyse2 -> the analysis object associated with the branch"},
+               related={"BranchView", "Analyse2", "CheckoutModel"})
     public Branch(String nl_id, String city, String bundesland, ArrayList<CheckoutModel> kassen, boolean favorite, Analyse2 analyse){
         this.nl_id = nl_id;
         this.nl_nr = new Label(nl_id);
@@ -92,6 +169,17 @@ public class Branch extends VBox{
         init();
     }
 
+    /**
+     * Retrieves the nl_id of the Branch.
+     *
+     * @return the nl_id of the Branch
+     */
+    @ServiceM(desc="<##>Retrieves the nl_id of the Branch.",
+              category="Method",
+              params={"None"},
+              returns="String -> the nl_id of the Branch",
+              thrown={"None"},
+              related={"None"})
     public String get_nl_id(){
         return this.nl_id;
     }
@@ -99,25 +187,25 @@ public class Branch extends VBox{
     /**
      * Initializes the Branch view with default attributes and sets up the layout and content.
      */
+    @ServiceM(desc="<##>Initializes the Branch view with default attributes and sets up the layout and content.",
+              category="Method",
+              params={"None"},
+              returns="void",
+              thrown={"None"},
+              related={"None"})
     private void init(){
         //standart breite
 
         this.setMinWidth(170);
         this.setMaxWidth(170);
         //standart höhe
-        this.setMinHeight(80);
-        this.setMaxHeight(80);
+        this.setMinHeight(100);
+        this.setMaxHeight(100);
         this.setSpacing(5);
 
         this.setPadding(new Insets(7));
-        if(this.location.equals("Labor")){
-            //Style specific for Labor-NL
-            this.setStyle("-fx-background-color: #212d5d;-fx-background-radius: 5;");
-        }else{
-            //overall Style
-            this.setStyle("-fx-background-color: #454545; ;-fx-background-radius: 5;");
-        //Insets for padding
-        }
+        this.setStyle("-fx-background-color: #454545; ;-fx-background-radius: 5;");
+
 
 
         //in view of nl top right
@@ -165,14 +253,26 @@ public class Branch extends VBox{
         });
     }
 
+    /**
+     * Builds the content for favorite view.
+     *
+     * @return the VBox containing the favorite content
+     */
+    @ServiceM(desc="<##>Builds the content for favorite view.",
+              category="Method",
+              params={"None"},
+              returns="VBox -> object containing the favorite content",
+              thrown={"None"},
+              related={"None"})
     private VBox build_favortie_content(){
         //Assembly of contents
         //    Layout
         //   +----------------------------+
         //   | city | <--HGrow--> nl_nr   |
         //   +----------------------------+
-        //   |                            |
-        //   |bundesland        Kassen: 9 |
+        //   |bundesland                  |
+        //   |kassen: 9                   |
+        //   |r+v: 5                      |
         //   +----------------------------+
         //
 
@@ -231,16 +331,47 @@ public class Branch extends VBox{
     }
 
 
+    /**
+     * Builds the content for the standard view.
+     *
+     * @return the VBox containing the standard content
+     */
+    @ServiceM(desc="<##>Builds the content for the standard view.",
+              category="Method",
+              params={"None"},
+              returns="VBox -> object containing the standard content",
+              thrown={"None"},
+              related={"None"})
     private VBox build_standart_centent(){
         VBox cont = new VBox();
         Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
+        int count = 0;
+        for(CheckoutModel cm : this.kassen){
+            if(cm.betriebsstelle().equals("Reservieren und Abholen")){
+                count++;
+            }
+        }
+        Label r_v = new Label(STR."R+V: \{count}");
         l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        cont.getChildren().addAll(nl_nr,city, Bundesland, l);
+        r_v.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        cont.getChildren().addAll(nl_nr,city, Bundesland, l, r_v);
         return cont;
 
     }
 
 
+    /**
+     * Sets the analysis object associated with the {@link Branch}.
+     *
+     * @param analyse the analysis object to be set
+     * @see Analyse2
+     */
+    @ServiceM(desc="<##>Sets the analysis object associated with the {@link Branch}.",
+              category="Method",
+              params={"analyse: Analyse2 -> the analysis object to be set"},
+              returns="void",
+              thrown={"None"},
+              related={"Branch", "Analyse2"})
     public void setAnalyse(Analyse2 analyse){
         this.analyse = analyse;
     }
