@@ -12,12 +12,14 @@ public class Start {
               returns="void",
               thrown={"None"})
     public static void main(String[] args) {
+
+        //Kommentar um zu testen dass das hier auf dem richtigen branch läuft
+
+        /*new DokumentationBuilder(NetCon.class);
+
+        Vendor.main(args);*/
+
         Main.main(args);
-        //ArrayList<String> realted = new ArrayList<>();
-
-        //new DokumentationBuilder(NetCon.class);
-
-        // Vendor.main(args);
     }
 
 
