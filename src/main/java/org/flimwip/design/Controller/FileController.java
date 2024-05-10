@@ -32,7 +32,7 @@ public class FileController {
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout}
      */
-    @ServiceATT(desc="ArrayList of all LogFiles of the Checkout",
+    @ServiceATT(desc="ArrayList of all LogFile of the Checkout",
                 type="ArrayList<LogFile>",
                 related={"LogFile", "Checkout"})
     private final ArrayList<LogFile> files;
@@ -40,7 +40,7 @@ public class FileController {
     /**
      * ArrayList of all {@link LogFile}s of the {@link Checkout} that are selected
      */
-    @ServiceATT(desc="ArrayList of all LogFiles of the Checkout that are selected",
+    @ServiceATT(desc="ArrayList of all LogFile of the Checkout that are selected",
                 type="ArrayList<LogFile>",
                 related={"LogFile","Checkout"})
     private final ArrayList<LogFile> selected;
@@ -89,16 +89,16 @@ public class FileController {
      * @param file {@link LogFile}
      */
     @ServiceM(desc="This Method gets executed when a single files was clicked. It Clears the {@code ArrayList<LogFile> selected} and adds it to it",
-            category="Method",
+            category="Setter",
             params={"file: LogFile"},
             returns="void",
             thrown={"None"},
             related={"Checkout", "LogFile"})
     public void set_selected(LogFile file){
         logger.log(LoggingLevels.INFO, "Selected: " + file.getId());
+        file.select();
         for(LogFile cf : files){
             if(!cf.getId().equals(file.getId())){
-                logger.log(LoggingLevels.INFO, "Deselected: " + cf.getId());
                 cf.deselect();
             }
         }
@@ -107,106 +107,55 @@ public class FileController {
     }
 
 
-    /**
-     * This Method is for Multiselection between files. It gets Executed when a File is already in the {@code ArrayList<LogFile> selected} list.
-     * The user now needs to hold shift and click on another file.
-     * Is the index of the second File, bigger than the first, then all Files downward from the first to the second selected File will be selected.
-     * Is the index of the second File, smaller than the first, then all Files upward from the first the the second selected File will be selected.
-     * All selectd files will be added to {@code ArrayList<LogFile> selected}.
-     * @param file {@link LogFile}
-     */
-    @ServiceM(desc="This Method is for Multiselection between files. It gets Executed when a File is already in the ArrayList<LogFile> selected list. The user now needs to hold shift and click on another file. Is the index of the second File, bigger than the first, then all Files downward from the first to the second selected File will be selected.Is the index of the second File, smaller than the first, then all Files upward from the first the the second selected File will be selected. All selectd files will be added to ArrayList<LogFile> selected.",
-             category="Method",
-             params={"file: LogFile"},
-             returns="void",
-             thrown={"None"},
-             related={"LogFile"})
-    public void multi_select(LogFile file) {
-
-        //If selected is Empty the File will be added to the list
-        if (selected.isEmpty()) {
-            this.selected.add(file);
-        //Otherwise the selected File will be added to the list and compute the index of the first selected and the just added file in the List of all files
-        } else {
-            this.selected.add(file);
-            int index_first = 0;
-            int index_new = 0;
-            for(int i = 0; i < files.size(); i++){
-                if(files.get(i).getId().equals(selected.get(0).getId())){
-                    index_first = i;
-                }
-                if(files.get(i).getId().equals(file.getId())){
-                    index_new = i;
-                }
-            }
-
-            //All files between them will be added upwards or downwards
-            if(index_first < index_new) {
-                boolean select = false;
-                LogFile f = selected.get(0);
-                for (LogFile log_file : files) {
-                    if (select) {
-                        log_file.select();
-                        add_to_selected(log_file);
-                    } else {
-                        if (!log_file.getId().equals(f.getId()) && !log_file.getId().equals(file.getId())) {
-                            log_file.deselect();
-                            this.selected.remove(log_file);
-                        }
-
-                    }
-                    if (log_file.getId().equals(f.getId())) {
-                        select = true;
-                    }
-                    if (log_file.getId().equals(file.getId())) {
-                        select = false;
-                    }
-                }
-            }else{
-                boolean select = false;
-                LogFile f = selected.get(0);
-                for(int i = files.size() -1; i >= 0; i--){
-                    if (select) {
-                        files.get(i).select();
-                        add_to_selected(files.get(i));
-                    } else {
-                        if (!files.get(i).getId().equals(f.getId()) && !files.get(i).getId().equals(file.getId())) {
-                            files.get(i).deselect();
-                            this.selected.remove(files.get(i));
-                        }
-
-                    }
-                    if (files.get(i).getId().equals(f.getId())) {
-                        select = true;
-                    }
-                    if (files.get(i).getId().equals(file.getId())) {
-                        select = false;
-                    }
-                }
+    @ServiceM(desc = "Finds the index of a given File in the currently saved files and returns its index.",
+              params = {"- f: Logfile -> Logfile of which the Index is needed."},
+              returns = "int -> The index of the given File.",
+              related = {"LogFile"})
+    public int find_index(LogFile f){
+        int returning = this.files.size();
+        for(int i = 0; i < this.files.size(); i++){
+            if(this.files.get(i).getId().equals(f.getId())){
+                returning = i;
             }
         }
+        return returning;
     }
 
-
-    /**
-     * Adds the given {@link LogFile} to the selected list. If its already in it it does nothing
-     * @param file {@link LogFile}
-     */
-    @ServiceM(desc="Adds the given LogFile to the selected list. If its already in it it does nothing",
-             category="Method",
-             params={"file: LogFile"},
-             returns="void",
-             thrown={"None"},
-             related={"LogFile"})
-    public void add_to_selected(LogFile file){
-        boolean add = true;
-        for(LogFile cf : selected){
-            if(cf.getId().equals(file.getId())){
-                add = false;
+    @ServiceM(desc = "Selects the files in the currently saved files from its start index to the end index and copys the names into \"this.selected\".",
+              params = {"start: int -> start index", "end: int -> end index"},
+              related = {"LogFile"})
+    public void selec_range(int start, int end){
+        logger.log(LoggingLevels.FINE, "Selected START -----------------------------------");
+        deselect_all();
+        if(start < end){
+            for (int i = start; i <= end; i++){
+                if(!this.selected.contains(this.files.get(i))){
+                    this.selected.add(this.files.get(i));
+                    this.files.get(i).select();
+                    logger.log(LoggingLevels.FINE, "Selected", this.files.get(i).getId());
+                }
+            }
+        }else{
+            for (int i = end; i <= start; i++){
+                if(!this.selected.contains(this.files.get(i))){
+                    this.selected.add(this.files.get(i));
+                    this.files.get(i).select();
+                    logger.log(LoggingLevels.FINE, "Selected", this.files.get(i).getId());
+                }
             }
         }
-        if(add){
+        logger.log(LoggingLevels.FINE, "Selected END -------------------------------------");
+    }
+
+    @ServiceM(desc = "This method is called from the LogFile class and is used to handle the shift + click operation an a LogFile. If a LogFile is already selected, every LogFile between the first and second gets selected.", params = {"file: LogFile -> Logfile which was selected second."}, related = {"LogFile"})
+    public void new_multi_select(LogFile file) {
+        if(this.selected.isEmpty()){
             this.selected.add(file);
+            file.select();
+        }else{
+            int index_og = find_index(this.selected.getFirst());
+            int index_new = find_index(file);
+            selec_range(index_og, index_new);
         }
 
     }
@@ -215,7 +164,7 @@ public class FileController {
      * Returns the size of the selected {@link LogFile}s
      * @return int Size of {@link FileController#selected} {@code ArrayList<LogFile>}
      */
-    @ServiceM(desc="Returns the size of the selected LogFiles",
+    @ServiceM(desc="Returns the size of the selected LogFile",
              category="Getter",
              params={"None"},
              returns="int Size of ArrayList<LogFile>}",
@@ -246,20 +195,20 @@ public class FileController {
     /**
      * Clears the List of selected {@link LogFile}s
      */
-    @ServiceM(desc="Clears the List of selected LogFiles",
+    @ServiceM(desc="Clears the List of selected LogFile",
              category="Method",
              params={"None"},
              returns="void",
              thrown={"None"},
              related={"LogFile"})
     public void deselect_all(){
-        for(LogFile cf : selected){
-            cf.deselect();
+        for(LogFile lf : this.selected){
+            lf.deselect();
         }
-        this.selected.clear();
-
+        selected.clear();
     }
 
+    @ServiceM(desc = "Returns the currently selected LogFile.", params = {"None"}, returns = "ArrayList<LogFile> -> The currently selected LogFile.", related = {"LogFile"})
     public ArrayList<LogFile> get_selected_files(){
         return this.selected;
     }

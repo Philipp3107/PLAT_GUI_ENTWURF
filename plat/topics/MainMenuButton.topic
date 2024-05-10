@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="MainMenuButton" id="MainMenuButton"> 
+<card-summary> The MainMenuButton gets dispalyed in the Sidebar and and switches the Applications main View to its destiantion. </card-summary>
+<chapter title="Description" id="description">
+<p>The MainMenuButton gets dispalyed in the Sidebar and and switches the Applications main View to its destiantion. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="text: String">
+<p>The text that gets displayed o the button</p>
+</def>
+<def title="l: Label">
+<p>The Label that holds the Text of the Button</p>
+</def>
+<def title="selected: boolean">
+<p>Holds information about the current selection state of the Button</p>
+</def>
+<def title="controller: MainController">
+<p>MainController with which the main view on the Application gets switched</p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="MainMenuButton">
+<p>Constructor of the MainMenuButton object</p></def>
+<def title="Parameters:">
+<p> - imagename: String -> name of the image </p>
+<p> - text: String -> The Text that will be displayed on the Button </p>
+<p> - controller: MainController -> helps with the communication between the MainView and the MainMenuButtons </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="deselect">
+<p>Deselects the current Button. Gets executed from the MainController</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="on_click">
+<p><##>Changes the apperance of the Button when he gets clicked.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="on_hover_end">
+<p><##><##>Changes the apperance of the Button if the Users hover over it ends.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="select_on_start">
+<p><##>Changes the apperance of the Button on start so that it gets displayed as the first button that is selected</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="on_hover_start">
+<p><##>Changes the apperance of the Button if the User hovers over it with the mouse.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="init">
+<p>Builds the MainMenuButton</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<seealso>
+<category ref="related">
+</category>
+</seealso>
+</topic>

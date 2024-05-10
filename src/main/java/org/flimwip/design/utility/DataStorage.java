@@ -107,7 +107,7 @@ public class DataStorage {
      */
     @ServiceATT(desc="HashMap variable used to store checkout data. Key: String - represents the branch ID. Value: ArrayList of CheckoutModel - contains the checkout model objects for a specific branch.",
                 type="HashMap<String, ArrayList<String>>",
-                related={"<#related#>"})
+                related={"None"})
     private HashMap<String, ArrayList<CheckoutModel>> kassen = new HashMap<>();
 
 
@@ -138,7 +138,6 @@ public class DataStorage {
         try(BufferedReader br = new BufferedReader(new InputStreamReader(stream))){
             String s = "";
             while((s=br.readLine()) != null){
-                System.out.println(s);
                 String[] temp = s.split(",");
                 ArrayList<String> info = new ArrayList<>();
                 info.add(temp[1]);
@@ -197,7 +196,6 @@ public class DataStorage {
                     if (index != 0){
                         String[] splitted = line.split(",");
                         String nl = splitted[6];
-                        System.out.println(nl);
                         String checkout_id = splitted[4];
                         String betriebsstelle = splitted[7];
                         String ip = splitted[9];
@@ -206,22 +204,20 @@ public class DataStorage {
                         String hostname = splitted[8];
                         String branch_name= "";
                         String region= "";
-                        if(branches_new.containsKey(nl)){
-                            branch_name = branches_new.get(nl).get(0);
-                            region = branches_new.get(nl).get(1);
-                        }
+                        if(!hostname.contains("CGL")) {
+                            if (branches_new.containsKey(nl)) {
+                                branch_name = branches_new.get(nl).get(0);
+                                region = branches_new.get(nl).get(1);
+                            }
 
-                    /*
-                    String branch, String branch_name, String region, String checkout_id, String betriebsstelle, String ip, String modell, String os
-                     */
-                        CheckoutModel k = new CheckoutModel(nl, branch_name, region, checkout_id, betriebsstelle, hostname, ip, modell, os);
-                        if(checkouts_new.containsKey(nl)){
-                            checkouts_new.get(nl).add(k);
-                        }else{
-                            checkouts_new.put(nl, new ArrayList<>());
-                            checkouts_new.get(nl).add(k);
+                            CheckoutModel k = new CheckoutModel(nl, branch_name, region, checkout_id, betriebsstelle, hostname, ip, modell, os);
+                            if (checkouts_new.containsKey(nl)) {
+                                checkouts_new.get(nl).add(k);
+                            } else {
+                                checkouts_new.put(nl, new ArrayList<>());
+                                checkouts_new.get(nl).add(k);
+                            }
                         }
-
                     }
 
                     ++index;
@@ -255,7 +251,7 @@ public class DataStorage {
      * @return Set<String> - the set of keys in the kassen HashMap
      */
     public Set<String> list_keys(){
-        return checkouts_new.keySet();
+        return branches_new.keySet();
     }
 
     /**

@@ -2,135 +2,244 @@
 <!DOCTYPE topic
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-       title="PopulationFile" id="PopulationFile">
-
-    <card-summary> The PopulationFile class represents the data of a population file in the application. This class holds the attributes name, from, to, from_absolute, and to_absolute which represent details about the population. </card-summary>
-    <available-only-for> Folder Models </available-only-for>
-    <chapter title="Description" id="description">
-        <p>The PopulationFile class represents the data of a population file in the application. This class holds the attributes name, from, to, from_absolute, and to_absolute which represent details about the population. </p>
-    </chapter>
-    <chapter title="Attributes" id="attributes">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist>
-            <def title="name: ">
-                The name of the population file.
-            </def>
-            <def title="from: ">
-                The attribute 'from' represents the starting point of the population file.
-            </def>
-            <def title="to: ">
-                The attribute 'to' represents the end point of the population file.
-            </def>
-            <def title="from_absolute: ">
-                The attribute 'from_absolute' is a flag that indicates whether the 'from' attribute is absolute or not.
-            </def>
-            <def title="to_absolute: ">
-                The attribute 'to_absolute' is a flag that indicates whether the 'to' attribute is absolute or not.
-            </def>
-        </deflist>
-    </chapter>
-    <chapter title="Methods" id="methods">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist>
-            <def title="toString: String: description of this class in Text">
-                <p>This method is used to get the string representation of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-        </deflist>
-    </chapter>
-    <chapter title="Getter" id="getter">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist>
-            <def title="get_to_absolute: boolean: to_absolute">
-                <p>This method is used to check if the 'to' value is absolute.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="get_from_absolut: boolean: from_absolute">
-                <p>This method is used to check if the 'from' value is absolute.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="get_from: String: from">
-                <p>Retrieves the 'from' value of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="get_name: String: name">
-                <p>Retrieves the name of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="get_to: String: to">
-                <p>This method is used to get the 'to' value of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - None</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-        </deflist>
-    </chapter>
-    <chapter title="Setter" id="setter">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist>
-            <def title="set_from_absolute: void">
-                <p>This method is used to set the 'from' value as absolute.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - boolean: from_absolute</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="set_to_absolute: void">
-                <p>This method is used to set the 'to' value as absolute.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - boolean</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="set_name: void">
-                <p>This method is used to set the name of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - String: name</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="set_from: void">
-                <p>This method is used to set the 'from' value of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - String: from</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-            <def title="set_to: void">
-                <p>This method is used to set the 'to' value of the population file.</p>
-                <p> <u><b>Parameters:</b></u></p>
-                <p> - String: to</p>
-                <p> <u><b>Thrown:</b></u></p>
-                <p> - None </p>
-                <p> <u><b>Access:</b></u> [PUBLIC]</p>
-            </def>
-        </deflist>
-    </chapter>
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="PopulationFile" id="PopulationFile"> 
+<card-summary> The PopulationFile class represents the data of a population file in the application. This class holds the attributes name, from, to, from_absolute, and to_absolute which represent details about the population. </card-summary>
+<chapter title="Description" id="description">
+<p>The PopulationFile class represents the data of a population file in the application. This class holds the attributes name, from, to, from_absolute, and to_absolute which represent details about the population. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="name: String">
+<p>The name of the population file.</p>
+</def>
+<def title="from: String">
+<p>The attribute 'from' represents the starting point of the population file.</p>
+</def>
+<def title="to: String">
+<p>The attribute 'to' represents the end point of the population file.</p>
+</def>
+<def title="from_absolute: boolean">
+<p>The attribute 'from_absolute' is a flag that indicates whether the 'from' attribute is absolute or not.</p>
+</def>
+<def title="to_absolute: boolean">
+<p>The attribute 'to_absolute' is a flag that indicates whether the 'to' attribute is absolute or not.</p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="PopulationFile">
+<p>Constructor of the PopulationFile class</p></def>
+<def title="Parameters:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="toString">
+<p>This method is used to get the string representation of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - String: description of this class in Text </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="get_name">
+<p>Retrieves the name of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: name </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_from">
+<p>Retrieves the 'from' value of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: from </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_to">
+<p>This method is used to get the 'to' value of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: to </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_to_absolute">
+<p>This method is used to check if the 'to' value is absolute.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - boolean: to_absolute </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_from_absolut">
+<p>This method is used to check if the 'from' value is absolute.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - boolean: from_absolute </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="set_to">
+<p>This method is used to set the 'to' value of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: to </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_name">
+<p>This method is used to set the name of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: name </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_from">
+<p>This method is used to set the 'from' value of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: from </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_to_absolute">
+<p>This method is used to set the 'to' value as absolute.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - boolean </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_from_absolute">
+<p>This method is used to set the 'from' value as absolute.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - boolean: from_absolute </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<seealso>
+<category ref="related">
+</category>
+</seealso>
 </topic>

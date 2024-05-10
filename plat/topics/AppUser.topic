@@ -2,184 +2,219 @@
 <!DOCTYPE topic
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-       title="AppUser" id="AppUser">
-    <card-summary> This class represents an App user. It encapsulates the user first name, last name, username, and password. The class uses annotations such as ServiceC, ServiceATT, and ServiceM for describing the class, attributes, and methods respectively. It includes a constructor, getters and setters for each of the attributes, and a static method used for testing. </card-summary>
-    <available-only-for> Folder Models </available-only-for>
-    <chapter title="Description" id="description">
-        <p>This class represents an App user. It encapsulates the user first name, last name, username, and password. The class uses annotations such as ServiceC, ServiceATT, and ServiceM for describing the class, attributes, and methods respectively. It includes a constructor, getters and setters for each of the attributes, and a static method used for testing. </p>
-    </chapter>
-    <chapter title="Attributes" id="attributes">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist type="full">
-            <def title="first_name: String">
-                <p>The first name of the User using this App. This is also used for the Job history</p>
-            </def>
-            <def title="last_name: String">
-                <p>The last name of the User using this App. This is also used for the Job History</p>
-            </def>
-            <def title="username: String">
-                <p>The username of the User using this App. This is also used for Login.</p>
-            </def>
-            <def title="password: String">
-                <p>The password the User set themselves</p>
-            </def>
-            <def title="profile_picture_path: String">
-                <p>The path for the profile picture</p>
-            </def>
-            <def title="logger: PKLogger">
-                <p>Logger for logging application events and exceptions. Uses the PKLogger class for logging functionality.</p>
-                <p> <u><b>Related:</b></u></p>
-                <a href="PKLogger.topic"/>
-            </def>
-        </deflist>
-    </chapter>
-    <chapter title="Constructor" id="constructor">
-        <available-only-for> since v.1.2</available-only-for>
-        <deflist type="full">
-            <def title=" AppUser ">
-                Constructor of the AppUser class
-            </def>
-        </deflist>
-    </chapter>
-    <chapter title="Methods" id="methods">
-        <available-only-for> since v.1.2</available-only-for>
-        <chapter title="toString: String: all Elements of the user concatinated as String ">
-            <p>Overriding the "toString" method to provide readability for the User</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - None </p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-    </chapter>
-    <chapter title="Getter" id="getter">
-        <available-only-for> since v.1.2</available-only-for>
-        <chapter title="get_username: String: username ">
-            <p>Method to get username</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - None </p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title="get_first_name: String: first_name ">
-            <p>Method to get first name</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - None </p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title="get_password: String: password ">
-            <p>Method to get password</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - None </p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title="get_last_name: String: last_name ">
-            <p>Method to get last name</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - None </p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-    </chapter>
-    <chapter title="Setter" id="setter">
-        <available-only-for> since v.1.2</available-only-for>
-        <chapter title=" set_last_name: void">
-            <p>Method to set last name</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - String: last_name</p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title=" set_username: void">
-            <p>Method to set username</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - String: username</p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title=" set_first_name: void">
-            <p>Method to set first name</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - String: first_name</p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-        <chapter title=" set_password: void">
-            <p>Method to set password</p>
-            <deflist type="full">
-                <def title="Paramaters:">
-                    <p> - String: password</p>
-                </def>
-                <def title="Thrown:">
-                    <p> - None </p>
-                </def>
-                <def title="Access:">
-                    <p>[PUBLIC]</p>
-                </def>
-            </deflist>
-        </chapter>
-    </chapter>
-    <seealso>
-        <category ref="related">
-            <a href="PKLogger.topic"/>
-        </category>
-    </seealso>
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="AppUser" id="AppUser"> 
+<card-summary> This class represents an App user. It encapsulates the user first name, last name, username, and password. The class uses annotations such as ServiceC, ServiceATT, and ServiceM for describing the class, attributes, and methods respectively. It includes a constructor, getters and setters for each of the attributes, and a static method used for testing. </card-summary>
+<chapter title="Description" id="description">
+<p>This class represents an App user. It encapsulates the user first name, last name, username, and password. The class uses annotations such as ServiceC, ServiceATT, and ServiceM for describing the class, attributes, and methods respectively. It includes a constructor, getters and setters for each of the attributes, and a static method used for testing. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="first_name: String">
+<p>The first name of the User using this App. This is also used for the Job history</p>
+</def>
+<def title="last_name: String">
+<p>The last name of the User using this App. This is also used for the Job History</p>
+</def>
+<def title="username: String">
+<p>The username of the User using this App. This is also used for Login.</p>
+</def>
+<def title="password: String">
+<p>The password the User set themselves</p>
+</def>
+<def title="profile_picture_path: String">
+<p>The path for the profile picture</p>
+</def>
+<def title="logger: PKLogger">
+<p>Logger for logging application events and exceptions. Uses the PKLogger class for logging functionality.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="PKLogger.topic"/>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="AppUser">
+<p>Constructor of the AppUser class</p></def>
+<def title="Parameters:">
+<p> - String: firstname </p>
+<p> - String: last_name </p>
+<p> - String: username </p>
+<p> - String: password </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="toString">
+<p>Overriding the "toString" method to provide readability for the User</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - String: all Elements of the user concatinated as String </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="get_username">
+<p>Method to get username</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: username </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_first_name">
+<p>Method to get first name</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: first_name </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_password">
+<p>Method to get password</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: password </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_last_name">
+<p>Method to get last name</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: last_name </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="set_first_name">
+<p>Method to set first name</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: first_name </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_password">
+<p>Method to set password</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: password </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_username">
+<p>Method to set username</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: username </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_last_name">
+<p>Method to set last name</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: last_name </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="PKLogger.topic"/>
+</category>
+</seealso>
 </topic>

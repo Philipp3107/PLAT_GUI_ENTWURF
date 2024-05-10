@@ -2,8 +2,135 @@
 <!DOCTYPE topic
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-       title="PKLogger" id="PKLogger">
-
-    <p>Start typing here...</p>
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="PKLogger" id="PKLogger"> 
+<card-summary> The PKLogger class provides logging functionality with different logging levels. It allows logging messages, exceptions, and setting the logging level. </card-summary>
+<chapter title="Description" id="description">
+<p>The PKLogger class provides logging functionality with different logging levels. It allows logging messages, exceptions, and setting the logging level. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="c: Class">
+<p>Private variable representing a class.</p>
+</def>
+<def title="level: LoggingLevels">
+<p>The logging level used for logging messages.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="LoggingLevels.topic"/>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="PKLogger">
+<p>Constructs a PKLogger object with the given class.</p></def>
+<def title="Parameters:">
+<p> - c: Class -> the class for which logging is done </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="log_exception">
+<p><##>Logs an exception with the specified logging level.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - e: Exception -> the exception to log </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="log">
+<p><##>Logs the provided arguments with the specified logging level.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - <T>: T -> the type of the arguments </p>
+<p> - level: LoggingLevels -> the logging level </p>
+<p> - args: String -> the arguments to be logged </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+<p> - FINAL </p>
+<p> - VARARGS </p>
+</def>
+<def title="Related:">
+<p> - LogginLevels </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="log">
+<p><##>Logs the provided arguments with the specified logging level.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - level: LogginLEvels -> the logging level </p>
+<p> - args: String -> the arguments to be logged </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+<p> - VARARGS </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="set_Level">
+<p><##>Sets the logging level for the PKLogger object.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - level: LoggingLevels -> the logging level to set </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - LoggingLevels </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="LoggingLevels.topic"/>
+<a href="LogginLevels.topic"/>
+</category>
+</seealso>
 </topic>

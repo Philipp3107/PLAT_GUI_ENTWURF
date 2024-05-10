@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="JobHistoryItem" id="JobHistoryItem"> 
+<card-summary> Represents a single item in the job history. </card-summary>
+<chapter title="Description" id="description">
+<p>Represents a single item in the job history. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="day: String">
+<p>Represents a specific day in the JobHistoryItem. The day represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="month: String">
+<p>Private variable representing the month. The month represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="year: String">
+<p>The year of a JobHistoryItem object. The year represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="hour: String">
+<p>Represents the hour of a job history item. The hours represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="minute: String">
+<p>Represents the minute of a JobHistoryItem. The minutes represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="second: String">
+<p>Represents the second of a JobHistoryItem. The second represents the timestamp of when the JobHistoryItem was created or modified.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="title: String">
+<p>The title of a JobHistoryItem.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="author: String">
+<p>Represents the author of the document.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="nl: String[]">
+<p>Private array of String elements.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="files: String[]">
+<p>Retrieves the list of files.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="checkouts: String[]">
+<p>Array of strings representing checkouts.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="author_label: Label">
+<p>Represents a label for the author of a JobHistoryItem.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="time_label: Label">
+<p>Represents a label that displays the time information of a JobHistoryItem object.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+<def title="sub: Font">
+<p>Private variable representing a font used for subtitles. The font is created using the "Verdana" font family, with a bold weight, regular posture, and a size of 10.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="JobHistoryItem">
+<p>Represents a job history item. This class provides a way to store and initialize a job history item with the given parameters.</p></def>
+<def title="Parameters:">
+<p> - date: String -> Date representing the day of when the JobHistoryItem was created </p>
+<p> - time: String -> Time representing the time of when the JobHistoryItem was created </p>
+<p> - title: String -> Title of the JobHistoryItem </p>
+<p> - nl: String -> NL influenced by the Job </p>
+<p> - files: String -> files pushed to the Checkout </p>
+<p> - checkouts: String -> String representing all the checkouts where files have been pushed to </p>
+<p> - author: String -> String representing the Author of the JobHistoryItem </p>
+</def>
+<def title="Related:">
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="split_string">
+<p><##>Splits a given string by comma (",") and returns an array of substrings.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - to_split: String -> the string to be split </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - String[] </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="equals">
+<p>Indicates whether some other object is "equal to" this one.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - o: Object -> the reference object with which to compare </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - true if this object is the same as the o argument, false otherwise </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="hashCode">
+<p>Calculates the hash code value for this object.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - int -> the hash code value for this object. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="compareTo">
+<p>Compare the current instance of JobHistoryItem with another instance.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - o: JobHistoryItem -> The JobHistoryItem instance to be compared. </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - A negative integer if the current instance is less than the specified instance. Zero if the current instance is equal to the specified instance. A positive integer if the current instance is greater than the specified instance. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+<p> - BRIDGE </p>
+<p> - SYNTHETIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="compareTo">
+<p>Compare the current instance of JobHistoryItem with another instance.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - o: JobHistoryItem -> The JobHistoryItem instance to be compared. </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - A negative integer if the current instance is less than the specified instance. Zero if the current instance is equal to the specified instance. A positive integer if the current instance is greater than the specified instance. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="init">
+<p><##>Initializes the JobHistoryItem object by setting properties and adding child nodes.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - none </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="getFiles">
+<p>Retrieves an array of file names.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String[] -> an array of file names. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getNl">
+<p>Retrieves the nl (new line) values stored in the JobHistoryItem object.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String[] -> an array of String containing the nl values. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getAuthor">
+<p>Retrieves the author of the document.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> the author. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_author">
+<p>Retrieves the author of the document.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String[] -> The author of the document as a String. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getTitle">
+<p>Retrieves the title of the JobHistoryItem.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> the title. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getCheckouts">
+<p>Retrieves the array of checkouts.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String[] -> the array of checkouts. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getYear">
+<p>Retrieves the year value of an object.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> The year. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getHour">
+<p><##>Returns the hour in a string format.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> the hour. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getMinute">
+<p><##>Retrieves the minute value of an object.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> The minute value as a String. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getSecond">
+<p><##>Retrieves the second value of an object.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> the seconds </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getMonth">
+<p><##>Returns the month.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> the month </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getDay">
+<p><##>Retrieves the value of the day.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String -> The value of the day. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="Job.topic"/>
+<a href="Vendor.topic"/>
+</category>
+</seealso>
+</topic>

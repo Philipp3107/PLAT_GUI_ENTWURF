@@ -11,6 +11,7 @@ import org.flimwip.design.Models.CheckoutModel;
 import java.util.ArrayList;
 
 import org.flimwip.design.Views.MainViews.Analyse2;
+import org.flimwip.design.Views.helpers.Spacer;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
 import org.flimwip.design.Documentationhandler.*;
@@ -174,7 +175,7 @@ public class Branch extends VBox{
      *
      * @return the nl_id of the Branch
      */
-    @ServiceM(desc="<##>Retrieves the nl_id of the Branch.",
+    @ServiceM(desc="Retrieves the nl_id of the Branch.",
               category="Method",
               params={"None"},
               returns="String -> the nl_id of the Branch",
@@ -187,7 +188,7 @@ public class Branch extends VBox{
     /**
      * Initializes the Branch view with default attributes and sets up the layout and content.
      */
-    @ServiceM(desc="<##>Initializes the Branch view with default attributes and sets up the layout and content.",
+    @ServiceM(desc="Initializes the Branch view with default attributes and sets up the layout and content.",
               category="Method",
               params={"None"},
               returns="void",
@@ -196,8 +197,8 @@ public class Branch extends VBox{
     private void init(){
         //standart breite
 
-        this.setMinWidth(170);
-        this.setMaxWidth(170);
+        this.setMinWidth(220);
+        this.setMaxWidth(220);
         //standart höhe
         this.setMinHeight(100);
         this.setMaxHeight(100);
@@ -214,14 +215,14 @@ public class Branch extends VBox{
         this.Bundesland.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 10");
         //in view of nl top left
         this.city.setStyle("-fx-text-fill: white; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+        this.city.setWrapText(true);
+        this.city.setMaxWidth(206);
 
         //Assembly of contents
         //    Layout
         //   |----------------------------|
         //   | city | <--HGrow--> nl_nr   |
         //   |----------------------------|
-        this.city.setWrapText(true);
-        this.city.setMaxWidth(160);
         //   |                            |
         //   |bundesland        Kassen: 9 |
         //   |----------------------------|
@@ -258,7 +259,7 @@ public class Branch extends VBox{
      *
      * @return the VBox containing the favorite content
      */
-    @ServiceM(desc="<##>Builds the content for favorite view.",
+    @ServiceM(desc="Builds the content for favorite view.",
               category="Method",
               params={"None"},
               returns="VBox -> object containing the favorite content",
@@ -336,7 +337,7 @@ public class Branch extends VBox{
      *
      * @return the VBox containing the standard content
      */
-    @ServiceM(desc="<##>Builds the content for the standard view.",
+    @ServiceM(desc="Builds the content for the standard view.",
               category="Method",
               params={"None"},
               returns="VBox -> object containing the standard content",
@@ -344,17 +345,31 @@ public class Branch extends VBox{
               related={"None"})
     private VBox build_standart_centent(){
         VBox cont = new VBox();
+        VBox first = new VBox();
+        VBox second = new VBox();
         Label l = new Label("Kassen: " + String.valueOf(this.kassen.size()));
         int count = 0;
+
+        first.getChildren().addAll(nl_nr, city, Bundesland);
         for(CheckoutModel cm : this.kassen){
             if(cm.betriebsstelle().equals("Reservieren und Abholen")){
                 count++;
             }
         }
-        Label r_v = new Label(STR."R+V: \{count}");
-        l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        r_v.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
-        cont.getChildren().addAll(nl_nr,city, Bundesland, l, r_v);
+        if(count > 0){
+            Label r_v = new Label(STR."R+A: \{count}");
+            l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+            r_v.setStyle("-fx-text-fill: #c56262; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+            second.getChildren().addAll(l, r_v);
+        }else{
+            l.setStyle("-fx-text-fill: gray; -fx-font-family: 'Fira Mono'; -fx-font-weight: bold");
+            second.getChildren().addAll(l);
+        }
+        cont.setMinHeight(90);
+        cont.setMaxHeight(90);
+        second.setPadding(new Insets(0, 0, 5, 0));
+        cont.getChildren().addAll(first, new Spacer(false), second);
+
         return cont;
 
     }
@@ -366,7 +381,7 @@ public class Branch extends VBox{
      * @param analyse the analysis object to be set
      * @see Analyse2
      */
-    @ServiceM(desc="<##>Sets the analysis object associated with the {@link Branch}.",
+    @ServiceM(desc="Sets the analysis object associated with the {@link Branch}.",
               category="Method",
               params={"analyse: Analyse2 -> the analysis object to be set"},
               returns="void",

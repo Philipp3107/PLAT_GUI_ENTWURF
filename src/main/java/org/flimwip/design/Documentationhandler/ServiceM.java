@@ -33,7 +33,7 @@ public @interface ServiceM {
     /**
      * This provides return values when generating docs.
      */
-    public String returns();
+    public String returns() default "void";
     /**
      * This provides thrown Exceptions when generating docs.
      */

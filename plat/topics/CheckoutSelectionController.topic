@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="CheckoutSelectionController" id="CheckoutSelectionController"> 
+<card-summary> This Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible </card-summary>
+<chapter title="Description" id="description">
+<p>This Controller handles most of the Events on the BranchView that could not be handled by the Checkout or the BranchView themselves. This Controller will be initialized for each BranchView and the Checkout needed to be set before the Parental BranchView is set visible </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="kassen: String">
+<p>List of all Checkout for this Branch.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Checkout.topic"/>
+</def>
+<def title="selected: String">
+<p>The currently selected Checkout of the Branch.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Checkout.topic"/>
+</def>
+<def title="selected_cm: CheckoutModel">
+<p>The currently selected CheckoutModel of the Branch.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="CheckoutModel.topic"/>
+</def>
+<def title="view: String">
+<p>The BranchView to which this controller belongs.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="BranchView.topic"/>
+</def>
+<def title="mmb: MainMenuButton[]">
+<p>The array of MainMenuButton objects representing the main menu buttons.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="MainMenuButton.topic"/>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="CheckoutSelectionController">
+<p>Controller class handling the selection and manipulation of checkouts in the BranchView.</p></def>
+<def title="Parameters:">
+<p> - view: BranchView </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="set_checkouts">
+<p>To provide a list of all checkouts of the given branch for further actions</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String kassen -> Array of Checkout </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="getSelected">
+<p>Return the current selected Checkout from the controller</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - Checkout selected </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_selected_checkout">
+<p>Sets the selected checkout based on the given ID. Unselects all other checkouts and updates the view accordingly.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String id -> The ID of the checkout to be selected </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_mouse_focus">
+<p>To remove the focus of the checkouts where the mouse isn't currently over</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String checkout_id -> id of the selected checkout </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="Checkout.topic"/>
+<a href="CheckoutModel.topic"/>
+<a href="BranchView.topic"/>
+<a href="MainMenuButton.topic"/>
+</category>
+</seealso>
+</topic>

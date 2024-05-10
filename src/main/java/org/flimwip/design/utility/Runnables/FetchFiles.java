@@ -1,6 +1,7 @@
 package org.flimwip.design.utility.Runnables;
 
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.LoggingLevels;
@@ -24,20 +25,23 @@ public class FetchFiles implements Runnable{
     /**
      * The {@link Checkout} of which the Files need to be pulled
      */
-    private final Checkout k;
+    private final CheckoutModel k;
 
     private final PKLogger logger = new PKLogger(this.getClass());
 
     private final UserController u_c;
+
+    private final Checkout c;
 
     /**
      * Constructor
      * @param semaphore Semaphore -> Management for all Runnable, Limitations to 10
      * @param k Checkout -> View to update
      */
-    public FetchFiles(Semaphore semaphore, Checkout k, UserController u_c){
+    public FetchFiles(Semaphore semaphore,Checkout c, CheckoutModel k, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
         this.u_c = u_c;
+        this.c = c;
         this.semaphore = semaphore;
         this.k = k;
     }
@@ -50,34 +54,31 @@ public class FetchFiles implements Runnable{
     @Override
     public void run(){
 
-        logger.log(LoggingLevels.FINE, STR."Fetching files from checkout: \{this.k.get_hostname()}");
-        NetCon connection = new NetCon(k.get_ip(), u_c.get_selected_user().getUsername(), u_c.get_selected_user().getPassword());
+        logger.log(LoggingLevels.FINE, STR."Fetching files from checkout: \{k.hostname()}");
+        NetCon connection = new NetCon(k, u_c.get_selected_user().getUsername(), u_c.get_selected_user().getPassword());
         try {
-            System.out.println(connection.get_connection());
-            File f = new File(STR."\\\\\{this.k.get_hostname()}\\c$\\gkretail\\pos-full\\log");
-            System.out.println(f.getName());
+            connection.get_connection();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try{
             semaphore.acquire();
-            logger.log(LoggingLevels.INFO, STR."KassenID is: \{this.k.get_hostname()}");
             if(connection.get_connection()){
-                System.out.println(this.k.get_hostname());
-                File f = new File(STR."\\\\\{this.k.get_hostname()}\\c$\\gkretail\\pos-full\\log");
-                System.out.println(f.getName());
+                File f = new File(STR."\\\\\{this.k.hostname()}\\c$\\gkretail\\pos-full\\log");
                 if(f.listFiles() != null){
-                    this.k.set_files(f.listFiles());
-                    this.k.set_online();
+                    this.c.set_files(f.listFiles());
+                    this.c.set_online();
                 }else{
-                    this.k.set_offline();
+                    this.c.set_offline();
                 }
             }else{
-                this.k.set_offline();
+                this.c.set_offline();
             }
+            semaphore.release();
+            System.out.println(STR."Released, Permits: \{semaphore.availablePermits()}");
         }catch(InterruptedException | IOException e){
             logger.log_exception(e);
-        } finally { semaphore.release();}
+        }
     }
 
 }

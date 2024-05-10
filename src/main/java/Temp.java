@@ -1,19 +1,25 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 public class Temp {
     public static void main(String[] args) throws IOException {
-        File f = new File("C:\\Users\\KotteP\\IdeaProjects\\design\\src\\main\\resources\\TERMINAL_CODES.md");
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String line = "";
-        while( (line = br.readLine()) != null){
-            if(line.contains("##")){
-                String temp = line.split("## ")[1];
-
-                System.out.println(STR."- [\{temp}](#\{temp.replace(" ", "-").replace("/", "").replace("(", "").replace(")", "").toLowerCase()})");
-            }
+        File f = new File("\\\\DE0102CPOS20001\\c$\\gkretail\\pos-full\\log\\pos-debug-102-001.log-20240405000000.zip");
+        try {
+            URL url = f.toURI().toURL();
+            URLConnection con = url.openConnection();
+            String userpass = "pos-install" + ":" + "M6kUVm3T";
+            String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));
+            con.setRequestProperty("Authorization", basicAuth);
+            InputStream in = con.getInputStream();
+            byte[] buffer = in.readAllBytes();
+            System.out.println(new String(buffer, StandardCharsets.UTF_8));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

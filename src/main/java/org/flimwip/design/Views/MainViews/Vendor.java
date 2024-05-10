@@ -26,6 +26,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+// Hintergrundfarbe = #CFD2E6
+// Biggest background elements = #bbb
+// Elements after that = #878787
+// darkest color = #565656
 public class Vendor extends ScrollPane {
     private boolean history_open = false;
 
@@ -63,6 +67,7 @@ public class Vendor extends ScrollPane {
         this.setMaxHeight(825);
         this.setVbarPolicy(ScrollBarPolicy.NEVER);
         this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        HBox.setHgrow(this, Priority.ALWAYS);
         //Scene scene = new Scene(this.main_content, 1200, 800);
         //primaryStage.setScene(scene);
         //primaryStage.show();
@@ -70,6 +75,8 @@ public class Vendor extends ScrollPane {
         main_controller.stage_height.addListener((observable, oldValue, newValue) -> {
             this.setMinHeight(newValue.doubleValue() - 40);
             this.setMaxHeight(newValue.doubleValue() -40);
+            this.content.setMinHeight(newValue.doubleValue()-56);
+            this.content.setMaxHeight(newValue.doubleValue()-56);
         });
 
         run_thread();
@@ -85,11 +92,12 @@ public class Vendor extends ScrollPane {
         this.content = new HBox();
         this.content.setMinHeight(805);
         this.content.setMaxHeight(805);
-        this.content.setStyle("-fx-background-color: #2f2f2f;");
+        this.content.setStyle("-fx-background-color: #bbb;");
+        HBox.setHgrow(this.content, Priority.ALWAYS);
     }
 
     public void create_main_content(){
-        this.setStyle("-fx-background: #2f2f2f; -fx-border-color: #2f2f2f");
+        this.setStyle("-fx-background: #CFD2E6; -fx-border-color: #CFD2E6");
     }
 
     public void build_history(){
@@ -166,7 +174,6 @@ public class Vendor extends ScrollPane {
         box.setMaxWidth(115);
         box.setAlignment(Pos.CENTER);
         box.setStyle("-fx-border-color: #888888");
-        //box.setStyle("-fx-background-color: #3c4c75");
         VBox.setVgrow(box, Priority.ALWAYS);
         Label title = new Label("Create new Job");
         title.setFont(sub);

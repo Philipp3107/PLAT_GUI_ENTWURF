@@ -1,11 +1,14 @@
 package org.flimwip.design.Views.helpers;
 
+// Hintergrundfarbe = #CFD2E6
+// Biggest background elements = #bbb
+// Elements after that = #878787
+// darkest color = #565656
+
 import javafx.application.Platform;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -35,52 +38,54 @@ import org.flimwip.design.utility.PKLogger;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Job extends VBox {
-    private String title = "";
-    private Label head;
-    private VBox top;
-    String search = "";
-    String path = "";
-    private VBox middle;
-    private VBox bottom;
-    private LongProperty complete_size;
-    private LongProperty copied_size;
-    private SimpleDoubleProperty complete_progress;
-    private VBox middle_chooser;
-    private VBox middle_content;
-    private Button run;
-    private List<String> file_list = new ArrayList<>();
-    private ObservableList<String> checks = FXCollections.observableArrayList();
-    private boolean middle_changed = false;
-    private boolean middle_options = false;
-    private ScrollPane checks_and_nls;
-    private ScrollPane sp;
-    private PKLogger logger = new PKLogger(this.getClass());
-    HashMap<String, ArrayList<String>> data;
-    Font headline = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
-    Font publish = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 13);
-    private final UserController user_controller;
-    private Vendor vendor;
-    private CircleLoader loader = new CircleLoader();
+    private final Font                                headline              = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
+    private final Font                                publish               = Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 13);
+    private final CircleLoader                        loader                = new CircleLoader();
+    private final PKLogger                            logger                = new PKLogger(this.getClass());
+    private       String                              title                 = "";
+    private       String                              search                = "";
+    private       String                              path                  = "";
+    private       List<String>                        file_list             = new ArrayList<>();
+    private       ObservableList<String>              checks                = FXCollections.observableArrayList();
+    private       boolean                             middle_changed        = false;
+    private       boolean                             middle_options        = false;
+    private final LongProperty                        complete_size;
+    private final LongProperty                        copied_size;
+    private final SimpleDoubleProperty                complete_progress;
+    private final HashMap<String, ArrayList<String>>  data;
+    private final UserController                      user_controller;
+    private final Vendor                              vendor;
+    private final DataStorage                          ds;
+    private       Label                               head;
+    private       VBox                                top;
+    private       VBox                                middle;
+    private       VBox                                bottom;
+    private       VBox                                middle_chooser;
+    private       VBox                                middle_content;
+    private       Button                              run;
+    private       ScrollPane                          checks_and_nls;
+    private       ScrollPane                          sp;
 
-    private final DataStorage ds;
     public Job(DataStorage ds, UserController user_controller, Vendor vendor){
-        this.ds = ds;
-        double random = Math.random() * 49000000 + 10000;
+        this.ds                 = ds;
+        this.data               = ds.fetch_hash_map();
+        this.user_controller    = user_controller;
+        this.complete_size      = new SimpleLongProperty();
+        this.copied_size        = new SimpleLongProperty();
+        this.complete_progress  = new SimpleDoubleProperty();
+        this.vendor             = vendor;
+        double random           = Math.random() * 49000000 + 10000;
+
         this.setId(String.valueOf(random));
         VBox.setVgrow(this, Priority.ALWAYS);
+        HBox.setHgrow(this, Priority.ALWAYS);
         System.out.println(random);
-        this.vendor = vendor;
         logger.set_Level(LoggingLevels.FINE);
-        this.data = ds.fetch_hash_map();
-        this.user_controller = user_controller;
-        this.complete_size = new SimpleLongProperty();
-        this.copied_size = new SimpleLongProperty();
-        this.complete_progress = new SimpleDoubleProperty();
+
         init();
     }
     private void init(){
@@ -97,21 +102,18 @@ public class Job extends VBox {
         this.setStyle("-fx-background-color: #2e2f3d; -fx-border-color: #888888");
         this.getChildren().addAll(top, middle, bottom);
 
-        this.complete_size.addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                System.out.println("New Complete size is: " + newValue.longValue());
-                complete_progress.set(copied_size.doubleValue() / complete_size.doubleValue());
-            }
+        this.complete_size.addListener((_, _, newValue) -> {
+            System.out.println(STR."New Complete size is: \{newValue.longValue()}");
+            complete_progress.set(copied_size.doubleValue() / complete_size.doubleValue());
         });
 
-        this.copied_size.addListener((observable, oldValue, newValue) -> {
-            System.out.println("New Progress in copies is: " + newValue.longValue());
+        this.copied_size.addListener((_, _, newValue) -> {
+            System.out.println(STR."New Progress in copies is: \{newValue.longValue()}");
             this.complete_progress.set(copied_size.doubleValue() / complete_size.doubleValue());
         });
 
-        this.complete_progress.addListener((observable, oldValue, newValue) -> {
-            System.out.println("progress is : " + newValue.doubleValue());
+        this.complete_progress.addListener((_, _, newValue) -> {
+            System.out.println(STR."progress is : \{newValue.doubleValue()}");
             this.loader.update(this.complete_progress.doubleValue());
             rebuild_top();
             if(newValue.doubleValue() >= 1.0){
@@ -132,28 +134,25 @@ public class Job extends VBox {
         });
 
 
-        checks.addListener(new ListChangeListener<String>() {
-            @Override
-            public void onChanged(Change<? extends String> c) {
-                while(c.next()){
-                    if(c.wasRemoved()){
-                        getChildren().remove(middle);
-                        create_middle();
-                        middle = middle_content;
-                        getChildren().add(1, middle);
-                    }
-                    System.out.println("change found");
+        checks.addListener((ListChangeListener<String>) c -> {
+            while(c.next()){
+                if(c.wasRemoved()){
+                    getChildren().remove(middle);
                     create_middle();
-                    rebuild_top();
+                    middle = middle_content;
+                    getChildren().add(1, middle);
                 }
-                System.out.println(c);
+                System.out.println("change found");
+                create_middle();
+                rebuild_top();
             }
+            System.out.println(c);
         });
     }
     private void rebuild_top(){
         this.getChildren().remove(top);
         create_top();
-        this.getChildren().add(0, top);
+        this.getChildren().addFirst(top);
     }
     private void create_top(){
         top = new VBox();
@@ -166,14 +165,14 @@ public class Job extends VBox {
         buttons.setAlignment(Pos.CENTER_RIGHT);
         Button button1 = new Button("Add");
         button1.setStyle(button_style);
-        button1.setOnAction(event -> {
+        button1.setOnAction(_ -> {
             System.out.println("Add pressed");
             change_middle();
         });
 
         Button button2 = new Button("opt.");
         button2.setStyle(button_style);
-        button2.setOnAction(event -> {
+        button2.setOnAction(_ -> {
             System.out.println("option button pressed");
             switch_middle_options();
         });
@@ -188,7 +187,7 @@ public class Job extends VBox {
         String delete_style = "-fx-background-color: #e36666; -fx-text-fill: black; -fx-background-radius: 5";
         run.setStyle(checks.isEmpty() && file_list.isEmpty() && this.path.isEmpty() ? delete_style : publish_style);
         run.setFont(publish);
-        run.setOnAction(event -> {
+        run.setOnAction(_ -> {
             if(run.getText().equals("Delete Job")){
                 System.out.println("Deleting Job");
                 this.vendor.delete_current_job(this.getId());
@@ -290,14 +289,14 @@ public class Job extends VBox {
                 check.forEach(key_two -> {
                     HBox checkout = new HBox();
                     checkout.setPadding(new Insets(1, 5, 1, 5));
-                    checkout.setId(key + " " + key_two);
+                    checkout.setId(STR."\{key} \{key_two}");
                     Label l_two = new Label(key_two);
                     checkout.getChildren().addAll(l_two, new Spacer());
                     CheckBox x = new CheckBox();
                     if(checks.contains(checkout.getId())){
                         x.setSelected(true);
                     }
-                    x.setOnAction(event -> {
+                    x.setOnAction(_ -> {
                         if(x.isSelected()){
                             checks.add(checkout.getId());
                         }else{
@@ -322,7 +321,7 @@ public class Job extends VBox {
         checks_and_nls = build_serach_content("");
         textField.setOnKeyPressed(keyEvent -> {
             for(String s : checks){
-                System.out.println("ID: " + s);
+                System.out.println(STR."ID: \{s}");
             }
             if(keyEvent.getCode() == KeyCode.BACK_SPACE){
                 String temp = textField.getText();
@@ -368,7 +367,7 @@ public class Job extends VBox {
             }
         });
 
-        set.setOnAction(event -> {
+        set.setOnAction(_ -> {
             if(!name_setter.getText().isEmpty()){
                 this.title = name_setter.getText();
                 set_name();
@@ -382,7 +381,7 @@ public class Job extends VBox {
         HBox.setHgrow(path_setter, Priority.ALWAYS);
 
         Button set_path = new Button("set");
-        set_path.setOnAction(event -> {
+        set_path.setOnAction(_ -> {
             if(!path_setter.getText().isEmpty()){
                 this.path = path_setter.getText();
                 rebuild_top();
@@ -448,19 +447,19 @@ public class Job extends VBox {
                     first.setStroke(Color.valueOf("#888888"));
                     second.setStroke(Color.valueOf("#888888"));
 
-                    cross.setOnMouseEntered(event -> {
+                    cross.setOnMouseEntered(_ -> {
                         second.setStroke(Color.RED);
                         first.setStroke(Color.RED);
                     });
 
-                    cross.setOnMouseExited(event -> {
+                    cross.setOnMouseExited(_ -> {
                         second.setStroke(Color.valueOf("#888888"));
                         first.setStroke(Color.valueOf("#888888"));
                     });
 
 
                     cross.getChildren().addAll(first, second);
-                    cross.setOnMouseClicked(event -> {
+                    cross.setOnMouseClicked(_ -> {
 
                         checks.remove(c.getId());
 
@@ -484,6 +483,7 @@ public class Job extends VBox {
         VBox.setVgrow(this.sp, Priority.ALWAYS);
         middle.getChildren().add(this.sp);
         VBox.setVgrow(middle, Priority.ALWAYS);
+        HBox.setHgrow(middle, Priority.ALWAYS);
         this.middle_content = middle;
     }
     private void create_bottom(){
@@ -520,21 +520,7 @@ public class Job extends VBox {
                         box.setPadding(new Insets(5));
                         box.setId(f.getAbsolutePath());
                         Label l = new Label(f.getName());
-                        Button b = new Button("delete");
-                        b.setOnAction(event -> {
-                            HBox t = null;
-                        for(Node n : drop_box.getChildren()){
-                            if(n instanceof HBox temp){
-                                if(temp.getId().equals(box.getId())){
-                                    t = temp;
-                                }
-                            }
-                        }
-                            drop_box.getChildren().remove(t);
-                            assert t != null;
-                            file_list.remove(t.getId());
-                            rebuild_top();
-                        });
+                        Button b = getButton(drop_box, box);
                         box.getChildren().addAll(l, new Spacer(), b);
                         drop_box.getChildren().add(box);
                         file_list.add(f.getAbsolutePath());
@@ -561,6 +547,26 @@ public class Job extends VBox {
         sp.setContent(drop_box);
         bottom.getChildren().add(sp);
     }
+
+    private Button getButton(VBox drop_box, HBox box) {
+        Button b = new Button("delete");
+        b.setOnAction(_ -> {
+            HBox t = null;
+        for(Node n : drop_box.getChildren()){
+            if(n instanceof HBox temp){
+                if(temp.getId().equals(box.getId())){
+                    t = temp;
+                }
+            }
+        }
+            drop_box.getChildren().remove(t);
+            assert t != null;
+            file_list.remove(t.getId());
+            rebuild_top();
+        });
+        return b;
+    }
+
     private void set_name(){
         this.head.setText(this.title);
     }
@@ -578,7 +584,7 @@ public class Job extends VBox {
             } catch (IOException e) {
                 logger.log_exception(e);
             }
-            System.out.println("Complete size is: " + this.complete_size);
+            System.out.println(STR."Complete size is: \{this.complete_size}");
         }
 
         for(String checkout : checks){
@@ -586,13 +592,13 @@ public class Job extends VBox {
                 @Override
                 public void run() {
                     CheckoutModel cm = ds.get_checkout_codel(checkout.split(" ")[0],checkout.split(" ")[1]);
-                    NetCon conn = new NetCon(cm.ip(), user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
+                    NetCon conn = new NetCon(cm, user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
                     try{
                         if(conn.get_connection()){
                             for(String s : file_list){
                                 File from = new File(s);
-                                String to = "\\\\" + cm.hostname() + "\\" + path + "\\" + from.getName();
-                                create_down_folder("\\\\" + cm.hostname() + "\\" + path);
+                                String to = STR."\\\\\{cm.hostname()}\\\{path}\\\{from.getName()}";
+                                create_down_folder(STR."\\\\\{cm.hostname()}\\\{path}");
                                 Path destination = Path.of(to);
                                 /*Files.copy(from.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);*/
                                 copyFileUsingStream(from, to);
@@ -614,10 +620,9 @@ public class Job extends VBox {
         }
 
     }
-    public long copyFileUsingStream(File source, String dest) throws IOException {
+    public void copyFileUsingStream(File source, String dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
-        long size = Files.size(Paths.get(source.getAbsolutePath()));
         File destination = new File(dest);
         try {
             is = new FileInputStream(source);
@@ -636,7 +641,7 @@ public class Job extends VBox {
         } finally {
             System.out.println(destination.getAbsolutePath());
         }
-        return Files.size(Path.of(destination.getAbsolutePath()));
+        Files.size(Path.of(destination.getAbsolutePath()));
     }
     public synchronized void update_progress(long progress){
         Platform.runLater(() -> copied_size.set(copied_size.getValue() + progress));
@@ -664,7 +669,7 @@ public class Job extends VBox {
             }
         }
 
-        StringBuilder write_nl = new StringBuilder(nl_list.get(0));
+        StringBuilder write_nl = new StringBuilder(nl_list.getFirst());
         if(nl_list.size()>= 2){
             for(int i = 1; i < nl_list.size(); i++){
                 write_nl.append(",").append(nl_list.get(i));
