@@ -1,4 +1,4 @@
 # TODO
 
-- [ ] download from files
+- [x] download from files
 - [ ] analye while downloading

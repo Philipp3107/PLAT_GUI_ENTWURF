@@ -1,10 +1,55 @@
 classDiagram
-    Start: Main
-    Start: main()
+class Gebiet {
+-int id
+-String name
+-long einwohnerzahl
+-boolean hauptstadt
+-Gebiet hauptstadtVon
+-Fluss fluss
+-StadtTyp stadtTyp
+}
 
-    Main: - CREED_SEC - String
-    Main: - PROFILE_PICTURE - String
-    Main: - PROFILE_PICTURE_FOLDER - String
+class StadtTyp {
+-int id
+-String typ
+}
 
+class Fluss {
+-int id
+-String name
+-long laenge
+}
 
-    Start *-- Main
+class FliessDurch {
+-int id
+-Fluss fluss
+-Gebiet gebiet
+}
+
+class GrenztAn {
+-int id
+-Gebiet gebietA
+-Gebiet gebietB
+}
+
+class Sprache {
+-int id
+-String typ
+}
+
+class WirdGesprochenIn {
+-int id
+-Sprache sprache
+-Gebiet gebiet
+}
+
+Gebiet "1" -- "0..1" Gebiet : hauptstadtVon
+Gebiet "1" -- "0..1" Fluss : fluss
+Gebiet "1" -- "1" StadtTyp : stadtTyp
+Fluss "1" -- "0..*" FliessDurch : fluss
+Gebiet "1" -- "0..*" FliessDurch : gebiet
+Gebiet "1" -- "0..*" GrenztAn : gebietA
+Gebiet "1" -- "0..*" GrenztAn : gebietB
+Sprache "1" -- "0..*" WirdGesprochenIn : sprache
+Gebiet "1" -- "0..*" WirdGesprochenIn : gebiet
+
