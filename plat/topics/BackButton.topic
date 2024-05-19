@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="BackButton" id="BackButton"> 
+<card-summary> The BackButton class represents a custom button that, when clicked, triggers the "go_back" method of the specified BranchView. It extends the VBox class. </card-summary>
+<chapter title="Description" id="description">
+<p>The BackButton class represents a custom button that, when clicked, triggers the "go_back" method of the specified BranchView. It extends the VBox class. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<p> <u><b>Related:</b></u></p>
+<a href="BranchView.topic"/>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="l: Label">
+<p>The private variable l is an instance of the Label class. It is used as a label for the BackButton in the containing BackButton class.</p>
+</def>
+<def title="view: BranchView">
+<p>The BranchView class represents a view of a branch in a tree structure. It contains information about the branch's children, parent, and data.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="BranchView.topic"/>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="BackButton">
+<p>The BackButton class represents a custom button that, when clicked, triggers the "go_back" method of the specified BranchView., It extends the VBox class</p></def>
+<def title="Parameters:">
+<p> - view: BranchView -> The BranchView this class belongs to </p>
+</def>
+<def title="Related:">
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="BranchView.topic"/>
+</category>
+</seealso>
+</topic>

@@ -61,6 +61,9 @@ import org.flimwip.design.Views.MainViews.*;
  */
 @ServiceC(desc = "The Main class represents the entry point of the application and is responsible for starting the application, initializing the main stage, setting up the user interface, and handling various actions and events.")
 public class Main extends Application {
+
+    private Stage stage;
+
     //File and Folder strings for Windows
     /*
     @ServiceATT(desc = "This holds the Location of the secret key",
@@ -254,62 +257,60 @@ public class Main extends Application {
             //checken ob resourcen da sind
             //
             String[] files = {CREED_SEC,
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/dark/cellularbars.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/dark/dashboard.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/dark/home.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/light/cellularbars.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/light/dashboard.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/resources/light/home.png",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Controller/CheckoutSelectionController.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Controller/DashboardStatsController.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Controller/FileController.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Controller/MainController.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Controller/UserController.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Documentationhandler/ServiceATT.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Documentationhandler/ServiceCR.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Documentationhandler/ServiceM.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/AppUser.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/CheckoutModel.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/JobHistoryItem.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/PopulationFile.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/StandortCase.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Models/User.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/Runnables/Check_Connection.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/Runnables/FetchFiles.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/Runnables/JobHistoryFetcher.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/ConfigurationManager.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/CredentialManager.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/DashboardStats.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/DataStorage.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/Encryption.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/LoggingLevels.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/PKLogger.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/StandortTranslator.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/utility/XML_Vendor_Parser.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/helpers/CircleLoader.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/helpers/Job.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/helpers/LogFile.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/helpers/ProgressView.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/helpers/Spacer.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/Analyse.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/Analyse2.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/Dashboard.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/Settings.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/SideBar.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/UserView.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/MainViews/Vendor.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/BackButton.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/Branch.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/BranchView.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/Checkout.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/DashboardButton.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Views/Temp/MainMenuButton.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Helper.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/HelperFailureData.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/HistoryFetcherMain.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Main.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/NetCon.java",
-                    "/Users/philippkotte/Documents/personal/code/PLAT_GUI/src/main/java/org/flimwip/design/Start.java"};
+                    "src/main/resources/dark/cellularbars.png",
+                    "src/main/resources/dark/dashboard.png",
+                    "src/main/resources/dark/home.png",
+                    "src/main/resources/light/cellularbars.png",
+                    "src/main/resources/light/dashboard.png",
+                    "src/main/resources/light/home.png",
+                    "src/main/java/org/flimwip/design/Controller/CheckoutSelectionController.java",
+                    "src/main/java/org/flimwip/design/Controller/DashboardStatsController.java",
+                    "src/main/java/org/flimwip/design/Controller/FileController.java",
+                    "src/main/java/org/flimwip/design/Controller/MainController.java",
+                    "src/main/java/org/flimwip/design/Controller/UserController.java",
+                    "src/main/java/org/flimwip/design/Documentationhandler/ServiceATT.java",
+                    "src/main/java/org/flimwip/design/Documentationhandler/ServiceCR.java",
+                    "src/main/java/org/flimwip/design/Documentationhandler/ServiceM.java",
+                    "src/main/java/org/flimwip/design/Models/AppUser.java",
+                    "src/main/java/org/flimwip/design/Models/CheckoutModel.java",
+                    "src/main/java/org/flimwip/design/Models/JobHistoryItem.java",
+                    "src/main/java/org/flimwip/design/Models/PopulationFile.java",
+                    "src/main/java/org/flimwip/design/Models/StandortCase.java",
+                    "src/main/java/org/flimwip/design/Models/User.java",
+                    "src/main/java/org/flimwip/design/utility/Runnables/Check_Connection.java",
+                    "src/main/java/org/flimwip/design/utility/Runnables/FetchFiles.java",
+                    "src/main/java/org/flimwip/design/utility/Runnables/JobHistoryFetcher.java",
+                    "src/main/java/org/flimwip/design/utility/ConfigurationManager.java",
+                    "src/main/java/org/flimwip/design/utility/CredentialManager.java",
+                    "src/main/java/org/flimwip/design/utility/DashboardStats.java",
+                    "src/main/java/org/flimwip/design/utility/DataStorage.java",
+                    "src/main/java/org/flimwip/design/utility/LoggingLevels.java",
+                    "src/main/java/org/flimwip/design/utility/PKLogger.java",
+                    "src/main/java/org/flimwip/design/utility/StandortTranslator.java",
+                    "src/main/java/org/flimwip/design/utility/XML_Vendor_Parser.java",
+                    "src/main/java/org/flimwip/design/Views/helpers/CircleLoader.java",
+                    "src/main/java/org/flimwip/design/Views/helpers/Job.java",
+                    "src/main/java/org/flimwip/design/Views/helpers/LogFile.java",
+                    "src/main/java/org/flimwip/design/Views/helpers/ProgressView.java",
+                    "src/main/java/org/flimwip/design/Views/helpers/Spacer.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/Analyse2.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/Dashboard.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/Settings.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/SideBar.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/UserView.java",
+                    "src/main/java/org/flimwip/design/Views/MainViews/Vendor.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/BackButton.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/Branch.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/BranchView.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/Checkout.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/DashboardButton.java",
+                    "src/main/java/org/flimwip/design/Views/Temp/MainMenuButton.java",
+                    "src/main/java/org/flimwip/design/Helper.java",
+                    "src/main/java/org/flimwip/design/HelperFailureData.java",
+                    "src/main/java/org/flimwip/design/HistoryFetcherMain.java",
+                    "src/main/java/org/flimwip/design/Main.java",
+                    "src/main/java/org/flimwip/design/NetCon.java",
+                    "src/main/java/org/flimwip/design/Start.java"};
 
             for (int i = 0; i < files.length; i++) {
                 if (new File(files[i]).exists()) {
@@ -617,15 +618,6 @@ public class Main extends Application {
 
         });
 
-        /*p.setOnDragExited(event -> {
-            circle.setStroke(Color.GRAY);
-            circle.setFill(Color.GRAY);
-            circle.setStrokeDashOffset(0);
-            circle.setStrokeLineCap(StrokeLineCap.ROUND);
-            circle.setStrokeWidth(0);
-            circle.getStrokeDashArray().clear();
-        });*/
-
         p.setOnDragOver(event -> {
             if (event.getGestureSource() != p && event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -744,6 +736,7 @@ public class Main extends Application {
         }));
 
         password.textProperty().addListener(((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
             if (password_valid(newValue) && username.getText().length() >= 2) {
                 submit.setStyle("-fx-background-color: green");
             }
@@ -765,8 +758,8 @@ public class Main extends Application {
                 }
 
                 if (username.getText().length() >= 2 && password_valid(password.getText())) {
-                    //System.out.println(user_controller.get_app_user().toString());
                     cryptographer.start_authentication(password.getText());
+                    System.out.println("Started new Cryptographer");
                     if (cryptographer.verification_success()) {
                         user_controller.set_verified_password(password.getText());
                         String decrypted = null;
@@ -790,6 +783,7 @@ public class Main extends Application {
                     } else {
                         logger.log(LoggingLevels.FATAL, "Password Verification failed");
                         fail.setText("Passwort oder Username falsch");
+                        this.cryptographer = new Cryptographer();
                     }
                 }
             }
@@ -1115,6 +1109,10 @@ public class Main extends Application {
 
 
 
+    }
+
+    public Stage get_stage(){
+        return this.stage;
     }
 
     /**

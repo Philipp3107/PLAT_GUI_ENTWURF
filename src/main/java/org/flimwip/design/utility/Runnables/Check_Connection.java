@@ -1,6 +1,7 @@
 package org.flimwip.design.utility.Runnables;
 
 import org.flimwip.design.Controller.UserController;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
@@ -12,11 +13,13 @@ import java.util.concurrent.Semaphore;
 
 public class Check_Connection implements Runnable {
     private final PKLogger logger = new PKLogger(this.getClass());
-    private final Checkout k;
+    private final CheckoutModel k;
+    private final Checkout c;
     private final Semaphore semaphore;
     private final UserController u_c;
-    public Check_Connection(Checkout k, Semaphore semaphore, UserController u_c){
+    public Check_Connection(Checkout c, CheckoutModel k, Semaphore semaphore, UserController u_c){
         logger.set_Level(LoggingLevels.FINE);
+        this.c = c;
         this.u_c = u_c;
         this.k = k;
         this.semaphore = semaphore;
@@ -26,7 +29,7 @@ public class Check_Connection implements Runnable {
 
     @Override
     public void run(){
-        logger.log(LoggingLevels.INFO, "Startet ping for", this.k.get_hostname());
+        logger.log(LoggingLevels.INFO, "Startet ping for", k.hostname());
         try{
             this.semaphore.acquire();
         } catch (InterruptedException e) {
@@ -34,14 +37,14 @@ public class Check_Connection implements Runnable {
         }
 
 
-        if(ping(k.get_ip())){
+        if(ping(k.ip())){
             //Fetch Data from Checkout
             semaphore.release();
-            Thread t = new Thread(new FetchFiles(this.semaphore, this.k, this.u_c));
+            Thread t = new Thread(new FetchFiles(this.semaphore, c, this.k, this.u_c));
             t.setDaemon(true);
             t.start();
         }else{
-            this.k.set_offline();
+            this.c.set_offline();
             semaphore.release();
         }
     }
@@ -56,14 +59,16 @@ public class Check_Connection implements Runnable {
     public boolean ping(String ip) {
 
         try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(new ProcessBuilder("ping", ip).start().getInputStream()));) {
-            logger.log(LoggingLevels.DEBUG, "Executing command", "ping", ip);
-            this.k.set_searching();
+            this.c.set_searching();
             while (!stdInput.ready()) {
 
             }
 
             String line;
             while ((line = stdInput.readLine()) != null) {
+                if(line.contains("Zielhost nicht erreichbar.")){
+                    return false;
+                }
                 if (line.contains("Verloren = 0")) {
                     logger.log(LoggingLevels.INFO, "Ping erflogreich", ip);
                     return true;

@@ -1,6 +1,7 @@
 package org.flimwip.design.Controller;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.stage.Stage;
 import org.flimwip.design.Documentationhandler.ServiceATT;
 import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceCR;
@@ -72,6 +73,9 @@ public class MainController {
 
     }
 
+    public Stage get_main_stage(){
+        return this.main.get_stage();
+    }
     /**
      * sets the Center of {@link Main} to the given destination
      * @param dest String: Destination for the {@link Main} View

@@ -3,30 +3,38 @@ package org.flimwip.design.Views.Temp;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.*;
 import javafx.stage.Popup;
-import javafx.stage.Window;
 import org.flimwip.design.Controller.CheckoutSelectionController;
 import org.flimwip.design.Controller.FileController;
+import org.flimwip.design.Controller.MainController;
 import org.flimwip.design.Controller.UserController;
 import org.flimwip.design.Documentationhandler.*;
+import org.flimwip.design.Main;
 import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.NetCon;
 import org.flimwip.design.Views.MainViews.Analyse2;
 import org.flimwip.design.Views.helpers.LogFile;
 import org.flimwip.design.utility.LoggingLevels;
 import org.flimwip.design.utility.PKLogger;
+import org.flimwip.design.utility.Runnables.Downloader;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 
@@ -38,24 +46,23 @@ import java.util.concurrent.Semaphore;
           related={"None"})
 public class BranchView extends BorderPane {
 
-    /**
-     * Represents a label for displaying a version number.
-     * This label is typically used in the {@link BranchView} class.
-     */
-    @ServiceATT(desc="Represents a label for displaying a version number.",
-                type="Label",
-                related={"None"})
-    private Label version;
-    /**
-     * Represents a label for displaying the city of a checkout.
-     */
-    @ServiceATT(desc="Represents a label for displaying the city of a checkout.",
-                type="Label",
-                related={"Checkout"})
-    private Label city;
-    /**
-     * The heading label for the BranchView.
-     */
+    private final String DESTINATION = "H:\\PLAT\\Data\\downloads";
+
+    /*
+    this.cont.set_betriebsstelle_on_view(this.betriebsstelle);
+    this.cont.set_ip_on_view(this.ip);
+    this.cont.set_modell_on_view(this.modell);
+    this.cont.set_os_on_view(this.os),
+    this.cont.set_hostname_on_view(this.hostname);
+    */
+
+    private Label betriebsstelle;
+    private Label ip;
+    private Label modell;
+    private Label os;
+    private Label hostname;
+
+
     @ServiceATT(desc="The heading label for the BranchView.",
                 type="Label",
                 related={"None"})
@@ -138,6 +145,10 @@ public class BranchView extends BorderPane {
                 type="Checkout[]",
                 related={"Checkout"})
     private Checkout[] kassen;
+
+    private int downloaded_files = 0;
+
+    private int to_download_files = 0;
     /**
      * The nl_id variable represents an identifier used in the BranchView class.
      * This variable is used to uniquely identify a branch or checkout.
@@ -186,6 +197,8 @@ public class BranchView extends BorderPane {
     private Semaphore semaphore;
 
     private final UserController user_controller;
+
+    private final MainController main_controller;
     
     /**
      * Represents a branch view.
@@ -197,8 +210,9 @@ public class BranchView extends BorderPane {
     @ServiceCR(desc="Represents a branch view.",
                params={"nl_id: String -> The ID of the branch.", "kassen: ArrayList\\<CheckoutModel\\> -> The list of checkout models.", "analyse: Analyse2 -> The analysis view."},
                related={"Analyse2", "CheckoutModel", "LogFile"})
-    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse2 analyse, UserController user_controller){
+    public BranchView(String nl_id, ArrayList<CheckoutModel> kassen, Analyse2 analyse, UserController user_controller, MainController main_controller){
         this.user_controller = user_controller;
+        this.main_controller = main_controller;
         this.fc = new FileController(this);
         this.analyse = analyse;
         this.checkoutModels = kassen;
@@ -219,9 +233,18 @@ public class BranchView extends BorderPane {
               related={"None"})
     private void init(){
        this.semaphore = new Semaphore(10);
-        this.version = new Label("Version: ");
-        this.version.setStyle("-fx-text-fill: black");
-        this.city = new Label("Standort: ");
+        //Info labels
+        this.betriebsstelle = new Label("Betriebsstelle: ");
+        this.betriebsstelle.setStyle("-fx-color-fill: black");
+        this.ip = new Label("IP: ");
+        this.ip.setStyle("-fx-color-fill: black");
+        this.modell = new Label("Modell: ");
+        this.modell.setStyle("-fx-color-fill: black");
+        this.os = new Label("OS: ");
+        this.os.setStyle("-fx-color-fill: black");
+        this.hostname = new Label("Hostname: ");
+        this.hostname.setStyle("-fx-color-fill: black");
+        //Info Labels end
         this.heading = new Label(STR."NL \{this.checkoutModels.getFirst().branch_name()} (\{this.nl_id})");
         this.heading.setStyle("-fx-font-family: 'Fira Mono'; -fx-font-weight: bold; -fx-font-size: 25; -fx-text-fill: #444444");
         this.heading.setPadding(new Insets(0, 0, 0, 10));
@@ -283,9 +306,15 @@ public class BranchView extends BorderPane {
         setting_kassen();
         this.top_content.getChildren().addAll(kassen);
         this.top_content.setOrientation(Orientation.HORIZONTAL);
-        this.top_content.setMaxHeight(60);
+        this.top_content.setMaxHeight(80);
         this.top_content.setPrefWrapLength(1200);
-        this.top_content.setPadding(new Insets(10));
+        //this.top_content.setStyle("-fx-background-color: green");
+        if(this.kassen.length >= 12){
+            this.top_content.setPadding(new Insets(10, 10, 10, 10));
+        }else{
+            this.top_content.setPadding(new Insets(10, 10, 30, 10));
+        }
+
     }
     /**
      * Set up the kassen array with Checkout objects based on the checkoutModels list.
@@ -308,6 +337,14 @@ public class BranchView extends BorderPane {
         }
         this.controller.set_checkouts(kassen);
     }
+
+    public synchronized boolean downloaded_a_file(){
+        this.downloaded_files += 1;
+        return this.to_download_files == downloaded_files;
+    }
+
+
+
     /**
      * Sets the necessary components and properties of the "kassen_info" section in the BranchView.
      * This method sets the minimum and maximum height of the "kassen_info" to 30 pixels,
@@ -323,42 +360,31 @@ public class BranchView extends BorderPane {
     private void seting_kassen_info(){
         this.kassen_info.setMinHeight(30);
         this.kassen_info.setMaxHeight(30);
-        this.kassen_info.setMinWidth(120);
+        this.kassen_info.setMinWidth(200);
         this.kassen_info.setPadding(new Insets(10));
-        this.kassen_info.getChildren().addAll(this.version, this.city);
+        this.kassen_info.getChildren().addAll(this.betriebsstelle, this.ip, this.modell, this.os, this.hostname);
     }
-    /**
-     * Sets the version of the branch view.
-     *
-     * @param s The version to set.
-     */
-    @ServiceM(desc="Sets the version of the branch view.",
-              category="Setter",
-              params={"s: String -> The version to set."},
-              returns="void",
-              thrown={"None"},
-              related={"None"})
-    public void setVersion(String s){
-        this.version.setText( s);
+
+    public void set_betriebsstelle(String s){
+        this.betriebsstelle.setText(s);
     }
-    /**
-     * Sets the city of the branch in the BranchView.
-     *
-     * @param s The city to set.
-     */
-    @ServiceM(desc="Sets the city of the branch in the BranchView.",
-              category="Setter",
-              params={"s: String -> The city to set."},
-              returns="void",
-              thrown={"None"},
-              related={"None"})
-    public void set_city(String s){
-        this.city.setText( s);
+    public void set_ip(String s){
+        this.ip.setText(s);
     }
+    public void set_modell(String s){
+        this.modell.setText(s);
+    }
+    public void set_os(String s){
+        this.os.setText(s);
+    }
+    public void set_hostname(String s){
+        this.hostname.setText(s);
+    }
+
     /**
      * Goes back to the previous view by setting the main center to "Analyse" in the BranchView.
      */
-    @ServiceM(desc="<##>Goes back to the previous view by setting the main center to \"Analyse\" in the BranchView.",
+    @ServiceM(desc="Goes back to the previous view by setting the main center to \"Analyse\" in the BranchView.",
               category="Setter",
               params={"None"},
               returns="void",
@@ -372,7 +398,7 @@ public class BranchView extends BorderPane {
      *
      * @param id The ID of the center to set.
      */
-    @ServiceM(desc="<##>Sets the center of the BranchView based on the given ID.",
+    @ServiceM(desc="Sets the center of the BranchView based on the given ID.",
               category="Setter",
               params={"id: String -> The ID of the center to set."},
               returns="void",
@@ -383,7 +409,7 @@ public class BranchView extends BorderPane {
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
             Label l = new Label("Wähle eine Checkout aus.");
-            l.setStyle("-fx-text-fill: white; -fx-font-size: 25");
+            l.setStyle("-fx-text-fill: black; -fx-font-size: 25; -fx-font-weight: bold");
             box.getChildren().add(l);
             this.setCenter(box);
         }
@@ -392,15 +418,18 @@ public class BranchView extends BorderPane {
             Checkout k = this.controller.getSelected();
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
-            FlowPane flow = new FlowPane(5, 5);
-            flow.setOrientation(Orientation.HORIZONTAL);
-            flow.setPrefWrapLength(1105);
-            assert k != null;
+
+
+            VBox wrapper = new VBox();
+            wrapper.setMinWidth(1450);
+            wrapper.setMaxWidth(1450);
+            wrapper.setSpacing(3);
+
             for(File f: k.getFiles()){
-                flow.getChildren().add(build_file(f));
+                wrapper.getChildren().add(build_file(f));
             }
 
-            ScrollPane scroller = new ScrollPane(flow);
+            ScrollPane scroller = new ScrollPane(wrapper);
             scroller.setPadding(new Insets(10));
             scroller.setFitToWidth(true);
             scroller.setMaxWidth(1500);
@@ -421,7 +450,7 @@ public class BranchView extends BorderPane {
      * @return The built LogFile object.
      * @throws RuntimeException If an error occurs while retrieving file information.
      */
-    @ServiceM(desc="<##>Builds a LogFile object based on the given File.",
+    @ServiceM(desc="Builds a LogFile object based on the given File.",
               category="Method",
               params={"f: File -> The File object to build LogFile from."},
               returns="Logfile -> The built LogFile object.",
@@ -477,31 +506,24 @@ public class BranchView extends BorderPane {
             r.setHeight(10);
             p.getChildren().add(r);
             this.setBottom(p);
-
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    ArrayList<LogFile> files = fc.get_selected_files();
-
-                    for(int i = 0; i < files.size(); i++){
-                        NetCon connection = new NetCon(controller.getSelected().get_ip(), user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
-                        try {
-                            connection.get_connection();
-                            System.out.println("Connection could be established for download");
-                            connection.close_connection();
-                            System.out.println("Connection closed");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+            Semaphore s = new Semaphore(3, true);
+            this.to_download_files = fc.get_selected_size();
+            NetCon connection = new NetCon(controller.get_selected_model(), user_controller.get_selected_user().getUsername(), user_controller.get_selected_user().getPassword());
+            try {
+                if(connection.get_connection()){
+                    for(LogFile lf : fc.get_selected_files()){
+                        if(!lf.is_downloaded()){
+                            Thread t = new Thread(new Downloader(lf, connection, DESTINATION, s, this));
+                            t.setName(STR."Thread-\{lf.get_log_file_name()}");
+                            t.start();
                         }
                     }
-                    fc.deselect_all();
+
                 }
-            };
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-
-            Thread t = new Thread(runnable);
-            t.setDaemon(true);
-            t.start();
             popup.hide();
 
         });
@@ -526,4 +548,10 @@ public class BranchView extends BorderPane {
         popup.setAutoHide(true);
         popup.show(Window.getWindows().getFirst());
     }
+
+    public synchronized void print_my_message(String message){
+        System.out.println(message);
+    }
+
+
 }

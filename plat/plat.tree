@@ -24,6 +24,11 @@
                 <toc-element topic="AppUser.topic"/>
                 <toc-element topic="PopulationFile.topic"/>
                 <toc-element topic="User.topic"/>
+                <toc-element topic="BackButton.topic"/>
+                <toc-element topic="Branch.topic"/>
+                <toc-element topic="LoggingLevels.topic"/>
+                <toc-element topic="MainMenuButton.topic"/>
+                <toc-element topic="CheckoutSelectionController.topic"/>
                 <toc-element topic="BranchView.topic"/>
                 <toc-element topic="CSC.topic"/>
                 <toc-element topic="DashboardStatsController.topic"/>
@@ -47,4 +52,5 @@
         </toc-element>
     </toc-element>
     <toc-element topic="Planned-features.topic"/>
+
 </instance-profile>

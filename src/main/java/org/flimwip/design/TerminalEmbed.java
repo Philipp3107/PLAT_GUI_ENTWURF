@@ -14,14 +14,27 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import org.flimwip.design.Views.Temp.Tabs;
+import org.flimwip.design.Views.helpers.CircleLoader;
+import org.flimwip.design.Views.helpers.ProgressView;
+import org.flimwip.design.utility.LoggingLevels;
+import org.flimwip.design.utility.PKLogger;
 
 import static java.lang.Math.abs;
 
 public class TerminalEmbed extends VBox {
 
+    String      fontFamily      = "Arial";
+    double      fontSize        = 13.5;
+    FontWeight fontWeight       = FontWeight.MEDIUM;
+    FontPosture fontPosture     = FontPosture.REGULAR;
+    Font font6                  = Font.font(fontFamily, fontWeight , fontPosture, fontSize);
 
+    PKLogger logger = new PKLogger(TerminalEmbed.class);
     private HBox last_visited;
 
     private ScrollPane last_visited_scroll_pane;
@@ -49,6 +62,7 @@ public class TerminalEmbed extends VBox {
 
 
     public void init(){
+        logger.set_Level(LoggingLevels.FINE);
         this.setPadding(new Insets(14));
         this.setSpacing(10);
         this.setStyle("-fx-background-color: #CFD2E6");
@@ -57,7 +71,7 @@ public class TerminalEmbed extends VBox {
         this.main_content = new HBox(10); // main content contains searching list and view of transactions
         this.main_content.setPadding(new Insets(10));
         VBox.setVgrow(main_content, Priority.ALWAYS);
-        this.main_content.setStyle("-fx-background-color: #BBB");
+        this.main_content.setStyle("-fx-background-color: #bbb");
 
         build_last_visited();
 
@@ -114,10 +128,24 @@ public class TerminalEmbed extends VBox {
         this.last_visited.setMinHeight(85);
         for (int i = 0; i < 15; i++){
             HBox b = new HBox();
-            Label l = new Label();
-            l.setText(STR."\{i}");
-            l.setTextFill(Color.WHITE);
-            b.getChildren().add(l);
+
+            // new vBox for more information
+            VBox info = new VBox();
+            info.setAlignment(Pos.CENTER_LEFT);
+            Label nl = new Label("NL - 102");
+            Label checkout = new Label("Kasse - 001");
+            Label tid = new Label("TID - XXXXXX");
+            info.getChildren().addAll(nl, checkout, tid);
+            info.setSpacing(3);
+            nl.setTextFill(Color.BLACK);
+            nl.setFont(font6);
+            checkout.setTextFill(Color.BLACK);
+            checkout.setFont(font6);
+            tid.setTextFill(Color.BLACK);
+            tid.setFont(font6);
+            //new vBox end
+
+            b.getChildren().add(info);
             b.setStyle("-fx-background-color: #BBB; -fx-background-radius: 5");
             b.setAlignment(Pos.CENTER);
             b.setMinHeight(85);
@@ -152,6 +180,7 @@ public class TerminalEmbed extends VBox {
             Tabs t = new Tabs(STR."107-00\{i+1}", this);
             this.tabs.getChildren().add(t);
         }
+
 
         this.detail_view = new VBox();
         VBox.setVgrow(this.detail_view, Priority.ALWAYS);
@@ -199,8 +228,7 @@ public class TerminalEmbed extends VBox {
 
     public void slide_switch(double x){
         Timeline t = null;
-        System.out.println(STR."Switcher Layout x: \{switcher.translateXProperty().get()}");
-        System.out.println(STR."New x: \{x}");
+        logger.log(LoggingLevels.DEBUG, STR."Switched switcher from x: \{switcher.translateXProperty().get()} to \{x}");
                 if(abs(switcher.translateXProperty().get() - x) >= 300){
                     t = new Timeline(
                             new KeyFrame(Duration.millis(100), new KeyValue(switcher.translateXProperty(), x, Interpolator.EASE_IN))

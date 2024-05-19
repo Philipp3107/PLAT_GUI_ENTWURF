@@ -17,14 +17,12 @@ public class CircleLoader extends Group {
 
     private Arc arc;
 
-    private int outer_radius = 15;
-    private int inner_radius = 10;
+    private int outer_radius = 10;
+    private int inner_radius = 6;
 
     private int start_angle = 90;
 
     private Color standart_fill = Color.GRAY;
-
-    private Color inner_fill = Color.valueOf("#2f2f2f");
 
     private Color standart_green = Color.valueOf("#50ad50");
     public CircleLoader(){
@@ -44,7 +42,8 @@ public class CircleLoader extends Group {
         //Building inner circle
         inner = new Circle();
         inner.setRadius(inner_radius);
-        inner.setFill(inner_fill);
+        //inner.setFill(inner_fill);
+        inner.setStyle("-fx-fill: rgba(0,0,0,0)");
 
         //Building acr
         arc = new Arc(0, 0, outer_radius, outer_radius, start_angle, 0);
@@ -54,10 +53,12 @@ public class CircleLoader extends Group {
 
     }
 
-
-
     public void update(double percentage){
         arc.setLength(-360 * percentage);
+    }
 
+    public void set_finished(){
+        arc.setLength(-360);
+        this.inner.setFill(standart_green);
     }
 }

@@ -1,5 +1,7 @@
 package org.flimwip.design;
 
+import org.flimwip.design.Models.CheckoutModel;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +44,7 @@ public class HelperFailureData {
             String nl = c.substring(3, 6);
             String checkout = c.substring(11);
             System.out.println("NL: " + nl + ", Checkout: " + checkout);
-            NetCon net_con = new NetCon("", "pos-install", "M6kUVm3T");
+            NetCon net_con = new NetCon(CheckoutModel.generate_dummy_model(), "pos-install", "M6kUVm3T");
             if(net_con.get_connection()){
                 System.out.println("Connection established");
                 //\\DE0300CPOS20001\c$\gkretail\pos-full\log

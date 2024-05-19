@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+ title="Branch" id="Branch"> 
+<card-summary> Represents a branch of a store. </card-summary>
+<chapter title="Description" id="description">
+<p>Represents a branch of a store. </p>
+<p>This description was automatically gernerated by DokumentationBuilder.</p>
+</chapter>
+<chapter title="Attributes" id="attributes">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="city: Label">
+<p>The label that displays the city where the branch is located.</p>
+</def>
+<def title="nl_id: String">
+<p>This variable represents the ID of a branch.</p>
+</def>
+<def title="Bundesland: Label">
+<p>Represents a label for the state (Bundesland) of a branch. The label displays the state name in gray color with a bold font. It is used in the Branch view of the Analyse class.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Analyse.topic"/>
+</def>
+<def title="favorite: boolean">
+<p>Represents a favorite flag for a branch.</p>
+</def>
+<def title="nl_nr: Label">
+<p>The nl_nr variable represents a Label in the Branch class, which is a part of the application's UI.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="BranchView.topic"/>
+</def>
+<def title="analyse: Analyse2">
+<p>Analyse2 is a class representing an analysis object associated with a branch.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="Analyse2.topic"/>
+</def>
+<def title="location: String">
+<p>Represents the location of a branch.</p>
+</def>
+<def title="kassen: ArrayList<CheckoutModel>">
+<p>The list of checkout models associated with the branch. Each checkout model represents an individual checkout in the branch.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="CheckoutModel.topic"/>
+</def>
+<def title="logger: PKLogger">
+<p>Private logger variable used for logging purposes. This logger is used to log messages and exceptions. It uses the PKLogger class for logging. The PKLogger class provides methods to set the log level and log messages or exceptions with different log levels.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="PKLogger.topic"/>
+</def>
+<def title="content: VBox">
+<p>Represents the content of a branch view.</p>
+</def>
+<def title="in_favorite_view: boolean">
+<p>Indicates whether the item is in the favorite view or not.</p>
+</def>
+</deflist>
+</chapter>
+<chapter title="Constructor" id="constructor">
+<available-only-for> since v.1.2</available-only-for>
+<deflist type="full">
+<def title="Branch">
+<p>Represents a branch of a store.</p></def>
+<def title="Parameters:">
+<p> - nl_id: String -> the ID of the branch </p>
+<p> - city: String -> the city where the branch is located </p>
+<p> - bundesland: String ->the state where the branch is located </p>
+<p> - kassen: ArrayList<CheckoutModel> -> the list of checkout models in the branch </p>
+<p> - favorite: boolean -> true if the branch is marked as favorite, false otherwise </p>
+<p> - analyse: Analyse2 -> the analysis object associated with the branch </p>
+</def>
+<def title="Related:">
+</deflist>
+</chapter>
+<chapter title="Methods" id="methods">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="build_favortie_content">
+<p>Builds the content for favorite view.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - VBox -> object containing the favorite content </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="build_standart_centent">
+<p>Builds the content for the standard view.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - VBox -> object containing the standard content </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="setAnalyse">
+<p>Sets the analysis object associated with the {@link Branch}.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - analyse: Analyse2 -> the analysis object to be set </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - Branch </p>
+<p> - Analyse2 </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_nl_id">
+<p>Retrieves the nl_id of the Branch.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - String -> the nl_id of the Branch </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="init">
+<p>Initializes the Branch view with default attributes and sets up the layout and content.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
+</chapter>
+<seealso>
+<category ref="related">
+<a href="Analyse.topic"/>
+<a href="BranchView.topic"/>
+<a href="Analyse2.topic"/>
+<a href="CheckoutModel.topic"/>
+<a href="PKLogger.topic"/>
+<a href="Branch.topic"/>
+</category>
+</seealso>
+</topic>

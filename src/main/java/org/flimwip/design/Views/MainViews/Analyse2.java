@@ -103,10 +103,10 @@ public class Analyse2 extends VBox {
         allScrollPane.setStyle("-fx-background: #cfd2e6; -fx-border-color: #cfd2e6;");
 
         this.allFlowPane = new FlowPane(5, 5);
+        allFlowPane.setAlignment(Pos.CENTER_LEFT);
         Set<String> sets = dataStorage.list_keys();
         List<String> list = new ArrayList<>(sets.stream().toList());
         Collections.sort(list);
-
         for (String s : list) {
             if (s.contains(text) | dataStorage.get_nl_name(s).contains(text.toUpperCase())) {
                 Branch nl = new Branch(s, dataStorage.get_nl_name(s), dataStorage.get_nl_region(s), dataStorage.getcheckouts(s) ,false, this);
@@ -147,10 +147,8 @@ public class Analyse2 extends VBox {
     }
 
    private void createAllFlowPaneAndScrollPane() {
-       allFlowPane = new FlowPane();
+       allFlowPane = new FlowPane(5, 5);
        allFlowPane.setAlignment(Pos.TOP_CENTER);
-       allFlowPane.setHgap(5);
-       allFlowPane.setVgap(5);
        for(String s : allList){
            allFlowPane.getChildren().addAll(new Branch(s, dataStorage.get_nl_name(s),dataStorage.get_nl_region(s), dataStorage.getcheckouts(s), false, this ));
        }
@@ -205,7 +203,7 @@ public class Analyse2 extends VBox {
    }
 
     public void display_nl(String nl_id){
-        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this, this.user_controller));
+        this.mainController.set_center_to_nl(new BranchView(nl_id, dataStorage.getcheckouts(nl_id), this, this.user_controller, this.mainController));
     }
 
     public void go_back(){

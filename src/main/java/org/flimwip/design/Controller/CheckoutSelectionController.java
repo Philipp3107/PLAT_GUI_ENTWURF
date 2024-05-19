@@ -4,6 +4,7 @@ import org.flimwip.design.Documentationhandler.ServiceATT;
 import org.flimwip.design.Documentationhandler.ServiceC;
 import org.flimwip.design.Documentationhandler.ServiceCR;
 import org.flimwip.design.Documentationhandler.ServiceM;
+import org.flimwip.design.Models.CheckoutModel;
 import org.flimwip.design.Views.Temp.Checkout;
 import org.flimwip.design.Views.Temp.MainMenuButton;
 import org.flimwip.design.Views.Temp.BranchView;
@@ -28,6 +29,9 @@ public class CheckoutSelectionController {
      */
     @ServiceATT(desc = "The currently selected Checkout of the Branch.", type = "String", related = {"Checkout"})
     private Checkout selected = null;
+
+    @ServiceATT(desc = "The currently selected CheckoutModel of the Branch.", type = "CheckoutModel", related = {"CheckoutModel"})
+    private CheckoutModel selected_cm = null;
 
     /**
      * The BranchView to which this controller belongs
@@ -80,34 +84,36 @@ public class CheckoutSelectionController {
         }
     }
 
-    /**
-     * To provied the selected checkouts current version number on the BranchView
-     * @param version → version of the checkout
-     */
-    @ServiceM(desc = "To provied the selected checkouts current version number on the BranchView",
-            category = "Method",
-            params = {"String version → version of the checkout"},
-            returns = "void",
-            thrown = {"None"})
-    public void set_version_on_view(String version){
-            this.view.setVersion("Version: " + version);
-
-
+    public void set_selected_model(CheckoutModel cm){
+        this.selected_cm = cm;
     }
 
-    /**
-     * To provide the selected checkouts current location (location of the branch)
-     * @param city → city where the checkout is located
-     */
-    @ServiceM(desc = "To provide the selected checkouts current location (location of the branch)",
-            category = "Method",
-            params = {"String city → city where the checkout is located"},
-            returns = "void",
-            thrown = {"None"})
-    public void set_city_on_view(String city){
-        this.view.set_city("Standort: " + city);
 
+
+    /*
+    this.cont.set_betriebsstelle_on_view(this.betriebsstelle);
+    this.cont.set_ip_on_view(this.ip);
+    this.cont.set_modell_on_view(this.modell);
+    this.cont.set_os_on_view(this.os),
+    this.cont.set_hostname_on_view(this.hostname);
+    */
+
+    public void set_betriebsstelle_on_view(String s){
+        view.set_betriebsstelle(STR."Betriebsstelle: \{s}");
     }
+    public void set_ip_on_view(String s){
+        view.set_ip(STR."IP: \{s}");
+    }
+    public void set_modell_on_view(String s){
+        view.set_modell(STR."Modell: \{s}");
+    }
+    public void set_os_on_view(String s){
+        view.set_os(STR."OS: \{s}");
+    }
+    public void set_hostname_on_view(String s){
+        view.set_hostname(STR."Hostname: \{s}");
+    }
+
 
     /**
      * To remove the focus of the checkouts where the mouse isn't currently over
@@ -151,6 +157,10 @@ public class CheckoutSelectionController {
             thrown = {"None"})
     public Checkout getSelected() {
         return selected;
+    }
+
+    public CheckoutModel get_selected_model(){
+        return this.selected_cm;
     }
 
 }

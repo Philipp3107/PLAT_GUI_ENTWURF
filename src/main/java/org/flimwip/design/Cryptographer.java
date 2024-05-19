@@ -216,6 +216,7 @@ public class Cryptographer {
               returns="void",
               thrown={"None"})
     public void retreiving_key(String pw) {
+        System.out.println(STR."RETRIEVING_KEY, PW: \{pw}");
         KeyStore keyStore = null;
         try {
             keyStore = KeyStore.getInstance("JCEKS");

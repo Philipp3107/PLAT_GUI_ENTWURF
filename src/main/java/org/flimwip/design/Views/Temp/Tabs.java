@@ -38,7 +38,7 @@ public class Tabs extends HBox {
 
         this.setOnMouseClicked(event -> {
             this.te.slide_switch(this.getLayoutX());
-            System.out.println(STR."tab x: \{this.getLayoutX()}, tab y: \{this.getLayoutY()}");
+           // System.out.println(STR."tab x: \{this.getLayoutX()}, tab y: \{this.getLayoutY()}");
         });
     }
 

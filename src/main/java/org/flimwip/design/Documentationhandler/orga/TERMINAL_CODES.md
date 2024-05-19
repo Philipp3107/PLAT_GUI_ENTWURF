@@ -2,13 +2,12 @@
 
 <style>
 a{
- color: #ff5454;
+ color: #f8aeae;
  font-size: 1.2em;
 }
 
-body{
- padding: 0 30px;
- background-color: #230e0e;
+body {
+ padding: 10px;
 }
 
 ul{
@@ -126,7 +125,7 @@ Numeration of all the Terminal codes and their meaning
 - [Summary of Commands]
 - [ZVT-Charactersets]
 - [References]
-- [Definition of config bytes]
+- [Definitions]
 
 ## Abbreviations
  | SAbbreviation   |                                                    Meaning                                                    |
@@ -158,21 +157,35 @@ Numeration of all the Terminal codes and their meaning
 Using the command Registration the ECR can set up different configurations on the [PT] and also control the
 current status of the PT.
 
+---
+
 ### 06 00 - Transmitted Data:
 
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| ECR -> PT                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| Class | INSTR |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|   06  |  00   |   xx   | < password > < config-byte > [ < CC > [ 03 < service-byte >] [ 06 < TLV-container >] ] |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> ECR->PT </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<td>Data-Block</td>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>00</td>
+<td>xx</td>
+<td>< password > < config-byte > [ < CC > [ 03 < service-byte >] [ 06 < TLV-container >] ]"</td>
+</tr>
+</table>
 
 - password : 3 byte BCD
 - config-byte: Bit-field, 1 byte
@@ -180,78 +193,129 @@ current status of the PT.
 - 03 service-byte: Bit-field 1 byte
 - 06 TLV-Conainer (posiible tags: 10,11,12,14,1A,26,27,28,29,2A,40,1F04,1F05)
 
-<details>
-<summary> If the concurrency code is correct the Payment Terminal answers with: </summary>
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| PT -> ECR                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| CCRC  | APRC  |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|  80   |  00   |   00   |                                                                                        |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
-</details>
+---
+ ### If the concurrency code is correct the Payment Terminal answers with:
 
-<details>
-<summary>If the currency-code is incorrect the Payment Terminal answers with:</summary>
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| PT -> ECR                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| CCRC  | APRC  |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|  84   |  1E   |   xx   | 6F [ < CC > ]                                                                          |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
-</details>
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> PT -> ECR </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>80</td>
+<td>00</td>
+<td>00</td>
+<td style="white-space: pre">                                                                                                                                                 </td>
+</tr>
+</table>
+
+---
+
+### If the currency-code is incorrect the Payment Terminal answers with:
+
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> PT -> ECR </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>80</td>
+<td>00</td>
+<td>00</td>
+<td style="white-space: pre">                                                                                                                                                 </td>
+</tr>
+</table>
+
 
 
 The [PT] only sends a currency-code to the [ECR], if the [ECR] had also sent a currency-code in its request.
 
-<details>
-<summary>If the concurrency code check is positive, the <b>Completion</b> takes place whereupon the Electronic Cash Register receives the "masster-rights" back:</summary>
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| PT -> ECR                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| CLASS | INSTR |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|  06   |  0F   |   xx   | [19 < status-byte >] [29< TID >] [49 < CC >] [06< TLV-Container> ]                     |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
+### If the concurrency code check is positive, the Completion takes place whereupon the Electronic Cash Register receives the "masster-rights" back:
+
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> PT -> ECR </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>0F</td>
+<td>xx</td>
+<td style="white-space: pre">[19 < status-byte >] [29< TID >] [49 < CC >] [06< TLV-Container> ]                                       </td>
+</tr>
+</table>
+
 
 - 19 < status-byte >: Bit-filed, 1 byte. See: [status-bytes]
 - 06 < TLV-Container >: Possible Tags are 10, 11, 12, 14, 1A, 26, 27, 28. Using teh 26 the [PT] can communicate its implementation level to the [ECR
-</details>
+
 
 ### 06 00 - [ECR] Response
 
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| ECR -> PT                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| CCRC  | APRC  |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|  80   |  00   |   00   |                                                                                        |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> ECR -> PT </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>80</td>
+<td>00</td>
+<td>00</td>
+<td style="white-space: pre">                                                                                                                       </td>
+</tr>
+</table>
 
 
 ### 06 00 - Mentioned
@@ -275,22 +339,31 @@ This command initiates a payment process and transamits the amount from the [ECR
 10. Receipt printout 
 11. Completion
 
-<pre>
-+-----------------------------------------------------------------------------------------------------------------+ 
-| ECR -> PT                                                                                                       | 
-|-----------------------------------------------------------------------------------------------------------------|
-|                                                       APDU                                                      |
-|-----------------------------------------------------------------------------------------------------------------|
-| Control field | Length |                                    DataBlock                                           |
-+-------|-------|--------|----------------------------------------------------------------------------------------+
-| CLASS | INSTR |        |                                                                                        |
-|-------|-------|--------|----------------------------------------------------------------------------------------|
-|  06   |  01   |   xx   | [04 < amount >][48 < CC >][19 < payment-type >][2D < track 1 data >]                   |
-|       |       |        | [0E < expiry-date >][22 < card-number >][23 < track 2 data >][24< track 3 data >]      |
-|       |       |        | [01 < timeout >][02 < max. status-infos >][05 < pump no. >][3A < CVV/CVC >]            |
-|       |       |        | [3C < additional-data >][8A < card type >][06 < TL-Conatiner > ]                       |
-+-----------------------------------------------------------------------------------------------------------------+
-</pre>
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> ECR -> PT </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>01</td>
+<td>xx</td>
+<td >[04 < amount >][48 < CC >][19 < payment-type >][2D < track 1 data >][0E < expiry-date >][22 < card-number >][23 < track 2 data >][24< track 3 data >] [01 < timeout >][02 < max. status-infos >][05 < pump no. >][3A < CVV/CVC >] [3C < additional-data >][8A < card type >][06 < TL-Conatiner > ]</td>
+</tr>
+</table>
 
 ## 06 02 - Log off
 ## 06 03 - ABR (Account Balance Request)

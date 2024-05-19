@@ -3,48 +3,47 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
- title="NetCon" id="NetCon"> 
-<card-summary> This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username. </card-summary>
+ title="LoggingLevels" id="LoggingLevels"> 
+<card-summary> Enumeration that represents different logging levels with their descriptions and colors. Each logging level has a description and a color associated with it. </card-summary>
 <chapter title="Description" id="description">
-<p>This class builds and closes the connection to specific checkout. Needed for that is the Branch, the checkout, the password and the username. </p>
+<p>Enumeration that represents different logging levels with their descriptions and colors. Each logging level has a description and a color associated with it. </p>
 <p>This description was automatically gernerated by DokumentationBuilder.</p>
 </chapter>
+<p> <u><b>Related:</b></u></p>
+<a href="PKLogger.topic"/>
 <chapter title="Attributes" id="attributes">
 <available-only-for> since v.1.2</available-only-for>
 <deflist type="full">
-<def title="password: String">
-<p>Holds the password with which the connections will be established and closed</p>
+<def title="desc: String">
+<p>Represents a description.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="PKLogger.topic"/>
 </def>
-<def title="username: String">
-<p>Holds the username with which the connections will be established and closed</p>
+<def title="color: String">
+<p>Represents the color associated with a logging level. This variable is used in the LoggingLevels enumeration to define the color associated with each logging level.</p>
+<p> <u><b>Related:</b></u></p>
+<a href="PKLogger.topic"/>
 </def>
 </deflist>
 </chapter>
 <chapter title="Constructor" id="constructor">
 <available-only-for> since v.1.2</available-only-for>
 <deflist type="full">
-<def title="NetCon">
-<p>The Constructor of the NetCon-Class</p></def>
-<def title="Parameters:">
-<p> - String: nl -> Branch for the Connection </p>
-<p> - String: checkout -> Checkout for the Connection </p>
-<p> - String: password -> Password for the Connection </p>
-<p> - String: username -> Username for the Connection </p>
-</def>
 </deflist>
 </chapter>
 <chapter title="Methods" id="methods">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="get_connection">
-<p>Retrieves a connection to a remote server using the net use command.</p>
+<chapter title="get_desc">
+<p><##>Gets the description associated with a logging level.</p>
 <deflist type="full">
 <def title="Parameters:">
+<p> - None </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>
 </def>
 <def title="Return:">
-<p> -  </p>
+<p> - String -> the description associated with the logging level </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
@@ -54,17 +53,17 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="close_connection">
-<p>Closes the connection to a remote server.</p>
+<chapter title="get_color">
+<p><##>Retrieves the color associated with a logging level.</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
 </def>
 <def title="Thrown:">
-<p> - IOException -> if an I/O error occurs. </p>
+<p> - None </p>
 </def>
 <def title="Return:">
-<p> - void </p>
+<p> - Color -> the color associated with the logging level </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
@@ -83,6 +82,7 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <seealso>
 <category ref="related">
+<a href="PKLogger.topic"/>
 </category>
 </seealso>
 </topic>
