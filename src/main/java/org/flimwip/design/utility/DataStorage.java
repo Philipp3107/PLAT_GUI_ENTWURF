@@ -204,7 +204,7 @@ public class DataStorage {
                         String hostname = splitted[8];
                         String branch_name= "";
                         String region= "";
-                        if(!hostname.contains("CGL")) {
+                        if(!hostname.contains("CGL") && !splitted[3].contains("FCC")) {
                             if (branches_new.containsKey(nl)) {
                                 branch_name = branches_new.get(nl).get(0);
                                 region = branches_new.get(nl).get(1);

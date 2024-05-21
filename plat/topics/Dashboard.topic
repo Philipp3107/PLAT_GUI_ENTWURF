@@ -128,6 +128,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="change_header">
+<p><##>Changes the header section of the dashboard based on the given name.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - name: String -> the name of the header section to be changed (error, warn, critical) </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
 <chapter title="build_controls">
 <p><##>Builds and returns a VBox control representing the controls for managing credentials.</p>
 <deflist type="full">
@@ -162,26 +182,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="change_header">
-<p><##>Changes the header section of the dashboard based on the given name.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - name: String -> the name of the header section to be changed (error, warn, critical) </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PRIVATE </p>
 </def>
 <def title="Related:">
 <p> - None </p>

@@ -40,26 +40,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Methods" id="methods">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="deselect">
-<p>Deselects the current Button. Gets executed from the MainController</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="on_click">
 <p><##>Changes the apperance of the Button when he gets clicked.</p>
 <deflist type="full">
@@ -74,6 +54,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 <def title="Access:">
 <p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="deselect">
+<p>Deselects the current Button. Gets executed from the MainController</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
 </def>
 <def title="Related:">
 <p> - None </p>

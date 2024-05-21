@@ -64,48 +64,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Getter" id="getter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="get_name">
-<p>Retrieves the name of the population file.</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String: name </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="get_from">
-<p>Retrieves the 'from' value of the population file.</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String: from </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="get_to">
-<p>This method is used to get the 'to' value of the population file.</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String: to </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="get_to_absolute">
 <p>This method is used to check if the 'to' value is absolute.</p>
 <deflist type="full">
@@ -134,54 +92,56 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="get_to">
+<p>This method is used to get the 'to' value of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: to </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_from">
+<p>Retrieves the 'from' value of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: from </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_name">
+<p>Retrieves the name of the population file.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: name </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
 </chapter>
 <chapter title="Setter" id="setter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="set_to">
-<p>This method is used to set the 'to' value of the population file.</p>
+<chapter title="set_from_absolute">
+<p>This method is used to set the 'from' value as absolute.</p>
 <deflist type="full">
 <def title="Parameters:">
-<p> - String: to </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="set_name">
-<p>This method is used to set the name of the population file.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - String: name </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="set_from">
-<p>This method is used to set the 'from' value of the population file.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - String: from </p>
+<p> - boolean: from_absolute </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>
@@ -217,11 +177,51 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="set_from_absolute">
-<p>This method is used to set the 'from' value as absolute.</p>
+<chapter title="set_from">
+<p>This method is used to set the 'from' value of the population file.</p>
 <deflist type="full">
 <def title="Parameters:">
-<p> - boolean: from_absolute </p>
+<p> - String: from </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_to">
+<p>This method is used to set the 'to' value of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: to </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_name">
+<p>This method is used to set the name of the population file.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: name </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>

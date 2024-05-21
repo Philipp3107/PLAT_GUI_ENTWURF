@@ -107,14 +107,39 @@ public class Analyse2 extends VBox {
         Set<String> sets = dataStorage.list_keys();
         List<String> list = new ArrayList<>(sets.stream().toList());
         Collections.sort(list);
-        for (String s : list) {
-            if (s.contains(text) | dataStorage.get_nl_name(s).contains(text.toUpperCase())) {
-                Branch nl = new Branch(s, dataStorage.get_nl_name(s), dataStorage.get_nl_region(s), dataStorage.getcheckouts(s) ,false, this);
-                this.allFlowPane.getChildren().add(nl);
+        if(!find_argument_parsing(text, list)){
+            for (String s : list) {
+                if (s.contains(text) | dataStorage.get_nl_name(s).contains(text.toUpperCase())) {
+                    Branch nl = new Branch(s, dataStorage.get_nl_name(s), dataStorage.get_nl_region(s), dataStorage.getcheckouts(s) ,false, this);
+                    this.allFlowPane.getChildren().add(nl);
+                }
             }
         }
+
         allScrollPane.setContent(allFlowPane);
         this.getChildren().add(allScrollPane);
+    }
+
+    boolean find_argument_parsing(String query, List<String> list){
+       String[] splitted = query.split(" ");
+       if(splitted.length == 3){
+           if(splitted[0].equals("region") || splitted[0].equals("REGION")){
+               if(splitted[1].equals("00") || splitted[1].equals("==")){
+                   for(String s : list){
+                       if(dataStorage.get_nl_region(s).contains(splitted[2])){
+                           Branch nl = new Branch(s, dataStorage.get_nl_name(s), dataStorage.get_nl_region(s), dataStorage.getcheckouts(s) ,false, this);
+                           this.allFlowPane.getChildren().add(nl);
+                       }
+                   }
+               }
+               return true;
+           }else{
+               return false;
+           }
+       }else{
+           return false;
+       }
+
     }
 
    private void setUpLists() {

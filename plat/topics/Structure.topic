@@ -9,7 +9,7 @@
     <section-starting-page>
         <title>Structure - Dateien und Ordner</title>
         <description>
-
+            Hier aufgelistet sind Alle Ordner und Dateien, ihre Strukturen untereinander und ihre Relevanz
         </description>
 
         <!--    Add up to 2 topics that you want to promote. Use the "type" attribute to select an icon.    -->
@@ -18,6 +18,8 @@
             <a href="Files.topic" type="file" summary="List of all Files in this Project">Files</a>
         </spotlight>
 
+        <primary><title>Primary</title><a href=""></a><a href=""></a></primary>
+        <secondary><title>Secondary</title><a href=""></a><a href=""></a></secondary>
         <misc>
             <cards narrow="true">
                 <title>New Files or Folders</title>

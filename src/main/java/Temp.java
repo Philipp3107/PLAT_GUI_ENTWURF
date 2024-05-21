@@ -8,18 +8,20 @@ import java.util.Base64;
 
 public class Temp {
     public static void main(String[] args) throws IOException {
-        File f = new File("\\\\DE0102CPOS20001\\c$\\gkretail\\pos-full\\log\\pos-debug-102-001.log-20240405000000.zip");
-        try {
-            URL url = f.toURI().toURL();
-            URLConnection con = url.openConnection();
-            String userpass = "pos-install" + ":" + "M6kUVm3T";
-            String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));
-            con.setRequestProperty("Authorization", basicAuth);
-            InputStream in = con.getInputStream();
-            byte[] buffer = in.readAllBytes();
-            System.out.println(new String(buffer, StandardCharsets.UTF_8));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+        File f1 = new File("C:\\Users\\KotteP\\Downloads\\export (1).csv");
+
+
+        try(BufferedReader br1 = new BufferedReader(new FileReader(f1))){
+
+            String t1 = "";
+
+            while((t1 = br1.readLine()) != null ){
+               String[] array = t1.split(",");
+               if(array[3].contains("PC - ") && array[7].isEmpty()){
+                   System.out.println(t1);
+               }
+
+            }
         }
     }
 }

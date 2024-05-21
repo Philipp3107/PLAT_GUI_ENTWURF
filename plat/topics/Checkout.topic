@@ -134,8 +134,8 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="remove_focus">
-<p>Function to remove the focus off of a checkout</p>
+<chapter title="unselect">
+<p>Function to remotely deselect a checkout</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
@@ -154,8 +154,8 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="unselect">
-<p>Function to remotely deselect a checkout</p>
+<chapter title="remove_focus">
+<p>Function to remove the focus off of a checkout</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
@@ -197,20 +197,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Getter" id="getter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="getFiles">
-<p>Returns the File[] for use in BranchView</p>
-<deflist type="full">
-<def title="Return:">
-<p> - File[] -> all Files found on the Checkout </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="get_ip">
 <p>Returns the IP-adress of the checkout.</p>
 <deflist type="full">
@@ -225,11 +211,45 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="getFiles">
+<p>Returns the File[] for use in BranchView</p>
+<deflist type="full">
+<def title="Return:">
+<p> - File[] -> all Files found on the Checkout </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
 </chapter>
 <chapter title="Setter" id="setter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="set_offline">
-<p>Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.</p>
+<chapter title="set_files">
+<p>Adds the Files found by the Runnable FetchFiles</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - files File[] -> Array of files found by FetchFiles </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_online">
+<p>Setting the Checkout online making it clickable and the circle green</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
@@ -268,31 +288,11 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="set_online">
-<p>Setting the Checkout online making it clickable and the circle green</p>
+<chapter title="set_offline">
+<p>Setting the Checkout offline. The Checkout remains not Clickable and the Circle is red.</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="set_files">
-<p>Adds the Files found by the Runnable FetchFiles</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - files File[] -> Array of files found by FetchFiles </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>

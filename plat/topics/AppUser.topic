@@ -72,34 +72,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Getter" id="getter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="get_username">
-<p>Method to get username</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String: username </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="get_first_name">
-<p>Method to get first name</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String: first_name </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="get_password">
 <p>Method to get password</p>
 <deflist type="full">
@@ -128,20 +100,11 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-</chapter>
-<chapter title="Setter" id="setter">
-<available-only-for> since v.1.2</available-only-for>
-<chapter title="set_first_name">
-<p>Method to set first name</p>
+<chapter title="get_username">
+<p>Method to get username</p>
 <deflist type="full">
-<def title="Parameters:">
-<p> - String: first_name </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
 <def title="Return:">
-<p> - void </p>
+<p> - String: username </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
@@ -151,6 +114,23 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="get_first_name">
+<p>Method to get first name</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String: first_name </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Setter" id="setter">
+<available-only-for> since v.1.2</available-only-for>
 <chapter title="set_password">
 <p>Method to set password</p>
 <deflist type="full">
@@ -176,6 +156,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 <deflist type="full">
 <def title="Parameters:">
 <p> - String: username </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_first_name">
+<p>Method to set first name</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - String: first_name </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>
