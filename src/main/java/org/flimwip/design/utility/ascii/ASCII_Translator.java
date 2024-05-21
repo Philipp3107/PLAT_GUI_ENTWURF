@@ -1,7 +1,5 @@
 package org.flimwip.design.utility.ascii;
 
-import org.flimwip.design.Main;
-
 public class ASCII_Translator {
 
     public static String translate(String ... tokens){

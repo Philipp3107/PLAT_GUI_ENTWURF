@@ -1,4 +1,4 @@
-```
+```mermaid
 erDiagram
 
 Gebiet ||--o{ stadt_typ : "g_typ"
@@ -54,3 +54,5 @@ int id PK
 int s_id FK
 int g_id FK
 }
+
+```
