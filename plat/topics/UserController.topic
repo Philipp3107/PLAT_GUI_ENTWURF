@@ -72,46 +72,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Methods" id="methods">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="load_users">
-<p>Loads the users from the specified file and initializes the UserController's pos_user list. Only users listed in the specified file will be loaded.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PRIVATE </p>
-</def>
-<def title="Related:">
-<p> - User </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="change_selected">
-<p>hanges the selected user based on the given name.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - name: String </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="fetch_app_user">
 <p>Fetches the app user using persistence. If the user data exists, it loads the app user from the persistence manager. If the user data does not exist, it sets the app user to null.</p>
 <deflist type="full">
@@ -153,21 +113,74 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-</chapter>
-<chapter title="Getter" id="getter">
-<available-only-for> since v.1.2</available-only-for>
-<chapter title="get_user_views_settings">
-<p>Retrieves the settings of user views.</p>
+<chapter title="change_selected">
+<p>hanges the selected user based on the given name.</p>
 <deflist type="full">
+<def title="Parameters:">
+<p> - name: String </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
 <def title="Return:">
-<p> - ArrayList<UserView> </p>
+<p> - void </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
 </def>
 <def title="Related:">
-<p> - UserView </p>
-<p> - Settings </p>
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="load_users">
+<p>Loads the users from the specified file and initializes the UserController's pos_user list. Only users listed in the specified file will be loaded.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - User </p>
+</def>
+</deflist>
+</chapter>
+</chapter>
+<chapter title="Getter" id="getter">
+<available-only-for> since v.1.2</available-only-for>
+<chapter title="get_app_user">
+<p>Retrieves the app user.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - AppUser </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - AppUser </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="get_selected_user">
+<p>Retrieves the selected user.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - User </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - User </p>
 </def>
 </deflist>
 </chapter>
@@ -200,57 +213,24 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="get_app_user">
-<p>Retrieves the app user.</p>
+<chapter title="get_user_views_settings">
+<p>Retrieves the settings of user views.</p>
 <deflist type="full">
 <def title="Return:">
-<p> - AppUser </p>
+<p> - ArrayList<UserView> </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
 </def>
 <def title="Related:">
-<p> - AppUser </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="get_selected_user">
-<p>Retrieves the selected user.</p>
-<deflist type="full">
-<def title="Return:">
-<p> - User </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - User </p>
+<p> - UserView </p>
+<p> - Settings </p>
 </def>
 </deflist>
 </chapter>
 </chapter>
 <chapter title="Setter" id="setter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="set_verified_password">
-<p>Sets the verified password of the user.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - pw: String -> The verified password to set. </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="set_aupp_user">
 <p>Sets the AppUser of this class for all depending classes to the given AppUser</p>
 <deflist type="full">
@@ -276,6 +256,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 <deflist type="full">
 <def title="Parameters:">
 <p> - app_user: AppUser -> The app user to be set. </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_verified_password">
+<p>Sets the verified password of the user.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - pw: String -> The verified password to set. </p>
 </def>
 <def title="Thrown:">
 <p> - None </p>

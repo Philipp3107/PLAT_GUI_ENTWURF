@@ -7,6 +7,7 @@
 
     <section-starting-page>
         <title>All Folders of this Project</title>
+        <description>Hier aufgelistet sind alle Ordner die in dem Projekt vorhanden sind</description>
 
         <spotlight>
             <a href="" type="folder" summary="Everything new in this Space">New Folders</a>
@@ -16,8 +17,8 @@
         <!--    Add several topics that are most important for this section.    -->
         <primary>
             <title>Most important</title>
-            <a href="Controller.topic" type="tools"/>
-            <a href="Models.topic" type="tools"/>
+            <a href="Controller.topic" type="folder"/>
+            <a href="Models.topic" type="folder"/>
             <a href="">Custom card title</a>
             <a href="" summary="With a custom card summary">Custom card title</a>
         </primary>

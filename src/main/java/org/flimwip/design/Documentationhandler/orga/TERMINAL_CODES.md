@@ -411,7 +411,44 @@ The new version can be found at [06 E1](#06-e1---dipsplay-text-with-function-key
 ## 06 D1 - Print Line on PT
 ## 06 D1 - Print Line
 ## 06 D3 - Print Text-Block on PT
+
+
 ## 06 D3 - Print Text-Block
+
+The [PT] sends Data to the [ECR] to print.
+
+<table>
+<tr>
+<th scope="col" colspan="4" align="left"> ECR -> PT </th>
+</tr>
+<tr>
+<th scope="col" colspan="4">APDU</th>
+</tr>
+<tr>
+<th scope="col" colspan="2">Control Field</th>
+<td>Length</td>
+<th>Data-Block</th>
+</tr>
+<tr>
+<tr>
+<td>Class</td>
+<td>INSTR</td>
+<td></td>
+</tr>
+<tr>
+<td>06</td>
+<td>01</td>
+<td>xx</td>
+<td >[06 < TLV-Container >]</td>
+</tr>
+</table>
+
+Possible Tags:
+- 14
+- 25
+- 1f 07
+- 1f 37
+
 ## 06 D8 - Dial-Up
 ## 06 D9 - Transmit Data via Dial-Up
 ## 06 DA - Receive Data via Dial-Up

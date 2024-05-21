@@ -51,26 +51,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Methods" id="methods">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="handle_secondary_click">
-<p>Handles the secondary Click which means the click of the selected Files with the right mouse button. If a right Click occures the BranchView shows a PopUp with further actions</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - BranchView </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="selec_range">
 <p>Selects the files in the currently saved files from its start index to the end index and copys the names into "this.selected".</p>
 <deflist type="full">
@@ -112,6 +92,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="get_selected_files">
+<p>Returns the currently selected LogFile.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - ArrayList<LogFile> -> The currently selected LogFile. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - LogFile </p>
+</def>
+</deflist>
+</chapter>
 <chapter title="new_multi_select">
 <p>This method is called from the LogFile class and is used to handle the shift + click operation an a LogFile. If a LogFile is already selected, every LogFile between the first and second gets selected.</p>
 <deflist type="full">
@@ -132,8 +132,8 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="get_selected_files">
-<p>Returns the currently selected LogFile.</p>
+<chapter title="handle_secondary_click">
+<p>Handles the secondary Click which means the click of the selected Files with the right mouse button. If a right Click occures the BranchView shows a PopUp with further actions</p>
 <deflist type="full">
 <def title="Parameters:">
 <p> - None </p>
@@ -142,13 +142,13 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 <p> - None </p>
 </def>
 <def title="Return:">
-<p> - ArrayList<LogFile> -> The currently selected LogFile. </p>
+<p> - void </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
 </def>
 <def title="Related:">
-<p> - LogFile </p>
+<p> - BranchView </p>
 </def>
 </deflist>
 </chapter>

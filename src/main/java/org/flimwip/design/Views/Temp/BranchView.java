@@ -408,7 +408,7 @@ public class BranchView extends BorderPane {
         if(id.isEmpty()){
             VBox box = new VBox();
             box.setAlignment(Pos.CENTER);
-            Label l = new Label("Wähle eine Checkout aus.");
+            Label l = new Label("Wähle eine Kasse aus.");
             l.setStyle("-fx-text-fill: black; -fx-font-size: 25; -fx-font-weight: bold");
             box.getChildren().add(l);
             this.setCenter(box);

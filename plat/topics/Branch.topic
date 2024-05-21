@@ -75,46 +75,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Methods" id="methods">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="build_favortie_content">
-<p>Builds the content for favorite view.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - VBox -> object containing the favorite content </p>
-</def>
-<def title="Access:">
-<p> - PRIVATE </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="build_standart_centent">
-<p>Builds the content for the standard view.</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - None </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - VBox -> object containing the standard content </p>
-</def>
-<def title="Access:">
-<p> - PRIVATE </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="setAnalyse">
 <p>Sets the analysis object associated with the {@link Branch}.</p>
 <deflist type="full">
@@ -150,6 +110,46 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="build_standart_centent">
+<p>Builds the content for the standard view.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - VBox -> object containing the standard content </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="build_favortie_content">
+<p>Builds the content for favorite view.</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - None </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - VBox -> object containing the favorite content </p>
+</def>
+<def title="Access:">
+<p> - PRIVATE </p>
 </def>
 <def title="Related:">
 <p> - None </p>

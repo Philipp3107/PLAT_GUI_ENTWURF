@@ -12,10 +12,7 @@
 <input type="checkbox" checked="checked">
   <span class="checkmark"></span>
 </label>
-<label class="container">fix searching via DataStorage
-<input type="checkbox" checked="checked">
-  <span class="checkmark"></span>
-</label>
+
 
 <label class="container"> -- new -- 
 <input type="checkbox" checked="checked">
@@ -34,6 +31,10 @@ ___
 </label>
 <label class="container">rework selection of Logfiles with download
   <input type="checkbox" checked="checked">
+  <span class="checkmark"></span>
+</label>
+<label class="container">fix searching via DataStorage
+<input type="checkbox" checked="checked">
   <span class="checkmark"></span>
 </label>
 

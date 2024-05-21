@@ -245,25 +245,11 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Getter" id="getter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="getFiles">
-<p>Retrieves an array of file names.</p>
+<chapter title="getTitle">
+<p>Retrieves the title of the JobHistoryItem.</p>
 <deflist type="full">
 <def title="Return:">
-<p> - String[] -> an array of file names. </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - None </p>
-</def>
-</deflist>
-</chapter>
-<chapter title="getNl">
-<p>Retrieves the nl (new line) values stored in the JobHistoryItem object.</p>
-<deflist type="full">
-<def title="Return:">
-<p> - String[] -> an array of String containing the nl values. </p>
+<p> - String -> the title. </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>
@@ -287,6 +273,20 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
+<chapter title="getNl">
+<p>Retrieves the nl (new line) values stored in the JobHistoryItem object.</p>
+<deflist type="full">
+<def title="Return:">
+<p> - String[] -> an array of String containing the nl values. </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - None </p>
+</def>
+</deflist>
+</chapter>
 <chapter title="get_author">
 <p>Retrieves the author of the document.</p>
 <deflist type="full">
@@ -301,11 +301,11 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 </deflist>
 </chapter>
-<chapter title="getTitle">
-<p>Retrieves the title of the JobHistoryItem.</p>
+<chapter title="getFiles">
+<p>Retrieves an array of file names.</p>
 <deflist type="full">
 <def title="Return:">
-<p> - String -> the title. </p>
+<p> - String[] -> an array of file names. </p>
 </def>
 <def title="Access:">
 <p> - PUBLIC </p>

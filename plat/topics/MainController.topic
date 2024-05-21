@@ -76,26 +76,6 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </chapter>
 <chapter title="Setter" id="setter">
 <available-only-for> since v.1.2</available-only-for>
-<chapter title="set_main_menu_buttons">
-<p>Adds an Array of MainMenuButtons to this controller for further actions</p>
-<deflist type="full">
-<def title="Parameters:">
-<p> - mmb: MainMenuButtons -> The array of MainMenuButtons to be added. </p>
-</def>
-<def title="Thrown:">
-<p> - None </p>
-</def>
-<def title="Return:">
-<p> - void </p>
-</def>
-<def title="Access:">
-<p> - PUBLIC </p>
-</def>
-<def title="Related:">
-<p> - MainMenuButtons </p>
-</def>
-</deflist>
-</chapter>
 <chapter title="set_main_center">
 <p>sets the Center of Main to the given destination</p>
 <deflist type="full">
@@ -133,6 +113,26 @@ xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/to
 </def>
 <def title="Related:">
 <p> - BranchView </p>
+</def>
+</deflist>
+</chapter>
+<chapter title="set_main_menu_buttons">
+<p>Adds an Array of MainMenuButtons to this controller for further actions</p>
+<deflist type="full">
+<def title="Parameters:">
+<p> - mmb: MainMenuButtons -> The array of MainMenuButtons to be added. </p>
+</def>
+<def title="Thrown:">
+<p> - None </p>
+</def>
+<def title="Return:">
+<p> - void </p>
+</def>
+<def title="Access:">
+<p> - PUBLIC </p>
+</def>
+<def title="Related:">
+<p> - MainMenuButtons </p>
 </def>
 </deflist>
 </chapter>
