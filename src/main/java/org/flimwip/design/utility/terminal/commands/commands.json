@@ -214,22 +214,344 @@
     "name" : "ISO character set",
     "fixed_length" : true,
     "length" : "1-byte",
-    "encoding": "unknown",
+    "encoding": "table",
     "description" : "none",
     "subcommands": ["none"],
-    "parentcommadns" : ["27", "2B", "32"]
+    "parentcommands" : ["27", "2B", "32"]
+},
+
+"15" : {
+    "section": "Miscellaneous",
+    "name": "language-code",
+    "fixed_length" : true,
+    "length" : "2-byte",
+    "encoding": "ascii",
+    "description" : "none",
+    "subcommands" : ["none"],
+    "parentcommands" : ["28", "2B"]
+},
+
+"16" : {
+    "section" : "Menu",
+    "name" : "menu-type",
+    "fixed_length" : true,
+    "length" : "1-byte",
+    "encoding" : "BCD",
+    "description" : "Byte 2 - n are RFU",
+    "subcommands" : ["none"],
+    "parentcommands" : ["2B"],
+},
+
+"17" : {
+    "section" : "Menu",
+    "name" : "context",
+    "fixed_length" : true,
+    "length" : "",
+    "encoding" : "",
+    "description" : "",
+    "subcommands" : ["none"],
+    "parentcommands" : ["none"]
 },
 
 "XX" : {
-    "section": "",
-    "name": "",
+    "section" : "",
+    "name" : "",
     "fixed_length" : true,
     "length" : "",
-    "encoding": "",
+    "encoding" : "",
     "description" : "",
     "subcommands" : ["none"],
     "parentcommands" : ["none"]
 }
+
+],
+
+"tables" : [
+
+    "14" : { 
+        "table": {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "ASCII 7 bit common character-set (does not correspond to ZVT-character-set!)",
+                "0x01" : "ISO8859-1 (Latin 1)",
+                "0x02" : "ISO8859-2",
+                "0x03" : "ISO8859-3",
+                "0x04" : "ISO8859-4",
+                "0x05" : "ISO8859-5",
+                "0x06" : "ISO8859-6",
+                "0x07" : "ISO8859-7",
+                "0x08" : "ISO8859-8",
+                "0x09" : "ISO8859-9",
+                "0x10" : "ISO8859-16",
+                "0xFE" : "UTF8 Encoder for unicode",
+                "0xFF" : "8 bit ZVT-character-set CP437 (default; must be supported)"
+            ],
+        "default" : "none"
+    },
+    
+    "1B" : {
+        "table": {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "line diagnosis",
+                "0x02" : "extended diagnosis",
+                "0x03" : "configuration diagnosis",
+                "0x04" : "EMV configuration diagnosis",
+                "0x05" : "EP2 configuration"
+            ]
+        },
+        "default" : "0x02"
+    },
+
+    "1D" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "merchant-journal",
+                "0x02" : "merchant-journal",
+                "0x03" : "log-file of the ECR-protocol",
+                "0x04" : "log-file of the communication-module",
+                "0x05" : "log-file of the PIN-pad",
+                "0x06" : "reconciliation data (content is implementation dependent)"
+            ]
+        },
+
+        "default" : "none"
+    },
+
+    "1F01" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "last receipt",
+                "0x02" : "payment-receipt merchant (see also tag ‚1F02‘ and tag ‚1F03‘)",
+                "0x03" : "payment-receipt customer (see also tag ‚1F02‘ and tag ‚1F03‘)",
+                "0x04" : "end of day receipt",
+                "0x05" : "journal (see also tag ‚1F02‘ and tag ‚1F03‘)",
+                "0x06" : "reconciliation"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F04 - Byte-0" : {
+        "table": {
+            "type" : "bitfield",
+            "info" : "none",
+            "data" : [
+                "1xxx xxxx" : "positive customer-receipt required, transaction successful",
+                "0xxx xxxx" : "no customer-receipt",
+                "x1xx xxxx" : "negative customer-receipt required, transaction failed",
+                "x0xx xxxx" : "no customer-receipt",
+                "xx1x xxxx" : "positive merchant-receipt required, transaction successful",
+                "xx0x xxxx" : "no merchant-receipt",
+                "xxx1 xxxx" : "negative merchant-receipt required, transaction failed",
+                "xxx0 xxxx" : "no merchant reveipt",
+                "xxxx 1xxx" : "customer-receipt should be sent before the merchant-receipt",
+                "xxxx 0xxx" : "merchant-receipt should be sent before the customer-receipt",
+                "xxxx x1xx" : "print short receipt",
+                "xxxx x0xx" : "print normal receipt",
+                "xxxx xx1x" : "do not print product-data",
+                "xxxx xx0x" : "print normal receipt",
+                "xxxx xxx1" : "use ECR as printer"
+            ]
+        },
+        "default" : "none"
+        }
+    },
+
+    "1F04 - Byte-1" : {
+        "table" : {
+            "type" : "bitfiled",
+            "info" : "none",
+            "data" : [
+                "1xxx xxxx" : "enable sending of TLV-Tag E3 in command print text-block (06D3) within TLV-Tag 25"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F05" : {
+        "table" : {
+            "type" : "bitfield",
+            "info" : "All unused bits should be set to 0",
+            "data": [
+                "1xxx xxxx" : "The PT should send the card-data read during the Authorisation to the ECR",
+                "0xxx xxxx" : "if card-data can not be processed Terminal ends with Error. See -> 1F-08 /-09 /-0A",
+                "x1xx xxxx" : "Activate swipe-reader",
+                "x0xx xxxx" : "Deactivate swipe-reader"
+            ]
+        },
+        "default" : "none"
+    },
+    "1F06" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "pre-authorisation",
+                "0x02" : "pre-authorisation",
+                "0x03" : "extension of reservation",
+                "0x04" : "book total",
+                "0x05" : "booking of reservation",
+                "0x06" : "telephonic reservation",
+                "0x07" : "telephonic extension of reservation"
+            ]
+        },
+        "default" : "none"
+    },
+    "1F07" :{
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "transaction receipt (merchant receipt)",
+                "0x02" : "transaction receipt (customer receipt)",
+                "0x03" : "administration-receipt"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F10" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "no cardholder authentication",
+                "0x01" : "signature",
+                "0x02" : "online Pin",
+                "0x03" : "offline encrypted Pin",
+                "0x04" : "offline plaintext Pin",
+                "0x05" : "offline encrypted Pin + signature",
+                "0x06" : "offline plaintext Pin + signature",
+                "0x07" : "online Pin + signature",
+                "0xFF" : "unknown cardholder authentication"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F11" : {
+        "table": {
+            "type" : "number",
+            "info" : "none",
+            "data" : [
+                "1" : "online",
+                "0" : "offline"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F13" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "extended diagnosis",
+                "0x01" : "reconciliation with closure",
+                "0x02" : "configuration diagnosis",
+                "0x03" : "OPT pre initialisation",
+                "0x04" : "EMV configuration diagnosis",
+                "0x05" : "Tax free transaction"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F15" : {
+        "table" : {
+            "type" : "bitmap",
+            "info" : "All unused bits should be set to 0",            
+            "data" : [
+                "1xxx xx00" : "default algorithm and send the tag 1F14 in the status information (04 0F) of the command Read Card and card payment commands.",
+                "1xxx xx01" : "online algorithm",
+                "1xxx xx10" : "offline hash algorithm (SHA-256)",
+                "x1xx xxxx" : "Contactless cards: read the UID from the card with leading ‘00’ bytes to a length of 10 bytes, and return it in tag 4C in the status information.",
+                "xx1x xxxx" : "GeldKarte / girogo: The PT should read the remaining balance and return it in tag 1F3F."
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F19" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "accept",
+                "0x01" : "deny"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F1D" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "Base currency",
+                "0x02" : "Exchange rate",
+                "0x03" : "Foreign currency",
+                "0x04" : "Commission",
+                "0x05" : "balance"
+            ]
+        },
+        "default" : "none"
+    },
+    "1F26" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "Normal end of day",
+                "0x01" : "Forced end of day",
+                "0x02" : "Automatic end of day"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F2D" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x00" : "read from magnet stripe",
+                "0x01" : "read from chip",
+                "0x02" : "read from barcode"
+            ]
+        },
+        "default" : "none"
+    },
+
+    "1F37" : {
+        "table" : {
+            "type" : "byte",
+            "info" : "none",
+            "data" : [
+                "0x01" : "Positive receipt for an authorised transaction",
+                "0x02" : "If a positive receipt is printed (bit combined with 0x01), this receipt contains a signature field.",
+                "0x04" : "Negative receipt for an aborted or rejected transaction",
+                "0x80" : "Printing of the receipt is mandatory and must not be aborted by customer/retailer." 
+            ]
+        },
+        "default" : "none"
+    },
+
+
+
+
+
+
+
+
 
 
 
