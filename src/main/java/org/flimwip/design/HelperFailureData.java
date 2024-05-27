@@ -23,7 +23,7 @@ public class HelperFailureData {
                 String[] splitted = reading.split(";");
                 if(splitted[2].equals("LIVE")){
                     //System.out.println(reading);
-                    checkouts.add(splitted[0]);
+                    checkouts.add(splitted[0]);       
                 }
             }
         } catch (IOException e) {
