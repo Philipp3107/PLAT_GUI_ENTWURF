@@ -1,0 +1,12 @@
+
+class Knot{
+
+
+
+
+    public Knot(){}
+
+
+
+
+}
