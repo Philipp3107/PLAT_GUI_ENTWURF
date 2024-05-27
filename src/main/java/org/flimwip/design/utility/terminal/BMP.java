@@ -14,7 +14,6 @@ public enum BMP {
     _LLL_VAR, // Gelb
     _LL_VAR_BCD;
 
-
     public static BMP get_type(String bmp_code){
 
         switch (bmp_code) {
