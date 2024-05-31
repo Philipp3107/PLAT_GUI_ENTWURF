@@ -1,8 +1,0 @@
-
-class Leave {
-
-    
-    public Leaver() {}
-
-
-}

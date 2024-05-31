@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 class Node{
 
@@ -11,7 +12,7 @@ class Node{
 
   private ArrayList<Node> child_nodes  = new ArrayList<>();
 
-  public Node(bool end, String id, int length, String description){
+  public Node(boolean end, String id, int length, String description){
     
     this.end         = end;
 

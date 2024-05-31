@@ -7,18 +7,18 @@ public class BMP_Parser {
   //POS<-Term 17 CLASS - 6 INSTR - d3 DATA - 06 82 01 8e ...
   //nächster erst in line 536
 
-  void parse(String line){
-    
-    if(line.contains(" Data - ")){
-    
-    
+  void parse(String line) {
 
-    }else{
-      
+    if (line.contains(" Data - ")) {
+
+
+    } else {
+
+    }
   }
 
 
-  void 
+
 
 
 
@@ -31,18 +31,9 @@ public class BMP_Parser {
 
   //perses the tlv container
   void parse_tlv(String[] line){
-  
-    for(String s: line){
-      
-      
-    }
 
   }
 
-  //parses given bmp codes in the 
-  void parse_bmp(){
-  
-
-  }
+  //parses given bmp codes in the
 
 }

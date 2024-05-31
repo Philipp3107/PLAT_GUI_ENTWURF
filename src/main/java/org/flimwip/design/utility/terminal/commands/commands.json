@@ -1,547 +1,3103 @@
-"commands" : [
-    
-"01" : {        
-    "section" : "Miscellaneous",
-    "name" : "reversal-id",
-    "fixed_length" : true,
-    "length" : "8-byte",
-    "encoding" : "binary",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-} ,
-
-"02" : {
-    "section" : "Fleet-card",
-    "name" : "driver-number",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding" : "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"03" : {
-    "section" : "Fleet-card",
-    "name" : "auto-number",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding" : "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-    
-"04" : {
-    "section" : "Fleet-card",
-    "name" : "mileage",
-    "fixed_length" : true,
-    "length" : "3-byte",
-    "encoding" : "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"05" : {
-    "section" : "Fleet-card",
-    "name" : "goods-group",
-    "fixed_length" : true,
-    "length" : "3-byte",
-    "encoding" : "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-    
-"06" : {
-    "section" : "Fleet-card",
-    "name" : "restriction-code 1",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding" : "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"07" : {
-    "section" : "Miscellaneous",
-    "name" : "receipt-number",
-    "fixed_length" : false,
-    "length" : "unknown",
-    "encoding" : "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"08" :{
-    "section" : "Miscellaneous",
-    "name" : "receipt-number",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],,
-    "parentcommands" : ["none"]
-},
-
-"09" :{
-    "section" : "Miscellaneous",
-    "name" : "attribute",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding": "unknown",
-    "description" : "Structure see chapter Print Lines (06 D1). 0xFF indicates on linefeed, no combination with a count possible as described in command 06 D1",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0A" : {
-    "section": "Miscellaneous",
-    "name": "ZVT-commands",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "unknown",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0B" : {
-    "section": "Miscellaneous",
-    "name": "info-field",
-    "fixed_length" : true,
-    "length" : "0 - 20-byte",
-    "encoding": "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0C" : {
-    "section": "Miscellaneous",
-    "name": "info-field 2",
-    "fixed_length" : true,
-    "length" : "0 - 10-bytes",
-    "encoding": "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0D" : {
-    "section": "Fleet-card",
-    "name": "restriction-code 2",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0E" : {
-    "section": "Fleet-card",
-    "name": "service-code",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"0F" : {
-    "section": "Miscellaneous",
-    "name": "assignment-number",
-    "fixed_length" : true,
-    "length" : "0 - 20-bytes",
-    "encoding": "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"10" : {
-    "section": "Miscellaneous",
-    "name": "lines and columns on merchant-display",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"11" : {
-    "section": "Miscellaneous",
-    "name": "lines and columns on customer-display",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"12" : {
-    "section": "Miscellaneous",
-    "name": "number of characters per line of the printer",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding": "BCD",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"13" : {
-    "section": "Miscellaneous",
-    "name": "extra result-code",
-    "fixed_length" : false,
-    "length" : "unknown",
-    "encoding": "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"14" :{
-    "section" : "Miscellaneous",
-    "name" : "ISO character set",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding": "table",
-    "description" : "none",
-    "subcommands": ["none"],
-    "parentcommands" : ["27", "2B", "32"]
-},
-
-"15" : {
-    "section": "Miscellaneous",
-    "name": "language-code",
-    "fixed_length" : true,
-    "length" : "2-byte",
-    "encoding": "ascii",
-    "description" : "none",
-    "subcommands" : ["none"],
-    "parentcommands" : ["28", "2B"]
-},
-
-"16" : {
-    "section" : "Menu",
-    "name" : "menu-type",
-    "fixed_length" : true,
-    "length" : "1-byte",
-    "encoding" : "BCD",
-    "description" : "Byte 2 - n are RFU",
-    "subcommands" : ["none"],
-    "parentcommands" : ["2B"],
-},
-
-"17" : {
-    "section" : "Menu",
-    "name" : "context",
-    "fixed_length" : true,
-    "length" : "",
-    "encoding" : "",
-    "description" : "",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-},
-
-"XX" : {
-    "section" : "",
-    "name" : "",
-    "fixed_length" : true,
-    "length" : "",
-    "encoding" : "",
-    "description" : "",
-    "subcommands" : ["none"],
-    "parentcommands" : ["none"]
-}
-
-],
-
-"tables" : [
-
-    "14" : { 
-        "table": {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "ASCII 7 bit common character-set (does not correspond to ZVT-character-set!)",
-                "0x01" : "ISO8859-1 (Latin 1)",
-                "0x02" : "ISO8859-2",
-                "0x03" : "ISO8859-3",
-                "0x04" : "ISO8859-4",
-                "0x05" : "ISO8859-5",
-                "0x06" : "ISO8859-6",
-                "0x07" : "ISO8859-7",
-                "0x08" : "ISO8859-8",
-                "0x09" : "ISO8859-9",
-                "0x10" : "ISO8859-16",
-                "0xFE" : "UTF8 Encoder for unicode",
-                "0xFF" : "8 bit ZVT-character-set CP437 (default; must be supported)"
-            ],
-        "default" : "none"
+{
+  "commands": [
+    {
+      "01": {
+        "section": "Miscellaneous",
+        "name": "reversal-id",
+        "fixed_length": true,
+        "length": "8-byte",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
-    
-    "1B" : {
-        "table": {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "line diagnosis",
-                "0x02" : "extended diagnosis",
-                "0x03" : "configuration diagnosis",
-                "0x04" : "EMV configuration diagnosis",
-                "0x05" : "EP2 configuration"
-            ]
-        },
-        "default" : "0x02"
+    {
+      "02": {
+        "section": "Fleet-card",
+        "name": "driver-number",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "03": {
+        "section": "Fleet-card",
+        "name": "auto-number",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "04": {
+        "section": "Fleet-card",
+        "name": "mileage",
+        "fixed_length": true,
+        "length": "3-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1D" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "merchant-journal",
-                "0x02" : "merchant-journal",
-                "0x03" : "log-file of the ECR-protocol",
-                "0x04" : "log-file of the communication-module",
-                "0x05" : "log-file of the PIN-pad",
-                "0x06" : "reconciliation data (content is implementation dependent)"
-            ]
-        },
-
-        "default" : "none"
+    {
+      "05": {
+        "section": "Fleet-card",
+        "name": "goods-group",
+        "fixed_length": true,
+        "length": "3-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F01" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "last receipt",
-                "0x02" : "payment-receipt merchant (see also tag ‚1F02‘ and tag ‚1F03‘)",
-                "0x03" : "payment-receipt customer (see also tag ‚1F02‘ and tag ‚1F03‘)",
-                "0x04" : "end of day receipt",
-                "0x05" : "journal (see also tag ‚1F02‘ and tag ‚1F03‘)",
-                "0x06" : "reconciliation"
-            ]
-        },
-        "default" : "none"
+    {
+      "06": {
+        "section": "Fleet-card",
+        "name": "restriction-code 1",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F04 - Byte-0" : {
-        "table": {
-            "type" : "bitfield",
-            "info" : "none",
-            "data" : [
-                "1xxx xxxx" : "positive customer-receipt required, transaction successful",
-                "0xxx xxxx" : "no customer-receipt",
-                "x1xx xxxx" : "negative customer-receipt required, transaction failed",
-                "x0xx xxxx" : "no customer-receipt",
-                "xx1x xxxx" : "positive merchant-receipt required, transaction successful",
-                "xx0x xxxx" : "no merchant-receipt",
-                "xxx1 xxxx" : "negative merchant-receipt required, transaction failed",
-                "xxx0 xxxx" : "no merchant reveipt",
-                "xxxx 1xxx" : "customer-receipt should be sent before the merchant-receipt",
-                "xxxx 0xxx" : "merchant-receipt should be sent before the customer-receipt",
-                "xxxx x1xx" : "print short receipt",
-                "xxxx x0xx" : "print normal receipt",
-                "xxxx xx1x" : "do not print product-data",
-                "xxxx xx0x" : "print normal receipt",
-                "xxxx xxx1" : "use ECR as printer"
-            ]
-        },
-        "default" : "none"
-        }
+    {
+      "07": {
+        "section": "Miscellaneous",
+        "name": "receipt-number",
+        "fixed_length": false,
+        "length": "unknown",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F04 - Byte-1" : {
-        "table" : {
-            "type" : "bitfiled",
-            "info" : "none",
-            "data" : [
-                "1xxx xxxx" : "enable sending of TLV-Tag E3 in command print text-block (06D3) within TLV-Tag 25"
-            ]
-        },
-        "default" : "none"
+    {
+      "08": {
+        "section": "Miscellaneous",
+        "name": "receipt-number",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F05" : {
-        "table" : {
-            "type" : "bitfield",
-            "info" : "All unused bits should be set to 0",
-            "data": [
-                "1xxx xxxx" : "The PT should send the card-data read during the Authorisation to the ECR",
-                "0xxx xxxx" : "if card-data can not be processed Terminal ends with Error. See -> 1F-08 /-09 /-0A",
-                "x1xx xxxx" : "Activate swipe-reader",
-                "x0xx xxxx" : "Deactivate swipe-reader"
-            ]
-        },
-        "default" : "none"
-    },
-    "1F06" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "pre-authorisation",
-                "0x02" : "pre-authorisation",
-                "0x03" : "extension of reservation",
-                "0x04" : "book total",
-                "0x05" : "booking of reservation",
-                "0x06" : "telephonic reservation",
-                "0x07" : "telephonic extension of reservation"
-            ]
-        },
-        "default" : "none"
-    },
-    "1F07" :{
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "transaction receipt (merchant receipt)",
-                "0x02" : "transaction receipt (customer receipt)",
-                "0x03" : "administration-receipt"
-            ]
-        },
-        "default" : "none"
+    {
+      "09": {
+        "section": "Miscellaneous",
+        "name": "attribute",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "unknown",
+        "description": "Structure see chapter Print Lines (06 D1). 0xFF indicates on linefeed, no combination with a count possible as described in command 06 D1",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F10" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "no cardholder authentication",
-                "0x01" : "signature",
-                "0x02" : "online Pin",
-                "0x03" : "offline encrypted Pin",
-                "0x04" : "offline plaintext Pin",
-                "0x05" : "offline encrypted Pin + signature",
-                "0x06" : "offline plaintext Pin + signature",
-                "0x07" : "online Pin + signature",
-                "0xFF" : "unknown cardholder authentication"
-            ]
-        },
-        "default" : "none"
+    {
+      "0A": {
+        "section": "Miscellaneous",
+        "name": "ZVT-commands",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F11" : {
-        "table": {
-            "type" : "number",
-            "info" : "none",
-            "data" : [
-                "1" : "online",
-                "0" : "offline"
-            ]
-        },
-        "default" : "none"
+    {
+      "0B": {
+        "section": "Miscellaneous",
+        "name": "info-field",
+        "fixed_length": true,
+        "length": "0 - 20-byte",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F13" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "extended diagnosis",
-                "0x01" : "reconciliation with closure",
-                "0x02" : "configuration diagnosis",
-                "0x03" : "OPT pre initialisation",
-                "0x04" : "EMV configuration diagnosis",
-                "0x05" : "Tax free transaction"
-            ]
-        },
-        "default" : "none"
+    {
+      "0C": {
+        "section": "Miscellaneous",
+        "name": "info-field 2",
+        "fixed_length": true,
+        "length": "0 - 10-bytes",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F15" : {
-        "table" : {
-            "type" : "bitmap",
-            "info" : "All unused bits should be set to 0",            
-            "data" : [
-                "1xxx xx00" : "default algorithm and send the tag 1F14 in the status information (04 0F) of the command Read Card and card payment commands.",
-                "1xxx xx01" : "online algorithm",
-                "1xxx xx10" : "offline hash algorithm (SHA-256)",
-                "x1xx xxxx" : "Contactless cards: read the UID from the card with leading ‘00’ bytes to a length of 10 bytes, and return it in tag 4C in the status information.",
-                "xx1x xxxx" : "GeldKarte / girogo: The PT should read the remaining balance and return it in tag 1F3F."
-            ]
-        },
-        "default" : "none"
+    {
+      "0D": {
+        "section": "Fleet-card",
+        "name": "restriction-code 2",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F19" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "accept",
-                "0x01" : "deny"
-            ]
-        },
-        "default" : "none"
+    {
+      "0E": {
+        "section": "Fleet-card",
+        "name": "service-code",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F1D" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "Base currency",
-                "0x02" : "Exchange rate",
-                "0x03" : "Foreign currency",
-                "0x04" : "Commission",
-                "0x05" : "balance"
-            ]
-        },
-        "default" : "none"
-    },
-    "1F26" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "Normal end of day",
-                "0x01" : "Forced end of day",
-                "0x02" : "Automatic end of day"
-            ]
-        },
-        "default" : "none"
+    {
+      "0F": {
+        "section": "Miscellaneous",
+        "name": "assignment-number",
+        "fixed_length": true,
+        "length": "0 - 20-bytes",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F2D" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x00" : "read from magnet stripe",
-                "0x01" : "read from chip",
-                "0x02" : "read from barcode"
-            ]
-        },
-        "default" : "none"
+    {
+      "10": {
+        "section": "Miscellaneous",
+        "name": "lines and columns on merchant-display",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     },
 
-    "1F37" : {
-        "table" : {
-            "type" : "byte",
-            "info" : "none",
-            "data" : [
-                "0x01" : "Positive receipt for an authorised transaction",
-                "0x02" : "If a positive receipt is printed (bit combined with 0x01), this receipt contains a signature field.",
-                "0x04" : "Negative receipt for an aborted or rejected transaction",
-                "0x80" : "Printing of the receipt is mandatory and must not be aborted by customer/retailer." 
-            ]
-        },
-        "default" : "none"
+    {
+      "11": {
+        "section": "Miscellaneous",
+        "name": "lines and columns on customer-display",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "12": {
+        "section": "Miscellaneous",
+        "name": "number of characters per line of the printer",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "13": {
+        "section": "Miscellaneous",
+        "name": "extra result-code",
+        "fixed_length": false,
+        "length": "unknown",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "14": {
+        "section": "Miscellaneous",
+        "name": "ISO character set",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["27", "2B", "32"]
+      }
+    },
+
+    {
+      "15": {
+        "section": "Miscellaneous",
+        "name": "language-code",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["28", "2B"]
+      }
+    },
+
+    {
+      "16": {
+        "section": "Menu",
+        "name": "menu-type",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": "Byte 2 - n are RFU",
+        "subcommands": ["none"],
+        "parentcommands": ["2B"]
+      }
+    },
+
+    {
+      "17": {
+        "section": "Menu",
+        "name": "context",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["2B"]
+      }
+    },
+
+    {
+      "18": {
+        "section": "Menu",
+        "name": "target",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["2B"]
+      }
+    },
+
+    {
+      "19": {
+        "section": "Menu",
+        "name": "return-value",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["2B"]
+      }
+    },
+    {
+      "1A": {
+        "section": "Miscellaneous",
+        "name": "max. lenght of APDU",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1B": {
+        "section": "Miscellaneous",
+        "name": "diagnosis-type",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1C": {
+        "section": "Miscellaneous",
+        "name": "file-block",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "raw-data",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1D": {
+        "section": "Miscellaneous",
+        "name": "file-ID",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1E": {
+        "section": "Miscellaneous",
+        "name": "start-position",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "byte",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "20": {
+        "section": "Fleet-card",
+        "name": "fleet-card container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "primitive types of Fleet-Card section",
+        "description": "none",
+        "subcommands": [
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "0D",
+          "0E",
+          "1F0B",
+          "1F0C"
+        ],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "21": {
+        "section": "Fleet-card",
+        "name": "list of permitted goods group",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 05",
+        "description": "none",
+        "subcommands": ["05"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "22": {
+        "section": "Fleet-card",
+        "name": "list of prohibited (blocked) goods-groups",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 05",
+        "description": "none",
+        "subcommands": ["05"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "23": {
+        "section": "Miscellaneous",
+        "name": "List of open pre-authorisations",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 08",
+        "description": "none",
+        "subcommands": ["08"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "24": {
+        "section": "Miscellaneous",
+        "name": "display-texts",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 07",
+        "description": "each line in 07 is formed on its own line (no line return)",
+        "subcommands": ["07"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "25": {
+        "section": "Miscellaneous",
+        "name": "prints-texts",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 07, 09",
+        "description": "none",
+        "subcommands": ["07", "09"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "26": {
+        "section": "Miscellaneous",
+        "name": "list of permitted ZVT-commands",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 0A",
+        "description": "none",
+        "subcommands": ["0A"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "27": {
+        "section": "Miscellaneous",
+        "name": "List of supported character-sets",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 14",
+        "description": "none",
+        "subcommands": ["14"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "28": {
+        "section": "Miscellaneous",
+        "name": "List of supported languages",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 15",
+        "description": "none",
+        "subcommands": ["15"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "29": {
+        "section": "Miscellaneous",
+        "name": "list of menus which should be displayed over the ECR or on a second customer-display",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 16, 17",
+        "description": "none",
+        "subcommands": ["16", "17"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "2A": {
+        "section": "Menu",
+        "name": "list of menus which the ECR will not display and therefore must be displayed on the PT",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 16, 17",
+        "description": "none",
+        "subcommands": ["16", "17"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "2B": {
+        "section": "Menu",
+        "name": "menu;",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 14, 15, 16, 17, 18, 2C",
+        "description": "none",
+        "subcommands": ["14", "15", "16", "17", "18", "2C"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "2C": {
+        "section": "Menu",
+        "name": "Menu-Point",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 07, 19",
+        "description": "none",
+        "subcommands": ["16", "17"],
+        "parentcommands": ["2B"]
+      }
+    },
+    {
+      "2D": {
+        "section": "Miscellaneous",
+        "name": "file",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1C, 1D, 1E, 1F00",
+        "description": "none",
+        "subcommands": ["1C", "1D", "1E", "1F00"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "2E": {
+        "section": "Miscellaneous",
+        "name": "time-stamp",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F0E, 1F0F",
+        "description": "none",
+        "subcommands": ["1F0E", "1F0F"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "2F": {
+        "section": "Miscellaneous",
+        "name": "payment-type",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F10, 1F11, 1F12",
+        "description": "none",
+        "subcommands": ["1F10", "1F11", "1F12"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "30": {
+        "section": "Miscellaneous",
+        "name": "card acceptance matching",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 41, 1F19, 1F1A",
+        "description": "none",
+        "subcommands": ["41", "1F19", "1F1A"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "31": {
+        "section": "Miscellaneous",
+        "name": "Amount information",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F1D, 1F1E, 1F20, 1F21",
+        "description": "none",
+        "subcommands": ["1F1D", "1F1E", "1F20", "1F21"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "32": {
+        "section": "Input",
+        "name": "input container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 24, 1F38, 1F39, 14, 1F21, 1F1E, 1F3A",
+        "description": "none",
+        "subcommands": ["24", "1F38", "1F39", "14", "1F21", "1F1E", "1F3A"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "40": {
+        "section": "EMV",
+        "name": "EMV-configuration-parameter",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "sent by the ECR",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "41": {
+        "section": "EMV",
+        "name": "ZVT card-type-ID",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "sent by the ECR",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "42": {
+        "section": "EMV",
+        "name": "Application Label",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "43": {
+        "section": "EMV",
+        "name": "application-ID",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "44": {
+        "section": "EMV",
+        "name": "applicatio preffered name",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "45": {
+        "section": "EMV",
+        "name": "receipt parameter",
+        "fixed_length": true,
+        "length": "4-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "46": {
+        "section": "EMV",
+        "name": "EMV print-data (customer-receipt)",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "47": {
+        "section": "EMV",
+        "name": "EMV print-data (merchant-receipt)",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "48": {
+        "section": "EMV",
+        "name": "priority",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "hex",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["60"]
+      }
+    },
+    {
+      "49": {
+        "section": "EMV",
+        "name": "network-operator card-type-ID",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "4A": {
+        "section": "EMV",
+        "name": "DC POS 2.4 product display",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "4B": {
+        "section": "EMV",
+        "name": "Issuer country code",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "leading zeros",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "4C": {
+        "section": "unknown",
+        "name": "UID",
+        "fixed_length": false,
+        "length": "unknown",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "4D": {
+        "section": "unknown",
+        "name": "EF_ID Geldkarte / girogo",
+        "fixed_length": false,
+        "length": "unknown",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "60": {
+        "section": "EMV",
+        "name": "application",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 41/43, 42&/44, 48, 4A, 4B",
+        "description": "none",
+        "subcommands": ["41", "43", "42", "44", "48", "4A", "4B"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "61": {
+        "section": "EMV",
+        "name": "application",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 60, 41",
+        "description": "none",
+        "subcommands": ["60", "41"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "62": {
+        "section": "EMV",
+        "name": "list of applications on chip",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 60, 43",
+        "description": "none",
+        "subcommands": ["60", "43"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "63": {
+        "section": "Prepaid",
+        "name": "prepaid container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 80, 81, 82, 83",
+        "description": "none",
+        "subcommands": ["80", "81", "82", "83"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "64": {
+        "section": "EMV",
+        "name": "receipt header",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 09, 70",
+        "description": "none",
+        "subcommands": ["09", "07"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "65": {
+        "section": "EMV",
+        "name": "receipt advertising",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 09, 70",
+        "description": "none",
+        "subcommands": ["09", "07"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "66": {
+        "section": "EMV",
+        "name": "customer receipt data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 47, 68",
+        "description": "none",
+        "subcommands": ["47", "68"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "67": {
+        "section": "EMV",
+        "name": "merchant receipt data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 47, 68",
+        "description": "none",
+        "subcommands": ["47", "68"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "68": {
+        "section": "EMV",
+        "name": "receipt text transaction outcome",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 09, 70",
+        "description": "none",
+        "subcommands": ["09", "07"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "69": {
+        "section": "EMV",
+        "name": "reference transaction container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "e.g. timestamp of the orginal transaction for reversal, tag 2E",
+        "subcommands": ["09", "07"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "6A": {
+        "section": "EMV",
+        "name": "invalid application",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 41/43, 42&/44, 48, 4A",
+        "description": "e.g. timestamp of the orginal transaction for reversal, tag 2E",
+        "subcommands": ["41", "43", "42", "44", "48", "4A"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "80": {
+        "section": "Prepaid",
+        "name": "prepaid PIN",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "see tag 63",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "81": {
+        "section": "Prepaid",
+        "name": "telefone number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "see tag 63",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "82": {
+        "section": "Prepaid",
+        "name": "top-up text",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "see tag 63",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "83": {
+        "section": "Prepaid",
+        "name": "prepait type",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "see tag 63",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "E1": {
+        "section": "Bonus-points construted",
+        "name": "bonus-points container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "C1": {
+        "section": "Bonus-points",
+        "name": "transaction-type",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "see tag E1",
+        "subcommands": ["none"],
+        "parentcommands": ["E1"]
+      }
+    },
+    {
+      "C2": {
+        "section": "Bonus-points",
+        "name": "number of bonus-points",
+        "fixed_length": true,
+        "length": "8-byte",
+        "encoding": "BCD",
+        "description": "leading zeros",
+        "subcommands": ["none"],
+        "parentcommands": ["E1"]
+      }
+    },
+    {
+      "C3": {
+        "section": "Bonus-points",
+        "name": "number of remaining bonus-points",
+        "fixed_length": true,
+        "length": "8-byte",
+        "encoding": "BCD",
+        "description": "leading zeros",
+        "subcommands": ["none"],
+        "parentcommands": ["E1"]
+      }
+    },
+    {
+      "C4": {
+        "section": "Bonus-points",
+        "name": "transaction number of ECR",
+        "fixed_length": true,
+        "length": "4-byte",
+        "encoding": "BCD",
+        "description": "leading zeros",
+        "subcommands": ["none"],
+        "parentcommands": ["E1"]
+      }
+    },
+
+    {
+      "1F00": {
+        "section": "Miscellaneous",
+        "name": "total-length of file",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unk",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F01": {
+        "section": "Miscellaneous",
+        "name": "receipt-ID",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F02": {
+        "section": "Miscellaneous",
+        "name": "from _TA-number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["1F01"]
+      }
+    },
+    {
+      "1F02": {
+        "section": "Miscellaneous",
+        "name": "to _TA-number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["1F01", "1F02"]
+      }
+    },
+    {
+      "1F04": {
+        "section": "Miscellaneous",
+        "name": "receipt-parameter",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F05": {
+        "section": "Miscellaneous",
+        "name": "transaction-parameter",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F06": {
+        "section": "Miscellaneous",
+        "name": "reservation-parameter",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F07": {
+        "section": "Miscellaneous",
+        "name": "receipt-type",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F08": {
+        "section": "Miscellaneous",
+        "name": "data track 1 of the magent stripe",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unpacked optional",
+        "description": "The PT can send the track-data in the Status-Information to the ECR",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F09": {
+        "section": "Miscellaneous",
+        "name": "data track 2 of the magent stripe",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD optional",
+        "description": "The PT can send the track-data in the Status-Information to the ECR",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0A": {
+        "section": "Miscellaneous",
+        "name": "data track 3 of the magent stripe",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD optional",
+        "description": "The PT can send the track-data in the Status-Information to the ECR",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0B": {
+        "section": "Fleet-card",
+        "name": "maximum pre-authorisation amount",
+        "fixed_length": false,
+        "length": "0 - 6-byte",
+        "encoding": "BCD",
+        "description": "leading zeros in cent",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0C": {
+        "section": "Fleet-card",
+        "name": "license plate number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0D": {
+        "section": "Miscellaneous",
+        "name": "transparent data to host",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "ECR data transported transparently from and to host",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0E": {
+        "section": "Miscellaneous",
+        "name": "date",
+        "fixed_length": true,
+        "length": "4-byte",
+        "encoding": "BCD",
+        "description": "Format: YYYYMMDD",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F0F": {
+        "section": "Miscellaneous",
+        "name": "time",
+        "fixed_length": true,
+        "length": "3-byte",
+        "encoding": "BCD",
+        "description": "Format: HHMMSS",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F10": {
+        "section": "Miscellaneous",
+        "name": "cardholder authentication",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F11": {
+        "section": "Miscellaneous",
+        "name": "online-flag",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F12": {
+        "section": "Miscellaneous",
+        "name": "card-technology",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F13": {
+        "section": "Miscellaneous",
+        "name": "ECR function request",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F14": {
+        "section": "Miscellaneous",
+        "name": "card identification item",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F15": {
+        "section": "Miscellaneous",
+        "name": "card reading control",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F16": {
+        "section": "Miscellaneous",
+        "name": "extended error code",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F17": {
+        "section": "Miscellaneous",
+        "name": "extended error text",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F18": {
+        "section": "Miscellaneous",
+        "name": "card notification control",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": " 00 or missing - only function keys, 01 card insertion terminates the command too",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F19": {
+        "section": "Miscellaneous",
+        "name": "card acceptance",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1A": {
+        "section": "Miscellaneous",
+        "name": "PAN for card acceptance matching",
+        "fixed_length": true,
+        "length": "unknown",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1B": {
+        "section": "DCC",
+        "name": "markup in % with 2 dezimals",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1C": {
+        "section": "DCC",
+        "name": "card name",
+        "fixed_length": false,
+        "length": "0 - 32-bytes",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1D": {
+        "section": "Miscellaneous",
+        "name": "currency information",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1E": {
+        "section": "Miscellaneous",
+        "name": "number of decimals",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F1F": {
+        "section": "unknown",
+        "name": "**free**",
+        "fixed_length": true,
+        "length": "unknown",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F20": {
+        "section": "Miscellaneous",
+        "name": "amount",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F21": {
+        "section": "Miscellaneous",
+        "name": "ISO currency code",
+        "fixed_length": true,
+        "length": "unknown",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F22": {
+        "section": "DCC",
+        "name": "inverted rate dosplay unit",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "BCD",
+        "description": "exponent of the base currency to be printed",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F23": {
+        "section": "DCC",
+        "name": "Retrieval ID",
+        "fixed_length": true,
+        "length": "0 - 18-bytes",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F23": {
+        "section": "DCC",
+        "name": "Reference number",
+        "fixed_length": true,
+        "length": "0 - 14-bytes",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F25": {
+        "section": "Miscellaneous",
+        "name": "Cashback Amount",
+        "fixed_length": true,
+        "length": "0 - 18-bytes",
+        "encoding": "BCD",
+        "description": "For transactions with chashback",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F26": {
+        "section": "Miscellaneous",
+        "name": "End of Day mode",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F27": {
+        "section": "Miscellaneous",
+        "name": "Extended product name",
+        "fixed_length": true,
+        "length": "0 - 24-bytes",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F28": {
+        "section": "Miscellaneous",
+        "name": "Emergency mode",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "1 - Notbertieb",
+        "description": "only on merchant-receipts",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F29": {
+        "section": "Miscellaneous",
+        "name": "Limit overridden",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "1 - Limit übersteuert",
+        "description": "only on merchant-receipts",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2A": {
+        "section": "Miscellaneous",
+        "name": "Additional card holder information",
+        "fixed_length": true,
+        "length": "1 - 24-byte",
+        "encoding": "ascii",
+        "description": "two parse seperated by \"/\" BLZ or Kto",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2B": {
+        "section": "Miscellaneous",
+        "name": "Trace number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "none",
+        "description": "used for trace numbers longer that 6 digits -> 0B. If used 0B is set to 000000",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2C": {
+        "section": "Miscellaneous",
+        "name": "Profile name",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2D": {
+        "section": "Miscellaneous",
+        "name": "Card data input type",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2E": {
+        "section": "Barcode data",
+        "name": "Barcode type",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F2F": {
+        "section": "Barcode data",
+        "name": "Product code",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F30": {
+        "section": "Miscellaneous",
+        "name": "EPurse top up amount",
+        "fixed_length": true,
+        "length": "6-byte",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F31": {
+        "section": "Miscellaneous",
+        "name": "Encrypted PIN block",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F32": {
+        "section": "Miscellaneous",
+        "name": "SMID value",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F33": {
+        "section": "Miscellaneous",
+        "name": "Message data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "contains a hash value (SHA-256, SHA-1)",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F34": {
+        "section": "Miscellaneous",
+        "name": "MAC value",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F35": {
+        "section": "Miscellaneous",
+        "name": "ECR Identification",
+        "fixed_length": true,
+        "length": "4-byte",
+        "encoding": "BCD",
+        "description": "8 digit workstation ID",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F36": {
+        "section": "Miscellaneous",
+        "name": "Tip amount",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F37": {
+        "section": "Miscellaneous",
+        "name": "Receipt information",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F38": {
+        "section": "Input",
+        "name": "Input mode",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "8 digit workstation ID",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F39": {
+        "section": "Input",
+        "name": "Timeout",
+        "fixed_length": true,
+        "length": "2-byte",
+        "encoding": "binary",
+        "description": "big endian",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3A": {
+        "section": "Input",
+        "name": "Input result",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3B": {
+        "section": "Miscellaneous",
+        "name": "Transaction information",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "0x01... -> tippable transaction",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3C": {
+        "section": "Input",
+        "name": "Input",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3D": {
+        "section": "Input",
+        "name": "Alphanumeric data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3E": {
+        "section": "Miscellaneous",
+        "name": "Ancrypted cardholder information",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F3F": {
+        "section": "Miscellaneous",
+        "name": "Remaining balance",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F40": {
+        "section": "unknown",
+        "name": "Device name",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F41": {
+        "section": "unknown",
+        "name": "Software version",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F42": {
+        "section": "unknown",
+        "name": "Serial number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F43": {
+        "section": "unknown",
+        "name": "Device state",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F44": {
+        "section": "unknown",
+        "name": "Terminal identifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F45": {
+        "section": "Miscellaneous",
+        "name": "ATS",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binray",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F46": {
+        "section": "Miscellaneous",
+        "name": "Commands APDU's",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F47": {
+        "section": "Miscellaneous",
+        "name": "Card read error code",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F48": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F49": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4A": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4B": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4C": {
+        "section": "Miscellaneous",
+        "name": "Card type",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4D": {
+        "section": "Miscellaneous",
+        "name": "Card subtype",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4E": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F4F": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F50": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F51": {
+        "section": "SEPA Direct Debit",
+        "name": "Debit mandate indentifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F52": {
+        "section": "SEPA Direct Debit",
+        "name": "Debit credit indentifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F53": {
+        "section": "SEPA Direct Debit",
+        "name": "Debit pre-notifiaction",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F54": {
+        "section": "Configuration",
+        "name": "Key generation number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "big endian integer",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F55": {
+        "section": "Configuration",
+        "name": "Terminal locks",
+        "fixed_length": true,
+        "length": "2-bytes",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F56": {
+        "section": "Configuration",
+        "name": "4eye Customer identifier (CID)",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F57": {
+        "section": "Configuration",
+        "name": "Merchant SAM number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F58": {
+        "section": "Configuration",
+        "name": "Merchant SAM expiry date",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "Format: YYMM",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F59": {
+        "section": "Configuration",
+        "name": "Payment applications",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "ascii",
+        "description": "Format: YYMM",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5A": {
+        "section": "unknown",
+        "name": "reserved",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5B": {
+        "section": "Miscellaneous",
+        "name": "Card poll timeout",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "big-endian integer",
+        "description": "timeout in seconds. 0 means infinity",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5C": {
+        "section": "Miscellaneous",
+        "name": "Encrypted key",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "timeout in seconds. 0 means infinity",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5D": {
+        "section": "Miscellaneous",
+        "name": "Plain text",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5E": {
+        "section": "SEPA Direct Debit",
+        "name": "IBAN",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F5F": {
+        "section": "SEPA Direct Debit",
+        "name": "BIC",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F60": {
+        "section": "Miscellaneous",
+        "name": "Allowed card technologies",
+        "fixed_length": true,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F61": {
+        "section": "Miscellaneous",
+        "name": "Costumer index",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F62": {
+        "section": "Miscellaneous",
+        "name": "Identifier for the individual reference number",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "two letters",
+        "description": "used in BMP 60 when transmitting the individual refernce number (sepcified by 1F63) to the host",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F63": {
+        "section": "Miscellaneous",
+        "name": "Identifier for the individual reference number for each transaction",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "alphanumeric",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F64": {
+        "section": "Miscellaneous",
+        "name": "**free**",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F65": {
+        "section": "Value added services",
+        "name": "procesing selection",
+        "fixed_length": false,
+        "length": "1-byte",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F66": {
+        "section": "Value added services",
+        "name": "Wallet data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F67": {
+        "section": "Value added services",
+        "name": "Retailer identifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F68": {
+        "section": "Value added services",
+        "name": "Loyalty identifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F69": {
+        "section": "Value added services",
+        "name": "Voucher identifier",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "binary",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "1F6A": {
+        "section": "Miscellaneous",
+        "name": "Remaining amount",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "BCD",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "FF01": {
+        "section": "Value added services",
+        "name": "Coupon data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "FF02": {
+        "section": "Value added services",
+        "name": "Loyalty data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "FF03": {
+        "section": "Value added services",
+        "name": "parking ticket",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "FF04": {
+        "section": "Value added services",
+        "name": "Voucher data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "table",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+
+    {
+      "E2": {
+        "section": "DCC",
+        "name": "DCC container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F1B, 1F1C, 1F22, 1F23, 1F24",
+        "description": "none",
+        "subcommands": ["1F1B", "1F1C", "1F22", "1F23", "1F24"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E3": {
+        "section": "Barcode data",
+        "name": "Container for barcode data",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F2E, 1F2F",
+        "description": "none",
+        "subcommands": ["1F2E", "1F2F"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E4": {
+        "section": "Configuration",
+        "name": "Device information container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F40, 1F41, 1F42, 1F43",
+        "description": "none",
+        "subcommands": ["1F40", "1F41", "1F42", "1F43"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E5": {
+        "section": "Miscellaneous",
+        "name": "Key container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E6": {
+        "section": "Miscellaneous",
+        "name": "Card type Container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E7": {
+        "section": "Configuration",
+        "name": "Merchant SAM information container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of 1F57, 1F58",
+        "description": "none",
+        "subcommands": ["1F58", "1F57"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E8": {
+        "section": "Value added services",
+        "name": "Merchant SAM information container",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "unknown",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
+    },
+    {
+      "E9": {
+        "section": "Miscellaneous",
+        "name": "Reference number container,",
+        "fixed_length": false,
+        "length": "variable",
+        "encoding": "list of identifier to be used in 60 in request to the host 1F62, 1F63",
+        "description": "none",
+        "subcommands": ["none"],
+        "parentcommands": ["none"]
+      }
     }
-]
+  ],
+
+  "tables": [
+    {
+      "14": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "ASCII 7 bit common character-set (does not correspond to ZVT-character-set!)",
+            "0x01": "ISO8859-1 (Latin 1)",
+            "0x02": "ISO8859-2",
+            "0x03": "ISO8859-3",
+            "0x04": "ISO8859-4",
+            "0x05": "ISO8859-5",
+            "0x06": "ISO8859-6",
+            "0x07": "ISO8859-7",
+            "0x08": "ISO8859-8",
+            "0x09": "ISO8859-9",
+            "0x10": "ISO8859-16",
+            "0xFE": "UTF8 Encoder for unicode",
+            "0xFF": "8 bit ZVT-character-set CP437 (default; must be supported)"
+          },
+          "default": "none"
+        }
+      }
+    },
+    {
+      "17": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "other menu",
+            "0x02": "application selection",
+            "0x03": "language selection"
+          },
+          "default": "none"
+        }
+      }
+    },
+
+    {
+      "18": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "merchant-display",
+            "0x02": "costumer-display"
+          },
+          "default": "none"
+        }
+      }
+    },
+
+    {
+      "1B": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "line diagnosis",
+            "0x02": "extended diagnosis",
+            "0x03": "configuration diagnosis",
+            "0x04": "EMV configuration diagnosis",
+            "0x05": "EP2 configuration"
+          }
+        },
+        "default": "0x02"
+      }
+    },
+
+    {
+      "1D": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "merchant-journal",
+            "0x02": "merchant-journal",
+            "0x03": "log-file of the ECR-protocol",
+            "0x04": "log-file of the communication-module",
+            "0x05": "log-file of the PIN-pad",
+            "0x06": "reconciliation data (content is implementation dependent)"
+          }
+        },
+
+        "default": "none"
+      }
+    },
+
+    {
+      "1F01": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "last receipt",
+            "0x02": "payment-receipt merchant (see also tag ‚1F02‘ and tag ‚1F03‘)",
+            "0x03": "payment-receipt customer (see also tag ‚1F02‘ and tag ‚1F03‘)",
+            "0x04": "end of day receipt",
+            "0x05": "journal (see also tag ‚1F02‘ and tag ‚1F03‘)",
+            "0x06": "reconciliation"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F04 - Byte-0": {
+        "table": {
+          "type": "bitfield",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "positive customer-receipt required, transaction successful",
+            "0xxx xxxx": "no customer-receipt",
+            "x1xx xxxx": "negative customer-receipt required, transaction failed",
+            "x0xx xxxx": "no customer-receipt",
+            "xx1x xxxx": "positive merchant-receipt required, transaction successful",
+            "xx0x xxxx": "no merchant-receipt",
+            "xxx1 xxxx": "negative merchant-receipt required, transaction failed",
+            "xxx0 xxxx": "no merchant reveipt",
+            "xxxx 1xxx": "customer-receipt should be sent before the merchant-receipt",
+            "xxxx 0xxx": "merchant-receipt should be sent before the customer-receipt",
+            "xxxx x1xx": "print short receipt",
+            "xxxx x0xx": "print normal receipt",
+            "xxxx xx1x": "do not print product-data",
+            "xxxx xx0x": "print normal receipt",
+            "xxxx xxx1": "use ECR as printer"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F04 - Byte-1": {
+        "table": {
+          "type": "bitfiled",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "enable sending of TLV-Tag E3 in command print text-block (06D3) within TLV-Tag 25"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F05": {
+        "table": {
+          "type": "bitfield",
+          "info": "All unused bits should be set to 0",
+          "data": {
+            "1xxx xxxx": "The PT should send the card-data read during the Authorisation to the ECR",
+            "0xxx xxxx": "if card-data can not be processed Terminal ends with Error. See -> 1F-08 /-09 /-0A",
+            "x1xx xxxx": "Activate swipe-reader",
+            "x0xx xxxx": "Deactivate swipe-reader"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "1F06": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "pre-authorisation",
+            "0x02": "pre-authorisation",
+            "0x03": "extension of reservation",
+            "0x04": "book total",
+            "0x05": "booking of reservation",
+            "0x06": "telephonic reservation",
+            "0x07": "telephonic extension of reservation"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "1F07": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "transaction receipt (merchant receipt)",
+            "0x02": "transaction receipt (customer receipt)",
+            "0x03": "administration-receipt"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F10": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "no cardholder authentication",
+            "0x01": "signature",
+            "0x02": "online Pin",
+            "0x03": "offline encrypted Pin",
+            "0x04": "offline plaintext Pin",
+            "0x05": "offline encrypted Pin + signature",
+            "0x06": "offline plaintext Pin + signature",
+            "0x07": "online Pin + signature",
+            "0xFF": "unknown cardholder authentication"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F11": {
+        "table": {
+          "type": "number",
+          "info": "none",
+          "data": {
+            "1": "online",
+            "0": "offline"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F13": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "extended diagnosis",
+            "0x01": "reconciliation with closure",
+            "0x02": "configuration diagnosis",
+            "0x03": "OPT pre initialisation",
+            "0x04": "EMV configuration diagnosis",
+            "0x05": "Tax free transaction"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F15": {
+        "table": {
+          "type": "bitmap",
+          "info": "All unused bits should be set to 0",
+          "data": {
+            "1xxx xx00": "default algorithm and send the tag 1F14 in the status information (04 0F) of the command Read Card and card payment commands.",
+            "1xxx xx01": "online algorithm",
+            "1xxx xx10": "offline hash algorithm (SHA-256)",
+            "x1xx xxxx": "Contactless cards: read the UID from the card with leading ‘00’ bytes to a length of 10 bytes, and return it in tag 4C in the status information.",
+            "xx1x xxxx": "GeldKarte / girogo: The PT should read the remaining balance and return it in tag 1F3F."
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F19": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "accept",
+            "0x01": "deny"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F1D": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "Base currency",
+            "0x02": "Exchange rate",
+            "0x03": "Foreign currency",
+            "0x04": "Commission",
+            "0x05": "balance"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "1F26": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "Normal end of day",
+            "0x01": "Forced end of day",
+            "0x02": "Automatic end of day"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F2D": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "read from magnet stripe",
+            "0x01": "read from chip",
+            "0x02": "read from barcode"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F2E": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "UPC-A",
+            "0x01": "UPC-E",
+            "0x02": "EAN 13",
+            "0x03": "EAN 8",
+            "0x04": "Code 39",
+            "0x05": "Interleaved 2/5 (ITF)",
+            "0x06": "Codabar"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F37": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "Positive receipt for an authorised transaction",
+            "0x02": "If a positive receipt is printed (bit combined with 0x01), this receipt contains a signature field.",
+            "0x04": "Negative receipt for an aborted or rejected transaction",
+            "0x80": "Printing of the receipt is mandatory and must not be aborted by customer/retailer."
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F38": {
+        "table": {
+          "type": "binary",
+          "info": "none",
+          "data": {
+            "0": "Input a string",
+            "1": "Input a number",
+            "2": "input an amounts"
+          }
+        },
+        "default": "0"
+      }
+    },
+
+    {
+      "1F43": {
+        "table": {
+          "type": "BCD",
+          "info": "none",
+          "data": {
+            "0": "Ready",
+            "1": "Initialization needed",
+            "2": "No keys loaded",
+            "3": "Fraud"
+          }
+        },
+        "default": "0"
+      }
+    },
+
+    {
+      "1F47": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x01": "Contactless level 1 transmission error",
+            "0x02": "Contactless level 1 protocol error",
+            "0x03": "Contactless level 1 timeout",
+            "0x04": "Contacless colission detected",
+            "0x05": "Command not allowed due to whitelist check",
+            "0xFF": "Unknown card reader error, details are specified as extended errors in tags 1F16 anf 1F17"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F4C": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0x00": "ISO 7816-4",
+            "0x01": "MIFARE",
+            "0x02": "FeliCa"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F55 - Byte-1": {
+        "table": {
+          "type": "bitfield",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "Lock of reconciliation with closure",
+            "x1xx xxxx": "Initialization lock",
+            "xx1x xxxx": "Diagnosis lock",
+            "xxx1 xxxx": "Service lock",
+            "xxxx 1xxx": "Out of order",
+            "xxxx x1xx": "Printer lock",
+            "xxxx xx1x": "Terminal start up needed",
+            "xxxx xxx1": "Secure module changed"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F55 - Byte-2": {
+        "table": {
+          "type": "bitfiled",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "Transaction log defective",
+            "x1xx xxxx": "Card reader not found",
+            "xx1x xxxx": "Card still inserted",
+            "xxx1 xxxx": "Secure link not ready",
+            "xxxx 1xxx": "Activation needed",
+            "xxxx x1xx": "Low battery power",
+            "xxxx xx1x": "Contactless reader no initialized",
+            "xxxx xxx1": "MDB not ready"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F60": {
+        "table": {
+          "type": "bitfield",
+          "info": "none",
+          "data": {
+            "xxxx xxx1": "magnet stripe card",
+            "xxxx xx1x": "Chip card",
+            "xxxx x1xx": "Contacless card"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "1F65": {
+        "table": {
+          "type": "bitfield",
+          "info": "none",
+          "data": {
+            "0000 0001": "read data",
+            "0000 0010": "write data",
+            "0000 0100": "redeem data",
+            "0000 1000": "delete data"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "FF01": {
+        "table": {
+          "type": "bitfield with command 1F65",
+          "info": "none",
+          "data": {
+            "1F65 01 01": "read list of activated coupons from wallet",
+            "1F65 01 02": "write list of new coupons to wallet (in combination with tag 1F66)",
+            "1F65 01 04": "redeem list of coupons in the wallet",
+            "1F65 01 08": "delete list of invalid coupons in the wallet"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "FF02": {
+        "table": {
+          "type": "bitfield with command 1F65",
+          "info": "none",
+          "data": {
+            "1F65 01 01": "read loyalty data from",
+            "1F65 xx yy": "optional"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "FF03": {
+        "table": {
+          "type": "bitfield with command 1F65",
+          "info": "none",
+          "data": {
+            "1F65 01 01": "read parking data from"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "FF04": {
+        "table": {
+          "type": "bitfield with command 1F65",
+          "info": "none",
+          "data": {
+            "1F65 01 01": "read list of activated voucher from wallet",
+            "1F65 01 02": "write list of new voucher to wallet (in combination with tag 1F66)",
+            "1F65 01 04": "redeem list of vocher in the wallet",
+            "1F65 xx yy": "optional"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "40 - Byte-1": {
+        "table": {
+          "type": "bitmap",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "PT should send tag 42 (Application Label)",
+            "x1xx xxxx": "PT shouöd send tag 44 (Application Preffered Name)",
+            "xx1x xxxx": "the PT should send tag 46 in the Status-Information",
+            "xxx1 xxxx": "the PT should send tag 47 in the Status-Information",
+            "xxxx 1xxx": "the PT should send tag 64 in the Status-Information",
+            "xxxx x1xx": "the PT should send tag 65 in the Status-Information",
+            "xxxx xx1x": "the PT should send tag 66 in the Status-Information",
+            "xxxx xxx1": "the PT should send tag 67 in the Status-Information"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "40 - Byte-2": {
+        "table": {
+          "type": "bitmap",
+          "info": "none",
+          "data": {
+            "1xxx xxxx": "PT should send tag A4 (DC POS 2-4 product display)"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "45 - 1": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0": "no merchant-receipt",
+            "1": "merchant-receipt for authorised transactions",
+            "2": "merchant-receipt for authorised, rejected and aborted transactions"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "45 - 2": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0": "no customer-receipt",
+            "1": "customer-receipt for authorised transactions, printing of customer-receipt may be aborted",
+            "2": "customer-receipt for authorised, rejected and aborted transactions"
+          }
+        },
+        "default": "none"
+      }
+    },
+
+    {
+      "45 - 4-8": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "0": "RFU"
+          }
+        },
+        "default": "none"
+      }
+    },
+    {
+      "C1": {
+        "table": {
+          "type": "byte",
+          "info": "none",
+          "data": {
+            "47 4C": "card top-up (credit amount BMP4)",
+            "4D 45": "collect bonus-points",
+            "4D 53": "redeem bonus-points",
+            "4D 55": "enquire bonus-points",
+            "4D 57": "credit bonus-points"
+          }
+        }
+      }
+    }
+  ]
+}
