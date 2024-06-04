@@ -1,6 +1,7 @@
 package org.flimwip.design.utility.terminal.commands;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -9,7 +10,7 @@ class Command{
 
         Scanner sc = new Scanner(System.in);
         boolean in_commands = true;
-        File commands = new File("C:\\Users\\KotteP\\IdeaProjects\\design\\src\\main\\java\\org\\flimwip\\design\\utility\\terminal\\commands\\commands.json");
+        File commands = new File("src/main/java/org/flimwip/design/utility/terminal/commands/commands.json");
 
         String line;
         try(BufferedReader br = new BufferedReader(new FileReader(commands))){
@@ -38,12 +39,53 @@ class Command{
                         line = br.readLine();
                         String name = line.split(":")[1].split("\"")[1];
                         System.out.println(name);
-                        System.out.println(br.readLine());
-                        System.out.println(br.readLine());
-                        System.out.println(br.readLine());
-                        System.out.println(br.readLine());
-                        System.out.println(br.readLine());
-                        System.out.println(br.readLine());
+                        line = br.readLine();
+                        boolean fixed_length;
+                        String alias_bool = line.split(":")[1].replace(" ", "").replace(",", "");
+                        if(alias_bool.equals("true")){
+                            fixed_length = true;
+                            System.out.println("true");
+                        }else{
+                            fixed_length = false;
+                            System.out.println("false");
+                        }
+                        line = br.readLine();
+                        String length = line.split(":")[1].split("\"")[1];
+                        System.out.println(length);
+                        line = br.readLine();
+                        String encoding = line.split(":")[1].split("\"")[1];
+                        System.out.println(encoding);
+                        line = br.readLine();
+                        String description = line.split(":")[1].split("\"")[1];
+                        System.out.println(description);
+                        line = br.readLine();
+                        ArrayList<String> subcommands = new ArrayList<>();
+                        String temp = line.split(": ")[1];
+                        temp = temp.replace("[", "").replace("]", "");
+                        String[] subc = temp.split(", ");
+                        for(String s : subc){
+                            subcommands.add(s.split("\"")[1]);
+                        }
+                        for(String s : subcommands){
+                            System.out.print(s);
+                        }
+
+                        System.out.println();
+
+
+                        line = br.readLine();
+                        ArrayList<String> parentcommands = new ArrayList<>();
+                        temp = line.split(": ")[1];
+                        temp = temp.replace("[", "").replace("]", "");
+                        String[] parc = temp.split(", ");
+                        for(String p : parc){
+                            parentcommands.add(p.split("\"")[1]);
+                        }
+                        for(String p : parentcommands){
+                            System.out.print(p);
+                        }
+
+                        System.out.println();
                     }
 
 
